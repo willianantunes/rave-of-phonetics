@@ -5,9 +5,15 @@ name = "pypi"
 
 [packages]
 django = "*"
+djangorestframework = "*"
+gunicorn = "*"
+gevent = "*"
 
 [dev-packages]
 pytest-django = "*"
+pytest-mock = "*"
+pytest-cov = "*"
+requests = "*"
 
 [requires]
 python_version = "3.7"
