@@ -1,0 +1,14 @@
+{
+  "name": "Rave of Phonetics",
+  "start_url": ".",
+  "description": "Web Speech Application which translate your English text into its phonetic transcription using International Phonetic Alphabet",
+  "icons": {
+    "512": "/img/ws512.png",
+    "128": "/img/ws128.png"
+  },
+  "default_locale": "en",
+  "developer": {
+    "name": "Willian Antunes",
+    "url": "https://github.com/willianantunes"
+  }
+}
