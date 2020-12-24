@@ -10,3 +10,7 @@ Let's try earn money solving people problems with phonetics!
 ## Interesting links
 
 - [Lessons Learned Using the javascript speechSynthesis API](https://talkrapp.com/speechSynthesis.html)
+
+## Samples
+
+- https://github.com/mdn/web-speech-api

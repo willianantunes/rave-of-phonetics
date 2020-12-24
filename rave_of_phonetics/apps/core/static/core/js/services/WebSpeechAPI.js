@@ -28,4 +28,8 @@ class WebSpeechAPI {
             this._onVoiceChangedCallable(this.voices)
         }
     }
+
+    stop() {
+        this._speechSynthesis.cancel()
+    }
 }

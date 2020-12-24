@@ -1,40 +1,55 @@
 class TranscriptController {
     constructor() {
-        this._inputForm = $('form');
+        this._buttonPlayOrStop = $('button[name=play]');
         this._inputWordToBeSpoken = $('input[name=word-to-be-evaluated]');
-        this._voiceSelect = $('select[name=available-voices]');
-        this._pitch = $('input[name=pitch]');
+        this._selectVoice = $('select[name=available-voices]');
+        this._inputPitch = $('input[name=pitch]');
         this._pitchValue = $('.pitch-value');
-        this._rate = $('input[name=rate]');
+        this._inputRate = $('input[name=rate]');
         this._rateValue = $('.rate-value');
+
         this._webSpeechAPI = new WebSpeechAPI(this._populateVoiceList.bind(this))
     }
 
     speak(event) {
         event.preventDefault()
 
-        if (this._inputWordToBeSpoken.value !== '') {
-            const wordToBeSpoken = this._inputWordToBeSpoken.value;
-            const utteranceSetup = new SpeechSynthesisUtterance(wordToBeSpoken);
+        if (this._buttonPlayOrStop.className === "speech-play") {
+            if (this._inputWordToBeSpoken.value !== '') {
+                const wordToBeSpoken = this._inputWordToBeSpoken.value;
+                const utteranceSetup = new SpeechSynthesisUtterance(wordToBeSpoken);
 
-            // utterThis.onend = function (event) {
-            //     console.log('SpeechSynthesisUtterance.onend');
-            // }
-            // utterThis.onerror = function (event) {
-            //     console.error('SpeechSynthesisUtterance.onerror');
-            // }
+                utteranceSetup.onstart = () => {
+                    this._buttonPlayOrStop.innerText = "Stop"
+                    this._buttonPlayOrStop.className = "speech-speaking"
+                }
+                utteranceSetup.onresume = utteranceSetup.onstart
+                utteranceSetup.onend = () => {
+                    this._buttonPlayOrStop.innerText = "Play"
+                    this._buttonPlayOrStop.className = "speech-play"
+                };
+                utteranceSetup.onerror = (e) => {
+                    alert(`Something went wrong! ${e}`)
+                    this._buttonPlayOrStop.innerText = "Play"
+                    this._buttonPlayOrStop.className = "speech-play"
+                };
 
-            const selectedVoiceName = this._voiceSelect.selectedOptions[0].getAttribute('data-name');
-            const voice = this._webSpeechAPI.voices.find(voice => voice.name === selectedVoiceName)
+                const selectedVoiceName = this._selectVoice.selectedOptions[0].getAttribute('data-name');
+                const voice = this._webSpeechAPI.voices.find(voice => voice.name === selectedVoiceName)
 
-            utteranceSetup.voice = voice
-            utteranceSetup.lang = voice.lang
-            utteranceSetup.pitch = 1
-            utteranceSetup.rate = 1
+                utteranceSetup.voice = voice
+                utteranceSetup.lang = voice.lang
+                utteranceSetup.pitch = this._inputPitch.value
+                utteranceSetup.rate = this._inputRate.value
 
-            this._webSpeechAPI._speechSynthesis.speak(utteranceSetup)
+                this._webSpeechAPI._speechSynthesis.speak(utteranceSetup)
+            } else {
+                alert("Please, write something!")
+            }
         } else {
-            alert("Please, write something!")
+            this._webSpeechAPI.stop()
+            this._buttonPlayOrStop.innerText = "Play"
+            this._buttonPlayOrStop.className = "speech-play"
         }
     }
 
@@ -48,7 +63,7 @@ class TranscriptController {
                 }
                 option.setAttribute('data-lang', voice.lang);
                 option.setAttribute('data-name', voice.name);
-                this._voiceSelect.appendChild(option);
+                this._selectVoice.appendChild(option);
             })
     }
 }
