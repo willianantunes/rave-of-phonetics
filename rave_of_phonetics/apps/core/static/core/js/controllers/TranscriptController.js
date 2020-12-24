@@ -17,32 +17,38 @@ class TranscriptController {
         if (this._buttonPlayOrStop.className === "speech-play") {
             if (this._inputWordToBeSpoken.value !== '') {
                 const wordToBeSpoken = this._inputWordToBeSpoken.value;
-                const utteranceSetup = new SpeechSynthesisUtterance(wordToBeSpoken);
+                this.utteranceSetup = new SpeechSynthesisUtterance();
 
-                utteranceSetup.onstart = () => {
+                this.utteranceSetup.onstart = () => {
                     this._buttonPlayOrStop.innerText = "Stop"
                     this._buttonPlayOrStop.className = "speech-speaking"
                 }
-                utteranceSetup.onresume = utteranceSetup.onstart
-                utteranceSetup.onend = () => {
+                this.utteranceSetup.onresume = this.utteranceSetup.onstart
+                this.utteranceSetup.onend = () => {
                     this._buttonPlayOrStop.innerText = "Play"
                     this._buttonPlayOrStop.className = "speech-play"
                 };
-                utteranceSetup.onerror = (e) => {
+                this.utteranceSetup.onerror = (e) => {
                     alert(`Something went wrong! ${e}`)
                     this._buttonPlayOrStop.innerText = "Play"
                     this._buttonPlayOrStop.className = "speech-play"
                 };
 
-                const selectedVoiceName = this._selectVoice.selectedOptions[0].getAttribute('data-name');
-                const voice = this._webSpeechAPI.voices.find(voice => voice.name === selectedVoiceName)
+                if (this._webSpeechAPI.voices && this._webSpeechAPI.voices.length > 0 && this._selectVoice.selectedOptions[0]) {
+                    const selectedVoiceName = this._selectVoice.selectedOptions[0].getAttribute('data-name');
+                    const voice = this._webSpeechAPI.voices.find(voice => voice.name === selectedVoiceName)
+                    this.utteranceSetup.voice = voice
+                    this.utteranceSetup.lang = voice.lang
+                } else {
+                    // Android workaround
+                    this.utteranceSetup.lang = "en"
+                }
 
-                utteranceSetup.voice = voice
-                utteranceSetup.lang = voice.lang
-                utteranceSetup.pitch = this._inputPitch.value
-                utteranceSetup.rate = this._inputRate.value
+                this.utteranceSetup.text = wordToBeSpoken
+                this.utteranceSetup.pitch = this._inputPitch.value
+                this.utteranceSetup.rate = this._inputRate.value
 
-                this._webSpeechAPI._speechSynthesis.speak(utteranceSetup)
+                this._webSpeechAPI._speechSynthesis.speak(this.utteranceSetup)
             } else {
                 alert("Please, write something!")
             }
@@ -54,7 +60,7 @@ class TranscriptController {
     }
 
     _populateVoiceList(voices) {
-        voices.filter(voice => voice.lang === "en-US" || voice.lang === "en")
+        voices.filter(voice => voice.lang === "en-US" || voice.lang === "en" || voice.lang === "en-GB")
             .forEach((voice, index) => {
                 const option = document.createElement('option');
                 option.textContent = voice.name + ' (' + voice.lang + ')';
