@@ -25,23 +25,26 @@
         <p>{{ phones }}</p>
     {% endif %}
     <div>
-        <label for="rate">Rate</label><input type="range" min="0.5" max="2" value="1" step="0.1" id="rate">
+        <label for="rate">Rate</label>
+        <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate" name="rate">
         <div class="rate-value">1</div>
         <div class="clearfix"></div>
     </div>
     <div>
-        <label for="pitch">Pitch</label><input type="range" min="0" max="2" value="1" step="0.1" id="pitch">
+        <label for="pitch">Pitch</label>
+        <input type="range" min="0" max="2" value="1" step="0.1" id="pitch" name="pitch">
         <div class="pitch-value">1</div>
         <div class="clearfix"></div>
     </div>
-    <select>
-
-    </select>
+    <select name="available-voices"></select>
     <div class="controls">
-        <button id="play" type="submit">Play</button>
+        <button name="stop" type="submit">Stop</button>
+        <button name="play" type="submit">Play</button>
     </div>
 </form>
 
-<script src="{% static 'core/js/script.js' %}"></script>
+<script src="{% static 'core/js/services/WebSpeechAPI.js' %}"></script>
+<script src="{% static 'core/js/controllers/TranscriptController.js' %}"></script>
+<script src="{% static 'core/js/app.js' %}"></script>
 </body>
 </html>
