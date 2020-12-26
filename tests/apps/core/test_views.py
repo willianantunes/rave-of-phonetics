@@ -22,6 +22,9 @@ def test_should_return_home_page_with_phones_from_word_given_language_en_us(clie
     assert response.context["transcription"] == [
         {"word": fake_data["text-to-be-transcribed"], "phone": "sʌmθɪŋ", "language": fake_data["chosen-language"]}
     ]
+    assert response.context["text"] == fake_data["text-to-be-transcribed"]
+    number_of_params = len(response.context.dicts[3])
+    assert number_of_params == 2
 
 
 def test_should_return_home_page_with_phones_from_words_given_language_en_us(client):
@@ -38,6 +41,9 @@ def test_should_return_home_page_with_phones_from_words_given_language_en_us(cli
         ]
         assert response.status_code == 200
         assert response.context.template_name == "core/pages/home.html"
+        assert response.context["text"] == fake_data_1["text-to-be-transcribed"]
+        number_of_params = len(response.context.dicts[3])
+        assert number_of_params == 2
 
     assert_response(response_1)
 
@@ -61,6 +67,9 @@ def test_should_return_home_page_with_phones_from_words_given_language_en_gb(cli
         ]
         assert response.status_code == 200
         assert response.context.template_name == "core/pages/home.html"
+        assert response.context["text"] == fake_data_1["text-to-be-transcribed"]
+        number_of_params = len(response.context.dicts[3])
+        assert number_of_params == 2
 
     assert_response(response_1)
 
