@@ -1,75 +1,70 @@
 class TranscriptController {
     constructor() {
-        this._buttonPlayOrStop = $('button[name=play]');
-        this._inputWordToBeSpoken = $('input[name=word-to-be-evaluated]');
-        this._selectVoice = $('select[name=available-voices]');
+        // All inputs
+        this._inputTextToBeTranscribed = $('textarea[name=text-to-be-transcribed]');
         this._inputPitch = $('input[name=pitch]');
-        this._pitchValue = $('.pitch-value');
         this._inputRate = $('input[name=rate]');
+        this._inputLanguage = $$('input[name=chosen-language]')
+        this._selectVoice = $('select[name=available-voices]');
+        // Buttons
+        this._buttonPlayOrStop = $('button[name=play]');
+        // Values
+        this._pitchValue = $('.pitch-value');
         this._rateValue = $('.rate-value');
+        // Services
+        this._webSpeechAPI = new WebSpeechAPI((voices) => this._populateVoiceList(voices), () => this._drawAsSpeechSpeaking(), () => this._drawAsSpeechIsAvailable())
+        // Views
+        // this._speechView = new SpeechView()
+        // this._messageView = new MessageView('div.custom-message')
+        this._history = new History()
+    }
 
-        this._webSpeechAPI = new WebSpeechAPI(this._populateVoiceList.bind(this))
+    _drawAsSpeechSpeaking() {
+        this._buttonPlayOrStop.innerText = "Stop"
+        this._buttonPlayOrStop.className = "speech-speaking"
+    }
+
+    _drawAsSpeechIsAvailable() {
+        this._buttonPlayOrStop.innerText = "Play"
+        this._buttonPlayOrStop.className = "speech-play"
     }
 
     speak(event) {
         event.preventDefault()
 
         if (this._buttonPlayOrStop.className === "speech-play") {
-            if (this._inputWordToBeSpoken.value !== '') {
-                const wordToBeSpoken = this._inputWordToBeSpoken.value;
-                this.utteranceSetup = new SpeechSynthesisUtterance();
+            if (this._inputTextToBeTranscribed.value !== '') {
+                const textConfiguration = new TextConfiguration(null,
+                    this._inputTextToBeTranscribed.value,
+                    checkedRadioValue(this._inputLanguage),
+                    this._inputPitch.value,
+                    this._inputRate.value)
 
-                this.utteranceSetup.onstart = () => {
-                    this._buttonPlayOrStop.innerText = "Stop"
-                    this._buttonPlayOrStop.className = "speech-speaking"
-                }
-                this.utteranceSetup.onresume = this.utteranceSetup.onstart
-                this.utteranceSetup.onend = () => {
-                    this._buttonPlayOrStop.innerText = "Play"
-                    this._buttonPlayOrStop.className = "speech-play"
-                };
-                this.utteranceSetup.onerror = (e) => {
-                    alert(`Something went wrong! ${e}`)
-                    this._buttonPlayOrStop.innerText = "Play"
-                    this._buttonPlayOrStop.className = "speech-play"
-                };
-
-                if (this._webSpeechAPI.voices && this._webSpeechAPI.voices.length > 0 && this._selectVoice.selectedOptions[0]) {
-                    const selectedVoiceName = this._selectVoice.selectedOptions[0].getAttribute('data-name');
-                    const voice = this._webSpeechAPI.voices.find(voice => voice.name === selectedVoiceName)
-                    this.utteranceSetup.voice = voice
-                    this.utteranceSetup.lang = voice.lang
-                } else {
-                    // Android workaround
-                    this.utteranceSetup.lang = "en"
-                }
-
-                this.utteranceSetup.text = wordToBeSpoken
-                this.utteranceSetup.pitch = this._inputPitch.value
-                this.utteranceSetup.rate = this._inputRate.value
-
-                this._webSpeechAPI._speechSynthesis.speak(this.utteranceSetup)
+                const selectedVoice = this._selectVoice.selectedOptions[0] ? this._selectVoice.selectedOptions[0].getAttribute('data-name') : null
+                this._webSpeechAPI.speechWith(textConfiguration.text, textConfiguration.language, textConfiguration.pitch, textConfiguration.rate, selectedVoice)
+                this._history.add(textConfiguration)
             } else {
                 alert("Please, write something!")
             }
         } else {
-            this._webSpeechAPI.stop()
-            this._buttonPlayOrStop.innerText = "Play"
-            this._buttonPlayOrStop.className = "speech-play"
+            this._webSpeechAPI.stopSpeakingImmediately()
         }
     }
 
+
     _populateVoiceList(voices) {
-        voices.filter(voice => voice.lang === "en-US" || voice.lang === "en" || voice.lang === "en-GB")
-            .forEach((voice, index) => {
-                const option = document.createElement('option');
-                option.textContent = voice.name + ' (' + voice.lang + ')';
-                if (voice.default) {
-                    option.textContent += ' (default)';
-                }
-                option.setAttribute('data-lang', voice.lang);
-                option.setAttribute('data-name', voice.name);
-                this._selectVoice.appendChild(option);
-            })
+        if (!this._selectVoice.hasChildNodes()) {
+            voices.filter(voice => voice.lang === "en-US" || voice.lang === "en" || voice.lang === "en-GB")
+                .forEach((voice, index) => {
+                    const option = document.createElement('option');
+                    option.textContent = voice.name + ' (' + voice.lang + ')';
+                    if (voice.default) {
+                        option.textContent += ' (default)';
+                    }
+                    option.setAttribute('data-lang', voice.lang);
+                    option.setAttribute('data-name', voice.name);
+                    this._selectVoice.appendChild(option);
+                })
+        }
     }
 }

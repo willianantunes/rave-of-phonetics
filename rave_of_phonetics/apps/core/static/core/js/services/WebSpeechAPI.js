@@ -1,8 +1,9 @@
 class WebSpeechAPI {
-    constructor(onVoicesChangedCallable) {
+    constructor(_onVoicesChangedCallable, _hookWhenSpeaking, _hookWhenFinishedSpeech) {
+        // TODO: Make params required
+        Object.assign(this, {_onVoicesChangedCallable, _hookWhenSpeaking, _hookWhenFinishedSpeech})
         this._speechSynthesis = window.speechSynthesis;
         this.voices = []
-        this._onVoiceChangedCallable = onVoicesChangedCallable
 
         // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis/onvoiceschanged
         if (typeof this._speechSynthesis !== 'undefined' && this._speechSynthesis.onvoiceschanged !== undefined) {
@@ -24,12 +25,40 @@ class WebSpeechAPI {
             return 0;
         });
 
-        if (this._onVoiceChangedCallable !== undefined) {
-            this._onVoiceChangedCallable(this.voices)
+        if (this._onVoicesChangedCallable !== undefined) {
+            this._onVoicesChangedCallable(this.voices)
         }
     }
 
-    stop() {
+    stopSpeakingImmediately() {
         this._speechSynthesis.cancel()
+        this._hookWhenFinishedSpeech()
+    }
+
+    speechWith(text, language, pitch = 1, rate = 1, selectedVoice = null) {
+        this._utteranceSetup = new SpeechSynthesisUtterance();
+        // Events
+        this._utteranceSetup.onstart = this._hookWhenSpeaking
+        this._utteranceSetup.onresume = this._utteranceSetup.onstart
+        this._utteranceSetup.onend = this._hookWhenFinishedSpeech
+        this._utteranceSetup.onerror = (e) => {
+            console.error(`Something went wrong! Details: ${e}`)
+            this._hookWhenFinishedSpeech()
+        };
+
+        if (this.voices && this.voices.length > 0 && selectedVoice) {
+            const voice = this.voices.find(voice => voice.name === selectedVoice)
+            this._utteranceSetup.voice = voice
+            this._utteranceSetup.lang = voice.lang
+        } else {
+            // Android workaround
+            this._utteranceSetup.lang = language
+        }
+
+        this._utteranceSetup.text = text
+        this._utteranceSetup.pitch = pitch
+        this._utteranceSetup.rate = rate
+
+        this._speechSynthesis.speak(this._utteranceSetup)
     }
 }

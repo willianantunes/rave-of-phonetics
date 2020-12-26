@@ -6,23 +6,33 @@
     <title>Rave of Phonetics</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="{% static 'core/manifest.webapp' %}">
     <link rel="stylesheet" type='text/css' href="{% static 'core/css/style.css' %}">
+    {#    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">#}
+    {#    <link href="https://unpkg.com/material-components-web@8.0.0/dist/material-components-web.min.css" rel="stylesheet">#}
+    {#    <script src="https://unpkg.com/material-components-web@8.0.0/dist/material-components-web.min.js"></script>#}
 </head>
 
 <body>
 <h1>Rave of Phonetics</h1>
 
-<p>Enter some text in the input below and press return or the "play" button to hear it. change voices using the dropdown menu.</p>
+<p>Enter some text in the input below and press return or the "play" button to hear it. change voices using the dropdown
+    menu.</p>
 
-<form method="post">{% csrf_token %}
-    <input type="text" class="txt" name="word-to-be-evaluated" value="{{ word }}">
+<form method="post" class="boo">{% csrf_token %}
+
+    <div class="custom-message">
+        {#        <p>Please enter something!</p>#}
+    </div>
+
+    <textarea required class="txt" name="text-to-be-transcribed">{{ text }}</textarea>
     <div class="controls">
         <button id="transcript" type="submit">Show Transcription</button>
+        {#        <button name="clear-input" type="submit">Clear</button>#}
     </div>
-    {% if phones %}
-        <p>{{ phones }}</p>
+    {% if transcription %}
+        <p>{{ transcription }}</p>
     {% endif %}
     <div>
         <label for="rate">Rate</label>
@@ -36,13 +46,24 @@
         <div class="pitch-value">1</div>
         <div class="clearfix"></div>
     </div>
+    <div>
+        <label>American
+            <input type="radio" name="chosen-language" value="en-us" checked/>
+        </label>
+        <label>British
+            <input type="radio" name="chosen-language" value="en-gb"/>
+        </label>
+    </div>
     <select name="available-voices"></select>
     <div class="controls">
         <button name="play" type="submit" class="speech-play">Play</button>
     </div>
 </form>
 
+<script src="{% static 'core/js/utils/forms.js' %}"></script>
 <script src="{% static 'core/js/services/WebSpeechAPI.js' %}"></script>
+<script src="{% static 'core/js/domain/History.js' %}"></script>
+<script src="{% static 'core/js/domain/TextConfiguration.js' %}"></script>
 <script src="{% static 'core/js/controllers/TranscriptController.js' %}"></script>
 <script src="{% static 'core/js/app.js' %}"></script>
 </body>

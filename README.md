@@ -22,6 +22,7 @@ After that it's required to update your remote interpreter:
 ## Interesting links
 
 - [Lessons Learned Using the javascript speechSynthesis API](https://talkrapp.com/speechSynthesis.html)
+- [Talkr GitHub](https://github.com/talkr-app)
 
 ## Samples
 

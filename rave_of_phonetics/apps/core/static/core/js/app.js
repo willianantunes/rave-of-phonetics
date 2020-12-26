@@ -1,5 +1,7 @@
 "use strict";
-var $ = document.querySelector.bind(document)
+const $ = document.querySelector.bind(document)
+const $$ = document.querySelectorAll.bind(document)
+
 const transcriptController = new TranscriptController()
 
 // document.querySelector('select')
@@ -11,6 +13,6 @@ transcriptController._buttonPlayOrStop.addEventListener("click", transcriptContr
 transcriptController._inputPitch.addEventListener("change", ev => transcriptController._pitchValue.textContent = transcriptController._inputPitch.value)
 transcriptController._inputRate.addEventListener("change", ev => transcriptController._rateValue.textContent = transcriptController._inputRate.value)
 
-window.onbeforeunload = () => {
-    transcriptController._webSpeechAPI.stop()
-}
+// window.onbeforeunload = () => {
+//     transcriptController._webSpeechAPI.stop()
+// }
