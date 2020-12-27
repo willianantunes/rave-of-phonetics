@@ -23,6 +23,7 @@ After that it's required to update your remote interpreter:
 
 - [Lessons Learned Using the javascript speechSynthesis API](https://talkrapp.com/speechSynthesis.html)
 - [Talkr GitHub](https://github.com/talkr-app)
+- [IPA Chart With Sounds](https://www.internationalphoneticalphabet.org/ipa-sounds/ipa-chart-with-sounds/)
 
 ## Samples
 
