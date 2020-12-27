@@ -17,6 +17,12 @@ class TranscriptController {
         // this._speechView = new SpeechView()
         // this._messageView = new MessageView('div.custom-message')
         this._history = new History()
+        this._historyView = new HistoryView(".history")
+        this._historyView.update(this._history)
+
+        this._message = new Message();
+        this._messageView = new MessageView('.custom-message');
+        this._messageView.update(this._message)
     }
 
     _drawAsSpeechSpeaking() {
@@ -43,14 +49,15 @@ class TranscriptController {
                 const selectedVoice = this._selectVoice.selectedOptions[0] ? this._selectVoice.selectedOptions[0].getAttribute('data-name') : null
                 this._webSpeechAPI.speechWith(textConfiguration.text, textConfiguration.language, textConfiguration.pitch, textConfiguration.rate, selectedVoice)
                 this._history.add(textConfiguration)
+                this._historyView.update(this._history)
             } else {
-                alert("Please, write something!")
+                this._message.text = '👀 Please write something first 😉';
+                this._messageView.update(this._message)
             }
         } else {
             this._webSpeechAPI.stopSpeakingImmediately()
         }
     }
-
 
     _populateVoiceList(voices) {
         if (!this._selectVoice.hasChildNodes()) {
@@ -66,5 +73,10 @@ class TranscriptController {
                     this._selectVoice.appendChild(option);
                 })
         }
+    }
+
+    _cleanWarnings() {
+        this._message.text = ''
+        this._messageView.update(this._message)
     }
 }
