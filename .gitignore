@@ -4,3 +4,4 @@ db.*
 dist
 node_modules
 .cache
+coverage

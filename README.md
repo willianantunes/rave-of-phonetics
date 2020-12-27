@@ -4,13 +4,23 @@ Let's try to earn money solving people problems with phonetics!
 
 ## How to develop
 
-In terms of front-end, you can execute the following:
+### Front-end
+
+You can execute the following:
 
     docker-compose up remote-interpreter
 
-Now you can issue `npm start`.
+Now you can issue the command below and then update your HTML/CSS/JS:
 
-### Installing new packages
+    npm start
+
+To run all tests:
+
+    npm run test
+
+### Back-end
+
+#### Installing new packages
 
 You can install it through docker-compose issuing the following command for example:
 

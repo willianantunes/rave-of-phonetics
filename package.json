@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest tests",
     "build": "parcel build rave_of_phonetics/apps/core/static/core/js/parcel-entry.js --out-dir rave_of_phonetics/apps/core/static/core/dist --out-file main",
     "start": "parcel serve rave_of_phonetics/apps/core/static/core/js/parcel-entry.js --hmr-port 34471 --out-file main --out-dir rave_of_phonetics/apps/core/static/core/dist"
   },
@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/willianantunes/rave-of-phonetics#readme",
   "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
     "parcel": "^1.12.4"
   },
