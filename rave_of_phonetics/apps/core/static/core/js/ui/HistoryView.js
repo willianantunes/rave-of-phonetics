@@ -1,3 +1,5 @@
+import {$} from "../utils/dom";
+
 export class HistoryView {
     constructor(selector) {
         this._element = $(selector)
@@ -16,8 +18,8 @@ export class HistoryView {
                     </tr>
                 </thead>
                 <tbody>
-                    ${model.toArray().map(textConfiguration => 
-                    `
+                    ${model.toArray().map(textConfiguration =>
+            `
                         <tr>
                             <td>${textConfiguration.text}</td>
                             <td>${textConfiguration.language}</td>

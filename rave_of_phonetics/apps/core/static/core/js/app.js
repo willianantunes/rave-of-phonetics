@@ -1,8 +1,5 @@
 import {TranscriptController} from "./controllers/TranscriptController";
 
-const $ = document.querySelector.bind(document)
-const $$ = document.querySelectorAll.bind(document)
-
 const transcriptController = new TranscriptController()
 
 transcriptController._inputTextToBeTranscribed.addEventListener("focus", transcriptController._cleanWarnings.bind(transcriptController))

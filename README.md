@@ -4,6 +4,12 @@ Let's try to earn money solving people problems with phonetics!
 
 ## How to develop
 
+In terms of front-end, you can execute the following:
+
+    docker-compose up remote-interpreter
+
+Now you can issue `npm start`.
+
 ### Installing new packages
 
 You can install it through docker-compose issuing the following command for example:

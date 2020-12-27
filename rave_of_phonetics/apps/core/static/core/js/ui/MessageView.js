@@ -1,3 +1,5 @@
+import {$} from "../utils/dom";
+
 export class MessageView {
     constructor(selector) {
         this._element = $(selector)

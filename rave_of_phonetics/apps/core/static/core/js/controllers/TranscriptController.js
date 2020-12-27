@@ -5,7 +5,7 @@ import {TextHistory} from "../domain/TextHistory";
 import {HistoryView} from "../ui/HistoryView";
 import {MessageView} from "../ui/MessageView";
 import {TextConfiguration} from "../domain/TextConfiguration";
-import {checkedRadioValue} from "../utils/forms";
+import {$, $$, checkedRadioValue} from "../utils/dom";
 
 export class TranscriptController {
     constructor() {
