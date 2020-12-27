@@ -8,6 +8,7 @@ class TranscriptController {
         this._selectVoice = $('select[name=available-voices]');
         // Buttons
         this._buttonPlayOrStop = $('button[name=play]');
+        this._buttonClearHistory = $('button[name=clear-history]');
         // Values
         this._pitchValue = $('.pitch-value');
         this._rateValue = $('.rate-value');
@@ -78,5 +79,11 @@ class TranscriptController {
     _cleanWarnings() {
         this._message.text = ''
         this._messageView.update(this._message)
+    }
+
+    _clearHistory(event) {
+        event.preventDefault()
+        this._history.erase()
+        this._historyView.update(this._history)
     }
 }
