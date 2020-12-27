@@ -14,16 +14,9 @@ class TranscriptController {
         this._rateValue = $('.rate-value');
         // Services
         this._webSpeechAPI = new WebSpeechAPI((voices) => this._populateVoiceList(voices), () => this._drawAsSpeechSpeaking(), () => this._drawAsSpeechIsAvailable())
-        // Views
-        // this._speechView = new SpeechView()
-        // this._messageView = new MessageView('div.custom-message')
-        this._history = new History()
-        this._historyView = new HistoryView(".history")
-        this._historyView.update(this._history)
-
-        this._message = new Message();
-        this._messageView = new MessageView('.custom-message');
-        this._messageView.update(this._message)
+        // Models and Views
+        this._textHistory = new BindModelView(new TextHistory(), new HistoryView(".history"), "add", "erase")
+        this._message = new BindModelView(new Message(), new MessageView('.custom-message'), "text")
     }
 
     _drawAsSpeechSpeaking() {
@@ -49,11 +42,9 @@ class TranscriptController {
 
                 const selectedVoice = this._selectVoice.selectedOptions[0] ? this._selectVoice.selectedOptions[0].getAttribute('data-name') : null
                 this._webSpeechAPI.speechWith(textConfiguration.text, textConfiguration.language, textConfiguration.pitch, textConfiguration.rate, selectedVoice)
-                this._history.add(textConfiguration)
-                this._historyView.update(this._history)
+                this._textHistory.add(textConfiguration)
             } else {
                 this._message.text = '👀 Please write something first 😉';
-                this._messageView.update(this._message)
             }
         } else {
             this._webSpeechAPI.stopSpeakingImmediately()
@@ -77,13 +68,11 @@ class TranscriptController {
     }
 
     _cleanWarnings() {
-        this._message.text = ''
-        this._messageView.update(this._message)
+        this._message.text = null
     }
 
     _clearHistory(event) {
         event.preventDefault()
-        this._history.erase()
-        this._historyView.update(this._history)
+        this._textHistory.erase()
     }
 }
