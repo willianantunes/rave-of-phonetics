@@ -1,4 +1,4 @@
-class MessageView {
+export class MessageView {
     constructor(selector) {
         this._element = $(selector)
     }

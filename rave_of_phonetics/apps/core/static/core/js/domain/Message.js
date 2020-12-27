@@ -1,4 +1,4 @@
-class Message {
+export class Message {
     constructor(_text = '') {
         Object.assign(this, {_text})
     }

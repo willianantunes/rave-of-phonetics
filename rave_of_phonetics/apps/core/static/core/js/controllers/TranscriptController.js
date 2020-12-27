@@ -1,4 +1,13 @@
-class TranscriptController {
+import {WebSpeechAPI} from "../services/WebSpeechAPI";
+import {BindModelView} from "../services/BindModelView";
+import {Message} from "../domain/Message";
+import {TextHistory} from "../domain/TextHistory";
+import {HistoryView} from "../ui/HistoryView";
+import {MessageView} from "../ui/MessageView";
+import {TextConfiguration} from "../domain/TextConfiguration";
+import {checkedRadioValue} from "../utils/forms";
+
+export class TranscriptController {
     constructor() {
         // All inputs
         this._inputTextToBeTranscribed = $('textarea[name=text-to-be-transcribed]');

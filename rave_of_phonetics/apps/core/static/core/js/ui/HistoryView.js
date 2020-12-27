@@ -1,4 +1,4 @@
-class HistoryView {
+export class HistoryView {
     constructor(selector) {
         this._element = $(selector)
     }

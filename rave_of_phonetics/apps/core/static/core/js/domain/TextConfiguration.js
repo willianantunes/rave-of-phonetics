@@ -1,4 +1,4 @@
-class TextConfiguration {
+export class TextConfiguration {
     constructor(_id, _text, _language, _pitch, _rate) {
         Object.assign(this, {_id, _text, _language, _pitch, _rate})
         this._createdAt = new Date()

@@ -24,6 +24,8 @@ After that it's required to update your remote interpreter:
 - [Lessons Learned Using the javascript speechSynthesis API](https://talkrapp.com/speechSynthesis.html)
 - [Talkr GitHub](https://github.com/talkr-app)
 - [IPA Chart With Sounds](https://www.internationalphoneticalphabet.org/ipa-sounds/ipa-chart-with-sounds/)
+- [ES6 modules in the browser: are they ready yet?](https://medium.com/@david.gilbertson/es6-modules-in-the-browser-are-they-ready-yet-715ca2c94d09)
+- [Using Parcel with Django?](https://www.reddit.com/r/django/comments/ggxk3h/using_parcel_with_django/)
 
 ## Samples
 

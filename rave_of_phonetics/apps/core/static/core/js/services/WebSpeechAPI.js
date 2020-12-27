@@ -1,4 +1,4 @@
-class WebSpeechAPI {
+export class WebSpeechAPI {
     constructor(_onVoicesChangedCallable, _hookWhenSpeaking, _hookWhenFinishedSpeech) {
         // TODO: Make params required
         Object.assign(this, {_onVoicesChangedCallable, _hookWhenSpeaking, _hookWhenFinishedSpeech})

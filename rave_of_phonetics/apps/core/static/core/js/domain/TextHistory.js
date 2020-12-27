@@ -1,4 +1,4 @@
-class TextHistory {
+export class TextHistory {
     constructor() {
         this._texts = []
         Object.freeze(this)
