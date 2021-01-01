@@ -1,4 +1,4 @@
-import {TextConfiguration} from "../../../../../../rave_of_phonetics/apps/core/static/core/js/domain/TextConfiguration";
+import {TextConfiguration} from "../../../../../../../rave_of_phonetics/apps/core/static/core/js/domain/TextConfiguration";
 
 test('Should create text configuration domain', () => {
     const textConfiguration = new TextConfiguration(null, "Jafar", "en-us", 1, 1)

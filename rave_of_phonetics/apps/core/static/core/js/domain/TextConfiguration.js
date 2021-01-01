@@ -1,7 +1,8 @@
 export class TextConfiguration {
-    constructor(_id, _text, _language, _pitch, _rate) {
+    constructor(_id, _text, _language, _pitch, _rate, _createdAt) {
         Object.assign(this, {_id, _text, _language, _pitch, _rate})
-        this._createdAt = new Date()
+        if (_createdAt) this._createdAt = _createdAt
+        else this._createdAt = new Date()
         Object.freeze(this)
     }
 
@@ -27,6 +28,14 @@ export class TextConfiguration {
 
     get createdAt() {
         return this._createdAt
+    }
+
+    static newFromRow(row) {
+        return new TextConfiguration(row.id, row.text, row.language, row.pitch, row.rate, row.createdAt)
+    }
+
+    static schemaDefinitionNumber1() {
+        return {textConfigurations: "++id, text, language, &createdAt"}
     }
 
     equals(textConfiguration) {

@@ -1,5 +1,6 @@
 import {TranscriptController} from "./controllers/TranscriptController";
 
+
 const transcriptController = new TranscriptController()
 
 transcriptController._inputTextToBeTranscribed.addEventListener("focus", transcriptController._cleanWarnings.bind(transcriptController))
