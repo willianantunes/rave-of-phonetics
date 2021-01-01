@@ -1,18 +1,15 @@
-export class TextHistory {
-    constructor() {
-        this._texts = []
-        Object.freeze(this)
-    }
+import * as dao from "./TextConfigurationDao";
 
+export class TextHistory {
     add(textConfiguration) {
-        this._texts.push(textConfiguration)
+        dao.saveOrUpdate(textConfiguration)
     }
 
     toArray() {
-        return [].concat(this._texts)
+        return dao.findAll()
     }
 
     erase() {
-        this._texts.length = 0
+        dao.deleteAll()
     }
 }

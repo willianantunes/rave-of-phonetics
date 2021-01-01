@@ -5,7 +5,9 @@ export class HistoryView {
         this._element = $(selector)
     }
 
-    _template(model) {
+    async _template(model) {
+        const models = await model.toArray()
+
         return `
             <table>
                 <thead>
@@ -18,9 +20,9 @@ export class HistoryView {
                     </tr>
                 </thead>
                 <tbody>
-                    ${model.toArray().map(textConfiguration =>
+                    ${models.map(textConfiguration =>
             `
-                        <tr>
+                        <tr data-id="${textConfiguration.id}" class="text-configuration-row">
                             <td>${textConfiguration.text}</td>
                             <td>${textConfiguration.language}</td>
                             <td>${textConfiguration.pitch}</td>
@@ -35,7 +37,7 @@ export class HistoryView {
         `
     }
 
-    update(model) {
-        this._element.innerHTML = this._template(model)
+    async update(model) {
+        this._element.innerHTML = await this._template(model)
     }
 }
