@@ -18,6 +18,19 @@ To run all tests:
 
     npm run test
 
+#### Learning about CSS
+
+- https://flexbox.buildwithreact.com/
+- https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+- https://grid.layoutit.com/
+- https://css-tricks.com/snippets/css/complete-guide-grid/
+- https://webflow.com/grid
+
+Walk-through:
+
+- https://flexboxfroggy.com/
+- https://cssgridgarden.com/
+
 ### Back-end
 
 #### Installing new packages
