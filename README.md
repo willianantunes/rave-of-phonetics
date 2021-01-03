@@ -31,6 +31,11 @@ Walk-through:
 - https://flexboxfroggy.com/
 - https://cssgridgarden.com/
 
+SASS:
+
+- adopt-a-pup site [here](https://adopt-a-pup.glitch.me/) and its [source-code](https://glitch.com/edit/#!/adopt-a-pup)
+- material-example-app-shrine site [here]() and its [source-code](https://glitch.com/edit/#!/material-example-app-shrine?path=readme.md%3A1%3A0)
+
 ### Back-end
 
 #### Installing new packages

@@ -34,9 +34,11 @@
   },
   "dependencies": {
     "dexie": "^3.0.3",
-    "material-components-web": "^9.0.0"
+    "materialize-css": "^1.0.0"
   },
   "sass": {
-    "includePaths": ["./node_modules"]
+    "includePaths": [
+      "./node_modules"
+    ]
   }
 }

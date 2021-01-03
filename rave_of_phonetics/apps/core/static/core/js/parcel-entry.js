@@ -1,2 +1,3 @@
+import '../../../../../../node_modules/materialize-css/dist/js/materialize.min'
 import './app'
-import '../css/login.scss'
+import '../css/app.scss'

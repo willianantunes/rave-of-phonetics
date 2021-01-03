@@ -7,61 +7,53 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="manifest" href="{% static 'core/manifest.webapp' %}">
-    <link rel="stylesheet" type='text/css' href="{% static 'core/css/style.css' %}">
     <link rel="stylesheet" type='text/css' href="{% static 'core/dist/main.css' %}">
 </head>
-
 <body>
-<h1>Rave of Phonetics</h1>
-
-<p>Enter some text in the input below and press return or the "play" button to hear it. change voices using the dropdown
-    menu.</p>
-
-<form method="post" class="boo">{% csrf_token %}
-
-    <div class="custom-message"></div>
-
-    <textarea required class="txt" name="text-to-be-transcribed">{{ text }}</textarea>
-    <div class="controls">
-        <button id="transcript" type="submit">Show Transcription</button>
-        {#        <button name="clear-input" type="submit">Clear</button>#}
+<header>
+    <h1>Rave of Phonetics</h1>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title text-center">Know the phones of a given word, phrase or text!</span>
+                    <div class="row">
+                        <form class="col s6">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                    <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                    <label for="textarea1">Textarea</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    {% if transcription %}
-        <p>{{ transcription }}</p>
-    {% endif %}
-    <div>
-        <label for="rate">Rate</label>
-        <input type="range" min="0.5" max="2" value="1" step="0.1" name="rate">
-        <div class="rate-value">1</div>
-        <div class="clearfix"></div>
-    </div>
-    <div>
-        <label for="pitch">Pitch</label>
-        <input type="range" min="0" max="2" value="1" step="0.1" name="pitch">
-        <div class="pitch-value">1</div>
-        <div class="clearfix"></div>
-    </div>
-    <div>
-        <label>American
-            <input type="radio" name="chosen-language" value="en-us" checked/>
-        </label>
-        <label>British
-            <input type="radio" name="chosen-language" value="en-gb"/>
-        </label>
-    </div>
-    <select name="available-voices"></select>
-    <div class="controls">
-        <button name="play" type="submit" class="speech-play">Play</button>
-        <button name="clear-history" type="submit">Clear history</button>
-    </div>
-</form>
 
-<br />
-<br />
 
-<div class="history"></div>
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Card Title</span>
+                    <p>I am a very simple card. I am good at containing small bits of information.
+                        I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                    <a href="#">This is a link</a>
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script src="{% static 'core/dist/main.js' %}"></script>
+    <script src="{% static 'core/dist/main.js' %}"></script>
 </body>
 </html>
