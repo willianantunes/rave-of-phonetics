@@ -3,12 +3,19 @@ import {BindModelView} from "../services/BindModelView";
 import {Message} from "../domain/Message";
 import {TextHistory} from "../domain/TextHistory";
 import {HistoryView} from "../ui/HistoryView";
-import {MessageView} from "../ui/MessageView";
 import {TextConfiguration} from "../domain/TextConfiguration";
 import {$, $$, checkedRadioValue} from "../utils/dom";
+import {ToastView} from "../ui/ToastView";
 
 export class TranscriptController {
-    constructor() {
+    constructor(isTextToSpeechSectionDrawn) {
+        if(isTextToSpeechSectionDrawn) {
+            // Services
+            this._webSpeechAPI = new WebSpeechAPI((voices) => this._populateVoiceList(voices), () => this._drawAsSpeechSpeaking(), () => this._drawAsSpeechIsAvailable())
+            // Views
+            this._deviceUnsupportedWarning = $('p.tts-device-unsupported')
+            this._ttsSelection = $('.tts-selection')
+        }
         // All inputs
         this._inputTextToBeTranscribed = $('textarea[name=text-to-be-transcribed]');
         this._inputPitch = $('input[name=pitch]');
@@ -16,32 +23,39 @@ export class TranscriptController {
         this._inputLanguage = $$('input[name=chosen-language]')
         this._selectVoice = $('select[name=available-voices]');
         // Buttons
-        this._buttonPlayOrStop = $('button[name=play]');
-        this._buttonClearHistory = $('button[name=clear-history]');
+        this._buttonPlayOrStop = $('a.play-tts');
+        this._buttonClearHistory = $('a.clear-history');
         // Values
         this._pitchValue = $('.pitch-value');
         this._rateValue = $('.rate-value');
-        // Services
-        this._webSpeechAPI = new WebSpeechAPI((voices) => this._populateVoiceList(voices), () => this._drawAsSpeechSpeaking(), () => this._drawAsSpeechIsAvailable())
         // Models and Views
-        this._textHistory = new BindModelView(new TextHistory(), new HistoryView(".history"), "add", "erase")
-        this._message = new BindModelView(new Message(), new MessageView('.custom-message'), "text")
+        this._textHistory = new BindModelView(new TextHistory(), new HistoryView(".history-table", ".history-actions"), "add", "erase")
+        this._message = new BindModelView(new Message(), new ToastView(), "text")
+        // Events
+        this._initAllEvents(isTextToSpeechSectionDrawn)
+    }
+
+    _initAllEvents(isTextToSpeechSectionDrawn) {
+        this._buttonClearHistory.addEventListener("click", (e) => this.clearHistory(e))
+        if (isTextToSpeechSectionDrawn) {
+            this._buttonPlayOrStop.addEventListener("click", (e) => this.speak(e))
+        }
     }
 
     _drawAsSpeechSpeaking() {
-        this._buttonPlayOrStop.innerText = "Stop"
-        this._buttonPlayOrStop.className = "speech-speaking"
+        this._buttonPlayOrStop.innerHTML = `<i class="material-icons right">stop</i>Stop`
+        this._buttonPlayOrStop.className = "waves-effect waves-light btn play-tts speech-speaking"
     }
 
     _drawAsSpeechIsAvailable() {
-        this._buttonPlayOrStop.innerText = "Play"
-        this._buttonPlayOrStop.className = "speech-play"
+        this._buttonPlayOrStop.innerHTML = `<i class="material-icons right">play_arrow</i>Play`
+        this._buttonPlayOrStop.className = "waves-effect waves-light btn play-tts speech-play"
     }
 
     speak(event) {
         event.preventDefault()
 
-        if (this._buttonPlayOrStop.className === "speech-play") {
+        if (this._buttonPlayOrStop.classList.contains("speech-play")) {
             if (this._inputTextToBeTranscribed.value !== '') {
                 const textConfiguration = new TextConfiguration(null,
                     this._inputTextToBeTranscribed.value,
@@ -53,7 +67,7 @@ export class TranscriptController {
                 this._webSpeechAPI.speechWith(textConfiguration.text, textConfiguration.language, textConfiguration.pitch, textConfiguration.rate, selectedVoice)
                 this._textHistory.add(textConfiguration)
             } else {
-                this._message.text = '👀 Please write something first 😉';
+                this._message.text = 'Please write something first 😉! Go up and do the thing 💪';
             }
         } else {
             this._webSpeechAPI.stopSpeakingImmediately()
@@ -61,7 +75,9 @@ export class TranscriptController {
     }
 
     _populateVoiceList(voices) {
-        if (!this._selectVoice.hasChildNodes()) {
+        if (this._selectVoice.length === 0) {
+            this._ttsSelection.style.display = 'block'
+            this._deviceUnsupportedWarning.style.display = 'none'
             voices.filter(voice => voice.lang === "en-US" || voice.lang === "en" || voice.lang === "en-GB")
                 .forEach((voice, index) => {
                     const option = document.createElement('option');
@@ -76,11 +92,7 @@ export class TranscriptController {
         }
     }
 
-    _cleanWarnings() {
-        this._message.text = null
-    }
-
-    _clearHistory(event) {
+    clearHistory(event) {
         event.preventDefault()
         this._textHistory.erase()
     }

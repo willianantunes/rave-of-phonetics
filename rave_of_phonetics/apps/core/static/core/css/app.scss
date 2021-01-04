@@ -1,16 +1,35 @@
-// Import custom setup
-//@import "my-theme";
+// Custom setup
+.rotate-180 {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
 
-//@import "login";
-//@import "card";
+.margin-upper-15 {
+    margin: 15px 0 0 0;
+}
 
-// Import the Styles for each Material Component
-//@import "~@material/card/mdc-card";
+.margin-upper-20 {
+    margin: 20px 0 0 0;
+}
 
+.margin-upper-bottom-15 {
+    margin: 15px 0 15px 0 !important;
+}
+
+.tts-selection {
+    display: none;
+}
+
+.phone-word {
+    font-size: 15px !important;
+}
+
+.history-actions {
+    display: none;
+}
+
+// Libs and so on
 @import "~materialize-css/sass/materialize";
-
-//.main-card {
-//  padding: 16px;
-//  height: 350px;
-//  width: 350px;
-//}

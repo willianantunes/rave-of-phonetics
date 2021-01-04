@@ -26,8 +26,8 @@ def index(request):
 
         result = []
         for index, phone in enumerate(phones):
-            result.append({"word": text_to_be_transcribed[index], "phone": phone, "language": language})
-        context = {"transcription": result, "text": str.join(" ", text_to_be_transcribed)}
+            result.append({"word": text_to_be_transcribed[index], "phone": phone})
+        context = {"transcription": result, "text": str.join(" ", text_to_be_transcribed), "language": language}
 
         return render(request, "core/pages/home.html", context)
 

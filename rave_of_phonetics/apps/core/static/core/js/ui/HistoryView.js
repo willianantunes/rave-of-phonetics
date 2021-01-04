@@ -1,15 +1,25 @@
 import {$} from "../utils/dom";
 
 export class HistoryView {
-    constructor(selector) {
-        this._element = $(selector)
+    constructor(whereTheTableShouldBe, whereTheTableActionsShouldBe) {
+        this._whereTheTableShouldBe = $(whereTheTableShouldBe)
+        this._whereTheFunctionsShouldBe = $(whereTheTableActionsShouldBe)
+
     }
 
     async _template(model) {
         const models = await model.toArray()
 
+        if (models.length === 0) {
+            this._whereTheFunctionsShouldBe.style.display = 'none'
+            return `<p class="center-align">Type and discover the phones of a given word 👌 
+                    Your checked words will be available here 👇</p>`
+        }
+
+        this._whereTheFunctionsShouldBe.style.display = 'block'
+
         return `
-            <table>
+            <table class="striped highlight responsive-table">
                 <thead>
                     <tr>
                         <th>Text</th>
@@ -38,6 +48,6 @@ export class HistoryView {
     }
 
     async update(model) {
-        this._element.innerHTML = await this._template(model)
+        this._whereTheTableShouldBe.innerHTML = await this._template(model)
     }
 }

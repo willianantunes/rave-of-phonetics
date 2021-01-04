@@ -1,16 +1,7 @@
 import {TranscriptController} from "./controllers/TranscriptController";
+import {$} from "./utils/dom";
 
-//
-// const transcriptController = new TranscriptController()
-//
-// transcriptController._inputTextToBeTranscribed.addEventListener("focus", transcriptController._cleanWarnings.bind(transcriptController))
-// transcriptController._inputPitch.addEventListener("change", ev => transcriptController._pitchValue.textContent = transcriptController._inputPitch.value)
-// transcriptController._inputRate.addEventListener("change", ev => transcriptController._rateValue.textContent = transcriptController._inputRate.value)
-//
-// transcriptController._buttonPlayOrStop.addEventListener("click", transcriptController.speak.bind(transcriptController))
-// transcriptController._buttonClearHistory.addEventListener("click", transcriptController._clearHistory.bind(transcriptController))
+const textToSpeechSection = $('.text-to-speech-section')
+const isTextToSpeechSectionDrawn = document.body.contains(textToSpeechSection)
 
-// window.onbeforeunload = () => {
-// # TODO: Ask if he/she is sure about that
-//     transcriptController._webSpeechAPI.stop()
-// }
+new TranscriptController(isTextToSpeechSectionDrawn)
