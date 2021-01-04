@@ -9,7 +9,7 @@ import {ToastView} from "../ui/ToastView";
 
 export class TranscriptController {
     constructor(isTextToSpeechSectionDrawn) {
-        if(isTextToSpeechSectionDrawn) {
+        if (isTextToSpeechSectionDrawn) {
             // Services
             this._webSpeechAPI = new WebSpeechAPI((voices) => this._populateVoiceList(voices), () => this._drawAsSpeechSpeaking(), () => this._drawAsSpeechIsAvailable())
             // Views
@@ -22,6 +22,9 @@ export class TranscriptController {
         this._inputRate = $('input[name=rate]');
         this._inputLanguage = $$('input[name=chosen-language]')
         this._selectVoice = $('select[name=available-voices]');
+        // All hidden inputs
+        this._chosenLanguage = $('input[name=chosen-language-from-transcription]');
+        this._chosenText = $('input[name=chosen-text-from-transcription]');
         // Buttons
         this._buttonPlayOrStop = $('a.play-tts');
         this._buttonClearHistory = $('a.clear-history');
@@ -56,9 +59,9 @@ export class TranscriptController {
         event.preventDefault()
 
         if (this._buttonPlayOrStop.classList.contains("speech-play")) {
-            if (this._inputTextToBeTranscribed.value !== '') {
+            if (this._chosenText.value !== '') {
                 const textConfiguration = new TextConfiguration(null,
-                    this._inputTextToBeTranscribed.value,
+                    this._chosenText.value,
                     checkedRadioValue(this._inputLanguage),
                     this._inputPitch.value,
                     this._inputRate.value)
@@ -75,11 +78,12 @@ export class TranscriptController {
     }
 
     _populateVoiceList(voices) {
-        if (this._selectVoice.length === 0) {
-            this._ttsSelection.style.display = 'block'
-            this._deviceUnsupportedWarning.style.display = 'none'
-            voices.filter(voice => voice.lang === "en-US" || voice.lang === "en" || voice.lang === "en-GB")
-                .forEach((voice, index) => {
+        if (this._selectVoice.length === 0 && voices.length > 0) {
+            const filteredVoices = voices.filter(voice => voice.lang.toLowerCase() === this._chosenLanguage.value)
+            if (filteredVoices.length > 0) {
+                this._ttsSelection.style.display = 'block'
+                this._deviceUnsupportedWarning.style.display = 'none'
+                filteredVoices.forEach((voice, index) => {
                     const option = document.createElement('option');
                     option.textContent = voice.name + ' (' + voice.lang + ')';
                     if (voice.default) {
@@ -89,6 +93,7 @@ export class TranscriptController {
                     option.setAttribute('data-name', voice.name);
                     this._selectVoice.appendChild(option);
                 })
+            }
         }
     }
 
