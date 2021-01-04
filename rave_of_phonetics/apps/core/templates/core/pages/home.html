@@ -1,11 +1,10 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Rave of Phonetics</title>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="manifest" href="{% static 'core/manifest.webapp' %}">
@@ -15,7 +14,7 @@
 <header class="container">
     <div class="row">
         <div class="col s12">
-            <h1 class="center-align">🌎 <a href="/">Rave of Phonetics</a> 🤓</h1>
+            <h2 class="center-align">🌎 <a href="/">Rave of Phonetics</a> 🤓</h2>
         </div>
     </div>
 </header>
@@ -68,46 +67,50 @@
 
 {% if transcription %}
 
-<div class="container text-to-speech-section">
-    <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <div class="row">
-                        <form>
-                            <input type="hidden" name="chosen-language-from-transcription" value="{{ language }}">
-                            <input type="hidden" name="chosen-text-from-transcription" value="{{ text }}">
-                            <div class="col s12 center-align">
-                                <a class="waves-effect waves-light btn play-tts speech-play"><i
-                                        class="material-icons right">play_arrow</i>Play</a>
-                            </div>
-                            <div class="col s12 margin-upper-15">
-                                <p class="margin-upper-bottom-15 tts-device-unsupported">If you can't select the voice,
-                                    then <strong>your device
-                                        sadly does not support TTS</strong> 🤷 But don't worry, if you hit play we'll
-                                    try to use the
-                                    default TTS service available in your device 👍</p>
-                                <label class="tts-selection">Browser Select
-                                    <select class="browser-default" name="available-voices"></select>
-                                </label>
-                            </div>
-                            <div class="col s12">
-                                <p class="range-field">
-                                    <label for="rate">Rate</label>
-                                    <input type="range" min="0.5" max="2" value="1" step="0.1" name="rate" id="rate">
-                                </p>
-                                <p class="range-field">
-                                    <label for="pitch">Pitch</label>
-                                    <input type="range" min="0" max="2" value="1" step="0.1" name="pitch" id="pitch">
-                                </p>
-                            </div>
-                        </form>
+    <div class="container text-to-speech-section">
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="row">
+                            <form>
+                                <input type="hidden" name="chosen-language-from-transcription" value="{{ language }}">
+                                <input type="hidden" name="chosen-text-from-transcription" value="{{ text }}">
+                                <div class="col s12 center-align">
+                                    <a class="waves-effect waves-light btn play-tts speech-play"><i
+                                            class="material-icons right">play_arrow</i>Play</a>
+                                </div>
+                                <div class="col s12 margin-upper-15">
+                                    <p class="margin-upper-bottom-15 tts-device-unsupported">If you can't select the
+                                        voice,
+                                        then <strong>your device
+                                            sadly does not support TTS</strong> 🤷 But don't worry, if you hit play
+                                        we'll
+                                        try to use the
+                                        default TTS service available in your device 👍</p>
+                                    <label class="tts-selection">Browser Select
+                                        <select class="browser-default" name="available-voices"></select>
+                                    </label>
+                                </div>
+                                <div class="col s12">
+                                    <p class="range-field">
+                                        <label for="rate">Rate</label>
+                                        <input type="range" min="0.5" max="2" value="1" step="0.1" name="rate"
+                                               id="rate">
+                                    </p>
+                                    <p class="range-field">
+                                        <label for="pitch">Pitch</label>
+                                        <input type="range" min="0" max="2" value="1" step="0.1" name="pitch"
+                                               id="pitch">
+                                    </p>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endif %}
 
@@ -144,9 +147,12 @@
                             Sounds</a> is available for free! Check it out 👏</p>
                     <br/>
                     <p>Stay tuned! This was created on January 2021! More to come soon! 😊🖖</p>
+                    <hr />
+                    <p>Developed by <a href="https://github.com/willianantunes" target="_blank">Willian Antunes</a> as
+                        a means to learn a new technology. Do it yourself too!</p>
                     <hr/>
-                    <p>This website uses cookies. We use cookies to personalise content and ads, and to analyse our
-                        traffic.</p>
+                    <p>This website uses cookies. We use cookies to personalise content and ads,
+                        and to analyse our traffic.</p>
                 </div>
             </div>
         </div>
