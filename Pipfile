@@ -6,8 +6,10 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
+whitenoise = { extras = ['brotli'] }
 gunicorn = "*"
 gevent = "*"
+python-json-logger = "*"
 
 [dev-packages]
 pytest-django = "*"

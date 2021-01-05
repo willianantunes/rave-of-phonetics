@@ -2,6 +2,21 @@
 
 Let's try to earn money solving people problems with phonetics!
 
+## Running the project
+
+Just issue the following command:
+
+    docker-compose up remote-interpreter
+
+If you want to simulate production, then you can type:
+
+    docker-compose up production
+
+In order to check the files included in the final container image, first you enter the container and list the files:
+
+    docker-compose run production bash
+    ls -la
+
 ## How to develop
 
 ### Front-end
