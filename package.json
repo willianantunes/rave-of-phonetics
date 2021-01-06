@@ -40,5 +40,8 @@
     "includePaths": [
       "./node_modules"
     ]
-  }
+  },
+  "browserslist": [
+    "since 2017-06"
+  ]
 }
