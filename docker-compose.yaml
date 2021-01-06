@@ -26,10 +26,9 @@ services:
         "./scripts/start-production.sh",
       ]
   tests:
-    image: python:3.8.3-slim
-    env_file: .env.dev
+    image: willianantunes/phonemizer:latest
     working_dir: /app
     volumes:
       - .:/app
     command: >
-      sh -c "pip install --no-cache-dir tox && tox"
+      sh -c "pip3 install --no-cache-dir tox && tox"
