@@ -25,3 +25,5 @@ RUN pipenv install --system --deploy --ignore-pipfile && \
 COPY . ./
 
 RUN rm Pipfile Pipfile.lock package.json package-lock.json
+
+CMD [ "./scripts/start-production.sh" ]

@@ -21,10 +21,6 @@ services:
     env_file: ".env"
     ports:
       - "8000:8000"
-    command:
-      [
-        "./scripts/start-production.sh",
-      ]
   tests:
     image: willianantunes/phonemizer:latest
     working_dir: /app
