@@ -83,6 +83,11 @@ USE_L10N = True
 USE_TZ = True
 
 
+# "Common" middleware
+# https://docs.djangoproject.com/en/3.1/ref/middleware/#module-django.middleware.common
+
+PREPEND_WWW = eval_env_as_boolean("PREPEND_WWW", False)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
