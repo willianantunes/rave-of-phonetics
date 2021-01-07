@@ -53,9 +53,15 @@ SASS:
 
 #### Tools to evaluate your website
 
+SEO and web standards:
+
 - https://search.google.com/test/rich-results
 - https://developers.facebook.com/tools/debug/
 - https://www.opengraph.xyz/
+
+PWA:
+
+- https://web.dev/add-manifest/
 
 ### Back-end
 
