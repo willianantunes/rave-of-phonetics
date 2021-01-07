@@ -51,6 +51,12 @@ SASS:
 - adopt-a-pup site [here](https://adopt-a-pup.glitch.me/) and its [source-code](https://glitch.com/edit/#!/adopt-a-pup)
 - material-example-app-shrine site [here]() and its [source-code](https://glitch.com/edit/#!/material-example-app-shrine?path=readme.md%3A1%3A0)
 
+#### Tools to evaluate your website
+
+- https://search.google.com/test/rich-results
+- https://developers.facebook.com/tools/debug/
+- https://www.opengraph.xyz/
+
 ### Back-end
 
 #### Installing new packages

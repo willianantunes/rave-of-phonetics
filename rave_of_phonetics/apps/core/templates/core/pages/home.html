@@ -3,14 +3,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NJHMPL4');</script>
+    <!-- End Google Tag Manager -->
     <title>Rave of Phonetics</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Web Speech Application which transcript your English text into its phonetic transcription using International Phonetic Alphabet">
+    <meta name="keywords" content="phonetic,transcription,tts,ipa">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}https://www.raveofphonetics.com{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}Rave of Phonetics{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Web Speech Application which transcript your English text into its phonetic transcription using International Phonetic Alphabet{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{% static "core/img/favicon.png" %}{% endblock %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "core/img/favicon.png" %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="manifest" href="{% static 'core/manifest.webapp' %}">
     <link rel="stylesheet" type='text/css' href="{% static 'core/dist/main.css' %}">
 </head>
 <body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJHMPL4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <header class="container">
     <div class="row">
         <div class="col s12">
