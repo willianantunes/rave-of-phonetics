@@ -98,8 +98,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                 <input type="hidden" name="chosen-language-from-transcription" value="{{ language }}">
                                 <input type="hidden" name="chosen-text-from-transcription" value="{{ text }}">
                                 <div class="col s12 center-align">
-                                    <a class="waves-effect waves-light btn play-tts speech-play"><i
-                                            class="material-icons right">play_arrow</i>Play</a>
+                                    <a class="waves-effect waves-light btn play-tts speech-play">
+                                        <i class="material-icons right">play_arrow</i>Play</a>
+                                    <div class="margin-upper-20">
+                                        <label>
+                                            <input type="checkbox" name="loop-speech"/>
+                                            <span>Loop the speech audio</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="col s12 margin-upper-15">
                                     <p class="margin-upper-bottom-15 tts-device-unsupported">If you can't select the

@@ -22,6 +22,7 @@ export class TranscriptController {
         this._inputRate = $('input[name=rate]');
         this._inputLanguage = $$('input[name=chosen-language]')
         this._selectVoice = $('select[name=available-voices]');
+        this._loopSpeech = $('input[name=loop-speech]')
         // All hidden inputs
         this._chosenLanguage = $('input[name=chosen-language-from-transcription]');
         this._chosenText = $('input[name=chosen-text-from-transcription]');
@@ -69,7 +70,8 @@ export class TranscriptController {
                     this._inputRate.value)
 
                 const selectedVoice = this._selectVoice.selectedOptions[0] ? this._selectVoice.selectedOptions[0].getAttribute('data-name') : null
-                this._webSpeechAPI.speechWith(textConfiguration.text, textConfiguration.language, textConfiguration.pitch, textConfiguration.rate, selectedVoice)
+                const loopSpeech = this._loopSpeech.checked
+                this._webSpeechAPI.speechWith(textConfiguration.text, textConfiguration.language, textConfiguration.pitch, textConfiguration.rate, selectedVoice, loopSpeech)
                 if(this._ttsWasNotCalled) {
                     this._textHistory.add(textConfiguration)
                     this._ttsWasNotCalled = false

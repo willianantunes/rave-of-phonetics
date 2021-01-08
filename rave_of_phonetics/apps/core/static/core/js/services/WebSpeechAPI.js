@@ -33,9 +33,13 @@ export class WebSpeechAPI {
     stopSpeakingImmediately() {
         this._speechSynthesis.cancel()
         this._hookWhenFinishedSpeech()
+        if (this._timerId) {
+            clearInterval(this._timerId)
+            delete this._timerId
+        }
     }
 
-    speechWith(text, language, pitch = 1, rate = 1, selectedVoice = null) {
+    speechWith(text, language, pitch = 1, rate = 1, selectedVoice = null, loop = false, interval = 1000) {
         this._utteranceSetup = new SpeechSynthesisUtterance();
         // Events
         this._utteranceSetup.onstart = this._hookWhenSpeaking
@@ -59,6 +63,11 @@ export class WebSpeechAPI {
         this._utteranceSetup.pitch = pitch
         this._utteranceSetup.rate = rate
 
-        this._speechSynthesis.speak(this._utteranceSetup)
+        if (loop) {
+            this._utteranceSetup.onend = null
+            this._timerId = setInterval(() => this._speechSynthesis.speak(this._utteranceSetup), interval);
+        } else {
+            this._speechSynthesis.speak(this._utteranceSetup)
+        }
     }
 }
