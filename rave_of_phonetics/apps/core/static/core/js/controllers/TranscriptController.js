@@ -6,16 +6,10 @@ import {HistoryView} from "../ui/HistoryView";
 import {TextConfiguration} from "../domain/TextConfiguration";
 import {$, $$, checkedRadioValue} from "../utils/dom";
 import {ToastView} from "../ui/ToastView";
+import {debounce} from "../utils/general";
 
 export class TranscriptController {
     constructor(isTextToSpeechSectionDrawn) {
-        if (isTextToSpeechSectionDrawn) {
-            // Services
-            this._webSpeechAPI = new WebSpeechAPI((voices) => this._populateVoiceList(voices), () => this._drawAsSpeechSpeaking(), () => this._drawAsSpeechIsAvailable())
-            // Views
-            this._deviceUnsupportedWarning = $('p.tts-device-unsupported')
-            this._ttsSelection = $('.tts-selection')
-        }
         // All inputs
         this._inputTextToBeTranscribed = $('textarea[name=text-to-be-transcribed]');
         this._inputPitch = $('input[name=pitch]');
@@ -37,6 +31,14 @@ export class TranscriptController {
         this._message = new BindModelView(new Message(), new ToastView(), "text")
         // Flow control
         this._ttsWasNotCalled = true
+        if (isTextToSpeechSectionDrawn) {
+            // Views
+            this._deviceUnsupportedWarning = $('p.tts-device-unsupported')
+            this._ttsSelection = $('.tts-selection')
+            // Services
+            this._webSpeechAPI = new WebSpeechAPI((voices) => this._populateVoiceList(voices), () => this._drawAsSpeechSpeaking(), () => this._drawAsSpeechIsAvailable())
+            this._webSpeechAPI = new WebSpeechAPI((voices) => this._populateVoiceList(voices), () => this._drawAsSpeechSpeaking(), () => this._drawAsSpeechIsAvailable())
+        }
         // Events
         this._initAllEvents(isTextToSpeechSectionDrawn)
     }
@@ -44,7 +46,7 @@ export class TranscriptController {
     _initAllEvents(isTextToSpeechSectionDrawn) {
         this._buttonClearHistory.addEventListener("click", (e) => this.clearHistory(e))
         if (isTextToSpeechSectionDrawn) {
-            this._buttonPlayOrStop.addEventListener("click", (e) => this.speak(e))
+            this._buttonPlayOrStop.addEventListener("click", debounce(() => this.speak()))
         }
     }
 
@@ -58,9 +60,11 @@ export class TranscriptController {
         this._buttonPlayOrStop.className = "waves-effect waves-light btn play-tts speech-play"
     }
 
-    speak(event) {
-        event.preventDefault()
+    _drawAsSpeechLoading() {
+        this._buttonPlayOrStop.innerHTML = `<i class="material-icons right">sync</i>Loading</a>`
+    }
 
+    speak() {
         if (this._buttonPlayOrStop.classList.contains("speech-play")) {
             if (this._chosenText.value !== '') {
                 const textConfiguration = new TextConfiguration(null,
@@ -72,7 +76,7 @@ export class TranscriptController {
                 const selectedVoice = this._selectVoice.selectedOptions[0] ? this._selectVoice.selectedOptions[0].getAttribute('data-name') : null
                 const loopSpeech = this._loopSpeech.checked
                 this._webSpeechAPI.speechWith(textConfiguration.text, textConfiguration.language, textConfiguration.pitch, textConfiguration.rate, selectedVoice, loopSpeech)
-                if(this._ttsWasNotCalled) {
+                if (this._ttsWasNotCalled) {
                     this._textHistory.add(textConfiguration)
                     this._ttsWasNotCalled = false
                 }
