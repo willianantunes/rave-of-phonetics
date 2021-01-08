@@ -5,11 +5,10 @@ export class WebSpeechAPI {
         this._speechSynthesis = window.speechSynthesis;
         this.voices = []
 
+        this._configureSpeechService()
         // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis/onvoiceschanged
         if (typeof this._speechSynthesis !== 'undefined' && this._speechSynthesis.onvoiceschanged !== undefined) {
             this._speechSynthesis.onvoiceschanged = this._configureSpeechService.bind(this);
-        } else {
-            this._configureSpeechService()
         }
     }
 
