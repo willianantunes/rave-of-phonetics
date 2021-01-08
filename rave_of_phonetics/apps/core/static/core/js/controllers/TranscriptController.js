@@ -34,6 +34,8 @@ export class TranscriptController {
         // Models and Views
         this._textHistory = new BindModelView(new TextHistory(), new HistoryView(".history-table", ".history-actions"), "add", "erase")
         this._message = new BindModelView(new Message(), new ToastView(), "text")
+        // Flow control
+        this._ttsWasNotCalled = true
         // Events
         this._initAllEvents(isTextToSpeechSectionDrawn)
     }
@@ -68,7 +70,10 @@ export class TranscriptController {
 
                 const selectedVoice = this._selectVoice.selectedOptions[0] ? this._selectVoice.selectedOptions[0].getAttribute('data-name') : null
                 this._webSpeechAPI.speechWith(textConfiguration.text, textConfiguration.language, textConfiguration.pitch, textConfiguration.rate, selectedVoice)
-                this._textHistory.add(textConfiguration)
+                if(this._ttsWasNotCalled) {
+                    this._textHistory.add(textConfiguration)
+                    this._ttsWasNotCalled = false
+                }
             } else {
                 this._message.text = 'Please write something first 😉! Go up and do the thing 💪';
             }
