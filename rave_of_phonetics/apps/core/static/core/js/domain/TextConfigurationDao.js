@@ -40,3 +40,13 @@ export async function deleteById(id) {
     const db = await getDatabase()
     await db.textConfigurations.delete(id)
 }
+
+export async function lastItemInserted() {
+    const db = await getDatabase()
+
+    // I could have done like the following, but there is not DESC order:
+    // await db.textConfigurations.orderBy('createdAt').first()
+    const retrievedKey = await db.textConfigurations.orderBy(':id').lastKey()
+
+    return findById(retrievedKey, db)
+}

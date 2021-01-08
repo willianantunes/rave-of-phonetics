@@ -93,3 +93,16 @@ test('Should save two TextConfiguration, delete only one given its ID and list t
     const persistedIagoFromList = listOfTextConfiguration[0];
     expect(persistedIagoFromList.equals(persistedIago)).toBeTruthy()
 })
+
+test('Should retrieve last item inserted', async () => {
+    const textConfigurationJafar = new TextConfiguration(null, "Jafar", "en-us", 1, 1)
+    await sleep(100);
+    const textConfigurationIago = new TextConfiguration(null, "Iago", "en-us", 2, 2)
+
+    await dao.saveOrUpdate(textConfigurationJafar)
+    const persistedRetrievedIago = await dao.saveOrUpdate(textConfigurationIago)
+
+    const lastItemInserted = await dao.lastItemInserted()
+
+    expect(lastItemInserted.equals(persistedRetrievedIago)).toBeTruthy()
+})
