@@ -5,7 +5,11 @@ from django.shortcuts import render
 from phonemizer import phonemize
 
 
-def only_words(text_to_be_transcribed):
+def _newline_to_spaces(text_to_be_transcribed):
+    return re.sub(r"(\r\n|\r|\n)", " ", text_to_be_transcribed)
+
+
+def _only_words(text_to_be_transcribed):
     valid_words = []
 
     for text in text_to_be_transcribed:
@@ -18,8 +22,9 @@ def only_words(text_to_be_transcribed):
 def index(request):
     if request.method == "POST":
         text_to_be_transcribed = request.POST["text-to-be-transcribed"]
+        text_to_be_transcribed = _newline_to_spaces(text_to_be_transcribed)
         text_to_be_transcribed = text_to_be_transcribed.split(" ")
-        text_to_be_transcribed = only_words(text_to_be_transcribed)
+        text_to_be_transcribed = _only_words(text_to_be_transcribed)
         language = request.POST["chosen-language"]
 
         phones = phonemize(text_to_be_transcribed, language=language, backend="espeak", strip=True)

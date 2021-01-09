@@ -86,3 +86,20 @@ def test_should_return_method_not_allowed(client):
 
     response = client.patch("/")
     assert response.status_code == 405
+
+
+def test_should_return_phonetics_even_with_break_lines(client):
+    text_to_be_transcribed = "Something\n\nWeird"
+    fake_data = {"text-to-be-transcribed": text_to_be_transcribed, "chosen-language": "en-us"}
+    response = client.post("/", fake_data)
+
+    assert response.status_code == 200
+    assert response.context.template_name == "core/pages/home.html"
+    assert response.context["transcription"] == [
+        {"phone": "sʌmθɪŋ", "word": "Something"},
+        {"phone": "wɪɹd", "word": "Weird"},
+    ]
+    assert response.context["text"] == "Something Weird"
+    assert response.context["language"] == fake_data["chosen-language"]
+    number_of_params = len(response.context.dicts[-1])
+    assert number_of_params == 3
