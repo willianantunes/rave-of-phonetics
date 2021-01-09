@@ -1,8 +1,11 @@
+import json
 import os
 
+from logging import Formatter
 from pathlib import Path
 from typing import Optional
 
+from pythonjsonlogger.jsonlogger import JsonFormatter
 from rave_of_phonetics.apps.core.apps import CoreConfig
 from rave_of_phonetics.support.django_helpers import eval_env_as_boolean
 from rave_of_phonetics.support.django_helpers import getenv_or_raise_exception
@@ -87,6 +90,53 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Logging
+# https://docs.djangoproject.com/en/3.1/topics/logging/
+
+
+class CustomJsonFormatter(JsonFormatter):
+    def format(self, record):
+        """Formats a log record and serializes to json"""
+        try:
+            record.msg = json.loads(record.getMessage())
+        except json.JSONDecodeError:
+            pass
+
+        return super().format(record)
+
+    def process_log_record(self, log_record: dict) -> dict:
+        """
+        Override of the jsonlogger.JsonFormatter method. Adds Stackdriver's
+        severity field.
+        """
+
+        log_record["severity"] = log_record["levelname"]
+        del log_record["levelname"]
+
+        return log_record
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "development": {"()": Formatter, "format": "%(asctime)s - level=%(levelname)s - %(name)s - %(message)s",},
+        "standard": {"()": CustomJsonFormatter, "format": "%(levelname)-8s [%(asctime)s] %(name)s: %(message)s",},
+    },
+    "handlers": {
+        "console": {"class": "logging.StreamHandler", "formatter": os.getenv("DEFAULT_LOG_FORMATTER", "standard"),}
+    },
+    "loggers": {
+        "": {"level": os.getenv("ROOT_LOG_LEVEL", "INFO"), "handlers": ["console"]},
+        "rave_of_phonetics": {
+            "level": os.getenv("PROJECT_LOG_LEVEL", "INFO"),
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        "django": {"level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "handlers": ["console"]},
+        "django.db.backends": {"level": os.getenv("DJANGO_DB_BACKENDS_LOG_LEVEL", "INFO"), "handlers": ["console"]},
+    },
+}
 
 # "Common" middleware
 # https://docs.djangoproject.com/en/3.1/ref/middleware/#module-django.middleware.common

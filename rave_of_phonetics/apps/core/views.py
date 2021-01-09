@@ -1,3 +1,4 @@
+import logging
 import re
 
 from django.http import HttpResponseNotAllowed
@@ -5,6 +6,8 @@ from django.http import HttpResponseNotFound
 from django.http import HttpResponseServerError
 from django.shortcuts import render
 from phonemizer import phonemize
+
+logger = logging.getLogger(__name__)
 
 
 def _newline_to_spaces(text_to_be_transcribed):
@@ -24,6 +27,7 @@ def _only_words(text_to_be_transcribed):
 def index(request):
     if request.method == "POST":
         text_to_be_transcribed = request.POST["text-to-be-transcribed"]
+        logger.debug(f"Text to be transcribed: {text_to_be_transcribed}")
         text_to_be_transcribed = _newline_to_spaces(text_to_be_transcribed)
         text_to_be_transcribed = text_to_be_transcribed.split(" ")
         text_to_be_transcribed = _only_words(text_to_be_transcribed)
