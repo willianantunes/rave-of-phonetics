@@ -1,36 +1,25 @@
-{% load static %}
+{% extends "core/templates/base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Error 404</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static "core/img/launcher-icon-192x192-4x.png" %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="manifest" href="{% static 'core/manifest.webapp' %}">
-    <link rel="stylesheet" type='text/css' href="{% static 'core/dist/main.css' %}">
-</head>
-<body>
+{# No OG tags to be loaded #}
+{% block og_tags %}{% endblock %}
 
-<header class="container">
-    <div class="row">
-        <div class="col s12">
-            <h2 class="center-align">🌎 <a href="/">Rave of Phonetics</a> 🤓</h2>
+{# No JS to be loaded #}
+{% block scripts %}{% endblock %}
+
+{# No footer #}
+{% block footer_section %}{% endblock %}
+
+{% block title %}Error 404{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center-align">
+                <h3 class="header center-on-small-only">404</h3>
+                <h4 class="light blue-grey-text text-lighten-4 center-on-small-only">Page not found 🤔</h4>
+                <p>But here’s something you can always find — <a href="https://www.raveofphonetics.com/">our
+                    homepage</a>!</p>
+            </div>
         </div>
     </div>
-</header>
-
-
-<div class="container">
-    <div class="row">
-        <div class="col s12 center-align">
-            <h3 class="header center-on-small-only">404</h3>
-            <h4 class="light blue-grey-text text-lighten-4 center-on-small-only">Page not found 🤔</h4>
-            <p>But here’s something you can always find — <a href="https://www.raveofphonetics.com/">our homepage</a>!</p>
-        </div>
-    </div>
-</div>
-
-</body>
-</html>
+{% endblock %}

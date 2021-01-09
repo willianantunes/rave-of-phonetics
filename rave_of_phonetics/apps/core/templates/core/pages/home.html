@@ -1,136 +1,44 @@
-{% load static %}
+{% extends "core/templates/base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-NJHMPL4');</script>
-    <!-- End Google Tag Manager -->
-    <title>Rave of Phonetics</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Web Speech Application which transcript your English text into its phonetic transcription using International Phonetic Alphabet">
-    <meta name="keywords" content="phonetic,transcription,tts,ipa">
-    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
-    <meta property="og:url" content="{% block og_url %}https://www.raveofphonetics.com{% endblock %}">
-    <meta property="og:title" content="{% block og_title %}Rave of Phonetics{% endblock %}">
-    <meta property="og:description" content="{% block og_description %}Web Speech Application which transcript your English text into its phonetic transcription using International Phonetic Alphabet{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{{request.scheme}}://{{request.META.HTTP_HOST}}{% static "core/img/og-image-1200x630.png" %}{% endblock %}">
-    <link rel="shortcut icon" type="image/x-icon" href="{% static "core/img/launcher-icon-192x192-4x.png" %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="manifest" href="{% static 'core/manifest.webapp' %}">
-    <link rel="stylesheet" type='text/css' href="{% static 'core/dist/main.css' %}">
-</head>
-<body>
-
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJHMPL4"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-
-<header class="container">
-    <div class="row">
-        <div class="col s12">
-            <h2 class="center-align">🌎 <a href="/">Rave of Phonetics</a> 🤓</h2>
-        </div>
-    </div>
-</header>
-
-<div class="container transcript-section">
-    <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title center-align">Hello my friend, stay awhile and... Discover phones! 🔎</span>
-                    <div class="row">
-                        <form method="post">{% csrf_token %}
-                            <div class="input-field col s12">
-                                <i class="material-icons prefix">mode_edit</i>
-                                <textarea id="text-to-be-transcribed" name="text-to-be-transcribed"
-                                          class="materialize-textarea" required>{{ text }}</textarea>
-                                <label for="text-to-be-transcribed">Raw words</label>
-                            </div>
-                            <div class="center-align col s12">
-                                <label>
-                                    <input class="with-gap" name="chosen-language" type="radio" value="en-us"
-                                           {% if language and language == 'en-us' or not language %}checked{% endif %}/>
-                                    <span>American</span>
-                                </label>
-                                <label>
-                                    <input class="with-gap" name="chosen-language" type="radio" value="en-gb"
-                                           {% if language and language == 'en-gb' %}checked{% endif %}/>
-                                    <span>British</span>
-                                </label>
-                            </div>
-                            <div class="input-field col s12 center-align">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Transcript
-                                    <i class="material-icons right">send</i>
-                                </button>
-                            </div>
-                            {% if transcription %}
-                                <div class="col s12 margin-upper-20">
-                                    {% for item in transcription %}
-                                        <div class="chip phone-word">{{ item.word }} 👉 {{ item.phone }}</div>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% if transcription %}
-
-    <div class="container text-to-speech-section">
+{% block content %}
+    <div class="container transcript-section">
         <div class="row">
             <div class="col s12">
                 <div class="card">
                     <div class="card-content">
+                        <span class="card-title center-align">Hello my friend, stay awhile and... Discover phones! 🔎</span>
                         <div class="row">
-                            <form>
-                                <input type="hidden" name="chosen-language-from-transcription" value="{{ language }}">
-                                <input type="hidden" name="chosen-text-from-transcription" value="{{ text }}">
-                                <div class="col s12 center-align">
-                                    <a class="waves-effect waves-light btn play-tts speech-play">
-                                        <i class="material-icons right">play_arrow</i>Play</a>
-                                    <div class="margin-upper-20">
-                                        <label>
-                                            <input type="checkbox" name="loop-speech"/>
-                                            <span>Loop the speech audio</span>
-                                        </label>
-                                    </div>
+                            <form method="post">{% csrf_token %}
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                    <textarea id="text-to-be-transcribed" name="text-to-be-transcribed"
+                                              class="materialize-textarea" required>{{ text }}</textarea>
+                                    <label for="text-to-be-transcribed">Raw words</label>
                                 </div>
-                                <div class="col s12 margin-upper-15">
-                                    <p class="margin-upper-bottom-15 tts-device-unsupported">If you can't select the
-                                        voice,
-                                        then <strong>your device
-                                            sadly does not support TTS</strong> 🤷 But don't worry, if you hit play
-                                        we'll
-                                        try to use the
-                                        default TTS service available in your device 👍</p>
-                                    <label class="tts-selection">Browser Select
-                                        <select class="browser-default" name="available-voices"></select>
+                                <div class="center-align col s12">
+                                    <label>
+                                        <input class="with-gap" name="chosen-language" type="radio" value="en-us"
+                                               {% if language and language == 'en-us' or not language %}checked{% endif %}/>
+                                        <span>American</span>
+                                    </label>
+                                    <label>
+                                        <input class="with-gap" name="chosen-language" type="radio" value="en-gb"
+                                               {% if language and language == 'en-gb' %}checked{% endif %}/>
+                                        <span>British</span>
                                     </label>
                                 </div>
-                                <div class="col s12">
-                                    <p class="range-field">
-                                        <label for="rate">Rate</label>
-                                        <input type="range" min="0.5" max="2" value="1" step="0.1" name="rate"
-                                               id="rate">
-                                    </p>
-                                    <p class="range-field">
-                                        <label for="pitch">Pitch</label>
-                                        <input type="range" min="0" max="2" value="1" step="0.1" name="pitch"
-                                               id="pitch">
-                                    </p>
+                                <div class="input-field col s12 center-align">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Transcript
+                                        <i class="material-icons right">send</i>
+                                    </button>
                                 </div>
+                                {% if transcription %}
+                                    <div class="col s12 margin-upper-20">
+                                        {% for item in transcription %}
+                                            <div class="chip phone-word">{{ item.word }} 👉 {{ item.phone }}</div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
                             </form>
                         </div>
                     </div>
@@ -139,55 +47,79 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
 
-{% endif %}
+    {% if transcription %}
 
-<div class="container history-section">
-    <div class="row">
-        <div class="col s12">
+        <div class="container text-to-speech-section">
             <div class="row">
                 <div class="col s12">
-                    <h4 class="center-align">History</h4>
-                    <div class="history-table"></div>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="row">
+                                <form>
+                                    <input type="hidden" name="chosen-language-from-transcription"
+                                           value="{{ language }}">
+                                    <input type="hidden" name="chosen-text-from-transcription" value="{{ text }}">
+                                    <div class="col s12 center-align">
+                                        <a class="waves-effect waves-light btn play-tts speech-play">
+                                            <i class="material-icons right">play_arrow</i>Play</a>
+                                        <div class="margin-upper-20">
+                                            <label>
+                                                <input type="checkbox" name="loop-speech"/>
+                                                <span>Loop the speech audio</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 margin-upper-15">
+                                        <p class="margin-upper-bottom-15 tts-device-unsupported">If you can't select the
+                                            voice,
+                                            then <strong>your device
+                                                sadly does not support TTS</strong> 🤷 But don't worry, if you hit play
+                                            we'll
+                                            try to use the
+                                            default TTS service available in your device 👍</p>
+                                        <label class="tts-selection">Browser Select
+                                            <select class="browser-default" name="available-voices"></select>
+                                        </label>
+                                    </div>
+                                    <div class="col s12">
+                                        <p class="range-field">
+                                            <label for="rate">Rate</label>
+                                            <input type="range" min="0.5" max="2" value="1" step="0.1" name="rate"
+                                                   id="rate">
+                                        </p>
+                                        <p class="range-field">
+                                            <label for="pitch">Pitch</label>
+                                            <input type="range" min="0" max="2" value="1" step="0.1" name="pitch"
+                                                   id="pitch">
+                                        </p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row history-actions">
-                <div class="col s12 center-align">
-                    <a class="waves-effect waves-light btn clear-history"><i
-                            class="material-icons right">delete_forever</i>clear</a>
+        </div>
+
+    {% endif %}
+
+    <div class="container history-section">
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s12">
+                        <h4 class="center-align">History</h4>
+                        <div class="history-table"></div>
+                    </div>
+                </div>
+                <div class="row history-actions">
+                    <div class="col s12 center-align">
+                        <a class="waves-effect waves-light btn clear-history"><i
+                                class="material-icons right">delete_forever</i>clear</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<footer class="container">
-    <div class="row about-section">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title">About us</span>
-                    <p>Use this text to IPA (International Phonetic Alphabet) phonetic transcription to rule how to
-                        speech a word, phrase or text. We know how hard can it be, but don't worry, there are many tools
-                        that can help you out on that, for example, did you know that TO, TWO and TOO have the same
-                        sound? Many people confuse the sound of TO with CHEW and here you can practice to get better!
-                        If you don't know IPA, don't worry because <a href="http://bit.ly/389m6dH" target="_blank">IPA
-                            Chart With Sounds</a> is available for free! Check it out 👏</p>
-                    <br/>
-                    <p>Stay tuned! This was created in January of 2021! More to come soon!
-                        See <a href="http://bit.ly/3oude85" target="_blank">this reddit post</a> and
-                        leave your feedback 💬</p>
-                    <hr />
-                    <p>Developed by <a href="https://github.com/willianantunes" target="_blank">Willian Antunes</a> as
-                        a means to learn a new technology. Do it yourself too!</p>
-                    <hr/>
-                    <p>This website uses cookies. We use cookies to personalise content and ads,
-                        and to analyse our traffic.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<script src="{% static 'core/dist/main.js' %}"></script>
-</body>
-</html>
+{% endblock %}

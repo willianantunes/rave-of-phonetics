@@ -1,0 +1,7 @@
+{% load static %}
+
+<meta property="og:type" content="{% block og_type %}website{% endblock %}">
+<meta property="og:url" content="{% block og_url %}https://www.raveofphonetics.com{% endblock %}">
+<meta property="og:title" content="{% block og_title %}Rave of Phonetics{% endblock %}">
+<meta property="og:description" content="{% block og_description %}Web Speech Application which transcript your English text into its phonetic transcription using International Phonetic Alphabet{% endblock %}">
+<meta property="og:image" content="{% block og_image %}{{request.scheme}}://{{request.META.HTTP_HOST}}{% static "core/img/og-image-1200x630.png" %}{% endblock %}">
