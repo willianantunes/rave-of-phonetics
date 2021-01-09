@@ -5,7 +5,9 @@ def test_should_return_home_page(client):
     response = client.get("/")
 
     assert response.status_code == 200
-    assert response.context.template_name == "core/pages/home.html"
+    assert len(response.context) > 0
+    for item in response.context:
+        assert item.template_name == "core/pages/home.html"
 
     selector = Selector(text=str(response.content))
     title = selector.xpath("//title/text()").get()
@@ -18,11 +20,13 @@ def test_should_return_home_page_with_phones_from_word_given_language_en_us(clie
     response = client.post("/", fake_data)
 
     assert response.status_code == 200
-    assert response.context.template_name == "core/pages/home.html"
+    assert len(response.context) > 0
+    for item in response.context:
+        assert item.template_name == "core/pages/home.html"
     assert response.context["transcription"] == [{"word": fake_data["text-to-be-transcribed"], "phone": "sʌmθɪŋ"}]
     assert response.context["text"] == fake_data["text-to-be-transcribed"]
     assert response.context["language"] == fake_data["chosen-language"]
-    number_of_params = len(response.context.dicts[-1])
+    number_of_params = len(response.context[0].dicts[-1])
     assert number_of_params == 3
 
 
@@ -39,10 +43,12 @@ def test_should_return_home_page_with_phones_from_words_given_language_en_us(cli
             {"phone": "ɐvɔɪdᵻd", "word": "avoided"},
         ]
         assert response.status_code == 200
-        assert response.context.template_name == "core/pages/home.html"
+        assert len(response.context) > 0
+        for item in response.context:
+            assert item.template_name == "core/pages/home.html"
         assert response.context["text"] == fake_data_1["text-to-be-transcribed"]
         assert response.context["language"] == fake_data_1["chosen-language"]
-        number_of_params = len(response.context.dicts[-1])
+        number_of_params = len(response.context[0].dicts[-1])
         assert number_of_params == 3
 
     assert_response(response_1)
@@ -66,10 +72,12 @@ def test_should_return_home_page_with_phones_from_words_given_language_en_gb(cli
             {"phone": "ɐvɔɪdɪd", "word": "avoided"},
         ]
         assert response.status_code == 200
-        assert response.context.template_name == "core/pages/home.html"
+        assert len(response.context) > 0
+        for item in response.context:
+            assert item.template_name == "core/pages/home.html"
         assert response.context["text"] == fake_data_1["text-to-be-transcribed"]
         assert response.context["language"] == fake_data_1["chosen-language"]
-        number_of_params = len(response.context.dicts[-1])
+        number_of_params = len(response.context[0].dicts[-1])
         assert number_of_params == 3
 
     assert_response(response_1)
@@ -94,12 +102,14 @@ def test_should_return_phonetics_even_with_break_lines(client):
     response = client.post("/", fake_data)
 
     assert response.status_code == 200
-    assert response.context.template_name == "core/pages/home.html"
+    assert len(response.context) > 0
+    for item in response.context:
+        assert item.template_name == "core/pages/home.html"
     assert response.context["transcription"] == [
         {"phone": "sʌmθɪŋ", "word": "Something"},
         {"phone": "wɪɹd", "word": "Weird"},
     ]
     assert response.context["text"] == "Something Weird"
     assert response.context["language"] == fake_data["chosen-language"]
-    number_of_params = len(response.context.dicts[-1])
+    number_of_params = len(response.context[0].dicts[-1])
     assert number_of_params == 3
