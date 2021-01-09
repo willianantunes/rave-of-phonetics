@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Error 500</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static "core/img/launcher-icon-192x192-4x.png" %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="manifest" href="{% static 'core/manifest.webapp' %}">
+    <link rel="stylesheet" type='text/css' href="{% static 'core/dist/main.css' %}">
+</head>
+<body>
+
+<header class="container">
+    <div class="row">
+        <div class="col s12">
+            <h2 class="center-align">🌎 <a href="/">Rave of Phonetics</a> 🤓</h2>
+        </div>
+    </div>
+</header>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 center-align">
+            <h3 class="header center-on-small-only">500</h3>
+            <h4 class="light blue-grey-text text-lighten-4 center-on-small-only">Server error 🤯</h4>
+            <p>Time to see logs and stack-trace. I hope I'll get back soon.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,6 +1,8 @@
 import re
 
 from django.http import HttpResponseNotAllowed
+from django.http import HttpResponseNotFound
+from django.http import HttpResponseServerError
 from django.shortcuts import render
 from phonemizer import phonemize
 
@@ -40,3 +42,13 @@ def index(request):
         return render(request, "core/pages/home.html")
 
     return HttpResponseNotAllowed(["POST", "GET"])
+
+
+def handler404(request, exception):
+    # https://docs.djangoproject.com/en/3.1/ref/urls/#handler404
+    return HttpResponseNotFound(render(request, "core/errors/404.html"))
+
+
+def handler500(request):
+    # https://docs.djangoproject.com/en/3.1/ref/urls/#handler500
+    return HttpResponseServerError(render(request, "core/errors/500.html"))
