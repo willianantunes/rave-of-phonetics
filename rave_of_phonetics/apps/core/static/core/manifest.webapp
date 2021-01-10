@@ -1,7 +1,7 @@
 {
   "name": "Rave of Phonetics",
   "background_color": "#2196F3",
-  "theme_color": "#50a49aff",
+  "theme_color": "darkseagreen",
   "start_url": ".",
   "description": "Web Speech Application which translate your English text into its phonetic transcription using International Phonetic Alphabet",
   "icons": [
