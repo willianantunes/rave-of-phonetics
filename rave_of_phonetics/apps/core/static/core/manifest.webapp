@@ -1,5 +1,7 @@
 {
   "name": "Rave of Phonetics",
+  "background_color": "#2196F3",
+  "theme_color": "#50a49aff",
   "start_url": ".",
   "description": "Web Speech Application which translate your English text into its phonetic transcription using International Phonetic Alphabet",
   "icons": [
@@ -17,6 +19,17 @@
       "src": "img/launcher-icon-192x192-4x.png",
       "sizes": "192x192",
       "type": "image/png"
+    },
+    {
+      "src": "img/launcher-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "img/launcher-maskable_icon-853x853.png",
+      "sizes": "853x853",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "default_locale": "en",
