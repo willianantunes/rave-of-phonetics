@@ -33,7 +33,7 @@ export class HistoryView {
                     ${models.map(textConfiguration =>
             `
                         <tr data-id="${textConfiguration.id}" class="text-configuration-row">
-                            <td>${textConfiguration.text}</td>
+                            <td><a href="/?language=${textConfiguration.language}&text=${textConfiguration.text}">${textConfiguration.text}</a></td>
                             <td>${textConfiguration.language}</td>
                             <td>${textConfiguration.pitch}</td>
                             <td>${textConfiguration.rate}</td>

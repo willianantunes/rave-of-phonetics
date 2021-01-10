@@ -62,6 +62,7 @@ SEO and web standards:
 PWA:
 
 - https://web.dev/add-manifest/
+- https://dev.to/thepassle/lessons-learned-building-a-covid-19-pwa-57fi
 
 Purge unused CSS (main.css had 120K and after the command it changed to 17K):
 

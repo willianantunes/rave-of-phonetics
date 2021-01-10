@@ -3,7 +3,7 @@ import {BindModelView} from "../services/BindModelView";
 import {TextHistory} from "../domain/TextHistory";
 import {HistoryView} from "../ui/HistoryView";
 import {TextConfiguration} from "../domain/TextConfiguration";
-import {$, $$, checkedRadioValue} from "../utils/dom";
+import {$, $$, checkedRadioValue, checkRadioGivenCondition} from "../utils/dom";
 import {debounce} from "../utils/general";
 
 export class TranscriptController {
@@ -39,12 +39,27 @@ export class TranscriptController {
         }
         // Events
         this._initAllEvents(isTextToSpeechSectionDrawn)
+        // Population of fields
+        this._populateTextAreaFromAddress()
     }
 
     _initAllEvents(isTextToSpeechSectionDrawn) {
         this._buttonClearHistory.addEventListener("click", (e) => this.clearHistory(e))
         if (isTextToSpeechSectionDrawn) {
             this._buttonPlayOrStop.addEventListener("click", debounce(() => this.speak()))
+        }
+    }
+
+    _populateTextAreaFromAddress() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const textDetails = urlParams.get('text');
+        const languageDetails = urlParams.get('language');
+        if (textDetails) {
+            this._inputTextToBeTranscribed.value = textDetails
+            this._inputTextToBeTranscribed.focus()
+        }
+        if (languageDetails) {
+            checkRadioGivenCondition(this._inputLanguage, (radio) => radio.value === languageDetails)
         }
     }
 
