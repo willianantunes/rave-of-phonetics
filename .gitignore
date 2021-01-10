@@ -10,3 +10,4 @@ junit
 htmlcov
 .coverage
 coverage.xml
+.parcel-cache

@@ -63,6 +63,16 @@ PWA:
 
 - https://web.dev/add-manifest/
 
+Purge unused CSS (main.css had 120K and after the command it changed to 17K):
+
+    purgecss --css rave_of_phonetics/apps/core/**/*.css \
+    --content rave_of_phonetics/apps/core/**/*.html \
+    --safelist waves-ripple active thumb hiddendiv \
+    history-table striped highlight responsive-table \
+    table td tr th table.striped table.highlight tbody \
+    optgroup span * :after :before \
+    -o rave_of_phonetics/apps/core/static/core/dist/main.css
+
 ### Back-end
 
 #### Installing new packages

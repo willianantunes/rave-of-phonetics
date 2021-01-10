@@ -1,11 +1,9 @@
 import {WebSpeechAPI} from "../services/WebSpeechAPI";
 import {BindModelView} from "../services/BindModelView";
-import {Message} from "../domain/Message";
 import {TextHistory} from "../domain/TextHistory";
 import {HistoryView} from "../ui/HistoryView";
 import {TextConfiguration} from "../domain/TextConfiguration";
 import {$, $$, checkedRadioValue} from "../utils/dom";
-import {ToastView} from "../ui/ToastView";
 import {debounce} from "../utils/general";
 
 export class TranscriptController {
@@ -28,7 +26,7 @@ export class TranscriptController {
         this._rateValue = $('.rate-value');
         // Models and Views
         this._textHistory = new BindModelView(new TextHistory(), new HistoryView(".history-table", ".history-actions"), "add", "erase")
-        this._message = new BindModelView(new Message(), new ToastView(), "text")
+        // this._message = new BindModelView(new Message(), new ToastView(), "text")
         // Flow control
         this._ttsWasNotCalled = true
         if (isTextToSpeechSectionDrawn) {
@@ -81,7 +79,8 @@ export class TranscriptController {
                     this._ttsWasNotCalled = false
                 }
             } else {
-                this._message.text = 'Please write something first 😉! Go up and do the thing 💪';
+                // this._message.text = 'Please write something first 😉! Go up and do the thing 💪';
+                console.log('Please write something first 😉! Go up and do the thing 💪')
             }
         } else {
             this._webSpeechAPI.stopSpeakingImmediately()
