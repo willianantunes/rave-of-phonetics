@@ -6,7 +6,7 @@ RUN npm install
 
 COPY rave_of_phonetics ./rave_of_phonetics
 
-RUN npm run build
+RUN npm run build && npm run clean-css
 
 FROM willianantunes/phonemizer:latest AS main
 

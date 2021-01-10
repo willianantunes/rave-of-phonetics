@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest tests",
+    "clean-css": "purgecss -c purgecss.config.js",
     "build": "parcel build rave_of_phonetics/apps/core/static/core/js/parcel-entry.js --out-dir rave_of_phonetics/apps/core/static/core/dist --out-file main --no-source-maps",
     "start": "parcel serve rave_of_phonetics/apps/core/static/core/js/parcel-entry.js --public-url /static/core/dist --hmr-port 34471 --out-file main --out-dir rave_of_phonetics/apps/core/static/core/dist"
   },
