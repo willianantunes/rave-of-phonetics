@@ -74,6 +74,16 @@ Purge unused CSS (main.css had 120K and after the command it changed to 17K):
     optgroup span * :after :before \
     -o rave_of_phonetics/apps/core/static/core/dist/main.css
 
+#### SEO
+
+- https://www.expireddomains.net/
+- https://web.archive.org/
+- https://ahrefs.com/
+- https://www.similarweb.com/
+- https://www.tbsolutions.info/
+- https://seoferramentas.com/
+- [SEO Meta in 1 click](https://chrome.google.com/webstore/detail/seo-meta-in-1-click/bjogjfinolnhfhkbipphpdlldadpnmhc) by [SEO Extension](http://www.seo-extension.com/install-seo-meta-chrome-extension/)
+
 ### Back-end
 
 #### Installing new packages

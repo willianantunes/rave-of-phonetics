@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0.1 (c497b03c, 2020-09-10)"
-   sodipodi:docname="favicon.svg"
+   sodipodi:docname="launcher-icon-192x192.svg"
    inkscape:export-filename="/Users/willianantunes/Development/git-personal/rave-of-phonetics/rave_of_phonetics/apps/core/static/core/img/favicon.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4550082"
-     inkscape:cx="-22.162149"
+     inkscape:cx="98.112087"
      inkscape:cy="140.62949"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -64,15 +64,15 @@
        y="-1.1853027e-07" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:15.5465px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.388664"
-       x="2.5357127"
-       y="47.287453"
+       style="font-style:normal;font-weight:normal;font-size:14.2809px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.357024"
+       x="1.6705542"
+       y="47.30352"
        id="text18"><tspan
          sodipodi:role="line"
-         x="2.5357127"
-         y="47.287453"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';fill:#ffffff;stroke-width:0.388664"
-         id="tspan24">fəˈnɛtɪk</tspan></text>
+         x="1.6705542"
+         y="47.30352"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';fill:#ffffff;stroke-width:0.357024"
+         id="tspan24">fəˈnɛtɪks</tspan></text>
     <g
        id="g941"
        transform="matrix(1.1776981,0,0,1.1776981,-4.5135316,-1.0171865)">
