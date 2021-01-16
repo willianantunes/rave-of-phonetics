@@ -17,6 +17,7 @@ pytest-mock = "*"
 pytest-cov = "*"
 requests = "*"
 parsel = "*"
+yattag = "*"
 
 [requires]
 python_version = "3.7"
