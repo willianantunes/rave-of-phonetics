@@ -1,0 +1,23 @@
+<article class="changelog-article">
+    <div class="col s12">
+        <header>
+            <h3 class="center-align">{{ title }}</h3>
+        </header>
+    </div>
+    <div class="col s12 m4 l3">
+        <aside>
+            <p>{{ registered_at }}</p>
+            {% for feature in features %}
+                {% if feature.added %}
+                    <span class="new badge blue" data-badge-caption="added">{{ feature.quantity }}</span>
+                {% endif %}
+                {% if feature.updated %}
+                    <span class="new badge orange" data-badge-caption="updated">{{ feature.quantity }}</span>
+                {% endif %}
+            {% endfor %}
+        </aside>
+    </div>
+    <div class="col s12 m8 l9">
+        <p>{{ description }}</p>
+    </div>
+</article>

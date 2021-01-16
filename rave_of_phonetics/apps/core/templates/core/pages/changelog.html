@@ -1,0 +1,69 @@
+{% extends "core/templates/base.html" %}
+{% load custom_components %}
+
+{# No JS to be loaded #}
+{% block scripts %}{% endblock %}
+
+{% block content %}
+    <div class="container history-section">
+        <div class="row">
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s12">
+                        <section>
+                            <h2 class="center-align">Latest Updates</h2>
+                            {% with title="Changelog page" registered_at="January 17th, 2021" %}
+                                {% with feature_added=1 feature_updated=0 %}
+                                    {% entry_changelog title registered_at feature_added feature_updated %}
+                                        It's the launch of this page itself! Now  you can check all the notable changes
+                                        made to this project.
+                                    {% endentry_changelog %}
+                                {% endwith %}
+                            {% endwith %}
+
+                            {% with title="History item now can be consulted" registered_at="January 10th, 2021" %}
+                                {% with feature_added=0 feature_updated=1 %}
+                                    {% entry_changelog title registered_at feature_added feature_updated %}
+                                        When we launched the site some features were already included, like the history
+                                        of what you transcribe/listen, but without allowing you to click on a row to
+                                        avoid you to type it again, now it's available and you can use the generated
+                                        link to share with your friends.
+                                    {% endentry_changelog %}
+                                {% endwith %}
+                            {% endwith %}
+
+                            {% with title="Loop speech audio" registered_at="January 8th, 2021" %}
+                                {% with feature_added=1 feature_updated=0 %}
+                                    {% entry_changelog title registered_at feature_added feature_updated %}
+                                        It's quite annoying to have to press PLAY button to repeat a word or phrase you
+                                        want to hear again many times, now you can activate an option which will allow
+                                        you to listen repeatedly until you press STOP.
+                                    {% endentry_changelog %}
+                                {% endwith %}
+                            {% endwith %}
+
+                            {% with title="New icons" registered_at="January 7th, 2021" %}
+                                {% with feature_added=1 feature_updated=0 %}
+                                    {% entry_changelog title registered_at feature_added feature_updated %}
+                                        Before if you share our site through Telegram, WhatsApp and others you would
+                                        get nothing in terms of description, image and/or icon, and now you have!
+                                    {% endentry_changelog %}
+                                {% endwith %}
+                            {% endwith %}
+
+                            {% with title="Launch of Rave of Phonetics" registered_at="January 6th, 2021" %}
+                                {% with feature_added=1 feature_updated=0 %}
+                                    {% entry_changelog title registered_at feature_added feature_updated %}
+                                        After some weeks of work, we launched this IPA transcription and spelling tool!
+                                        We were tired of using another phonetics transcription sites and as such we
+                                        decided to build ours.
+                                    {% endentry_changelog %}
+                                {% endwith %}
+                            {% endwith %}
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

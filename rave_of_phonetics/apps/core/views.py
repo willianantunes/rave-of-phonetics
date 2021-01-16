@@ -24,6 +24,10 @@ def _only_words(text_to_be_transcribed):
     return valid_words
 
 
+def changelog(request):
+    return render(request, "core/pages/changelog.html")
+
+
 def index(request):
     if request.method == "POST":
         text_to_be_transcribed = request.POST["text-to-be-transcribed"]

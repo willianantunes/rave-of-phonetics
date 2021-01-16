@@ -1,0 +1,26 @@
+.changelog-article h3 {
+  font-size: 25px;
+}
+
+.changelog-article aside p {
+  font-style: italic;
+}
+
+.changelog-article aside span {
+  margin-left: 0;
+  float: left;
+}
+
+.changelog-article aside span:not(:first-of-type) {
+  margin-left: 5px;
+}
+
+//@media #{$medium-and-up} {
+//  .changelog-article aside span {
+//    margin-left: 0;
+//    float: left;
+//  }
+//  .changelog-article aside span:not(:first-of-type) {
+//    margin-left: 5px;
+//  }
+//}

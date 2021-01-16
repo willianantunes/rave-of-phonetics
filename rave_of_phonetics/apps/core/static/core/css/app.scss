@@ -1,4 +1,9 @@
+// Libs and so on
+@import "~materialize-css/sass/materialize";
+
 // Custom setup
+@import "./changelog";
+
 .rotate-180 {
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
@@ -30,6 +35,3 @@
 .history-actions {
   display: none;
 }
-
-// Libs and so on
-@import "~materialize-css/sass/materialize";
