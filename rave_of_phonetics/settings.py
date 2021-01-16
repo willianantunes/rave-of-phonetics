@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Optional
 
 from pythonjsonlogger.jsonlogger import JsonFormatter
+
 from rave_of_phonetics.apps.core.apps import CoreConfig
 from rave_of_phonetics.support.django_helpers import eval_env_as_boolean
 from rave_of_phonetics.support.django_helpers import getenv_or_raise_exception
@@ -155,3 +156,7 @@ STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
 # The REQUEST PATH where your statics/assets are
 STATIC_URL = os.getenv("STATIC_URL", "/static/")
 STATIC_URL = STATIC_HOST + STATIC_URL
+
+# Internal usage
+
+SITE_URL = getenv_or_raise_exception("SITE_URL")
