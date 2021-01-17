@@ -12,7 +12,7 @@ def test_should_return_home_page(client):
     selector = Selector(text=str(response.content))
     title = selector.xpath("//title/text()").get()
 
-    assert title == "Rave of Phonetics"
+    assert title == "Rave of Phonetics: Your IPA transcription and spelling tool"
 
 
 def test_should_return_home_page_with_phones_from_word_given_language_en_us(client):

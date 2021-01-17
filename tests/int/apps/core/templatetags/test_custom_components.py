@@ -30,7 +30,9 @@ def test_should_render_custom_component_with_added_and_updated():
   </div>
   <div class="col s12 m4 l3">
     <aside>
-      <p></p>
+      <p>
+        January 10th, 2021
+      </p>
       <span class="new badge blue" data-badge-caption="added">
         1
       </span>
