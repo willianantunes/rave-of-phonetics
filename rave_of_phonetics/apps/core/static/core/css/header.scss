@@ -6,6 +6,22 @@
   font-size: 21px;
 }
 
+@media #{$small-and-down} {
+  .page-header nav div.container {
+    margin: unset;
+    max-width: unset;
+    width: unset;
+  }
+  .page-header nav div.row {
+    margin: unset;
+  }
+
+  .page-header nav div.col {
+    padding: unset;
+    float: unset;
+  }
+}
+
 @media #{$medium-and-up} {
   .page-header nav .brand-logo {
     font-size: 2.1rem;
