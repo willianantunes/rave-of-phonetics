@@ -1,9 +1,27 @@
 {% load custom_helpers %}
+{% load static %}
 
-<header class="container">
-    <div class="row">
-        <div class="col s12">
-            <h1 class="center-align">🌎 <a href="{% get_value_from_settings "SITE_URL" %}" title="IPA transcription and spelling tool">Rave of Phonetics</a> 🤓</h1>
+<header class="page-header">
+
+    <nav>
+        <div>
+            <div>
+                <div>
+                    <div class="nav-wrapper">
+                        <a href="{% url 'index' %}" class="brand-logo">Rave of Phonetics</a>
+                        <a href="#" data-target="mobile-sidenav" class="sidenav-trigger"><i
+                                class="material-icons">menu</i></a>
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'index' %}">IPA Transcription</a></li>
+                            <li><a href="{% url 'changelog' %}">Changelog</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </nav>
+    <ul class="sidenav" id="mobile-sidenav">
+        <li><a href="{% url 'index' %}">IPA Transcription</a></li>
+        <li><a href="{% url 'changelog' %}">Changelog</a></li>
+    </ul>
 </header>

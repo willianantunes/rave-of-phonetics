@@ -1,7 +1,14 @@
-import {TranscriptController} from "./controllers/TranscriptController";
+import {PageLayoutController, TranscriptController} from "./controllers/index";
 import {$} from "./utils/dom";
 
-const textToSpeechSection = $('.text-to-speech-section')
-const isTextToSpeechSectionDrawn = document.body.contains(textToSpeechSection)
+const transcriptControllerIsNeeded = document.body.contains($('.transcript-section'));
 
-new TranscriptController(isTextToSpeechSectionDrawn)
+new PageLayoutController()
+
+if (transcriptControllerIsNeeded) {
+    const textToSpeechSection = $('.text-to-speech-section')
+    const isTextToSpeechSectionDrawn = document.body.contains(textToSpeechSection)
+    new TranscriptController(isTextToSpeechSectionDrawn)
+}
+
+

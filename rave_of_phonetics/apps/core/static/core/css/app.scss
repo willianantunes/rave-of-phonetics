@@ -2,6 +2,8 @@
 @import "~materialize-css/sass/materialize";
 
 // Custom setup
+@import "./header";
+@import "./transcript";
 @import "./changelog";
 
 .rotate-180 {
@@ -22,16 +24,4 @@
 
 .margin-upper-bottom-15 {
   margin: 15px 0 15px 0 !important;
-}
-
-.tts-selection {
-  display: none;
-}
-
-.phone-word {
-  font-size: 15px !important;
-}
-
-.history-actions {
-  display: none;
 }

@@ -8,7 +8,7 @@
                     <div class="card-content">
                         <span class="card-title center-align">Hello my friend, stay awhile and... Discover phones! 🔎</span>
                         <div class="row">
-                            <form action="/" method="post">{% csrf_token %}
+                            <form action="{% url 'index' %}" method="post">{% csrf_token %}
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">mode_edit</i>
                                     <textarea id="text-to-be-transcribed" name="text-to-be-transcribed"

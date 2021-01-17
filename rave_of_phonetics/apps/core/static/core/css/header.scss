@@ -1,0 +1,13 @@
+.page-header nav {
+  background-color: #26a69a;
+}
+
+.page-header nav .brand-logo {
+  font-size: 21px;
+}
+
+@media #{$medium-and-up} {
+  .page-header nav .brand-logo {
+    font-size: 2.1rem;
+  }
+}
