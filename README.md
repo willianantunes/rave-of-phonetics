@@ -85,6 +85,13 @@ Purge unused CSS (main.css had 120K and after the command it changed to 17K):
 - https://seoferramentas.com/
 - [SEO Meta in 1 click](https://chrome.google.com/webstore/detail/seo-meta-in-1-click/bjogjfinolnhfhkbipphpdlldadpnmhc) by [SEO Extension](http://www.seo-extension.com/install-seo-meta-chrome-extension/)
 
+#### Fonts
+
+You can follow [this tutorial here](https://askubuntu.com/a/3706/869618) which explains how to install fonts in Ubuntu. You should download the following:
+
+- https://www.fontsquirrel.com/fonts/bodoni1
+- https://askubuntu.com/a/651442/869618
+
 ### Back-end
 
 #### Installing new packages
