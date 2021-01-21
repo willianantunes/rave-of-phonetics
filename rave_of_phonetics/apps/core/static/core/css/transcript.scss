@@ -13,3 +13,35 @@
 .history-actions {
   display: none;
 }
+
+.transcribe-output {
+  display: flex;
+  flex-flow: wrap;
+  // TODO: Use only gap property instead of the entries below
+  // https://www.npmjs.com/package/flex-gap-polyfill
+  // gap: 10px;
+}
+.transcribe-output > * {
+    --fgp-gap-parent: 10px !important;
+    --fgp-gap-item: 10px !important;
+    --fgp-gap: var(--fgp-gap-item) !important;
+    margin-top: var(--fgp-gap);
+    margin-right: var(--fgp-gap);
+}
+
+.transcribe-output {
+    --fgp-gap-container: calc(var(--fgp-gap-parent, 0px) - 10px) !important;
+    --fgp-gap: var(--fgp-gap-container);
+    margin-top: var(--fgp-gap);
+    margin-right: var(--fgp-gap);
+}
+
+
+.transcribe-output div > div:first-child {
+  color: dimgrey;
+}
+
+.transcribe-output div > div:last-child {
+  color: black;
+  font-weight: bold;
+}

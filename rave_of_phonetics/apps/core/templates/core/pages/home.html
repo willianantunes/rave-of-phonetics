@@ -33,9 +33,12 @@
                                     </button>
                                 </div>
                                 {% if transcription %}
-                                    <div class="col s12 margin-upper-20">
+                                    <div class="col s12 margin-upper-20 transcribe-output">
                                         {% for item in transcription %}
-                                            <div class="chip phone-word">{{ item.word }} 👉 {{ item.phone }}</div>
+                                            <div>
+                                                <div>{{ item.word }}</div>
+                                                <div>{{ item.phone }}</div>
+                                            </div>
                                         {% endfor %}
                                     </div>
                                 {% endif %}

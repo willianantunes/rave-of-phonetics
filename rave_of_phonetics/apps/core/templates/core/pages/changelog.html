@@ -9,6 +9,15 @@
                     <div class="col s12">
                         <section>
                             <h2 class="center-align">Latest Updates</h2>
+                            {% with title="Transcribe output" registered_at="January 21th, 2021" %}
+                                {% with feature_added=0 feature_updated=1 %}
+                                    {% entry_changelog title registered_at feature_added feature_updated %}
+                                        Now you can clearly see the word you typed followed by its phonetic version. In
+                                        future versions you'll be able to select how you'd like to see your output.
+                                    {% endentry_changelog %}
+                                {% endwith %}
+                            {% endwith %}
+
                             {% with title="Changelog page" registered_at="January 17th, 2021" %}
                                 {% with feature_added=1 feature_updated=0 %}
                                     {% entry_changelog title registered_at feature_added feature_updated %}
