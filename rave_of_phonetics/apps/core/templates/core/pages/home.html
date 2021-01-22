@@ -17,7 +17,7 @@
                                 </div>
                                 <div class="center-align col s12">
                                     <label>
-                                        <input class="with-gap" name="chosen-language" type="radio" value="en-us"
+                                        <input class="with-gap" name="chosen-language" type="radio" value="en-us-us"
                                                {% if language and language == 'en-us' or not language %}checked{% endif %}/>
                                         <span>American</span>
                                     </label>
@@ -25,6 +25,21 @@
                                         <input class="with-gap" name="chosen-language" type="radio" value="en-gb"
                                                {% if language and language == 'en-gb' %}checked{% endif %}/>
                                         <span>British</span>
+                                    </label>
+                                    <label>
+                                        <input class="with-gap" name="chosen-language" type="radio" value="fr-fr"
+                                               {% if language and language == 'fr-fr' %}checked{% endif %}/>
+                                        <span>French</span>
+                                    </label>
+                                    <label>
+                                        <input class="with-gap" name="chosen-language" type="radio" value="es"
+                                               {% if language and language == 'es' %}checked{% endif %}/>
+                                        <span>Spanish</span>
+                                    </label>
+                                    <label>
+                                        <input class="with-gap" name="chosen-language" type="radio" value="it"
+                                               {% if language and language == 'it' %}checked{% endif %}/>
+                                        <span>Italian</span>
                                     </label>
                                 </div>
                                 <div class="input-field col s12 center-align">

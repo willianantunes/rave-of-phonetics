@@ -9,6 +9,16 @@
                     <div class="col s12">
                         <section>
                             <h2 class="center-align">Latest Updates</h2>
+                            {% with title="French, Spanish and Italian!" registered_at="January 22th, 2021" %}
+                                {% with feature_added=3 feature_updated=0 %}
+                                    {% entry_changelog title registered_at feature_added feature_updated %}
+                                        Prior this feature you were only able to use English (American and British). On
+                                        this day and forth you are able to use French, Spanish and Italian as well. Try
+                                        to transcribe something using these well known languages. More to come!
+                                    {% endentry_changelog %}
+                                {% endwith %}
+                            {% endwith %}
+
                             {% with title="Transcribe output" registered_at="January 21th, 2021" %}
                                 {% with feature_added=0 feature_updated=1 %}
                                     {% entry_changelog title registered_at feature_added feature_updated %}

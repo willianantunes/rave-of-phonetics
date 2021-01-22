@@ -104,6 +104,10 @@ After that it's required to update your remote interpreter:
 
     docker-compose build remote-interpreter
 
+#### Running commands
+
+    docker-compose run remote-interpreter sh
+
 ## Competitors
 
 - [To Phonetics](https://tophonetics.com/)
