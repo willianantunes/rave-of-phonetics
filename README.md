@@ -85,6 +85,18 @@ Purge unused CSS (main.css had 120K and after the command it changed to 17K):
 - https://seoferramentas.com/
 - [SEO Meta in 1 click](https://chrome.google.com/webstore/detail/seo-meta-in-1-click/bjogjfinolnhfhkbipphpdlldadpnmhc) by [SEO Extension](http://www.seo-extension.com/install-seo-meta-chrome-extension/)
 
+#### ADs
+
+What I configured to my first campaign:
+
+```
+IPA transcription
+Text to IPA
+Phonetics
+Web Speech App which transcribe your text into its phonetic transcription using IPA
+Try with English (American and Britain), French, Italian and Spanish!
+```
+
 #### Fonts
 
 You can follow [this tutorial here](https://askubuntu.com/a/3706/869618) which explains how to install fonts in Ubuntu. You should download the following:
@@ -107,6 +119,17 @@ After that it's required to update your remote interpreter:
 #### Running commands
 
     docker-compose run remote-interpreter sh
+
+If you'd like to run commands to test IPA output, first look the documentations
+
+- https://github.com/espeak-ng/espeak-ng/blob/master/docs/guide.md
+
+You must be at `/usr/bin/`. Then try one of these below:
+
+```
+espeak-ng "Hello my friend, stay awhile and listen." -v en-us -x --ipa -q
+espeak-ng "This is a test" -v en-us -x --ipa -q
+```
 
 ## Competitors
 
