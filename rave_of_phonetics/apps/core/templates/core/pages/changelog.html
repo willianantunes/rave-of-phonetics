@@ -9,6 +9,16 @@
                     <div class="col s12">
                         <section>
                             <h2 class="center-align">Latest Updates</h2>
+                            {% with title="To be, or not to be STRESSED: that is the question" registered_at="January 25th, 2021" %}
+                                {% with feature_added=1 feature_updated=0 %}
+                                    {% entry_changelog title registered_at feature_added feature_updated %}
+                                        You may have noticed that we only had been outputting words without their
+                                        stressed version. That is because it was the standard behavior. You are able now
+                                        to choose whether you want your word with stress or not.
+                                    {% endentry_changelog %}
+                                {% endwith %}
+                            {% endwith %}
+
                             {% with title="French, Spanish and Italian!" registered_at="January 22th, 2021" %}
                                 {% with feature_added=3 feature_updated=0 %}
                                     {% entry_changelog title registered_at feature_added feature_updated %}

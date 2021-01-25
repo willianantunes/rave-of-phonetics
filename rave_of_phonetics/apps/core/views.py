@@ -1,6 +1,8 @@
 import logging
 import re
 
+from distutils.util import strtobool
+
 from django.core.exceptions import SuspiciousOperation
 from django.http import HttpResponseBadRequest
 from django.http import HttpResponseNotAllowed
@@ -8,6 +10,7 @@ from django.http import HttpResponseNotFound
 from django.http import HttpResponseServerError
 from django.shortcuts import render
 from phonemizer import phonemize
+from phonemizer.separator import Separator
 
 logger = logging.getLogger(__name__)
 
@@ -39,23 +42,42 @@ def changelog(request):
 
 def index(request):
     if request.method == "POST":
+        with_stress = request.POST.get("with-stress")
+        logger.debug(f"Test: {with_stress}")
         text_to_be_transcribed = request.POST.get("text-to-be-transcribed")
         language = request.POST.get("chosen-language")
         if language not in _supported_language:
             raise SuspiciousOperation("Inputted language not supported")
         if not text_to_be_transcribed:
             raise SuspiciousOperation("Text not supplied")
+        with_stress = strtobool(with_stress) if with_stress == "on" else False
         logger.debug(f"Text to be transcribed: {text_to_be_transcribed}")
+        logger.debug(f"Chosen language and stress configuration: {language} / {with_stress}")
         text_to_be_transcribed = _newline_to_spaces(text_to_be_transcribed)
         text_to_be_transcribed = text_to_be_transcribed.split(" ")
         text_to_be_transcribed = _only_words(text_to_be_transcribed)
 
-        phones = phonemize(text_to_be_transcribed, language=language, backend="espeak", strip=True)
+        separator = Separator(phone=None, syllable=None, word=" ")
+
+        phones = phonemize(
+            text_to_be_transcribed,
+            preserve_punctuation=True,
+            language=language,
+            backend="espeak",
+            strip=True,
+            with_stress=with_stress,
+            separator=separator,
+        )
 
         result = []
         for index, phone in enumerate(phones):
             result.append({"word": text_to_be_transcribed[index], "phone": phone})
-        context = {"transcription": result, "text": str.join(" ", text_to_be_transcribed), "language": language}
+        context = {
+            "transcription": result,
+            "text": str.join(" ", text_to_be_transcribed),
+            "language": language,
+            "with_stress": with_stress,
+        }
 
         return render(request, "core/pages/home.html", context)
 
