@@ -2,6 +2,11 @@
 
 Let's try to earn money solving people problems with phonetics!
 
+## To study
+
+- https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary
+- https://github.com/mphilli/English-to-IPA
+
 ## Running the project
 
 Just issue the following command:
