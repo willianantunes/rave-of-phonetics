@@ -1,6 +1,6 @@
 # Back-end
 
-Django project that handle everything related to the back-end side of [Rave of Phonetics](https://www.raveofphonetics.com/).
+Django project that handles everything related to the back-end side of [Rave of Phonetics](https://www.raveofphonetics.com/).
 
 ## To study
 
