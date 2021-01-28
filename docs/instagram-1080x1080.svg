@@ -14,7 +14,7 @@
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="instagram-1080x1080.svg"
-   inkscape:export-filename="/Users/willianantunes/Development/git-personal/rave-of-phonetics/rave_of_phonetics/apps/core/static/core/img/favicon.png"
+   inkscape:export-filename="/home/willianantunes/Development/git-entrepreneurship/rave-of-phonetics/docs/first-instagram.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    style="enable-background:new">
@@ -46,9 +46,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.36230469"
-     inkscape:cx="-234.13444"
-     inkscape:cy="385.48213"
+     inkscape:zoom="0.18115235"
+     inkscape:cx="75.18787"
+     inkscape:cy="-5.1610781"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -93,9 +93,8 @@
        x="-4.9999999e-06"
        height="285.75"
        width="285.75"
-       id="rect1894"
-       style="opacity:0.82;fill:#50a49a;fill-opacity:1;fill-rule:evenodd;stroke-width:1.48828077"
-       mask="none" />
+       id="rect953"
+       style="fill:#71b5ae;fill-opacity:1;fill-rule:evenodd;stroke-width:1.48828077" />
     <rect
        style="opacity:0.123;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke-width:1.48828077"
        id="rect2118"
@@ -103,7 +102,9 @@
        height="285.75"
        x="-4.9999999e-06"
        y="-234.95"
-       mask="url(#mask2291)" />
+       mask="url(#mask2291)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
     <rect
        style="fill:#50a49a;fill-opacity:1;fill-rule:evenodd;stroke-width:1.19817996"
        id="rect10-5"
@@ -503,7 +504,9 @@
        transform="translate(-15.875003,-131.48243)"
        style="font-style:normal;font-weight:normal;font-size:33.00120163px;line-height:1.25;font-family:sans-serif;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.82503301"
        id="g1928"
-       aria-label="ˈreɪv əv fəˈnɛtɪks">
+       aria-label="ˈreɪv əv fəˈnɛtɪks"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
       <path
          id="path1896"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Arial Narrow';-inkscape-font-specification:'Arial Narrow';fill:#ffffff;stroke-width:0.82503301"
@@ -605,7 +608,9 @@
        style="font-style:normal;font-weight:normal;font-size:27.22554016px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.68063849"
        x="142.84177"
        y="-116.52215"
-       id="text2024"><tspan
+       id="text2024"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          x="147.70062"
          y="-116.52215"
@@ -620,13 +625,15 @@
          x="142.84177"
          y="-47.926548"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sawasdee;-inkscape-font-specification:Sawasdee;text-align:center;text-anchor:middle;stroke-width:0.68063849"
-         id="tspan2114">is /fɹˈɛndz/</tspan></text>
+         id="tspan2114">is /ˈfɹɛndz/</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:41.27291489px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.0318228"
        x="32.635254"
        y="-176.24535"
-       id="text2042"><tspan
+       id="text2042"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          id="tspan2040"
          x="32.635254"
@@ -685,7 +692,17 @@
          y="117.1245"
          x="-260.91861"
          sodipodi:role="line">of the word</tspan></text>
-  </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot939"
+       style="fill:black;fill-opacity:1;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;letter-spacing:0px;word-spacing:0px"><flowRegion
+         id="flowRegion941"><rect
+           id="rect943"
+           width="1288.9703"
+           height="1206.1671"
+           x="-107.6442"
+           y="-68.204842" /></flowRegion><flowPara
+         id="flowPara945"></flowPara></flowRoot>  </g>
   <g
      inkscape:groupmode="layer"
      id="layer2"
