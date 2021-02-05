@@ -1,14 +1,15 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Rave of Phonetics: Your IPA transcription and spelling tool`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Willian Antunes`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    description: `Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet.`,
+    siteUrl: `https://www.raveofphonetics.com/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `raveofphonetics`,
+      instagram: `raveofphonetics`,
+      facebook: `raveofphonetics`,
     },
   },
   plugins: [
@@ -73,5 +74,7 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
+    `gatsby-theme-material-ui`,
+    `gatsby-plugin-styled-components`,
   ],
 }
