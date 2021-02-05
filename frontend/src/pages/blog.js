@@ -5,8 +5,8 @@ import SEO from "../components/seo"
 const RavePage = () => {
   return (
     <Layout>
-      <SEO title="Changelog" />
-      <h1>This is your changelog page!</h1>
+      <SEO title="Blog" />
+      <h1>This is your blog page!</h1>
     </Layout>
   )
 }

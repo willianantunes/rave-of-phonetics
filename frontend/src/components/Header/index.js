@@ -12,12 +12,15 @@ const Header = () => {
             Rave of Phonetics
           </Link>
         </S.CustomTypography>
-        <Button color="inherit" to="/">
+        <Button color="inherit" to="/blog">
           Blog
         </Button>
-        <Button color="inherit">FAQ</Button>
-        <Button color="inherit">Changelog</Button>
-        <Button color="inherit">About</Button>
+        <Button color="inherit" to="/faq">
+          FAQ
+        </Button>
+        <Button color="inherit" to="/changelog">
+          Changelog
+        </Button>
       </S.CustomToolbar>
     </AppBar>
   )

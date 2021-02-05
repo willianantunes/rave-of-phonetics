@@ -21,7 +21,7 @@ export default function Transcription() {
     <S.CustomCard>
       <CardContent>
         <Typography component="h1" variant="h5" align="center">
-          IPA transcription tool
+          Your IPA transcription tool
         </Typography>
         <S.HelloMyFriendTypography color="textSecondary" align="center">
           Hello my friend, stay awhile and... Discover phones! 🔎
