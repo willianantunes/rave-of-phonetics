@@ -14,7 +14,7 @@
    id="svg8"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="instagram-1080x1080.svg"
-   inkscape:export-filename="/home/willianantunes/Development/git-entrepreneurship/rave-of-phonetics/docs/first-instagram.png"
+   inkscape:export-filename="/home/willianantunes/Development/git-entrepreneurship/rave-of-phonetics/docs/second-instagram.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    style="enable-background:new">
@@ -46,9 +46,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.18115235"
-     inkscape:cx="75.18787"
-     inkscape:cy="-5.1610781"
+     inkscape:zoom="0.3623047"
+     inkscape:cx="546.81966"
+     inkscape:cy="549.5331"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
@@ -78,7 +78,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -620,12 +620,12 @@
          x="142.84177"
          y="-82.22435"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sawasdee;-inkscape-font-specification:Sawasdee;text-align:center;text-anchor:middle;stroke-width:0.68063849"
-         id="tspan2086">of the word friends</tspan><tspan
+         id="tspan2086">of the word smile</tspan><tspan
          sodipodi:role="line"
          x="142.84177"
          y="-47.926548"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Sawasdee;-inkscape-font-specification:Sawasdee;text-align:center;text-anchor:middle;stroke-width:0.68063849"
-         id="tspan2114">is /ˈfɹɛndz/</tspan></text>
+         id="tspan2114">is /smaɪl/</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:41.27291489px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.0318228"
@@ -702,7 +702,7 @@
            height="1206.1671"
            x="-107.6442"
            y="-68.204842" /></flowRegion><flowPara
-         id="flowPara945"></flowPara></flowRoot>  </g>
+         id="flowPara945" /></flowRoot>  </g>
   <g
      inkscape:groupmode="layer"
      id="layer2"
