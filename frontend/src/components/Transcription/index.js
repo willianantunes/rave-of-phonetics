@@ -2,8 +2,8 @@ import React from "react"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import * as S from "./styled"
-import { Button } from "gatsby-theme-material-ui"
 import { FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, Switch, TextField } from "@material-ui/core"
+import { Send } from "styled-icons/boxicons-solid"
 import { useDispatch, useSelector } from "react-redux"
 import { setChosenLanguage, setText, setWithStress, transcriptionFromText } from "../../redux/slices/transcriptionSlice"
 
@@ -63,10 +63,11 @@ export default function Transcription() {
           />
         </FormGroup>
         <FormGroup row>
-          <Button variant="contained" color="primary" onClick={transcribeGivenText}>
+          <S.TranscribeButton variant="contained" color="primary" onClick={transcribeGivenText} endIcon={<Send />}>
             Transcribe
-          </Button>
+          </S.TranscribeButton>
         </FormGroup>
+        {/*<S.LoadingTranscription />*/}
         {isLoading && <S.LoadingTranscription />}
         {!isLoading && transcribedResult && (
           <S.TranscriptionSection>

@@ -2,16 +2,17 @@ import React, { useEffect, useRef, useState } from "react"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import * as S from "./styled"
-import { Button } from "gatsby-theme-material-ui"
 import { FormControl, FormControlLabel, FormGroup, Slider, Switch } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux"
 import { WebSpeechAPI } from "../../services/WebSpeechAPI"
+import { Play, Stop } from "styled-icons/boxicons-regular"
 import Voices from "../Voices"
 import { analyseVoices, setLoopSpeechAudio, setPitch, setRate, setVoiceToSpeech } from "../../redux/slices/textToSpeechSlice"
 import { TextConfiguration } from "../../domains/TextConfiguration"
 
 export default function TextToSpeech() {
   const [buttonValue, setButtonValue] = useState("Play")
+  const [buttonIcon, setButtonIcon] = useState(<Play />)
   // Infrastructure
   const dispatch = useDispatch()
   // Redux things
@@ -29,8 +30,14 @@ export default function TextToSpeech() {
   // Effects
   useEffect(() => {
     const onVoiceChangedCallable = voices => dispatch(analyseVoices(voices, chosenLanguage))
-    const hookWhenSpeaking = () => setButtonValue("Stop")
-    const hookWhenFinishedSpeech = () => setButtonValue("Play")
+    const hookWhenSpeaking = () => {
+      setButtonValue("Stop")
+      setButtonIcon(<Stop />)
+    }
+    const hookWhenFinishedSpeech = () => {
+      setButtonValue("Play")
+      setButtonIcon(<Play />)
+    }
     webSpeechAPI.current = new WebSpeechAPI(onVoiceChangedCallable, hookWhenSpeaking, hookWhenFinishedSpeech)
   }, [])
   useEffect(() => {
@@ -50,6 +57,7 @@ export default function TextToSpeech() {
         loopSpeechAudio
       )
     } else {
+      console.log("3 Uéééé")
       webSpeechAPI.current.stopSpeakingImmediately()
     }
   }
@@ -58,9 +66,9 @@ export default function TextToSpeech() {
     <S.CustomCard>
       <CardContent>
         <FormGroup row>
-          <Button variant="contained" color="primary" onClick={speakWhatIsConfigured}>
+          <S.PlayOrStopButton variant="contained" color="primary" onClick={speakWhatIsConfigured} endIcon={buttonIcon}>
             {buttonValue}
-          </Button>
+          </S.PlayOrStopButton>
         </FormGroup>
         <FormGroup row>
           <FormControlLabel

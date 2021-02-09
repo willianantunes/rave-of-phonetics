@@ -2,7 +2,14 @@ import React from "react"
 import Card from "@material-ui/core/Card"
 import Typography from "@material-ui/core/Typography"
 import styled from "styled-components"
+import { Button } from "gatsby-theme-material-ui"
 import { Box, LinearProgress } from "@material-ui/core"
+
+export const TranscribeButton = styled(Button)`
+  & svg {
+    width: 25px;
+  }
+`
 
 export const CustomCard = styled(Card)`
   & .MuiFormGroup-row {
@@ -15,11 +22,11 @@ export const HelloMyFriendTypography = styled(Typography)`
 `
 
 export const LoadingTranscription = styled(LinearProgress)`
-  margin: 15px 0px 15px 0px;
+  margin: 35px 0px 20px 0px;
 `
 
 export const TranscriptionSection = styled(Box)`
-  //margin: 25px auto auto;
+  margin: 15px 0px 0px 0px;
   gap: 20px;
   display: flex;
   flex-flow: wrap;
