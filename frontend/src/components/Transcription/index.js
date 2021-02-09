@@ -5,26 +5,21 @@ import * as S from "./styled"
 import { Button } from "gatsby-theme-material-ui"
 import { FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, Switch, TextField } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux"
-import { setChosenLanguage, setText, setWithStress } from "../../redux/slices/transcriptionSlice"
+import { setChosenLanguage, setText, setWithStress, transcriptionFromText } from "../../redux/slices/transcriptionSlice"
 
 export default function Transcription() {
+  // Infrastructure
   const dispatch = useDispatch()
-  const { text, chosenLanguage, withStress } = useSelector(state => state.transcription)
+  // Redux things
+  const { text, chosenLanguage, withStress, isLoading, transcribedResult } = useSelector(state => state.transcription)
+  // Events
   const handleChange = (hook, evt) => {
     const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
     dispatch(hook(value))
   }
-
-  // const initialState = {
-  //   withStress: false,
-  //   chosenLanguage: transcriptionReducer.chosenLanguage,
-  //   textToBeTranscribed: "",
-  // }
-  // const [state, setState] = React.useState(initialState)
-  // const handleChange = evt => {
-  //   const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
-  //   setState({ ...state, [evt.target.name]: value })
-  // }
+  const transcribeGivenText = () => {
+    dispatch(transcriptionFromText(text, chosenLanguage, withStress))
+  }
 
   return (
     <S.CustomCard>
@@ -68,10 +63,21 @@ export default function Transcription() {
           />
         </FormGroup>
         <FormGroup row>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={transcribeGivenText}>
             Transcribe
           </Button>
         </FormGroup>
+        {isLoading && <S.LoadingTranscription />}
+        {!isLoading && transcribedResult && (
+          <S.TranscriptionSection>
+            {transcribedResult.map(transcribedWord => (
+              <div>
+                <div>{transcribedWord.word}</div>
+                <div>{transcribedWord.phone}</div>
+              </div>
+            ))}
+          </S.TranscriptionSection>
+        )}
       </CardContent>
     </S.CustomCard>
   )

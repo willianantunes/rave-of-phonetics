@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { sleep } from "../../components/utils/general"
 
 const initialState = {
   loopSpeechAudio: false,
@@ -58,7 +57,5 @@ export const analyseVoices = (voices, chosenLanguage) => async dispatch => {
     const fallBackOption = `${languageTag}-${languageTag}`
     return language === chosenLanguage || language === languageTag || language === fallBackOption
   })
-  // TODO: Just to force a transition, but it's temporary of course
-  await sleep(1000)
   dispatch(receivedVoicesWereAnalysed(filteredVoices))
 }
