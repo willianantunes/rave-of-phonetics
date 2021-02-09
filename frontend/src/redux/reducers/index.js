@@ -1,6 +1,10 @@
-import { combineReducers } from "redux"
-import { reducer as counter } from "./challengeReducer"
+import { combineReducers } from "@reduxjs/toolkit"
+import counterReducer from "../slices/counterSlice"
+import textToSpeechReducer from "../slices/textToSpeechSlice"
+import transcriptionReducer from "../slices/transcriptionSlice"
 
 export default combineReducers({
-  counter,
+  counter: counterReducer,
+  textToSpeech: textToSpeechReducer,
+  transcription: transcriptionReducer,
 })

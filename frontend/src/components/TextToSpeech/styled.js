@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 import styled from "styled-components"
-import { FormControl } from "@material-ui/core"
+import { FormControl, LinearProgress } from "@material-ui/core"
 
 export const CustomCard = styled(Card)`
   & .MuiFormGroup-row {
@@ -19,5 +19,9 @@ export const UnsupportedVoiceEngine = styled(Typography)`
 `
 
 export const AvailableVoicesFormControl = styled(FormControl)`
+  margin: 15px 0px 15px 0px;
+`
+
+export const LoadingVoices = styled(LinearProgress)`
   margin: 15px 0px 15px 0px;
 `

@@ -6,6 +6,12 @@ Gatsby with Netlify CMS that handles the front-end side of [Rave of Phonetics](h
 
 TODO.
 
+## Learning Redux
+
+- https://github.com/reduxjs/redux/tree/master/examples
+- https://github.com/reduxjs/redux-essentials-example-app/tree/tutorial-steps/src/features
+- https://github.com/reduxjs/cra-template-redux/blob/master/template/src/features/counter/counterSlice.js
+
 ## Learning about CSS
 
 - https://flexbox.buildwithreact.com/
