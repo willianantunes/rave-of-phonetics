@@ -68,7 +68,6 @@ export default function Transcription() {
             Transcribe
           </S.TranscribeButton>
         </FormGroup>
-        {/*<S.LoadingTranscription />*/}
         {isLoading && <S.LoadingTranscription />}
         {!isLoading && transcribedResult && (
           <S.TranscriptionSection>

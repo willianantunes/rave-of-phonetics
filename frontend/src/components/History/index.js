@@ -2,12 +2,20 @@ import React, { useEffect, useRef, useState } from "react"
 import { DataGrid } from "@material-ui/data-grid"
 import * as S from "./styled"
 import { useDispatch, useSelector } from "react-redux"
-import { Typography } from "@material-ui/core"
+import { Button, FormGroup, Typography } from "@material-ui/core"
 import { analyseVoices } from "../../redux/slices/textToSpeechSlice"
 import { Play, Stop } from "styled-icons/boxicons-regular"
 import { WebSpeechAPI } from "../../services/WebSpeechAPI"
-import { addTranscriptionDetails, loadAllTranscriptionDetails, loadTranscriptionHistory } from "../../redux/slices/historySlice"
+import {
+  addTranscriptionDetails,
+  deleteAllTranscriptionHistory,
+  loadAllTranscriptionDetails,
+  loadTranscriptionHistory,
+} from "../../redux/slices/historySlice"
 import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
+import { Open } from "styled-icons/ionicons-sharp"
+import { Send } from "styled-icons/boxicons-solid"
+import CardContent from "@material-ui/core/CardContent"
 
 const columns = [
   { field: "id", headerName: "ID", hide: true },
@@ -15,31 +23,31 @@ const columns = [
     field: "text",
     headerName: "Text",
     description: "The text that you transcribed",
-    flex: 1,
+    width: 300,
   },
   {
     field: "transcription",
     headerName: "Transcription",
     description: "The IPA transcription from the related text",
-    flex: 0.4,
+    flex: 1,
   },
   {
     field: "language",
     headerName: "Language",
     description: "Which language you used to transcribe, following IETF language tag format",
-    flex: 0.4,
+    width: 100,
   },
   {
     field: "withStress",
     headerName: "With stress",
     description: "An option that allows you to see how is a transcription from a stressed word",
-    flex: 0.4,
+    width: 110,
   },
   {
     field: "createdAt",
     headerName: "Created at",
     type: "dateTime",
-    flex: 1,
+    width: 150,
   },
 ]
 
@@ -75,14 +83,21 @@ export default function History() {
   }, [])
 
   const handleRowClick = params => {
-    alert(params.row.id)
+    console.log(params.row.id)
+  }
+
+  const deleteTableContent = () => {
+    if (transcriptions.length > 0) {
+      dispatch(deleteAllTranscriptionHistory())
+    }
   }
 
   return (
     <S.MainWrapper>
-      <S.Title component="h2" variant="h5" align="center">
-        Transcription history
-      </S.Title>
+      <S.Title>Transcription history</S.Title>
+      <S.Description>
+        Transcribe something to see the result here. Click on some row to retrieve what you transcribed before!
+      </S.Description>
       <S.DataGridWrapper>
         <S.CustomDataGrid
           components={{
@@ -94,6 +109,9 @@ export default function History() {
           onRowClick={handleRowClick}
         />
       </S.DataGridWrapper>
+      <S.OptionsWrapper>
+        <S.DeleteAllButton onClick={deleteTableContent}>Delete forever</S.DeleteAllButton>
+      </S.OptionsWrapper>
     </S.MainWrapper>
   )
 }

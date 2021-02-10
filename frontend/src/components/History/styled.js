@@ -1,25 +1,61 @@
 import React from "react"
 import styled from "styled-components"
-import { Box } from "@material-ui/core"
+import { Box, Grid } from "@material-ui/core"
 import Typography from "@material-ui/core/Typography"
 import { GridOverlay, DataGrid } from "@material-ui/data-grid"
+import { Button } from "gatsby-theme-material-ui"
+import { DeleteForever } from "styled-icons/material"
 
 export const MainWrapper = styled(Box)`
   height: 400px;
   width: 100%;
   margin-top: 25px;
+
+  & .MuiDataGrid-root {
+    margin-top: 0px;
+  }
 `
 
 export const DataGridWrapper = styled(Box)`
   display: flex;
   height: 100%;
+  margin-top: 25px;
 `
 
-export const Title = styled(Typography)``
+export const OptionsWrapper = styled(Box)`
+  justify-content: center;
+  display: flex;
+  margin-top: 25px;
+`
+
+export const Title = styled(Typography).attrs(props => ({
+  component: "h2",
+  variant: "h5",
+  align: "center",
+}))``
+
+export const Description = styled(Typography).attrs(props => ({
+  // component: "h2",
+  // variant: "h5",
+  color: "textSecondary",
+  align: "center",
+}))`
+  font-size: 18px;
+`
 
 export const CustomDataGrid = styled(DataGrid)`
   margin-top: 25px;
   flex-grow: 1;
+`
+
+export const DeleteAllButton = styled(Button).attrs(props => ({
+  variant: "outlined",
+  color: "primary",
+  endIcon: <DeleteForever />,
+}))`
+  & svg {
+    width: 25px;
+  }
 `
 
 export const CustomGridOverlay = styled(GridOverlay)`
