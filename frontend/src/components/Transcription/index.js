@@ -28,8 +28,8 @@ export default function Transcription() {
   // Effects
   useEffect(() => {
     dispatch(setText(textQueryString))
-    dispatch(setChosenLanguage(languageQueryString))
-    dispatch(setWithStress(withStressQueryString))
+    if (languageQueryString) dispatch(setChosenLanguage(languageQueryString))
+    if (withStressQueryString) dispatch(setWithStress(withStressQueryString))
   }, [])
   useEffect(() => {
     setQueryStringText(text)
