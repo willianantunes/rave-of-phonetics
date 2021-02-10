@@ -1,19 +1,28 @@
 import * as S from "./styled"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import { CircularProgress, InputLabel, LinearProgress, MenuItem, Select } from "@material-ui/core"
 import { useDispatch } from "react-redux"
+import { Play } from "styled-icons/boxicons-regular"
 
 function Voices({ voices, voiceToSpeech, isLoading, updateVoiceToSpeech }) {
   // Infrastructure
   const dispatch = useDispatch()
-  // To control rendering
-  const voiceEngineSupported = voices.length !== 0
+  // States
+  const [voiceEngineSupported, setVoiceEngineSupported] = useState(false)
+  const [currentVoiceToSpeech, setCurrentVoiceToSpeech] = useState(voiceToSpeech)
+  // Effects
+  useEffect(() => {
+    setVoiceEngineSupported(voices.length !== 0)
+  }, [voices])
+  useEffect(() => {
+    dispatch(updateVoiceToSpeech(currentVoiceToSpeech))
+  }, [currentVoiceToSpeech])
 
   const renderVoices = () => {
     const menuItems = voices.map(voice => {
       let voiceLabel = voice.name + " (" + voice.lang + ")"
-      if (voiceToSpeech === "") dispatch(updateVoiceToSpeech(voice.name))
+      if (currentVoiceToSpeech === "") setCurrentVoiceToSpeech(voice.name)
       return (
         <MenuItem key={voice.name} value={voice.name}>
           {voiceLabel}
@@ -26,8 +35,8 @@ function Voices({ voices, voiceToSpeech, isLoading, updateVoiceToSpeech }) {
         <Select
           labelId="available-voices"
           name="voice"
-          value={voiceToSpeech}
-          onChange={e => dispatch(updateVoiceToSpeech(e.target.value))}
+          value={currentVoiceToSpeech}
+          onChange={e => setCurrentVoiceToSpeech(e.target.value)}
           label="Available voices"
         >
           {menuItems}

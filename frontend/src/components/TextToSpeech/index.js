@@ -8,9 +8,9 @@ import { WebSpeechAPI } from "../../services/WebSpeechAPI"
 import { Play, Stop } from "styled-icons/boxicons-regular"
 import Voices from "../Voices"
 import { analyseVoices, setLoopSpeechAudio, setPitch, setRate, setVoiceToSpeech } from "../../redux/slices/textToSpeechSlice"
-import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
 
 export default function TextToSpeech() {
+  // States
   const [buttonValue, setButtonValue] = useState("Play")
   const [buttonIcon, setButtonIcon] = useState(<Play />)
   // Infrastructure
@@ -22,7 +22,6 @@ export default function TextToSpeech() {
   const { chosenLanguage, text } = useSelector(state => state.transcription)
   const handleChange = (hook, evt) => {
     const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
-    console.log(evt.target)
     dispatch(hook(value))
   }
   // Services
@@ -42,22 +41,13 @@ export default function TextToSpeech() {
   }, [])
   useEffect(() => {
     dispatch(analyseVoices(voices, chosenLanguage))
-  }, chosenLanguage)
+  }, [chosenLanguage])
   // Events
   const speakWhatIsConfigured = ev => {
     // TODO
     if (buttonValue === "Play") {
-      const textConfiguration = new TranscriptionDetails(null, text, chosenLanguage, pitch, rate)
-      webSpeechAPI.current.speechWith(
-        textConfiguration.text,
-        textConfiguration.language,
-        textConfiguration.pitch,
-        textConfiguration.rate,
-        voiceToSpeech,
-        loopSpeechAudio
-      )
+      webSpeechAPI.current.speechWith(text, chosenLanguage, pitch, rate, voiceToSpeech, loopSpeechAudio)
     } else {
-      console.log("3 Uéééé")
       webSpeechAPI.current.stopSpeakingImmediately()
     }
   }
@@ -66,7 +56,7 @@ export default function TextToSpeech() {
     <S.CustomCard>
       <CardContent>
         <FormGroup row>
-          <S.PlayOrStopButton variant="contained" color="primary" onClick={speakWhatIsConfigured} endIcon={buttonIcon}>
+          <S.PlayOrStopButton onClick={speakWhatIsConfigured} endIcon={buttonIcon}>
             {buttonValue}
           </S.PlayOrStopButton>
         </FormGroup>

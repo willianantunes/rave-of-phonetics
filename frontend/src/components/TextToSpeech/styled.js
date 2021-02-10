@@ -11,7 +11,10 @@ export const CustomCard = styled(Card)`
   }
 `
 
-export const PlayOrStopButton = styled(Button)`
+export const PlayOrStopButton = styled(Button).attrs(props => ({
+  variant: "contained",
+  color: "primary",
+}))`
   & svg {
     width: 25px;
   }
