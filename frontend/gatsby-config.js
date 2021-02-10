@@ -76,5 +76,6 @@ module.exports = {
     // `gatsby-plugin-offline`,
     `gatsby-theme-material-ui`,
     `gatsby-plugin-styled-components`,
+    `gatsby-plugin-use-query-params`,
   ],
 }

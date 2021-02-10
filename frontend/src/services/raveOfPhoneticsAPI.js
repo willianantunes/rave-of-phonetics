@@ -1,18 +1,22 @@
 import { sleep } from "../components/utils/general"
+import axios from "axios"
 
-export async function transcribeText(text, chosenLanguage, withStress) {
-  const fakePayload = {
-    withStress: false,
-    language: "en-us",
-    transcription: [
-      { phone: "wʌnhʌndɹɪd twɛnti θɹiː", word: "123" },
-      { phone: "sʌmθɪŋ", word: "something" },
-      { phone: "mʌst", word: "must" },
-      { phone: "biː", word: "be" },
-      { phone: "ɐvɔɪdᵻd", word: "avoided" },
-    ],
-  }
-  await sleep(2000)
+// TODO
+const endpoint = "http://localhost:8080/api/v1/transcribe"
+const options = {
+  method: "POST",
+  url: endpoint,
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "application/json;charset=UTF-8",
+  },
+}
 
-  return fakePayload
+export async function transcribeText(text, language, withStress) {
+  // TODO
+  options.data = { text, language, "with-stress": withStress }
+
+  const response = await axios(options)
+
+  return await response.data
 }

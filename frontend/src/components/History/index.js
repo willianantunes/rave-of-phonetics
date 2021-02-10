@@ -1,21 +1,11 @@
-import React, { useEffect, useRef, useState } from "react"
-import { DataGrid } from "@material-ui/data-grid"
+import React, { useEffect, useState } from "react"
 import * as S from "./styled"
 import { useDispatch, useSelector } from "react-redux"
-import { Button, FormGroup, Typography } from "@material-ui/core"
-import { analyseVoices } from "../../redux/slices/textToSpeechSlice"
-import { Play, Stop } from "styled-icons/boxicons-regular"
-import { WebSpeechAPI } from "../../services/WebSpeechAPI"
 import {
   addTranscriptionDetails,
   deleteAllTranscriptionHistory,
-  loadAllTranscriptionDetails,
   loadTranscriptionHistory,
 } from "../../redux/slices/historySlice"
-import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
-import { Open } from "styled-icons/ionicons-sharp"
-import { Send } from "styled-icons/boxicons-solid"
-import CardContent from "@material-ui/core/CardContent"
 
 const columns = [
   { field: "id", headerName: "ID", hide: true },
@@ -47,7 +37,7 @@ const columns = [
     field: "createdAt",
     headerName: "Created at",
     type: "dateTime",
-    width: 150,
+    width: 180,
   },
 ]
 
@@ -81,15 +71,14 @@ export default function History() {
   useEffect(() => {
     dispatch(loadTranscriptionHistory())
   }, [])
-
-  const handleRowClick = params => {
-    console.log(params.row.id)
-  }
-
+  // Actions
   const deleteTableContent = () => {
     if (transcriptions.length > 0) {
       dispatch(deleteAllTranscriptionHistory())
     }
+  }
+  const handleRowClick = params => {
+    console.log(params.row.id)
   }
 
   return (

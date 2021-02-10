@@ -13,6 +13,16 @@ export const Main = styled(Box)`
   //padding-bottom: 80px;
   //height: auto;
 
+  //position: relative;
+  //height: auto;
+  //min-height: 100% !important;
+
+  //& :after {
+  //  content: "";
+  //  display: table;
+  //  clear: both;
+  //}
+
   & .MuiCard-root {
     margin-top: 25px;
   }

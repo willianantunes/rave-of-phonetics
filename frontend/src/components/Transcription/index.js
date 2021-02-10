@@ -6,11 +6,15 @@ import { FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, Switch, Te
 import { Send } from "styled-icons/boxicons-solid"
 import { useDispatch, useSelector } from "react-redux"
 import { setChosenLanguage, setText, setWithStress, transcriptionFromText } from "../../redux/slices/transcriptionSlice"
-import { loadAllTranscriptionDetails } from "../../redux/slices/historySlice"
+import { useQueryParam, StringParam, BooleanParam } from "use-query-params"
 
 export default function Transcription() {
   // Infrastructure
   const dispatch = useDispatch()
+  // States
+  const [textQueryString, setQueryStringText] = useQueryParam("text", StringParam)
+  const [languageQueryString, setQueryStringLanguage] = useQueryParam("language", StringParam)
+  const [withStressQueryString, setQueryStringWithStress] = useQueryParam("with-stress", BooleanParam)
   // Redux things
   const { text, chosenLanguage, withStress, isLoading, transcribedResult } = useSelector(state => state.transcription)
   // Events
@@ -21,6 +25,17 @@ export default function Transcription() {
   const transcribeGivenText = () => {
     dispatch(transcriptionFromText(text, chosenLanguage, withStress))
   }
+  // Effects
+  useEffect(() => {
+    dispatch(setText(textQueryString))
+    dispatch(setChosenLanguage(languageQueryString))
+    dispatch(setWithStress(withStressQueryString))
+  }, [])
+  useEffect(() => {
+    setQueryStringText(text)
+    setQueryStringLanguage(chosenLanguage)
+    setQueryStringWithStress(withStress)
+  }, [text, chosenLanguage, withStress])
 
   return (
     <S.CustomCard>
