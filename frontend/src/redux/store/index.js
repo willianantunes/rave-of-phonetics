@@ -14,6 +14,8 @@ const createStore = () => {
           "history/addNewTranscriptionDetails",
           "transcription/analysingText",
         ],
+        // Ignore these paths in the state
+        // ignoredPaths: ["items.dates"],
       },
     }),
   })

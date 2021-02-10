@@ -54,7 +54,7 @@ export default function History() {
     if (transcribedResult) {
       dispatch(addTranscriptionDetails(transcribedResult.transcription, text, chosenLanguage, withStress))
     }
-  }, transcribedResult)
+  }, [transcribedResult])
   useEffect(() => {
     const rows = transcriptions.map(transcriptionDetails => {
       return {

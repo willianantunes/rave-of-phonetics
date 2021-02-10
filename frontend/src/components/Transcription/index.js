@@ -12,6 +12,7 @@ export default function Transcription() {
   // Infrastructure
   const dispatch = useDispatch()
   // States
+  // TODO: Change useQueryParam and use it, If and only if the user wants to share what he's doing
   const [textQueryString, setQueryStringText] = useQueryParam("text", StringParam)
   const [languageQueryString, setQueryStringLanguage] = useQueryParam("language", StringParam)
   const [withStressQueryString, setQueryStringWithStress] = useQueryParam("with-stress", BooleanParam)
@@ -86,8 +87,8 @@ export default function Transcription() {
         {isLoading && <S.LoadingTranscription />}
         {!isLoading && transcribedResult && (
           <S.TranscriptionSection>
-            {transcribedResult.transcription.map(transcribedWord => (
-              <div>
+            {transcribedResult.transcription.map((transcribedWord, index) => (
+              <div key={index}>
                 <div>{transcribedWord.word}</div>
                 <div>{transcribedWord.phone}</div>
               </div>

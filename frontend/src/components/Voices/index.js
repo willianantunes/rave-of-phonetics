@@ -16,6 +16,9 @@ function Voices({ voices, voiceToSpeech, isLoading, updateVoiceToSpeech }) {
     setVoiceEngineSupported(voices.length !== 0)
   }, [voices])
   useEffect(() => {
+    setCurrentVoiceToSpeech(voiceToSpeech)
+  }, [voiceToSpeech])
+  useEffect(() => {
     dispatch(updateVoiceToSpeech(currentVoiceToSpeech))
   }, [currentVoiceToSpeech])
 

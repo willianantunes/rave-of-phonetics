@@ -18,5 +18,18 @@ export async function transcribeText(text, language, withStress) {
 
   const response = await axios(options)
 
+  // await sleep(1000)
+
   return await response.data
+  // return {
+  //   transcription: [
+  //     { word: "C'mon", phone: "kəmɑːn" },
+  //     { word: "man", phone: "mæn" },
+  //     { word: "you", phone: "juː" },
+  //     { word: "should", phone: "ʃʊd" },
+  //     { word: "do", phone: "duː" },
+  //     { word: "something", phone: "sʌmθɪŋ" },
+  //     { word: "different", phone: "dɪfɹənt" },
+  //   ],
+  // }
 }
