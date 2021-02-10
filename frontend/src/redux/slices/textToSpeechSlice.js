@@ -14,14 +14,26 @@ export const textToSpeechSlice = createSlice({
   name: "textToSpeech",
   initialState,
   reducers: {
-    analysingReceivedVoices: (state, action) => {
-      state.isLoading = true
-      state.voices = action.payload
+    analysingReceivedVoices: {
+      reducer(state, action) {
+        state.isLoading = true
+        state.voices = action.payload
+      },
+      prepare(speechSynthesisVoices) {
+        const changedVoices = speechSynthesisVoices.map(voice => ({ lang: voice.lang, name: voice.name }))
+        return { payload: changedVoices }
+      },
     },
-    receivedVoicesWereAnalysed: (state, action) => {
-      state.filteredVoices = action.payload
-      state.voiceToSpeech = ""
-      state.isLoading = false
+    receivedVoicesWereAnalysed: {
+      reducer(state, action) {
+        state.filteredVoices = action.payload
+        state.voiceToSpeech = ""
+        state.isLoading = false
+      },
+      prepare(filteredSpeechSynthesisVoices) {
+        const changedVoices = filteredSpeechSynthesisVoices.map(voice => ({ lang: voice.lang, name: voice.name }))
+        return { payload: changedVoices }
+      },
     },
     setRate: (state, action) => {
       state.rate = action.payload
