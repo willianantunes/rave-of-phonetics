@@ -5,6 +5,7 @@ from logging import Formatter
 from pathlib import Path
 from typing import Optional
 
+from corsheaders.defaults import default_headers
 from pythonjsonlogger.jsonlogger import JsonFormatter
 
 from rave_of_phonetics.apps.core.apps import CoreConfig
@@ -52,6 +53,26 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+DISABLE_CORS = eval_env_as_boolean("DISABLE_CORS", False)
+INSTALLED_APPS.append("corsheaders")
+MIDDLEWARE.insert(1, "corsheaders.middleware.CorsMiddleware")
+
+if not DISABLE_CORS:
+    CORS_ORIGIN_ALLOW_ALL = eval_env_as_boolean("CORS_ORIGIN_ALLOW_ALL", False)
+    CORS_ALLOW_CREDENTIALS = eval_env_as_boolean("CORS_ALLOW_CREDENTIALS", False)
+    CORS_ALLOW_HEADERS = list(default_headers) + ["x-api-key"]
+
+    TMP_CORS_ORIGIN_WHITELIST = os.getenv("CORS_ORIGIN_WHITELIST")
+    TMP_CORS_EXPOSE_HEADERS = os.getenv("CORS_EXPOSE_HEADERS")
+
+    if TMP_CORS_ORIGIN_WHITELIST and "," in TMP_CORS_ORIGIN_WHITELIST:
+        CORS_ORIGIN_WHITELIST = [origin for origin in TMP_CORS_ORIGIN_WHITELIST.split(",")]
+
+    CORS_EXPOSE_HEADERS = TMP_CORS_EXPOSE_HEADERS.split(",") if TMP_CORS_EXPOSE_HEADERS else []
+else:
+    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "rave_of_phonetics.urls"
 

@@ -47,3 +47,27 @@ def test_should_return_custom_500_page(live_server, mocker):
     title = selector.xpath("//title/text()").get()
 
     assert title == "Error 500"
+
+
+def test_should_transcribe(client):
+    # TODO
+    fake_data = {
+        "text": "Hello my friend, stay awhile and listen.",
+        "language": "en-us",
+        "with-stress": False,
+    }
+    response = client.post("/api/v1/transcribe", fake_data, content_type="application/json")
+
+    result = response.json()
+
+    assert result == {
+        "transcription": [
+            {"word": "Hello", "phone": "həloʊ"},
+            {"word": "my", "phone": "maɪ"},
+            {"word": "friend,", "phone": "fɹɛnd,"},
+            {"word": "stay", "phone": "steɪ"},
+            {"word": "awhile", "phone": "ɐwaɪl"},
+            {"word": "and", "phone": "ænd"},
+            {"word": "listen.", "phone": "lɪsən."},
+        ]
+    }

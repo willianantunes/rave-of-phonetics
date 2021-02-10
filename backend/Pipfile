@@ -10,6 +10,7 @@ whitenoise = { extras = ['brotli'] }
 gunicorn = "*"
 gevent = "*"
 python-json-logger = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 pytest-django = "*"
