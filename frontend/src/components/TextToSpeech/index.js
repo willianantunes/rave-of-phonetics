@@ -8,7 +8,7 @@ import { WebSpeechAPI } from "../../services/WebSpeechAPI"
 import { Play, Stop } from "styled-icons/boxicons-regular"
 import Voices from "../Voices"
 import { analyseVoices, setLoopSpeechAudio, setPitch, setRate, setVoiceToSpeech } from "../../redux/slices/textToSpeechSlice"
-import { TextConfiguration } from "../../domains/TextConfiguration"
+import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
 
 export default function TextToSpeech() {
   const [buttonValue, setButtonValue] = useState("Play")
@@ -47,7 +47,7 @@ export default function TextToSpeech() {
   const speakWhatIsConfigured = ev => {
     // TODO
     if (buttonValue === "Play") {
-      const textConfiguration = new TextConfiguration(null, text, chosenLanguage, pitch, rate)
+      const textConfiguration = new TranscriptionDetails(null, text, chosenLanguage, pitch, rate)
       webSpeechAPI.current.speechWith(
         textConfiguration.text,
         textConfiguration.language,

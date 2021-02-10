@@ -9,6 +9,8 @@ export const Main = styled(Box)`
   margin: 25px auto auto;
   //gap: 20px;
   //display: flex;
+  // Because of the fixed footer
+  padding-bottom: 80px;
 
   & .MuiCard-root {
     margin-top: 25px;

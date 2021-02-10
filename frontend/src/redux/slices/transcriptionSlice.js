@@ -24,15 +24,11 @@ export const transcriptionSlice = createSlice({
     },
     analysingText: state => {
       state.isLoading = true
+      state.transcribedResult = null
     },
-    textWasTranscribed: {
-      reducer(state, action) {
-        state.isLoading = false
-        state.transcribedResult = action.payload
-      },
-      prepare(transcriptionEvaluationDetails) {
-        return { payload: transcriptionEvaluationDetails.transcription }
-      },
+    textWasTranscribed: (state, action) => {
+      state.isLoading = false
+      state.transcribedResult = action.payload
     },
   },
 })

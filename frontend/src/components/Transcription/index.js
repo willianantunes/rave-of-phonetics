@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import * as S from "./styled"
@@ -6,6 +6,7 @@ import { FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, Switch, Te
 import { Send } from "styled-icons/boxicons-solid"
 import { useDispatch, useSelector } from "react-redux"
 import { setChosenLanguage, setText, setWithStress, transcriptionFromText } from "../../redux/slices/transcriptionSlice"
+import { loadAllTranscriptionDetails } from "../../redux/slices/historySlice"
 
 export default function Transcription() {
   // Infrastructure
@@ -71,7 +72,7 @@ export default function Transcription() {
         {isLoading && <S.LoadingTranscription />}
         {!isLoading && transcribedResult && (
           <S.TranscriptionSection>
-            {transcribedResult.map(transcribedWord => (
+            {transcribedResult.transcription.map(transcribedWord => (
               <div>
                 <div>{transcribedWord.word}</div>
                 <div>{transcribedWord.phone}</div>
