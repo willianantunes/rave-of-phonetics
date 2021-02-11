@@ -51,8 +51,11 @@ export default function Transcription(props) {
   }, [])
   useEffect(() => {
     // If an user clicks on the history table, then text field must be updated
-    setCurrentText(text)
-    textAreaReference.current.focus()
+    // TODO: Change to be like a state machine
+    if (transcribedResult) {
+      setCurrentText(text)
+      textAreaReference.current.focus()
+    }
   }, [transcribedResult])
   // Events
   const handleChangeForAlmostAll = (hook, evt) => {
