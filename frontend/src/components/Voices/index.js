@@ -10,22 +10,14 @@ function Voices({ voices, voiceToSpeech, isLoading, updateVoiceToSpeech }) {
   const dispatch = useDispatch()
   // States
   const [voiceEngineSupported, setVoiceEngineSupported] = useState(false)
-  const [currentVoiceToSpeech, setCurrentVoiceToSpeech] = useState(voiceToSpeech)
   // Effects
   useEffect(() => {
     setVoiceEngineSupported(voices.length !== 0)
   }, [voices])
-  useEffect(() => {
-    setCurrentVoiceToSpeech(voiceToSpeech)
-  }, [voiceToSpeech])
-  useEffect(() => {
-    dispatch(updateVoiceToSpeech(currentVoiceToSpeech))
-  }, [currentVoiceToSpeech])
 
   const renderVoices = () => {
     const menuItems = voices.map(voice => {
       let voiceLabel = voice.name + " (" + voice.lang + ")"
-      if (currentVoiceToSpeech === "") setCurrentVoiceToSpeech(voice.name)
       return (
         <MenuItem key={voice.name} value={voice.name}>
           {voiceLabel}
@@ -38,8 +30,8 @@ function Voices({ voices, voiceToSpeech, isLoading, updateVoiceToSpeech }) {
         <Select
           labelId="available-voices"
           name="voice"
-          value={currentVoiceToSpeech}
-          onChange={e => setCurrentVoiceToSpeech(e.target.value)}
+          value={voiceToSpeech}
+          onChange={e => dispatch(updateVoiceToSpeech(e.target.value))}
           label="Available voices"
         >
           {menuItems}

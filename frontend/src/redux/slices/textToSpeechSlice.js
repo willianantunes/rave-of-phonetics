@@ -27,7 +27,7 @@ export const textToSpeechSlice = createSlice({
     receivedVoicesWereAnalysed: {
       reducer(state, action) {
         state.filteredVoices = action.payload
-        state.voiceToSpeech = ""
+        state.voiceToSpeech = state.filteredVoices.length > 0 ? state.filteredVoices[0].name : ""
         state.isLoading = false
       },
       prepare(filteredSpeechSynthesisVoices) {

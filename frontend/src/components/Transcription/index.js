@@ -61,8 +61,6 @@ export default function Transcription(props) {
     setAnchorWhenLinkIsCopied(event.currentTarget)
   }
 
-  console.log("Did again!")
-
   return (
     <S.CustomCard>
       <CardContent>
