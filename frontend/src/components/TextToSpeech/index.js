@@ -17,14 +17,10 @@ export default function TextToSpeech() {
   // Infrastructure
   const dispatch = useDispatch()
   // Redux things
-  const { loopSpeechAudio, voices, filteredVoices, isLoading, voiceToSpeech, pitch, rate } = useSelector(
+  const { loopSpeechAudio, voices, filteredVoices, isLoading, voiceToSpeech, pitch, rate, voicesWereLoadedOnce } = useSelector(
     state => state.textToSpeech
   )
   const { chosenLanguage, text } = useSelector(state => state.transcription)
-  const handleChange = (hook, evt) => {
-    const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
-    dispatch(hook(value))
-  }
   // Services
   const webSpeechAPI = useRef(null)
   // Effects
@@ -42,7 +38,7 @@ export default function TextToSpeech() {
   }, [])
   useEffect(() => {
     dispatch(analyseVoices(voices, chosenLanguage))
-  }, [chosenLanguage])
+  }, [voicesWereLoadedOnce, chosenLanguage])
   // Events
   const speakWhatIsConfigured = () => {
     if (buttonValue === "Play") {
@@ -50,6 +46,10 @@ export default function TextToSpeech() {
     } else {
       webSpeechAPI.current.stopSpeakingImmediately()
     }
+  }
+  const handleChange = (hook, evt) => {
+    const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
+    dispatch(hook(value))
   }
   // Memoized things
   const delayedSpeakWhatIsConfigured = useCallback(

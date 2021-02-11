@@ -40,7 +40,9 @@ export default function Transcription(props) {
       setCurrentText(textQueryString)
       dispatch(setText(textQueryString))
     }
-    if (languageQueryString) dispatch(setChosenLanguage(languageQueryString))
+    if (languageQueryString) {
+      dispatch(setChosenLanguage(languageQueryString))
+    }
     if (withStressQueryString) dispatch(setWithStress(withStressQueryString))
   }, [])
   // Events

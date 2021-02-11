@@ -8,6 +8,7 @@ const initialState = {
   filteredVoices: [],
   voiceToSpeech: "",
   isLoading: false,
+  voicesWereLoadedOnce: false,
 }
 
 export const textToSpeechSlice = createSlice({
@@ -26,13 +27,17 @@ export const textToSpeechSlice = createSlice({
     },
     receivedVoicesWereAnalysed: {
       reducer(state, action) {
-        state.filteredVoices = action.payload
-        state.voiceToSpeech = state.filteredVoices.length > 0 ? state.filteredVoices[0].name : ""
+        state.filteredVoices = action.payload.changedVoices
+        state.voiceToSpeech = action.payload.voiceToSpeech
         state.isLoading = false
+        if (state.voicesWereLoadedOnce === false) {
+          state.voicesWereLoadedOnce = action.payload.changedVoices.length > 0
+        }
       },
       prepare(filteredSpeechSynthesisVoices) {
         const changedVoices = filteredSpeechSynthesisVoices.map(voice => ({ lang: voice.lang, name: voice.name }))
-        return { payload: changedVoices }
+        const voiceToSpeech = changedVoices.length > 0 ? changedVoices[0].name : ""
+        return { payload: { changedVoices, voiceToSpeech } }
       },
     },
     setRate: (state, action) => {
@@ -62,12 +67,15 @@ export const {
 export default textToSpeechSlice.reducer
 
 export const analyseVoices = (voices, chosenLanguage) => async dispatch => {
-  dispatch(analysingReceivedVoices(voices))
-  const filteredVoices = voices.filter(voice => {
-    const language = voice.lang.toLowerCase()
-    const [languageTag] = chosenLanguage.split("-")
-    const fallBackOption = `${languageTag}-${languageTag}`
-    return language === chosenLanguage || language === languageTag || language === fallBackOption
-  })
-  dispatch(receivedVoicesWereAnalysed(filteredVoices))
+  if (voices.length !== 0) {
+    console.log("Your chosen language: " + chosenLanguage)
+    dispatch(analysingReceivedVoices(voices))
+    const filteredVoices = voices.filter(voice => {
+      const language = voice.lang.toLowerCase()
+      const [languageTag] = chosenLanguage.split("-")
+      const fallBackOption = `${languageTag}-${languageTag}`
+      return language === chosenLanguage || language === languageTag || language === fallBackOption
+    })
+    dispatch(receivedVoicesWereAnalysed(filteredVoices))
+  }
 }
