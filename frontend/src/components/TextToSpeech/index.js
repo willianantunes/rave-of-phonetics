@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import * as S from "./styled"
@@ -8,6 +8,7 @@ import { WebSpeechAPI } from "../../services/WebSpeechAPI"
 import { Play, Stop } from "styled-icons/boxicons-regular"
 import Voices from "../Voices"
 import { analyseVoices, setLoopSpeechAudio, setPitch, setRate, setVoiceToSpeech } from "../../redux/slices/textToSpeechSlice"
+import { debounce } from "lodash"
 
 export default function TextToSpeech() {
   // States
@@ -43,20 +44,24 @@ export default function TextToSpeech() {
     dispatch(analyseVoices(voices, chosenLanguage))
   }, [chosenLanguage])
   // Events
-  const speakWhatIsConfigured = ev => {
-    // TODO
+  const speakWhatIsConfigured = () => {
     if (buttonValue === "Play") {
       webSpeechAPI.current.speechWith(text, chosenLanguage, pitch, rate, voiceToSpeech, loopSpeechAudio)
     } else {
       webSpeechAPI.current.stopSpeakingImmediately()
     }
   }
+  // Memoized things
+  const delayedSpeakWhatIsConfigured = useCallback(
+    debounce(() => speakWhatIsConfigured(), 500),
+    [text, chosenLanguage, pitch, rate, voiceToSpeech, loopSpeechAudio, buttonValue]
+  )
 
   return (
     <S.CustomCard>
       <CardContent>
         <FormGroup row>
-          <S.PlayOrStopButton onClick={speakWhatIsConfigured} endIcon={buttonIcon}>
+          <S.PlayOrStopButton onClick={delayedSpeakWhatIsConfigured} endIcon={buttonIcon}>
             {buttonValue}
           </S.PlayOrStopButton>
         </FormGroup>

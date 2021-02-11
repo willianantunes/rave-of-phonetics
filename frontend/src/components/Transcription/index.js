@@ -29,6 +29,10 @@ export default function Transcription(props) {
     debounce(value => dispatch(setText(value)), 500),
     []
   )
+  const delayedTranscribeAction = useCallback(
+    debounce((text, chosenLanguage, withStress) => dispatch(transcriptionFromText(text, chosenLanguage, withStress)), 500),
+    []
+  )
   // Effects
   useEffect(() => {
     // It will set the fields through the query string params, if the exist
@@ -50,7 +54,7 @@ export default function Transcription(props) {
     delayedSetText(value)
   }
   const transcribeGivenText = () => {
-    dispatch(transcriptionFromText(text, chosenLanguage, withStress))
+    delayedTranscribeAction(text, chosenLanguage, withStress)
   }
   const copyGeneratedLinkToClipboard = event => {
     const encodedQuery = encodeQueryParams(
