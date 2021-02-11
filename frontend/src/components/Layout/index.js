@@ -3,6 +3,7 @@ import * as S from "./styled"
 import Header from "../Header"
 import Footer from "../Footer"
 import PropTypes from "prop-types"
+import { SnackbarNotes } from "../SnackbarNotes"
 
 const Layout = ({ children }) => {
   return (
@@ -10,6 +11,7 @@ const Layout = ({ children }) => {
       <Header />
       <S.Main>{children}</S.Main>
       {/*<Footer />*/}
+      <SnackbarNotes />
     </>
   )
 }

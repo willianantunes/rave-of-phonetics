@@ -9,6 +9,7 @@ import { Play, Stop } from "styled-icons/boxicons-regular"
 import Voices from "../Voices"
 import { analyseVoices, setLoopSpeechAudio, setPitch, setRate, setVoiceToSpeech } from "../../redux/slices/textToSpeechSlice"
 import { debounce } from "lodash"
+import { toggleMessage } from "../../redux/slices/messageBoardSlice"
 
 export default function TextToSpeech() {
   // States
@@ -41,10 +42,14 @@ export default function TextToSpeech() {
   }, [voicesWereLoadedOnce, chosenLanguage])
   // Events
   const speakWhatIsConfigured = () => {
-    if (buttonValue === "Play") {
-      webSpeechAPI.current.speechWith(text, chosenLanguage, pitch, rate, voiceToSpeech, loopSpeechAudio)
+    if (text === "") {
+      dispatch(toggleMessage("Please enter something first"))
     } else {
-      webSpeechAPI.current.stopSpeakingImmediately()
+      if (buttonValue === "Play") {
+        webSpeechAPI.current.speechWith(text, chosenLanguage, pitch, rate, voiceToSpeech, loopSpeechAudio)
+      } else {
+        webSpeechAPI.current.stopSpeakingImmediately()
+      }
     }
   }
   const handleChange = (hook, evt) => {
@@ -60,11 +65,12 @@ export default function TextToSpeech() {
   return (
     <S.CustomCard>
       <CardContent>
-        <FormGroup row>
+        <S.Title>Text to speech tool</S.Title>
+        <S.ActionsWrapper row>
           <S.PlayOrStopButton onClick={delayedSpeakWhatIsConfigured} endIcon={buttonIcon}>
             {buttonValue}
           </S.PlayOrStopButton>
-        </FormGroup>
+        </S.ActionsWrapper>
         <FormGroup row>
           <FormControlLabel
             control={<Switch checked={loopSpeechAudio} onChange={e => handleChange(setLoopSpeechAudio, e)} name="loopSpeech" />}

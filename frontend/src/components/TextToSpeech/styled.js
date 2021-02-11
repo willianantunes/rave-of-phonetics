@@ -3,7 +3,17 @@ import Card from "@material-ui/core/Card"
 import Typography from "@material-ui/core/Typography"
 import styled from "styled-components"
 import { Button } from "gatsby-theme-material-ui"
-import { FormControl, LinearProgress } from "@material-ui/core"
+import { FormControl, FormGroup, LinearProgress } from "@material-ui/core"
+
+export const Title = styled(Typography).attrs({
+  component: "h2",
+  variant: "h5",
+  align: "center",
+})``
+
+export const ActionsWrapper = styled(FormGroup)`
+  margin-top: 15px;
+`
 
 export const CustomCard = styled(Card)`
   & .MuiFormGroup-row {
