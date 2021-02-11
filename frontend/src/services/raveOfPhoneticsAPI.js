@@ -1,4 +1,4 @@
-import { sleep } from "../components/utils/general"
+import { sleep } from "../utils/general"
 import axios from "axios"
 
 // TODO

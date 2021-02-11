@@ -3,12 +3,37 @@ import Card from "@material-ui/core/Card"
 import Typography from "@material-ui/core/Typography"
 import styled from "styled-components"
 import { Button } from "gatsby-theme-material-ui"
-import { Box, LinearProgress } from "@material-ui/core"
+import { Box, FormGroup, LinearProgress } from "@material-ui/core"
+import { LinkAlt, Send } from "styled-icons/boxicons-regular"
 
-export const TranscribeButton = styled(Button)`
+export const ActionsWrapper = styled(FormGroup)`
+  gap: 10px;
+`
+
+export const TranscribeButton = styled(Button).attrs({
+  variant: "contained",
+  color: "primary",
+  endIcon: <Send />,
+  size: "small",
+})`
   & svg {
     width: 25px;
   }
+`
+
+export const GenerateLink = styled(Button).attrs({
+  variant: "contained",
+  color: "primary",
+  endIcon: <LinkAlt />,
+  size: "small",
+})`
+  & svg {
+    width: 25px;
+  }
+`
+
+export const MessageLinkCopied = styled(Typography)`
+  padding: ${props => props.theme.spacing(2)}px;
 `
 
 export const CustomCard = styled(Card)`

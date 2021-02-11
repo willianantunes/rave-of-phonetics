@@ -1,42 +1,67 @@
-import React, { useEffect } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import * as S from "./styled"
-import { FormControl, FormControlLabel, FormGroup, Radio, RadioGroup, Switch, TextField } from "@material-ui/core"
-import { Send } from "styled-icons/boxicons-solid"
+import { debounce } from "lodash"
+import { FormControl, FormControlLabel, FormGroup, Popover, Radio, RadioGroup, Switch, TextField } from "@material-ui/core"
 import { useDispatch, useSelector } from "react-redux"
 import { setChosenLanguage, setText, setWithStress, transcriptionFromText } from "../../redux/slices/transcriptionSlice"
+import { encodeQueryParams } from "serialize-query-params"
 import { useQueryParam, StringParam, BooleanParam } from "use-query-params"
+import { copyToClipboard } from "../../utils/general"
+import { stringify } from "query-string"
+import { useLocation } from "@reach/router"
 
-export default function Transcription() {
+export default function Transcription(props) {
   // Infrastructure
   const dispatch = useDispatch()
+  const { origin } = useLocation()
   // States
-  // TODO: Change useQueryParam and use it, If and only if the user wants to share what he's doing
-  const [textQueryString, setQueryStringText] = useQueryParam("text", StringParam)
-  const [languageQueryString, setQueryStringLanguage] = useQueryParam("language", StringParam)
-  const [withStressQueryString, setQueryStringWithStress] = useQueryParam("with-stress", BooleanParam)
+  const [textQueryString] = useQueryParam("text", StringParam)
+  const [languageQueryString] = useQueryParam("language", StringParam)
+  const [withStressQueryString] = useQueryParam("with-stress", BooleanParam)
+  const [currentText, setCurrentText] = useState(text)
+  const [anchorWhenLinkIsCopied, setAnchorWhenLinkIsCopied] = React.useState(null)
   // Redux things
   const { text, chosenLanguage, withStress, isLoading, transcribedResult } = useSelector(state => state.transcription)
+  // Memoized things
+  const delayedSetText = useCallback(
+    debounce(value => dispatch(setText(value)), 500),
+    []
+  )
+  // Effects
+  useEffect(() => {
+    // It will set the fields through the query string params, if the exist
+    if (textQueryString) {
+      setCurrentText(textQueryString)
+      dispatch(setText(textQueryString))
+    }
+    if (languageQueryString) dispatch(setChosenLanguage(languageQueryString))
+    if (withStressQueryString) dispatch(setWithStress(withStressQueryString))
+  }, [])
   // Events
-  const handleChange = (hook, evt) => {
+  const handleChangeForAlmostAll = (hook, evt) => {
     const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
     dispatch(hook(value))
+  }
+  const handleTextChange = e => {
+    const value = e.target.value
+    setCurrentText(value)
+    delayedSetText(value)
   }
   const transcribeGivenText = () => {
     dispatch(transcriptionFromText(text, chosenLanguage, withStress))
   }
-  // Effects
-  useEffect(() => {
-    dispatch(setText(textQueryString))
-    if (languageQueryString) dispatch(setChosenLanguage(languageQueryString))
-    if (withStressQueryString) dispatch(setWithStress(withStressQueryString))
-  }, [])
-  useEffect(() => {
-    setQueryStringText(text)
-    setQueryStringLanguage(chosenLanguage)
-    setQueryStringWithStress(withStress)
-  }, [text, chosenLanguage, withStress])
+  const copyGeneratedLinkToClipboard = event => {
+    const encodedQuery = encodeQueryParams(
+      { text: StringParam, language: StringParam, "with-stress": BooleanParam },
+      { text: text, language: chosenLanguage, "with-stress": withStress }
+    )
+    copyToClipboard(`${origin}?${stringify(encodedQuery)}`)
+    setAnchorWhenLinkIsCopied(event.currentTarget)
+  }
+
+  console.log("Did again!")
 
   return (
     <S.CustomCard>
@@ -53,8 +78,8 @@ export default function Transcription() {
             label="Type the words here"
             multiline
             rowsMax={4}
-            value={text}
-            onChange={e => handleChange(setText, e)}
+            value={currentText}
+            onChange={handleTextChange}
             name="textToBeTranscribed"
           />
         </FormControl>
@@ -64,7 +89,7 @@ export default function Transcription() {
             aria-label="language"
             name="chosenLanguage"
             value={chosenLanguage}
-            onChange={e => handleChange(setChosenLanguage, e)}
+            onChange={e => handleChangeForAlmostAll(setChosenLanguage, e)}
           >
             <FormControlLabel value="en-us" control={<Radio />} label="American" />
             <FormControlLabel value="en-gb" control={<Radio />} label="British" />
@@ -75,15 +100,32 @@ export default function Transcription() {
         </FormControl>
         <FormGroup row>
           <FormControlLabel
-            control={<Switch checked={withStress} onChange={e => handleChange(setWithStress, e)} name="withStress" />}
+            control={
+              <Switch checked={withStress} onChange={e => handleChangeForAlmostAll(setWithStress, e)} name="withStress" />
+            }
             label="With stress"
           />
         </FormGroup>
-        <FormGroup row>
-          <S.TranscribeButton variant="contained" color="primary" onClick={transcribeGivenText} endIcon={<Send />}>
-            Transcribe
-          </S.TranscribeButton>
-        </FormGroup>
+        <S.ActionsWrapper row>
+          <S.TranscribeButton onClick={transcribeGivenText}>Transcribe</S.TranscribeButton>
+          <S.GenerateLink onClick={copyGeneratedLinkToClipboard}>Copy link</S.GenerateLink>
+          <Popover
+            id={Boolean(anchorWhenLinkIsCopied) ? "simple-popover" : undefined}
+            open={Boolean(anchorWhenLinkIsCopied)}
+            anchorEl={anchorWhenLinkIsCopied}
+            onClose={() => setAnchorWhenLinkIsCopied(null)}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "center",
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "center",
+            }}
+          >
+            <S.MessageLinkCopied>Copied!</S.MessageLinkCopied>
+          </Popover>
+        </S.ActionsWrapper>
         {isLoading && <S.LoadingTranscription />}
         {!isLoading && transcribedResult && (
           <S.TranscriptionSection>
