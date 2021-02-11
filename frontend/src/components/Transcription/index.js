@@ -101,7 +101,7 @@ export default function Transcription(props) {
               label="Type the words here"
               multiline
               rowsMax={4}
-              value={currentText}
+              value={currentText || ""}
               autoFocus
               onChange={handleTextChange}
               name="textToBeTranscribed"
