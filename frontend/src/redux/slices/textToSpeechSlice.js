@@ -68,7 +68,6 @@ export default textToSpeechSlice.reducer
 
 export const analyseVoices = (voices, chosenLanguage) => async dispatch => {
   if (voices.length !== 0) {
-    console.log("Your chosen language: " + chosenLanguage)
     dispatch(analysingReceivedVoices(voices))
     const filteredVoices = voices.filter(voice => {
       const language = voice.lang.toLowerCase()

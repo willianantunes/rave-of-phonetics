@@ -6,6 +6,7 @@ import {
   deleteAllTranscriptionHistory,
   loadTranscriptionHistory,
 } from "../../redux/slices/historySlice"
+import { loadTranscriptionFromDatabase } from "../../redux/slices/transcriptionSlice"
 
 const columns = [
   { field: "id", headerName: "ID", hide: true },
@@ -48,13 +49,15 @@ export default function History() {
   const [rows, setRows] = useState([])
   // Redux things
   const { transcriptions } = useSelector(state => state.history)
-  const { text, transcribedResult, chosenLanguage, withStress } = useSelector(state => state.transcription)
+  const { text, transcribedResult, chosenLanguage, withStress, transcriptionUnsaved } = useSelector(
+    state => state.transcription
+  )
   // Effects
   useEffect(() => {
-    if (transcribedResult) {
-      dispatch(addTranscriptionDetails(transcribedResult.transcription, text, chosenLanguage, withStress))
+    if (transcriptionUnsaved) {
+      dispatch(addTranscriptionDetails(transcribedResult, text, chosenLanguage, withStress))
     }
-  }, [transcribedResult])
+  }, [transcriptionUnsaved])
   useEffect(() => {
     const rows = transcriptions.map(transcriptionDetails => {
       return {
@@ -78,7 +81,8 @@ export default function History() {
     }
   }
   const handleRowClick = params => {
-    console.log(params.row.id)
+    dispatch(loadTranscriptionFromDatabase(params.row.id))
+    window.scroll({ top: 0, left: 0, behavior: "smooth" })
   }
 
   return (

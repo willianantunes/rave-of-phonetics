@@ -4,7 +4,7 @@ import Typography from "@material-ui/core/Typography"
 import styled from "styled-components"
 import { Button } from "gatsby-theme-material-ui"
 import { Box, FormGroup, LinearProgress } from "@material-ui/core"
-import { LinkAlt, Send } from "styled-icons/boxicons-regular"
+import { LinkAlt, Send, CopyAlt } from "styled-icons/boxicons-regular"
 
 export const ActionsWrapper = styled(FormGroup)`
   gap: 10px;
@@ -26,6 +26,17 @@ export const GenerateLink = styled(Button).attrs({
   variant: "contained",
   color: "primary",
   endIcon: <LinkAlt />,
+  size: "small",
+})`
+  & svg {
+    width: 25px;
+  }
+`
+
+export const CopyTranscription = styled(Button).attrs({
+  variant: "contained",
+  color: "primary",
+  endIcon: <CopyAlt />,
   size: "small",
 })`
   & svg {

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { deleteAll, findAll, saveOrUpdate } from "../../domains/transcriptionDetailsDao"
 import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
+import { setPhones, transcriptionSaved } from "./transcriptionSlice"
 
 const initialState = {
   transcriptions: [],
@@ -32,13 +33,14 @@ export const loadTranscriptionHistory = () => async dispatch => {
 }
 
 export const addTranscriptionDetails = (transcriptionDetails, text, chosenLanguage, withStress) => async dispatch => {
-  const listOfPhones = transcriptionDetails.map(transcriptionWord => transcriptionWord.phone)
+  const listOfPhones = transcriptionDetails.transcription.map(transcriptionWord => transcriptionWord.phone)
   const phones = listOfPhones.reduce((accumulator, currentValue) => accumulator + " " + currentValue)
 
   const toBePersisted = new TranscriptionDetails(null, text, chosenLanguage, phones, withStress, transcriptionDetails)
   const persistedTranscriptionDetails = await saveOrUpdate(toBePersisted)
 
   dispatch(addNewTranscriptionDetails(persistedTranscriptionDetails))
+  dispatch(transcriptionSaved(phones))
 }
 
 export const deleteAllTranscriptionHistory = () => async dispatch => {

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { transcribeText } from "../../services/raveOfPhoneticsAPI"
+import { findById } from "../../domains/transcriptionDetailsDao"
 
 const initialState = {
   text: "",
@@ -8,6 +9,8 @@ const initialState = {
   isLoading: false,
   transcribedResult: null,
   isError: false,
+  transcriptionUnsaved: false,
+  phones: "Did you tried to transcribe something first?",
 }
 
 export const transcriptionSlice = createSlice({
@@ -37,6 +40,23 @@ export const transcriptionSlice = createSlice({
       state.isError = true
       state.transcribedResult = null
     },
+    loadedTranscription: (state, action) => {
+      const { text, withStress, chosenLanguage, transcribedResult } = action.payload
+      state.text = text
+      state.withStress = withStress
+      state.chosenLanguage = chosenLanguage
+      state.transcribedResult = transcribedResult
+    },
+    transcriptionSaved: (state, action) => {
+      state.transcriptionUnsaved = false
+      state.phones = action.payload
+    },
+    transcriptionToBeSaved: state => {
+      state.transcriptionUnsaved = true
+    },
+    setPhones: (state, action) => {
+      state.phones = action.payload
+    },
   },
 })
 
@@ -47,6 +67,10 @@ export const {
   analysingText,
   textWasTranscribed,
   errorCaughtDuringTranscription,
+  loadedTranscription,
+  transcriptionSaved,
+  transcriptionToBeSaved,
+  setPhones,
 } = transcriptionSlice.actions
 
 export default transcriptionSlice.reducer
@@ -57,8 +81,24 @@ export const transcriptionFromText = (text, chosenLanguage, withStress) => async
   try {
     const result = await transcribeText(text, chosenLanguage, withStress)
     dispatch(textWasTranscribed(result))
+    dispatch(transcriptionToBeSaved())
   } catch (e) {
     // TODO: Deal with many different errors instead of doing this
     dispatch(errorCaughtDuringTranscription())
   }
+}
+
+export const loadTranscriptionFromDatabase = id => async dispatch => {
+  const persistedTranscriptionDetails = await findById(id)
+  const payload = {
+    text: persistedTranscriptionDetails.text,
+    withStress: persistedTranscriptionDetails.withStress,
+    chosenLanguage: persistedTranscriptionDetails.language,
+    transcribedResult: persistedTranscriptionDetails.transcriptionSetup,
+  }
+  dispatch(loadedTranscription(payload))
+  const transcription = persistedTranscriptionDetails.transcriptionSetup.transcription
+  const listOfPhones = transcription.map(transcriptionWord => transcriptionWord.phone)
+  const phones = listOfPhones.reduce((accumulator, currentValue) => accumulator + " " + currentValue)
+  dispatch(setPhones(phones))
 }

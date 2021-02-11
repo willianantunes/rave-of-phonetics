@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import * as S from "./styled"
@@ -21,9 +21,13 @@ export default function Transcription(props) {
   const [languageQueryString] = useQueryParam("language", StringParam)
   const [withStressQueryString] = useQueryParam("with-stress", BooleanParam)
   const [currentText, setCurrentText] = useState(text)
-  const [anchorWhenLinkIsCopied, setAnchorWhenLinkIsCopied] = React.useState(null)
+  const [anchorWhenSomethingIsCopied, setAnchorWhenSomethingIsCopied] = React.useState(null)
+  // Refs
+  const textAreaReference = useRef(null)
   // Redux things
-  const { text, chosenLanguage, withStress, isLoading, transcribedResult, isError } = useSelector(state => state.transcription)
+  const { text, chosenLanguage, withStress, isLoading, transcribedResult, isError, phones } = useSelector(
+    state => state.transcription
+  )
   // Memoized things
   const delayedSetText = useCallback(
     debounce(value => dispatch(setText(value)), 500),
@@ -45,6 +49,11 @@ export default function Transcription(props) {
     }
     if (withStressQueryString) dispatch(setWithStress(withStressQueryString))
   }, [])
+  useEffect(() => {
+    // If an user clicks on the history table, then text field must be updated
+    setCurrentText(text)
+    textAreaReference.current.focus()
+  }, [transcribedResult])
   // Events
   const handleChangeForAlmostAll = (hook, evt) => {
     const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
@@ -59,13 +68,17 @@ export default function Transcription(props) {
     event.preventDefault()
     delayedTranscribeAction(text, chosenLanguage, withStress)
   }
-  const copyGeneratedLinkToClipboard = event => {
+  const copyLinkToClipboard = event => {
     const encodedQuery = encodeQueryParams(
       { text: StringParam, language: StringParam, "with-stress": BooleanParam },
       { text: text, language: chosenLanguage, "with-stress": withStress }
     )
     copyToClipboard(`${origin}?${stringify(encodedQuery)}`)
-    setAnchorWhenLinkIsCopied(event.currentTarget)
+    setAnchorWhenSomethingIsCopied(event.currentTarget)
+  }
+  const copyTranscriptionToClipboard = event => {
+    copyToClipboard(phones)
+    setAnchorWhenSomethingIsCopied(event.currentTarget)
   }
 
   return (
@@ -80,11 +93,13 @@ export default function Transcription(props) {
         <form onSubmit={transcribeGivenText}>
           <FormControl component="fieldset" fullWidth={true}>
             <TextField
+              inputRef={textAreaReference}
               id="standard-multiline-flexible"
               label="Type the words here"
               multiline
               rowsMax={4}
               value={currentText}
+              autoFocus
               onChange={handleTextChange}
               name="textToBeTranscribed"
               required
@@ -115,12 +130,13 @@ export default function Transcription(props) {
           </FormGroup>
           <S.ActionsWrapper row>
             <S.TranscribeButton>Transcribe</S.TranscribeButton>
-            <S.GenerateLink onClick={copyGeneratedLinkToClipboard}>Copy link</S.GenerateLink>
+            <S.GenerateLink onClick={copyLinkToClipboard}>Copy link</S.GenerateLink>
+            <S.CopyTranscription onClick={copyTranscriptionToClipboard}>Copy transcription</S.CopyTranscription>
             <Popover
-              id={Boolean(anchorWhenLinkIsCopied) ? "simple-popover" : undefined}
-              open={Boolean(anchorWhenLinkIsCopied)}
-              anchorEl={anchorWhenLinkIsCopied}
-              onClose={() => setAnchorWhenLinkIsCopied(null)}
+              id={Boolean(anchorWhenSomethingIsCopied) ? "simple-popover" : undefined}
+              open={Boolean(anchorWhenSomethingIsCopied)}
+              anchorEl={anchorWhenSomethingIsCopied}
+              onClose={() => setAnchorWhenSomethingIsCopied(null)}
               anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "center",
