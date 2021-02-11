@@ -23,7 +23,7 @@ export default function Transcription(props) {
   const [currentText, setCurrentText] = useState(text)
   const [anchorWhenLinkIsCopied, setAnchorWhenLinkIsCopied] = React.useState(null)
   // Redux things
-  const { text, chosenLanguage, withStress, isLoading, transcribedResult } = useSelector(state => state.transcription)
+  const { text, chosenLanguage, withStress, isLoading, transcribedResult, isError } = useSelector(state => state.transcription)
   // Memoized things
   const delayedSetText = useCallback(
     debounce(value => dispatch(setText(value)), 500),
@@ -55,7 +55,8 @@ export default function Transcription(props) {
     setCurrentText(value)
     delayedSetText(value)
   }
-  const transcribeGivenText = () => {
+  const transcribeGivenText = event => {
+    event.preventDefault()
     delayedTranscribeAction(text, chosenLanguage, withStress)
   }
   const copyGeneratedLinkToClipboard = event => {
@@ -76,71 +77,79 @@ export default function Transcription(props) {
         <S.HelloMyFriendTypography color="textSecondary" align="center">
           Hello my friend, stay awhile and... Discover phones! 🔎
         </S.HelloMyFriendTypography>
-        <FormControl component="fieldset" fullWidth={true}>
-          <TextField
-            id="standard-multiline-flexible"
-            label="Type the words here"
-            multiline
-            rowsMax={4}
-            value={currentText}
-            onChange={handleTextChange}
-            name="textToBeTranscribed"
-          />
-        </FormControl>
-        <FormControl component="fieldset" fullWidth={true}>
-          <RadioGroup
-            row
-            aria-label="language"
-            name="chosenLanguage"
-            value={chosenLanguage}
-            onChange={e => handleChangeForAlmostAll(setChosenLanguage, e)}
-          >
-            <FormControlLabel value="en-us" control={<Radio />} label="American" />
-            <FormControlLabel value="en-gb" control={<Radio />} label="British" />
-            <FormControlLabel value="fr-fr" control={<Radio />} label="French" />
-            <FormControlLabel value="es" control={<Radio />} label="Spanish" />
-            <FormControlLabel value="it" control={<Radio />} label="Italian" />
-          </RadioGroup>
-        </FormControl>
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Switch checked={withStress} onChange={e => handleChangeForAlmostAll(setWithStress, e)} name="withStress" />
-            }
-            label="With stress"
-          />
-        </FormGroup>
-        <S.ActionsWrapper row>
-          <S.TranscribeButton onClick={transcribeGivenText}>Transcribe</S.TranscribeButton>
-          <S.GenerateLink onClick={copyGeneratedLinkToClipboard}>Copy link</S.GenerateLink>
-          <Popover
-            id={Boolean(anchorWhenLinkIsCopied) ? "simple-popover" : undefined}
-            open={Boolean(anchorWhenLinkIsCopied)}
-            anchorEl={anchorWhenLinkIsCopied}
-            onClose={() => setAnchorWhenLinkIsCopied(null)}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "center",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "center",
-            }}
-          >
-            <S.MessageLinkCopied>Copied!</S.MessageLinkCopied>
-          </Popover>
-        </S.ActionsWrapper>
-        {isLoading && <S.LoadingTranscription />}
-        {!isLoading && transcribedResult && (
-          <S.TranscriptionSection>
-            {transcribedResult.transcription.map((transcribedWord, index) => (
-              <div key={index}>
-                <div>{transcribedWord.word}</div>
-                <div>{transcribedWord.phone}</div>
-              </div>
-            ))}
-          </S.TranscriptionSection>
-        )}
+        <form onSubmit={transcribeGivenText}>
+          <FormControl component="fieldset" fullWidth={true}>
+            <TextField
+              id="standard-multiline-flexible"
+              label="Type the words here"
+              multiline
+              rowsMax={4}
+              value={currentText}
+              onChange={handleTextChange}
+              name="textToBeTranscribed"
+              required
+            />
+          </FormControl>
+          <FormControl component="fieldset" fullWidth={true}>
+            <RadioGroup
+              row
+              aria-label="language"
+              name="chosenLanguage"
+              value={chosenLanguage}
+              onChange={e => handleChangeForAlmostAll(setChosenLanguage, e)}
+            >
+              <FormControlLabel value="en-us" control={<Radio />} label="American" />
+              <FormControlLabel value="en-gb" control={<Radio />} label="British" />
+              <FormControlLabel value="fr-fr" control={<Radio />} label="French" />
+              <FormControlLabel value="es" control={<Radio />} label="Spanish" />
+              <FormControlLabel value="it" control={<Radio />} label="Italian" />
+            </RadioGroup>
+          </FormControl>
+          <FormGroup row>
+            <FormControlLabel
+              control={
+                <Switch checked={withStress} onChange={e => handleChangeForAlmostAll(setWithStress, e)} name="withStress" />
+              }
+              label="With stress"
+            />
+          </FormGroup>
+          <S.ActionsWrapper row>
+            <S.TranscribeButton>Transcribe</S.TranscribeButton>
+            <S.GenerateLink onClick={copyGeneratedLinkToClipboard}>Copy link</S.GenerateLink>
+            <Popover
+              id={Boolean(anchorWhenLinkIsCopied) ? "simple-popover" : undefined}
+              open={Boolean(anchorWhenLinkIsCopied)}
+              anchorEl={anchorWhenLinkIsCopied}
+              onClose={() => setAnchorWhenLinkIsCopied(null)}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+            >
+              <S.MessageLinkCopied>Copied!</S.MessageLinkCopied>
+            </Popover>
+          </S.ActionsWrapper>
+          {isLoading && <S.LoadingTranscription />}
+          {!isLoading && isError && (
+            <S.TranscriptionSection>
+              <p>An error was caught🤯! Time to see logs and stack-trace. I hope I'll get back soon 😶</p>
+            </S.TranscriptionSection>
+          )}
+          {!isLoading && transcribedResult && (
+            <S.TranscriptionSection>
+              {transcribedResult.transcription.map((transcribedWord, index) => (
+                <div key={index}>
+                  <div>{transcribedWord.word}</div>
+                  <div>{transcribedWord.phone}</div>
+                </div>
+              ))}
+            </S.TranscriptionSection>
+          )}
+        </form>
       </CardContent>
     </S.CustomCard>
   )

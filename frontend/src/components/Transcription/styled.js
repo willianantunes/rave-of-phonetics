@@ -15,6 +15,7 @@ export const TranscribeButton = styled(Button).attrs({
   color: "primary",
   endIcon: <Send />,
   size: "small",
+  type: "submit",
 })`
   & svg {
     width: 25px;
