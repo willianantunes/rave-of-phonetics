@@ -11,6 +11,7 @@ const initialState = {
   isError: false,
   transcriptionUnsaved: false,
   phones: "Have you tried to transcribe something first?",
+  counterOfLoadedTranscription: 0,
 }
 
 export const transcriptionSlice = createSlice({
@@ -46,6 +47,7 @@ export const transcriptionSlice = createSlice({
       state.withStress = withStress
       state.chosenLanguage = chosenLanguage
       state.transcribedResult = transcribedResult
+      state.counterOfLoadedTranscription++
     },
     transcriptionSaved: (state, action) => {
       state.transcriptionUnsaved = false

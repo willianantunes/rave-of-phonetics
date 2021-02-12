@@ -25,9 +25,16 @@ export default function Transcription(props) {
   // Refs
   const textAreaReference = useRef(null)
   // Redux things
-  const { text, chosenLanguage, withStress, isLoading, transcribedResult, isError, phones } = useSelector(
-    state => state.transcription
-  )
+  const {
+    text,
+    chosenLanguage,
+    withStress,
+    isLoading,
+    transcribedResult,
+    isError,
+    phones,
+    counterOfLoadedTranscription,
+  } = useSelector(state => state.transcription)
   // Memoized things
   const delayedSetText = useCallback(
     debounce(value => dispatch(setText(value)), 500),
@@ -50,13 +57,9 @@ export default function Transcription(props) {
     if (withStressQueryString) dispatch(setWithStress(withStressQueryString))
   }, [])
   useEffect(() => {
-    // If an user clicks on the history table, then text field must be updated
-    // TODO: Change to be like a state machine
-    if (transcribedResult) {
-      setCurrentText(text)
-      textAreaReference.current.focus()
-    }
-  }, [transcribedResult])
+    setCurrentText(text)
+    textAreaReference.current.focus()
+  }, [counterOfLoadedTranscription])
   // Events
   const handleChangeForAlmostAll = (hook, evt) => {
     const value = evt.target.type === "checkbox" ? evt.target.checked : evt.target.value
