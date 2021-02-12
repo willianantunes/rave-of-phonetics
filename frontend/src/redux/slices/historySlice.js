@@ -15,7 +15,7 @@ export const historySlice = createSlice({
       state.transcriptions.push(action.payload)
     },
     loadAllTranscriptionDetails: (state, action) => {
-      state.transcriptions.push(...action.payload)
+      state.transcriptions = action.payload
     },
     eraseTranscriptionDetails: state => {
       state.transcriptions.length = 0
