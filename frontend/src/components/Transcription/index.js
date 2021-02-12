@@ -91,7 +91,7 @@ export default function Transcription(props) {
     <S.CustomCard>
       <CardContent>
         <Typography component="h1" variant="h5" align="center">
-          Your IPA transcription tool
+          IPA transcription tool
         </Typography>
         <S.HelloMyFriendTypography color="textSecondary" align="center">
           Hello my friend, stay awhile and... Discover phones! 🔎

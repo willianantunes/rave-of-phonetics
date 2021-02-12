@@ -1,16 +1,24 @@
 import React from "react"
 import { AppBar } from "@material-ui/core"
 import * as S from "./styled"
+import * as R from "../Responsive"
 import { Button, Link } from "gatsby-theme-material-ui"
 
 const Header = () => {
   return (
-    <AppBar position="static">
+    <S.CustomAppBar>
       <S.CustomToolbar variant={"dense"}>
-        <S.CustomTypography variant="h6">
-          <Link to="/" color="inherit">
-            Rave of Phonetics
-          </Link>
+        <S.CustomTypography>
+          <R.LessThanTablet>
+            <Link to="/" color="inherit">
+              RoP
+            </Link>
+          </R.LessThanTablet>
+          <R.GreaterThanTablet>
+            <Link to="/" color="inherit">
+              Rave of Phonetics
+            </Link>
+          </R.GreaterThanTablet>
         </S.CustomTypography>
         <Button color="inherit" to="/blog">
           Blog
@@ -22,7 +30,7 @@ const Header = () => {
           Changelog
         </Button>
       </S.CustomToolbar>
-    </AppBar>
+    </S.CustomAppBar>
   )
 }
 

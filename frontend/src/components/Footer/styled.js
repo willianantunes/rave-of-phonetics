@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import { FacebookCircle, InstagramAlt, Twitter } from "@styled-icons/boxicons-logos"
 import { Grid } from "@material-ui/core"
-import { IconButton } from "gatsby-theme-material-ui"
 
 export const FooterWrapper = styled(Grid).attrs(props => ({
   component: "footer",
@@ -12,6 +11,7 @@ export const FooterWrapper = styled(Grid).attrs(props => ({
   position: fixed;
   bottom: 0;
   color: #fff;
+  z-index: 500;
   ${props => props.theme.breakpoints.up("mobile")} {
     //background-color: yellow;
     //height: 150px;

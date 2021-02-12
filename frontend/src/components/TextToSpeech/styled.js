@@ -12,7 +12,7 @@ export const Title = styled(Typography).attrs({
 })``
 
 export const ActionsWrapper = styled(FormGroup)`
-  margin-top: 15px;
+  margin-top: 5px;
 `
 
 export const CustomCard = styled(Card)`
@@ -24,6 +24,7 @@ export const CustomCard = styled(Card)`
 export const PlayOrStopButton = styled(Button).attrs({
   variant: "contained",
   color: "primary",
+  size: "small",
 })`
   & svg {
     width: 25px;
