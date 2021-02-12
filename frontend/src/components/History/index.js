@@ -100,6 +100,7 @@ export default function History() {
           columns={columns}
           pageSize={5}
           onRowClick={handleRowClick}
+          autoHeight={true}
         />
       </S.DataGridWrapper>
       <S.OptionsWrapper>

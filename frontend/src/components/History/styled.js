@@ -7,7 +7,6 @@ import { Button } from "gatsby-theme-material-ui"
 import { DeleteForever } from "styled-icons/material"
 
 export const MainWrapper = styled(Box)`
-  height: 400px;
   width: 100%;
   margin-top: 25px;
 
@@ -59,6 +58,7 @@ export const DeleteAllButton = styled(Button).attrs(props => ({
 `
 
 export const CustomGridOverlay = styled(GridOverlay)`
+  padding: 15px 0px 0px 0px;
   flex-direction: column;
   & .ant-empty-img-1 {
     fill: ${props => (props.theme.palette.type === "light" ? "#aeb8c2" : "#262626")};

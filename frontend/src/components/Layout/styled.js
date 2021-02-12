@@ -10,7 +10,7 @@ export const Main = styled(Box)`
   //gap: 20px;
   //display: flex;
   // Because of the fixed footer
-  //padding-bottom: 80px;
+  padding-bottom: 80px;
   //height: auto;
 
   //position: relative;
