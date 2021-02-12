@@ -4,6 +4,7 @@ export class WebSpeechAPI {
     Object.assign(this, { _onVoicesChangedCallable, _hookWhenSpeaking, _hookWhenFinishedSpeech })
     this._speechSynthesis = window.speechSynthesis
     this.voices = []
+    this.configuredOnce = false
 
     this._configureSpeechService()
     // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis/onvoiceschanged
@@ -24,8 +25,9 @@ export class WebSpeechAPI {
       return 0
     })
 
-    if (this._onVoicesChangedCallable !== undefined) {
+    if (this._onVoicesChangedCallable !== undefined && this.voices.length > 0 && !this.configuredOnce) {
       this._onVoicesChangedCallable(this.voices)
+      this.configuredOnce = true
     }
   }
 
