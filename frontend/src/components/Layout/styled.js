@@ -3,7 +3,7 @@ import { Box } from "@material-ui/core"
 
 export const Main = styled(Box)`
   width: 100%;
-  max-width: ${props => props.theme.breakpoints.values.desktopL}px;
+  max-width: ${props => props.theme.breakpoints.values.xl}px;
   padding-left: 8px;
   padding-right: 8px;
   margin: 25px auto auto;

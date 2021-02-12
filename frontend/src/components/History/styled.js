@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Box, Grid } from "@material-ui/core"
+import { Box } from "@material-ui/core"
 import Typography from "@material-ui/core/Typography"
 import { GridOverlay, DataGrid } from "@material-ui/data-grid"
 import { Button } from "gatsby-theme-material-ui"
@@ -34,8 +34,6 @@ export const Title = styled(Typography).attrs(props => ({
 }))``
 
 export const Description = styled(Typography).attrs(props => ({
-  // component: "h2",
-  // variant: "h5",
   color: "textSecondary",
   align: "center",
 }))`

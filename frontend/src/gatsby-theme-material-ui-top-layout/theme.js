@@ -15,10 +15,13 @@ const theme = createMuiTheme({
   spacing: [0, 4, 8, 16, 32, 64],
   breakpoints: {
     values: {
-      mobile: 320,
-      tablet: 768,
-      desktop: 992,
-      desktopL: 1280,
+      // https://material-ui.com/customization/breakpoints/
+      // Standard: xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920
+      xs: 0,
+      sm: 320,
+      md: 768,
+      lg: 998,
+      xl: 1280,
     },
   },
 })
