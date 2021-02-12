@@ -10,7 +10,7 @@ const initialState = {
   transcribedResult: null,
   isError: false,
   transcriptionUnsaved: false,
-  phones: "Did you tried to transcribe something first?",
+  phones: "Have you tried to transcribe something first?",
 }
 
 export const transcriptionSlice = createSlice({
