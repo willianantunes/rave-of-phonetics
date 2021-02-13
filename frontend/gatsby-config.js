@@ -1,3 +1,5 @@
+const path = require("path")
+
 module.exports = {
   siteMetadata: {
     title: `Rave of Phonetics: Your IPA transcription and spelling tool`,
@@ -93,6 +95,12 @@ module.exports = {
       resolve: `gatsby-plugin-disqus`,
       options: {
         shortname: `rave-of-phonetics`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-netlify-cms`,
+      options: {
+        modulePath: path.join(__dirname, "src", "cms", "cms.js"),
       },
     },
   ],

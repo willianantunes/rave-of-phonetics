@@ -4,7 +4,13 @@ Gatsby with Netlify CMS that handles the front-end side of [Rave of Phonetics](h
 
 ## Running the project
 
-TODO.
+First execute:
+
+    npm run cms
+
+Then the following:
+
+    npm run develop
 
 ## Learning Redux
 

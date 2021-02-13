@@ -1,0 +1,30 @@
+backend:
+  # https://www.netlifycms.org/docs/backends-overview/
+  name: git-gateway
+  repo: willianantunes/rave-of-phonetics
+  branch: feature/monorepo-gatsby-netflify-cms
+
+# https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
+local_backend: true
+media_folder: static/assets/posts
+public_folder: /assets
+publish_mode: editorial_workflow
+
+collections:
+  # https://www.netlifycms.org/docs/collection-types/
+  # https://www.netlifycms.org/docs/configuration-options/#collections
+  - name: 'blog'
+    label: 'Blog'
+    folder: 'content/blog'
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    path: '{{year}}/{{month}}//{{slug}}'
+    editor:
+      preview: true
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
+      - { label: 'Featured Image', name: 'thumbnail', required: false, widget: 'image' }
+      - { label: 'Description', name: 'description', widget: 'string' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: 'Tags', name: 'tags', widget: 'tags', required: true, separator: ',' }
