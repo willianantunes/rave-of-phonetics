@@ -4,18 +4,30 @@ import { FeatureEntry } from "../FeatureEntry"
 
 const features = [
   {
+    title: "New site, history, blog, off-line functionality and many more ",
+    createdAt: "February 15th, 2021",
+    added: 5,
+    updated: 2,
+    text: `You can easily copy the link of your transcription setup, and copy its result as well. When you 
+    transcribe a text, it is saved in the history at the bottom of the page. If you click on the row related to it, it will be 
+    restored at what you got previously. You can also download us and use as an App, consulting the history of what you 
+    have transcribed and play text-to-speech too. Don't forget to consult our blog. Learn more about phonetics!`,
+  },
+  {
     title: "To be, or not to be STRESSED: that is the question",
     createdAt: "January 25th, 2021",
     added: 1,
     updated: 0,
-    text: `You may have noticed that we only had been outputting words without their stressed version. That is because it was the standard behavior. You are able now to choose whether you want your word with stress or not.`,
+    text: `You may have noticed that we only had been outputting words without their stressed version. That is because it was 
+    the standard behavior. You are able now to choose whether you want your word with stress or not.`,
   },
   {
     title: `French, Spanish and Italian!`,
     createdAt: "January 22th, 2021",
     added: 3,
     updated: 0,
-    text: `Prior this feature you were only able to use English (American and British). On this day and forth you are able to use French, Spanish and Italian as well. Try to transcribe something using these well known languages. More to come!`,
+    text: `Prior this feature you were only able to use English (American and British). On this day and forth you are able to 
+    use French, Spanish and Italian as well. Try to transcribe something using these well known languages. More to come!`,
   },
   {
     title: `Changelog page`,
@@ -29,28 +41,32 @@ const features = [
     createdAt: "January 10th, 2021",
     added: 0,
     updated: 1,
-    text: `When we launched the site some features were already included, like the history of what you transcribe/listen, but without allowing you to click on a row to avoid you to type it again, now it's available and you can use the generated link to share with your friends.`,
+    text: `When we launched the site some features were already included, like the history of what you transcribe/listen, 
+    but without allowing you to click on a row to avoid you to type it again, now it's available and you can use the generated link to share with your friends.`,
   },
   {
     title: `Loop speech audio`,
     createdAt: "January 8th, 2021",
     added: 1,
     updated: 0,
-    text: `It's quite annoying to have to press PLAY button to repeat a word or phrase you want to hear again many times, now you can activate an option which will allow you to listen repeatedly until you press STOP.`,
+    text: `It's quite annoying to have to press PLAY button to repeat a word or phrase you want to hear again many 
+    times, now you can activate an option which will allow you to listen repeatedly until you press STOP.`,
   },
   {
     title: `New icons`,
     createdAt: "January 7th, 2021",
     added: 1,
     updated: 0,
-    text: `Before if you share our site through Telegram, WhatsApp and others you would get nothing in terms of description, image and/or icon, and now you have!`,
+    text: `Before if you share our site through Telegram, WhatsApp and others you would get nothing in terms of 
+    description, image and/or icon, and now you have!`,
   },
   {
     title: `Launch of Rave of Phonetics`,
     createdAt: "January 6th, 2021",
     added: 1,
     updated: 0,
-    text: `After some weeks of work, we launched this IPA transcription and spelling tool! We were tired of using another phonetics transcription sites and as such we decided to build ours.`,
+    text: `After some weeks of work, we launched this IPA transcription and spelling tool! We were tired of 
+    using another phonetics transcription sites and as such we decided to build ours.`,
   },
 ]
 

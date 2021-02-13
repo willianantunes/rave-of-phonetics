@@ -20,9 +20,9 @@ const Header = () => {
             </Link>
           </R.GreaterThanTablet>
         </S.CustomTypography>
-        {/*<Button color="inherit" to="/blog">*/}
-        {/*  Blog*/}
-        {/*</Button>*/}
+        <Button color="inherit" to="/blog">
+          Blog
+        </Button>
         {/*<Button color="inherit" to="/faq">*/}
         {/*  FAQ*/}
         {/*</Button>*/}

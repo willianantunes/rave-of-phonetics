@@ -1,14 +1,41 @@
 import React from "react"
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
+import { graphql } from "gatsby"
+import Blogs from "../components/Blogs"
 
-const RavePage = () => {
+const BlogPage = ({ data }) => {
+  const posts = data.allMarkdownRemark.nodes
+
   return (
     <Layout>
-      <SEO title="Blog" />
-      <h1>This is your blog page!</h1>
+      <SEO title="Blog" description="Check " />
+      <Blogs posts={posts} />
     </Layout>
   )
 }
 
-export default RavePage
+export default BlogPage
+
+export const pageQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      nodes {
+        excerpt
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          title
+          description
+        }
+      }
+    }
+  }
+`
