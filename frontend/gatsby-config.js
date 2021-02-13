@@ -5,7 +5,7 @@ module.exports = {
       name: `Willian Antunes`,
     },
     description: `Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet.`,
-    siteUrl: `https://www.raveofphonetics.com/`,
+    siteUrl: `https://www.raveofphonetics.com`,
     social: {
       twitter: `raveofphonetics`,
       instagram: `raveofphonetics`,
@@ -89,5 +89,11 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-use-query-params`,
     `gatsby-plugin-lodash`,
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `rave-of-phonetics`,
+      },
+    },
   ],
 }
