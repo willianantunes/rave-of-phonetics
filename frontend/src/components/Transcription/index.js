@@ -94,7 +94,10 @@ export default function Transcription(props) {
           IPA transcription tool
         </Typography>
         <S.HelloMyFriendTypography color="textSecondary" align="center">
-          Hello my friend, stay awhile and... Discover phones! 🔎
+          Hello my friend, stay awhile and... Discover phones!{" "}
+          <span role="img" aria-label="Magnifying glass tilted right">
+            🔎
+          </span>
         </S.HelloMyFriendTypography>
         <form onSubmit={transcribeGivenText}>
           <FormControl component="fieldset" fullWidth={true}>

@@ -18,16 +18,18 @@ const features = [
     createdAt: "January 25th, 2021",
     added: 1,
     updated: 0,
-    text: `You may have noticed that we only had been outputting words without their stressed version. That is because it was 
-    the standard behavior. You are able now to choose whether you want your word with stress or not.`,
+    text: `You may have noticed that words appear without any syllable stress markers. 
+    That is because it is usually shown this way in other platforms, like dictionaries. 
+    However, you are now able to choose whether you want your word to be shown with stress or not. Try it out!`,
   },
   {
     title: `French, Spanish and Italian!`,
     createdAt: "January 22th, 2021",
     added: 3,
     updated: 0,
-    text: `Prior this feature you were only able to use English (American and British). On this day and forth you are able to 
-    use French, Spanish and Italian as well. Try to transcribe something using these well known languages. More to come!`,
+    text: ` Prior to this feature you were only able to use English (American and British). 
+    From this day on, you are able to select from French, Spanish and Italian as well. 
+    Try to transcribe something using these popular languages. More to come!`,
   },
   {
     title: `Changelog page`,
@@ -41,39 +43,45 @@ const features = [
     createdAt: "January 10th, 2021",
     added: 0,
     updated: 1,
-    text: `When we launched the site some features were already included, like the history of what you transcribe/listen, 
-    but without allowing you to click on a row to avoid you to type it again, now it's available and you can use the generated link to share with your friends.`,
+    text: `When we launched the site some features were already included, like the history of what you transcribed/listened to, 
+    but without allowing you to click on the word in the history slot to avoid typing it again. 
+    Now, it's available and you can use the generated link to share it with your friends.`,
   },
   {
     title: `Loop speech audio`,
     createdAt: "January 8th, 2021",
     added: 1,
     updated: 0,
-    text: `It's quite annoying to have to press PLAY button to repeat a word or phrase you want to hear again many 
-    times, now you can activate an option which will allow you to listen repeatedly until you press STOP.`,
+    text: `It's quite annoying having to press the PLAY button to repeat a word or phrase you want to hear again many times. 
+    Now, you can enable an option which will allow you to listen continuously until you press STOP.`,
   },
   {
     title: `New icons`,
     createdAt: "January 7th, 2021",
     added: 1,
     updated: 0,
-    text: `Before if you share our site through Telegram, WhatsApp and others you would get nothing in terms of 
-    description, image and/or icon, and now you have!`,
+    text: `Before if you shared our site through Telegram, WhatsApp and other social media you would get nothing in terms 
+    of description, image and/or icons, and now there is information available!`,
   },
   {
     title: `Launch of Rave of Phonetics`,
     createdAt: "January 6th, 2021",
     added: 1,
     updated: 0,
-    text: `After some weeks of work, we launched this IPA transcription and spelling tool! We were tired of 
-    using another phonetics transcription sites and as such we decided to build ours.`,
+    text: `After some weeks of hard work, we launched this IPA transcription and pronunciation tool! 
+    We were tired of using other phonetics transcription sites and instead we decided to build ours.`,
   },
 ]
 
 export function Features() {
   return (
     <>
-      <S.Title>Latest updates</S.Title>
+      <S.Title>
+        Latest updates{" "}
+        <span role="img" aria-label="Beating heart">
+          💓
+        </span>
+      </S.Title>
       <S.FeaturesWrapper>
         {features.map(feat => (
           <FeatureEntry

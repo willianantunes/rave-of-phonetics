@@ -5,7 +5,12 @@ import * as S from "./styled"
 export default function Blogs({ posts }) {
   return (
     <>
-      <S.Title>Learn more about linguistics aspects of phonetics and transcriptions</S.Title>
+      <S.Title>
+        Learn more about linguistics aspects of phonetics and transcriptions{" "}
+        <span role="img" aria-label="Books">
+          📚
+        </span>
+      </S.Title>
       <S.BlogEntries>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
