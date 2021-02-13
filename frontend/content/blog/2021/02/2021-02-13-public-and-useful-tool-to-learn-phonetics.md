@@ -1,4 +1,5 @@
 ---
+id: a97c5410-6e3d-11eb-9fbe-31a4fdd703fc
 title: Public and useful tool to learn phonetics
 date: 2021-02-13T19:28:19.016Z
 description: Know where this site came from, how it was built, and understand
