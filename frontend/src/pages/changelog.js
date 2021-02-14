@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/Layout"
-import SEO from "../components/seo"
+import SEO from "../components/SEO"
 import { Features } from "../components/Features"
 import DisqusWrapper from "../components/DisqusWrapper"
 

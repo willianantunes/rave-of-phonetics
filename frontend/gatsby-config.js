@@ -10,11 +10,21 @@ module.exports = {
     siteUrl: `https://www.raveofphonetics.com`,
     social: {
       twitter: `raveofphonetics`,
+      twitterLink: `https://twitter.com/raveofphonetics`,
       instagram: `raveofphonetics`,
+      instagramLink: `https://www.instagram.com/raveofphonetics`,
       facebook: `raveofphonetics`,
+      facebookLink: `https://www.facebook.com/raveofphonetics`,
     },
   },
   plugins: [
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: `${__dirname}/static/assets`,
+        name: "uploads",
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {

@@ -1,43 +1,30 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
-import { useStaticQuery, graphql } from "gatsby"
+import { useSiteMetadata } from "../../hooks/use-site-metadata"
 
-const SEO = ({ description, lang, meta, title, siteUrl }) => {
-  const { site } = useStaticQuery(
-    graphql`
-      {
-        site {
-          siteMetadata {
-            title
-            description
-            social {
-              twitter
-              instagram
-              facebook
-            }
-            author {
-              name
-              summary
-            }
-          }
-        }
-      }
-    `
-  )
+const SEO = ({ description, meta, title, siteUrl, image }) => {
+  const siteMetadata = useSiteMetadata()
 
-  const metaDescription = description || site.siteMetadata.description
-  const defaultTitle = site.siteMetadata?.title
+  const openGraphImage = image || "https://felipefialho.com/assets/og-image.jpg"
+  const htmlAttributes = { lang: `en` }
+  const descriptionToBeUsed = description || siteMetadata.description
+  const defaultTitle = siteMetadata.title
+  const { twitterLink } = siteMetadata.social
 
   return (
     <Helmet
-      htmlAttributes={{ lang }}
+      htmlAttributes={htmlAttributes}
       title={title}
       titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
       meta={[
         {
           name: `description`,
-          content: metaDescription,
+          content: descriptionToBeUsed,
+        },
+        {
+          property: `og:image`,
+          content: openGraphImage,
         },
         {
           property: `og:type`,
@@ -53,7 +40,7 @@ const SEO = ({ description, lang, meta, title, siteUrl }) => {
         },
         {
           property: `og:description`,
-          content: metaDescription,
+          content: descriptionToBeUsed,
         },
         {
           name: `twitter:card`,
@@ -61,7 +48,7 @@ const SEO = ({ description, lang, meta, title, siteUrl }) => {
         },
         {
           name: `twitter:site`,
-          content: site.siteMetadata.social.twitter,
+          content: twitterLink,
         },
       ].concat(meta)}
     />
@@ -71,14 +58,14 @@ const SEO = ({ description, lang, meta, title, siteUrl }) => {
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
-  description: ``,
 }
 
 SEO.propTypes = {
   description: PropTypes.string,
-  lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
+  siteUrl: PropTypes.string,
+  image: PropTypes.string,
 }
 
 export default SEO

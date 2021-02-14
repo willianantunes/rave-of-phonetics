@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/Layout"
-import SEO from "../components/seo"
+import SEO from "../components/SEO"
 import Transcription from "../components/Transcription"
 import TextToSpeech from "../components/TextToSpeech"
 import History from "../components/History"

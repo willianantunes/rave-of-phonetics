@@ -1,6 +1,12 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 
+function extractsTitleFromPostLocation(location) {
+  const regex = /\/[0-9]+\/[0-9]+\/(.+)\//
+  const [fullMatch, firstGroup] = location.match(regex)
+  return firstGroup
+}
+
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
@@ -39,8 +45,13 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       const previousPostId = index === 0 ? null : posts[index - 1].id
       const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
 
+      const slug = post.fields.slug
+      const yearAndMonth = slug.slice(0, 10).replace("-", "/").split("-")[0]
+      const sluggedTitleWithoutTheDatePart = slug.slice(11)
+      const path = `/blog/${yearAndMonth}/${sluggedTitleWithoutTheDatePart}/`
+      // TODO: Insert correct path in blog.js, because slug won't work anymore
       createPage({
-        path: `/blog${post.fields.slug}`,
+        path: path,
         component: blogPost,
         context: {
           id: post.id,
@@ -57,11 +68,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })
+    const markdownFileName = extractsTitleFromPostLocation(value)
 
     createNodeField({
       name: `slug`,
       node,
-      value,
+      value: markdownFileName,
     })
   }
 }

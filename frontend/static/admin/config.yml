@@ -1,13 +1,13 @@
 backend:
   # https://www.netlifycms.org/docs/backends-overview/
   name: git-gateway
-#  repo: willianantunes/rave-of-phonetics
-#  branch: feature/monorepo-gatsby-netflify-cms
+  repo: willianantunes/rave-of-phonetics
+  branch: feature/monorepo-gatsby-netflify-cms
 
 # https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
 local_backend: true
-media_folder: static/assets/posts
-public_folder: assets
+media_folder: "static/assets/posts"
+public_folder: "assets"
 publish_mode: editorial_workflow
 
 collections:
@@ -18,7 +18,7 @@ collections:
     folder: 'content/blog'
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
-    path: '{{year}}/{{month}}//{{slug}}'
+    path: '{{year}}/{{month}}/{{slug}}'
     editor:
       preview: true
     fields:
