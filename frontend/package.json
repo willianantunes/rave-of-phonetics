@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "rave-of-phonetics",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet",
+  "version": "1.0.0",
+  "author": "Willian Antunes <willian.lima.antunes@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/willianantunes/rave-of-phonetics/issues"
   },
   "dependencies": {
     "@loadable/component": "^5.14.1",
@@ -64,15 +64,18 @@
     "prettier": "2.2.1",
     "redux-devtools": "^3.7.0"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://github.com/willianantunes/rave-of-phonetics",
   "keywords": [
-    "gatsby"
+    "phonetic",
+    "transcription",
+    "ipa",
+    "tts"
   ],
   "license": "0BSD",
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/willianantunes/rave-of-phonetics.git"
   },
   "scripts": {
     "build": "gatsby build",
