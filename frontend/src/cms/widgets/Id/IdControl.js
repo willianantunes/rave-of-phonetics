@@ -3,7 +3,7 @@ import { v1 as uuidv1 } from "uuid"
 
 class IdControl extends PureComponent {
   handleChange = e => {
-    const { field, onChange } = this.props
+    const { onChange } = this.props
 
     onChange(e.target.value.trim())
   }
