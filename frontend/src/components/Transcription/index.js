@@ -11,11 +11,15 @@ import { useQueryParam, StringParam, BooleanParam } from "use-query-params"
 import { copyToClipboard } from "../../utils/general"
 import { stringify } from "query-string"
 import { useLocation } from "@reach/router"
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 
 export default function Transcription(props) {
   // Infrastructure
   const dispatch = useDispatch()
   const { origin } = useLocation()
+  // ReCaptcha
+  const { executeRecaptcha } = useGoogleReCaptcha()
+  const [token, setToken] = useState(null)
   // Redux things
   const {
     text,
@@ -41,7 +45,10 @@ export default function Transcription(props) {
     []
   )
   const delayedTranscribeAction = useCallback(
-    debounce((text, chosenLanguage, withStress) => dispatch(transcriptionFromText(text, chosenLanguage, withStress)), 500),
+    debounce(
+      (text, chosenLanguage, withStress, token) => dispatch(transcriptionFromText(text, chosenLanguage, withStress, token)),
+      500
+    ),
     []
   )
   // Effects
@@ -70,9 +77,11 @@ export default function Transcription(props) {
     setCurrentText(value)
     delayedSetText(value)
   }
-  const transcribeGivenText = event => {
+  const transcribeGivenText = async event => {
     event.preventDefault()
-    delayedTranscribeAction(text, chosenLanguage, withStress)
+    const token = await executeRecaptcha("transcribe")
+
+    delayedTranscribeAction(text, chosenLanguage, withStress, token)
   }
   const copyLinkToClipboard = event => {
     const encodedQuery = encodeQueryParams(

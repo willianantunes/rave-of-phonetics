@@ -13,7 +13,7 @@ export const FooterWrapper = styled(Box).attrs({
   position: fixed;
   bottom: 0;
   color: #fff;
-  z-index: 500;
+  z-index: 0;
 `
 
 export const CustomFacebook = styled(FacebookCircle)`

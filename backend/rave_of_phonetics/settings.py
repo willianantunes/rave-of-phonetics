@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "rave_of_phonetics.support.static_files.CustomStaticFilesConfig",
+    "rest_framework",
     CoreConfig.name,
 ]
 
@@ -57,11 +58,11 @@ MIDDLEWARE = [
 DISABLE_CORS = eval_env_as_boolean("DISABLE_CORS", False)
 INSTALLED_APPS.append("corsheaders")
 MIDDLEWARE.insert(1, "corsheaders.middleware.CorsMiddleware")
+CORS_ALLOW_HEADERS = list(default_headers) + ["x-api-key"]
 
 if not DISABLE_CORS:
     CORS_ORIGIN_ALLOW_ALL = eval_env_as_boolean("CORS_ORIGIN_ALLOW_ALL", False)
     CORS_ALLOW_CREDENTIALS = eval_env_as_boolean("CORS_ALLOW_CREDENTIALS", False)
-    CORS_ALLOW_HEADERS = list(default_headers) + ["x-api-key"]
 
     TMP_CORS_ORIGIN_WHITELIST = os.getenv("CORS_ORIGIN_WHITELIST")
     TMP_CORS_EXPOSE_HEADERS = os.getenv("CORS_EXPOSE_HEADERS")
@@ -93,6 +94,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "rave_of_phonetics.wsgi.application"
+
+REST_FRAMEWORK = {"EXCEPTION_HANDLER": "rest_framework.views.exception_handler"}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -181,3 +184,8 @@ STATIC_URL = STATIC_HOST + STATIC_URL
 # Internal usage
 
 SITE_URL = getenv_or_raise_exception("SITE_URL")
+RECAPTCHA_SCORE_THRESHOLD = float(getenv_or_raise_exception("RECAPTCHA_SCORE_THRESHOLD"))
+RECAPTCHA_TOKEN_HEADER = getenv_or_raise_exception("RECAPTCHA_TOKEN_HEADER")
+CORS_ALLOW_HEADERS.append(RECAPTCHA_TOKEN_HEADER)
+RECAPTCHA_SECRET_KEY = getenv_or_raise_exception("RECAPTCHA_SECRET_KEY")
+RECAPTCHA_ENDPOINT = getenv_or_raise_exception("RECAPTCHA_ENDPOINT")

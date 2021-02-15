@@ -77,11 +77,11 @@ export const {
 
 export default transcriptionSlice.reducer
 
-export const transcriptionFromText = (text, chosenLanguage, withStress) => async dispatch => {
+export const transcriptionFromText = (text, chosenLanguage, withStress, token) => async dispatch => {
   dispatch(analysingText())
 
   try {
-    const result = await transcribeText(text, chosenLanguage, withStress)
+    const result = await transcribeText(text, chosenLanguage, withStress, token)
     dispatch(textWasTranscribed(result))
     dispatch(transcriptionToBeSaved())
   } catch (e) {
