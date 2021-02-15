@@ -1,6 +1,6 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
 import SEO from "../components/SEO"
+import { Link } from "gatsby-theme-material-ui"
 import Layout from "../components/Layout"
 import styled from "styled-components"
 
@@ -328,7 +328,7 @@ const BlogPostTemplate = ({ data }) => {
   const { previous, next } = data
 
   return (
-    <Layout>
+    <Layout blog={true}>
       <SEO title={title} description={description} />
       <BlogPostArticle>
         <header>
@@ -351,14 +351,14 @@ const BlogPostTemplate = ({ data }) => {
           >
             <li>
               {previous && (
-                <Link to={`/blog${previous.fields.slug}`} rel="prev">
+                <Link to={previous.fields.path} rel="prev">
                   ← {previous.frontmatter.title}
                 </Link>
               )}
             </li>
             <li>
               {next && (
-                <Link to={`/blog${next.fields.slug}`} rel="next">
+                <Link to={next.fields.path} rel="next">
                   {next.frontmatter.title} →
                 </Link>
               )}
@@ -393,7 +393,7 @@ export const pageQuery = graphql`
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {
       fields {
-        slug
+        path
       }
       frontmatter {
         title
@@ -401,7 +401,7 @@ export const pageQuery = graphql`
     }
     next: markdownRemark(id: { eq: $nextPostId }) {
       fields {
-        slug
+        path
       }
       frontmatter {
         title

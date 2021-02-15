@@ -8,6 +8,7 @@ function extractsTitleFromPostLocation(location) {
 }
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
+  // https://www.gatsbyjs.com/docs/reference/config-files/actions/#createPage
   const { createPage } = actions
 
   // Define a template for blog post
@@ -22,6 +23,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             id
             fields {
               slug
+              path
             }
           }
         }
@@ -45,11 +47,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       const previousPostId = index === 0 ? null : posts[index - 1].id
       const nextPostId = index === posts.length - 1 ? null : posts[index + 1].id
 
-      const slug = post.fields.slug
-      const yearAndMonth = slug.slice(0, 10).replace("-", "/").split("-")[0]
-      const sluggedTitleWithoutTheDatePart = slug.slice(11)
-      const path = `/blog/${yearAndMonth}/${sluggedTitleWithoutTheDatePart}/`
-      // TODO: Insert correct path in blog.js, because slug won't work anymore
+      const { path } = post.fields
+
       createPage({
         path: path,
         component: blogPost,
@@ -64,16 +63,25 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
+  // https://www.gatsbyjs.com/docs/reference/config-files/actions/#createNodeField
   const { createNodeField } = actions
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })
     const markdownFileName = extractsTitleFromPostLocation(value)
+    const yearAndMonth = markdownFileName.slice(0, 10).replace("-", "/").split("-")[0]
+    const sluggedTitleWithoutTheDatePart = markdownFileName.slice(11)
+    const path = `/blog/${yearAndMonth}/${sluggedTitleWithoutTheDatePart}/`
 
     createNodeField({
       name: `slug`,
       node,
       value: markdownFileName,
+    })
+    createNodeField({
+      name: `path`,
+      node,
+      value: path,
     })
   }
 }

@@ -21,7 +21,7 @@ export default function Blogs({ posts }) {
             <S.ArticleWrapper>
               <S.ArticleHeaderWrapper>
                 <S.ArticleTitle>
-                  <Link to={`/blog${post.fields.slug}`} itemProp="url">
+                  <Link to={post.fields.path} itemProp="url">
                     {title}
                   </Link>
                 </S.ArticleTitle>

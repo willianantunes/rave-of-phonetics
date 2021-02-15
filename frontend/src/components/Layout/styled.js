@@ -3,49 +3,14 @@ import { Box } from "@material-ui/core"
 
 export const Main = styled(Box)`
   width: 100%;
-  max-width: ${props => props.theme.breakpoints.values.xl}px;
+  max-width: ${props => (props.blog ? "800" : props.theme.breakpoints.values.xl)}px;
   padding-left: 8px;
   padding-right: 8px;
   margin: 25px auto auto;
-  //gap: 20px;
-  //display: flex;
   // Because of the fixed footer
   padding-bottom: 80px;
-  //height: auto;
-
-  //position: relative;
-  //height: auto;
-  //min-height: 100% !important;
-
-  //& :after {
-  //  content: "";
-  //  display: table;
-  //  clear: both;
-  //}
 
   & .MuiCard-root {
     margin-top: 25px;
   }
 `
-
-//
-// export const Layout = styled.section`
-//   background-color: var(--bg);
-//   display: block;
-//   transition: background-color ${V.Transition.default};
-//   will-change: background-color;
-// `
-//
-// export const Main = styled.main.attrs({
-//   role: "main",
-// })`
-//   margin-bottom: ${V.Height.footer};
-//   margin-top: ${V.Height.headerSm};
-//   min-height: 100vh;
-//   padding-bottom: ${V.Space.xxlg};
-//   padding-top: ${V.Height.mainTop};
-//   width: 100%;
-//   ${media.greaterThan("medium")`
-//     margin-top: ${V.Height.headerLg};
-//   `}
-// `

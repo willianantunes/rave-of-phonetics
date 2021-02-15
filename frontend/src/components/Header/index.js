@@ -1,5 +1,4 @@
 import React from "react"
-import { AppBar } from "@material-ui/core"
 import * as S from "./styled"
 import * as R from "../Responsive"
 import { Button, Link } from "gatsby-theme-material-ui"
@@ -23,9 +22,6 @@ const Header = () => {
         <Button color="inherit" to="/blog">
           Blog
         </Button>
-        {/*<Button color="inherit" to="/faq">*/}
-        {/*  FAQ*/}
-        {/*</Button>*/}
         <Button color="inherit" to="/changelog">
           Changelog
         </Button>

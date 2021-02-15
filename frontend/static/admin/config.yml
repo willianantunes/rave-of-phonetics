@@ -6,8 +6,10 @@ backend:
 
 # https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
 local_backend: true
-media_folder: "static/assets/posts"
-public_folder: "assets"
+# https://www.netlifycms.org/docs/beta-features/#folder-collections-media-and-public-folder
+# https://github.com/netlify/netlify-cms/issues/2696#issuecomment-567081038
+media_folder: "/static/assets/posts"
+public_folder: "/assets"
 publish_mode: editorial_workflow
 
 collections:
@@ -17,8 +19,12 @@ collections:
     label: 'Blog'
     folder: 'content/blog'
     create: true
+    # How the file post is saved
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    # Where the file post is saved
     path: '{{year}}/{{month}}/{{slug}}'
+    # When you upload a image, where it will be when you do it
+    media_folder: "{{media_folder}}"
     editor:
       preview: true
     fields:
