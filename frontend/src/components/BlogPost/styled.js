@@ -254,4 +254,8 @@ export const Article = styled.article`
   .gatsby-highlight {
     margin-bottom: var(--spacing-8);
   }
+
+  img {
+    width: 100%;
+  }
 `
