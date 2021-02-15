@@ -16,14 +16,6 @@ export default function Transcription(props) {
   // Infrastructure
   const dispatch = useDispatch()
   const { origin } = useLocation()
-  // States
-  const [textQueryString] = useQueryParam("text", StringParam)
-  const [languageQueryString] = useQueryParam("language", StringParam)
-  const [withStressQueryString] = useQueryParam("with-stress", BooleanParam)
-  const [currentText, setCurrentText] = useState(text)
-  const [anchorWhenSomethingIsCopied, setAnchorWhenSomethingIsCopied] = React.useState(null)
-  // Refs
-  const textAreaReference = useRef(null)
   // Redux things
   const {
     text,
@@ -35,6 +27,14 @@ export default function Transcription(props) {
     phones,
     counterOfLoadedTranscription,
   } = useSelector(state => state.transcription)
+  // States
+  const [textQueryString] = useQueryParam("text", StringParam)
+  const [languageQueryString] = useQueryParam("language", StringParam)
+  const [withStressQueryString] = useQueryParam("with-stress", BooleanParam)
+  const [currentText, setCurrentText] = useState(text)
+  const [anchorWhenSomethingIsCopied, setAnchorWhenSomethingIsCopied] = React.useState(null)
+  // Refs
+  const textAreaReference = useRef(null)
   // Memoized things
   const delayedSetText = useCallback(
     debounce(value => dispatch(setText(value)), 500),
