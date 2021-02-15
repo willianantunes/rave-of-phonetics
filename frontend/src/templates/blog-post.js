@@ -1,6 +1,7 @@
 import React from "react"
 import SEO from "../components/SEO"
 import { Link } from "gatsby-theme-material-ui"
+import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 import BlogPost from "../components/BlogPost"
 
