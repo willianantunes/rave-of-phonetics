@@ -8,6 +8,7 @@ const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark
   const description = post.frontmatter.description || post.excerpt
   const date = post.frontmatter.date
+  const formattedDate = post.frontmatter.formattedDate
   const title = post.frontmatter.title
   const content = post.html
   const { previous, next } = data
@@ -15,7 +16,7 @@ const BlogPostTemplate = ({ data }) => {
   return (
     <Layout blog={true}>
       <SEO title={title} description={description} />
-      <BlogPost title={title} date={date} formattedDate={date} content={content} />
+      <BlogPost title={title} date={date} formattedDate={formattedDate} content={content} />
 
       {(previous || next) && (
         <nav className="blog-post-nav">
@@ -64,7 +65,8 @@ export const pageQuery = graphql`
       html
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        formattedDate: date(formatString: "MMMM DD, YYYY")
+        date
         description
         tags
         id
