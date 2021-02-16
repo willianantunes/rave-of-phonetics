@@ -1,30 +1,35 @@
 const path = require("path")
+
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-module.exports = {
-  siteMetadata: {
-    title: `Rave of Phonetics: Your IPA transcription and spelling tool`,
-    author: {
-      name: `Willian Antunes`,
-    },
-    description: `Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet.`,
-    siteUrl: `https://www.raveofphonetics.com`,
-    social: {
-      twitter: `raveofphonetics`,
-      twitterLink: `https://twitter.com/raveofphonetics`,
-      instagram: `raveofphonetics`,
-      instagramLink: `https://www.instagram.com/raveofphonetics`,
-      facebook: `raveofphonetics`,
-      facebookLink: `https://www.facebook.com/raveofphonetics`,
-    },
+const siteMetadata = {
+  name: `Rave of Phonetics`,
+  shortName: `RoP`,
+  title: `Rave of Phonetics: Your IPA transcription and spelling tool`,
+  author: {
+    name: `Willian Antunes`,
   },
+  description: `Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet.`,
+  siteUrl: `https://www.raveofphonetics.com`,
+  social: {
+    twitter: `raveofphonetics`,
+    twitterLink: `https://twitter.com/raveofphonetics`,
+    instagram: `raveofphonetics`,
+    instagramLink: `https://www.instagram.com/raveofphonetics`,
+    facebook: `raveofphonetics`,
+    facebookLink: `https://www.facebook.com/raveofphonetics`,
+  },
+}
+
+module.exports = {
+  siteMetadata,
   plugins: [
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: `${__dirname}/static/assets`,
+        path: `${__dirname}/static/assets/posts`,
         name: "uploads",
       },
     },
@@ -47,10 +52,22 @@ module.exports = {
       options: {
         plugins: [
           {
+            resolve: "gatsby-remark-relative-images",
+            options: {
+              name: "uploads",
+            },
+          },
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 630,
               linkImagesToOriginal: false,
+            },
+          },
+          {
+            resolve: "gatsby-remark-copy-linked-files",
+            options: {
+              destinationDir: "static/assets/",
             },
           },
           {
@@ -96,12 +113,12 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Rave of Phonetics`,
-        short_name: `RoP`,
+        name: siteMetadata.name,
+        short_name: siteMetadata.shortName,
         categories: ["education", "utilities", "entertainment"],
-        description: `Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet.`,
+        description: siteMetadata.description,
         lang: "English",
-        start_url: `https://www.raveofphonetics.com`,
+        start_url: `/`,
         background_color: `#2196F3`,
         theme_color: `darkseagreen`,
         display: `minimal-ui`,
@@ -117,9 +134,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`,
     `gatsby-theme-material-ui`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-use-query-params`,

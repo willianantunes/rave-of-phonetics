@@ -30,4 +30,4 @@ export const ArticleWrapper = styled(Paper).attrs({ component: "article", elevat
   flex-flow: column;
 `
 export const ArticleHeaderWrapper = styled(Box).attrs({ component: "header" })``
-export const ArticleSection = styled(Box).attrs({ component: "ArticleSection" })``
+export const ArticleSection = styled(Box).attrs({ component: "section" })``

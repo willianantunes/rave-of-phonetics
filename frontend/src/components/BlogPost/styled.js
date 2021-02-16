@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { Box } from "@material-ui/core"
 
 export const Article = styled.article`
   --maxWidth-none: "none";
@@ -235,20 +236,10 @@ export const Article = styled.article`
   }
 
   header p {
-    font-size: var(--fontSize-2);
     font-family: var(--font-heading);
-  }
-
-  header time {
-    display: block;
-    --baseline-multiplier: 0.179;
-    --x-height-multiplier: 0.35;
     margin: var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);
-    padding: var(--spacing-0);
-    font-family: var(--font-heading);
     font-size: 0.83255rem;
     line-height: 1.75rem;
-    margin-bottom: 1.75rem;
   }
 
   .gatsby-highlight {
@@ -259,3 +250,5 @@ export const Article = styled.article`
     width: 100%;
   }
 `
+
+export const Tags = styled(Box)``

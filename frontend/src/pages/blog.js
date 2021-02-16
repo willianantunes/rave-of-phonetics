@@ -9,7 +9,7 @@ const BlogPage = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Blog" description="Check " />
+      <SEO title="Blog" />
       <Blogs posts={posts} />
     </Layout>
   )
@@ -32,6 +32,7 @@ export const pageQuery = graphql`
           path
         }
         frontmatter {
+          id
           date(formatString: "MMMM DD, YYYY")
           title
           description

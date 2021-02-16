@@ -4,6 +4,7 @@ import { Link } from "gatsby-theme-material-ui"
 import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 import BlogPost from "../components/BlogPost"
+import DisqusWrapper from "../components/DisqusWrapper"
 
 const BlogPostTemplate = ({ data }) => {
   const post = data.markdownRemark
@@ -11,13 +12,16 @@ const BlogPostTemplate = ({ data }) => {
   const date = post.frontmatter.date
   const formattedDate = post.frontmatter.formattedDate
   const title = post.frontmatter.title
+  const identifier = post.frontmatter.id
+  const tags = post.frontmatter.tags
   const content = post.html
+  const timeToRead = post.timeToRead
   const { previous, next } = data
 
   return (
     <Layout blog={true}>
       <SEO title={title} description={description} />
-      <BlogPost title={title} date={date} formattedDate={formattedDate} content={content} />
+      <BlogPost title={title} date={date} formattedDate={formattedDate} content={content} timeToRead={timeToRead} tags={tags} />
 
       {(previous || next) && (
         <nav className="blog-post-nav">
@@ -47,6 +51,7 @@ const BlogPostTemplate = ({ data }) => {
           </ul>
         </nav>
       )}
+      <DisqusWrapper identifier={identifier} title={title} />
     </Layout>
   )
 }
@@ -64,6 +69,7 @@ export const pageQuery = graphql`
       id
       excerpt(pruneLength: 160)
       html
+      timeToRead
       frontmatter {
         title
         formattedDate: date(formatString: "MMMM DD, YYYY")

@@ -18,7 +18,7 @@ export default function Blogs({ posts }) {
           const description = post.frontmatter.description || post.excerpt
 
           return (
-            <S.ArticleWrapper>
+            <S.ArticleWrapper key={post.frontmatter.id}>
               <S.ArticleHeaderWrapper>
                 <S.ArticleTitle>
                   <Link to={post.fields.path} itemProp="url">
