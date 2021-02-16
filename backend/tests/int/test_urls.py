@@ -1,73 +1,9 @@
-import requests
-
-from django.shortcuts import render
-from parsel import Selector
+from django.urls import reverse
 
 
-def test_should_return_custom_400_page(client):
-    fake_data = {"chosen-language": "fake-language"}
-    response = client.post("/", fake_data)
+def test_named_urls_are_resolved_to_the_correct_endpoints(client):
+    transcribe_endpoint = reverse("v1/transcribe")
+    health_check_endpoint = reverse("health-check")
 
-    assert response.status_code == 400
-
-    selector = Selector(text=str(response.content))
-    title = selector.xpath("//title/text()").get()
-
-    assert title == "Error 400"
-
-
-def test_should_return_custom_404_page(client):
-    response = client.get("/jafar-wishes-to-be-the-most-powerful-sorcerer-in-the-world")
-
-    assert response.status_code == 404
-    assert len(response.context) > 0
-    for item in response.context:
-        assert item.template_name == "core/errors/404.html"
-
-    selector = Selector(text=str(response.content))
-    title = selector.xpath("//title/text()").get()
-
-    assert title == "Error 404"
-
-
-def test_should_return_custom_500_page(live_server, mocker):
-    mocked_render = mocker.patch("rave_of_phonetics.apps.core.views.render")
-
-    def conditional_render(*args, **kwargs):
-        if args[1] == "core/pages/home.html":
-            raise Exception()
-        return render(*args, **kwargs)
-
-    mocked_render.side_effect = conditional_render
-    response = requests.get(f"{live_server.url}")
-
-    assert response.status_code == 500
-
-    selector = Selector(text=str(response.content))
-    title = selector.xpath("//title/text()").get()
-
-    assert title == "Error 500"
-
-
-def test_should_transcribe(client):
-    # TODO
-    fake_data = {
-        "text": "Hello my friend, stay awhile and listen.",
-        "language": "en-us",
-        "with-stress": False,
-    }
-    response = client.post("/api/v1/transcribe", fake_data, content_type="application/json")
-
-    result = response.json()
-
-    assert result == {
-        "transcription": [
-            {"word": "Hello", "phone": "həloʊ"},
-            {"word": "my", "phone": "maɪ"},
-            {"word": "friend,", "phone": "fɹɛnd,"},
-            {"word": "stay", "phone": "steɪ"},
-            {"word": "awhile", "phone": "ɐwaɪl"},
-            {"word": "and", "phone": "ænd"},
-            {"word": "listen.", "phone": "lɪsən."},
-        ]
-    }
+    assert transcribe_endpoint == "/api/v1/transcribe"
+    assert health_check_endpoint == "/health-check"

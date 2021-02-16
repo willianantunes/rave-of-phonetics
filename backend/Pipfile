@@ -10,12 +10,12 @@ gunicorn = "*"
 gevent = "*"
 python-json-logger = "*"
 django-cors-headers = "*"
+requests = "*"
 
 [dev-packages]
 pytest-django = "*"
 pytest-mock = "*"
 pytest-cov = "*"
-requests = "*"
 
 [requires]
 python_version = "3.7"

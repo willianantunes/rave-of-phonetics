@@ -1,4 +1,4 @@
-FROM willianantunes/phonemizer:latest AS main
+FROM willianantunes/phonemizer:latest
 
 WORKDIR /app
 
@@ -12,5 +12,7 @@ RUN pipenv install --system --deploy --ignore-pipfile && \
 COPY . ./
 
 RUN rm Pipfile Pipfile.lock
+
+HEALTHCHECK CMD python healthcheck.py
 
 CMD [ "./scripts/start-production.sh" ]
