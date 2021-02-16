@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { deleteAll, findAll, saveOrUpdate } from "../../domains/transcriptionDetailsDao"
+import { deleteAll, findAll, saveOrUpdate } from "../../domains/transcription-details-dao"
 import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
 import { transcriptionSaved } from "./transcriptionSlice"
 

@@ -11,7 +11,6 @@ from pythonjsonlogger.jsonlogger import JsonFormatter
 from rave_of_phonetics.apps.core.apps import CoreConfig
 from rave_of_phonetics.support.django_helpers import eval_env_as_boolean
 from rave_of_phonetics.support.django_helpers import getenv_or_raise_exception
-from rave_of_phonetics.support.static_files import CustomStaticFilesConfig
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,25 +33,15 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
-    "whitenoise.runserver_nostatic",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "rave_of_phonetics.support.static_files.CustomStaticFilesConfig",
     "rest_framework",
     CoreConfig.name,
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 DISABLE_CORS = eval_env_as_boolean("DISABLE_CORS", False)
@@ -163,27 +152,13 @@ LOGGING = {
     },
 }
 
-# "Common" middleware
-# https://docs.djangoproject.com/en/3.1/ref/middleware/#module-django.middleware.common
-
-PREPEND_WWW = eval_env_as_boolean("PREPEND_WWW", False)
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-# Django collects the static files into STATIC_ROOT
-STATIC_ROOT = os.getenv("STATIC_ROOT", "staticfiles")
-STATIC_ROOT = os.path.join(BASE_DIR, STATIC_ROOT)
-# Your CDN FQDN for example or whatever is hosting your statics/assets
-STATIC_HOST = os.environ.get("DJANGO_STATIC_HOST", "")
-# The REQUEST PATH where your statics/assets are
-STATIC_URL = os.getenv("STATIC_URL", "/static/")
-STATIC_URL = STATIC_HOST + STATIC_URL
+STATIC_URL = "/static/"
 
-# Internal usage
+# Custom things
 
-SITE_URL = getenv_or_raise_exception("SITE_URL")
 RECAPTCHA_SCORE_THRESHOLD = float(getenv_or_raise_exception("RECAPTCHA_SCORE_THRESHOLD"))
 RECAPTCHA_TOKEN_HEADER = getenv_or_raise_exception("RECAPTCHA_TOKEN_HEADER")
 CORS_ALLOW_HEADERS.append(RECAPTCHA_TOKEN_HEADER)

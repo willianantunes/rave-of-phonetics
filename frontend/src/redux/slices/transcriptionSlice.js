@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { transcribeText } from "../../services/raveOfPhoneticsAPI"
-import { findById } from "../../domains/transcriptionDetailsDao"
+import { findById } from "../../domains/transcription-details-dao"
 
 const initialState = {
   text: "",

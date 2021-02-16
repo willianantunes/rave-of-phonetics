@@ -6,7 +6,6 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
-whitenoise = { extras = ['brotli'] }
 gunicorn = "*"
 gevent = "*"
 python-json-logger = "*"
@@ -17,8 +16,6 @@ pytest-django = "*"
 pytest-mock = "*"
 pytest-cov = "*"
 requests = "*"
-parsel = "*"
-yattag = "*"
 
 [requires]
 python_version = "3.7"
