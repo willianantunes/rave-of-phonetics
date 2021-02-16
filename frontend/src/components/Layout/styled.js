@@ -6,7 +6,7 @@ export const Main = styled(Box)`
   max-width: ${props => (props.blog ? "800" : props.theme.breakpoints.values.xl)}px;
   padding-left: 8px;
   padding-right: 8px;
-  margin: 25px auto auto;
+  margin: 75px auto auto;
   // Because of the fixed footer
   padding-bottom: 80px;
 

@@ -2,7 +2,7 @@ import styled from "styled-components"
 import { AppBar, Toolbar, Typography } from "@material-ui/core"
 
 export const CustomAppBar = styled(AppBar).attrs({
-  position: "static",
+  position: "fixed",
   color: "primary",
 })``
 
