@@ -1,9 +1,8 @@
 import * as S from "./styled"
 import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
-import { CircularProgress, InputLabel, LinearProgress, MenuItem, Select } from "@material-ui/core"
+import { InputLabel, MenuItem, Select } from "@material-ui/core"
 import { useDispatch } from "react-redux"
-import { Play } from "styled-icons/boxicons-regular"
 
 function Voices({ voices, voiceToSpeech, isLoading, updateVoiceToSpeech }) {
   // Infrastructure

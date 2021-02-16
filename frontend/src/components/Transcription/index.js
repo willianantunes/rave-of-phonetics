@@ -7,7 +7,7 @@ import { FormControl, FormControlLabel, FormGroup, Popover, Radio, RadioGroup, S
 import { useDispatch, useSelector } from "react-redux"
 import { setChosenLanguage, setText, setWithStress, transcriptionFromText } from "../../redux/slices/transcriptionSlice"
 import { encodeQueryParams } from "serialize-query-params"
-import { useQueryParam, StringParam, BooleanParam } from "use-query-params"
+import { BooleanParam, StringParam, useQueryParam } from "use-query-params"
 import { copyToClipboard } from "../../utils/general"
 import { stringify } from "query-string"
 import { useLocation } from "@reach/router"
@@ -19,7 +19,6 @@ export default function Transcription(props) {
   const { origin } = useLocation()
   // ReCaptcha
   const { executeRecaptcha } = useGoogleReCaptcha()
-  const [token, setToken] = useState(null)
   // Redux things
   const {
     text,
@@ -170,7 +169,16 @@ export default function Transcription(props) {
           {isLoading && <S.LoadingTranscription />}
           {!isLoading && isError && (
             <S.TranscriptionSection>
-              <p>An error was caught🤯! Time to see logs and stack-trace. I hope I'll get back soon 😶</p>
+              <p>
+                An error was caught
+                <span role="img" aria-label="Exploding head">
+                  🤯
+                </span>
+                ! Time to see logs and stack-trace. I hope I'll get back soon{" "}
+                <span role="img" aria-label="Face without mouth">
+                  😶
+                </span>
+              </p>
             </S.TranscriptionSection>
           )}
           {!isLoading && transcribedResult && (

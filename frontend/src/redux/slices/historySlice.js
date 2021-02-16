@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { deleteAll, findAll, saveOrUpdate } from "../../domains/transcriptionDetailsDao"
 import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
-import { setPhones, transcriptionSaved } from "./transcriptionSlice"
+import { transcriptionSaved } from "./transcriptionSlice"
 
 const initialState = {
   transcriptions: [],

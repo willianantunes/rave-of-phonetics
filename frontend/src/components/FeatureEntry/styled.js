@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { Box, Chip, Paper, Typography } from "@material-ui/core"
-import React from "react"
 
 export const CustomPaper = styled(Paper)`
   padding: ${props => props.theme.spacing(3)}px;

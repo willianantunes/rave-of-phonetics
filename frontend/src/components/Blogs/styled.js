@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { Box, Paper, Typography } from "@material-ui/core"
-import React from "react"
 
 export const BlogEntries = styled(Box)`
   display: flex;

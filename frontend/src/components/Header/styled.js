@@ -1,6 +1,5 @@
 import styled from "styled-components"
 import { AppBar, Toolbar, Typography } from "@material-ui/core"
-import React from "react"
 
 export const CustomAppBar = styled(AppBar).attrs({
   position: "static",
