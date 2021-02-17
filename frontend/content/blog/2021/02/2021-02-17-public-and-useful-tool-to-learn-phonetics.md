@@ -1,6 +1,6 @@
 ---
 id: a97c5410-6e3d-11eb-9fbe-31a4fdd703fc
-title: Public and useful tool to learn phonetics
+title: Public and useful tool to understand phonetics
 date: 2021-02-17T08:28:19.016Z
 cover: /assets/tools-rave-of-phonetics.png
 description: Know where this site came from, how it was built, and understand
@@ -19,7 +19,7 @@ Months ago I started a very immersive way of learning English. One platform that
 
 To illustrate one situation, I was pronouncing CHEW instead of TO, all the time! To be honest I was always pronouncing CHEW, not even for TO, but for TOO and TWO. Pretty quickly he noticed my problem and explained how to pronounce correctly, and to do that he used some tools out there, that's the moment I was again amazed, but not in a good way. There are many phonetics transcription sites, but they don't have some basic features and just to point some:
 
-* No history of what you researched
+* History of what you researched
 * Loop speech audio to repeat the word or phrase
 * Sharing a link to your friend through WhatsApp, WeChat, Telegram, Messenger, and others
 * Off-line functionally
