@@ -2,10 +2,10 @@ backend:
   # https://www.netlifycms.org/docs/backends-overview/
   name: git-gateway
   repo: willianantunes/rave-of-phonetics
-  branch: feature/monorepo-gatsby-netflify-cms
+  branch: develop
 
 # https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
-local_backend: true
+#local_backend: true
 # https://www.netlifycms.org/docs/beta-features/#folder-collections-media-and-public-folder
 # https://github.com/netlify/netlify-cms/issues/2696#issuecomment-567081038
 media_folder: "/static/assets/posts"
