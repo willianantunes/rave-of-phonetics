@@ -5,8 +5,11 @@ import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 import BlogPost from "../components/BlogPost"
 import DisqusWrapper from "../components/DisqusWrapper"
+import { useLocation } from "@reach/router"
 
 const BlogPostTemplate = ({ data }) => {
+  const { origin } = useLocation()
+
   const post = data.markdownRemark
   const description = post.frontmatter.description || post.excerpt
   const date = post.frontmatter.date
@@ -16,12 +19,21 @@ const BlogPostTemplate = ({ data }) => {
   const tags = post.frontmatter.tags
   const content = post.html
   const timeToRead = post.timeToRead
+  const image = `${origin}${post.frontmatter.cover.publicURL}`
   const { previous, next } = data
 
   return (
     <Layout blog={true}>
-      <SEO title={title} description={description} />
-      <BlogPost title={title} date={date} formattedDate={formattedDate} content={content} timeToRead={timeToRead} tags={tags} />
+      <SEO title={title} description={description} image={image} />
+      <BlogPost
+        title={title}
+        date={date}
+        formattedDate={formattedDate}
+        content={content}
+        timeToRead={timeToRead}
+        tags={tags}
+        image={image}
+      />
 
       {(previous || next) && (
         <nav className="blog-post-nav">
@@ -77,6 +89,15 @@ export const pageQuery = graphql`
         description
         tags
         id
+        cover {
+          id
+          publicURL
+          childImageSharp {
+            fluid(maxWidth: 1280, quality: 60) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
     previous: markdownRemark(id: { eq: $previousPostId }) {

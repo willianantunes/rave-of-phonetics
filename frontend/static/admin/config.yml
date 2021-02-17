@@ -25,13 +25,14 @@ collections:
     path: '{{year}}/{{month}}/{{slug}}'
     # When you upload a image, where it will be when you do it
     media_folder: "{{media_folder}}"
+    public_folder: "{{public_folder}}"
     editor:
       preview: true
     fields:
       - { label: 'Id', name: 'id', widget: 'id' }
       - { label: 'Title', name: 'title', widget: 'string' }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
-      - { label: 'Featured Image', name: 'thumbnail', required: false, widget: 'image' }
+      - { label: 'Cover', name: 'cover', widget: 'image' }
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: 'Tags', name: 'tags', widget: 'tags', required: true, separator: ',' }

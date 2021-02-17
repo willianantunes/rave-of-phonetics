@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useSiteMetadata } from "../../hooks/use-site-metadata"
 
-const SEO = ({ description, meta, title, siteUrl, image }) => {
+const SEO = ({ description, meta, title, image }) => {
   const siteMetadata = useSiteMetadata()
 
   const openGraphImage = image || "https://felipefialho.com/assets/og-image.jpg"
@@ -29,10 +29,6 @@ const SEO = ({ description, meta, title, siteUrl, image }) => {
         {
           property: `og:type`,
           content: `website`,
-        },
-        {
-          property: `og:url`,
-          content: siteUrl,
         },
         {
           property: `og:title`,
@@ -64,7 +60,6 @@ SEO.propTypes = {
   description: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
-  siteUrl: PropTypes.string,
   image: PropTypes.string,
 }
 

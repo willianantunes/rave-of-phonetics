@@ -1,7 +1,7 @@
 import React from "react"
 import * as S from "./styled"
 
-export default function BlogPost({ title, date, formattedDate, content, timeToRead, tags }) {
+export default function BlogPost({ title, date, formattedDate, content, timeToRead, tags, image }) {
   return (
     <S.Article>
       <header>
