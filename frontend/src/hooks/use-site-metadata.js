@@ -16,10 +16,9 @@ export function useSiteMetadata() {
               instagram
               facebook
             }
-            siteURL
+            siteUrl
             author {
               name
-              summary
             }
           }
         }

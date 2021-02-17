@@ -18,7 +18,7 @@ const SEO = ({ description, meta, title, image }) => {
     `
   )
 
-  const openGraphImage = image || `${siteMetadata.siteURL}${ogImage}`
+  const openGraphImage = image || `${siteMetadata.siteUrl}${ogImage}`
   const htmlAttributes = { lang: `en` }
   const descriptionToBeUsed = description || siteMetadata.description
   const defaultTitle = siteMetadata.title

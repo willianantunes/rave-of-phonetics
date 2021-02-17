@@ -5,11 +5,10 @@ import { graphql } from "gatsby"
 import Layout from "../components/Layout"
 import BlogPost from "../components/BlogPost"
 import DisqusWrapper from "../components/DisqusWrapper"
-import { useLocation } from "@reach/router"
 import { useSiteMetadata } from "../hooks/use-site-metadata"
 
 const BlogPostTemplate = ({ data }) => {
-  const { siteURL } = useSiteMetadata()
+  const { siteUrl } = useSiteMetadata()
 
   const post = data.markdownRemark
   const description = post.frontmatter.description || post.excerpt
@@ -20,7 +19,7 @@ const BlogPostTemplate = ({ data }) => {
   const tags = post.frontmatter.tags
   const content = post.html
   const timeToRead = post.timeToRead
-  const image = `${siteURL}${post.frontmatter.cover.publicURL}`
+  const image = `${siteUrl}${post.frontmatter.cover.publicURL}`
   const { previous, next } = data
 
   return (
