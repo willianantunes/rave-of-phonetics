@@ -2,11 +2,23 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useSiteMetadata } from "../../hooks/use-site-metadata"
+import { graphql, useStaticQuery } from "gatsby"
 
 const SEO = ({ description, meta, title, image }) => {
   const siteMetadata = useSiteMetadata()
+  const {
+    file: { publicURL: ogImage },
+  } = useStaticQuery(
+    graphql`
+      query {
+        file(name: { eq: "og-image" }) {
+          publicURL
+        }
+      }
+    `
+  )
 
-  const openGraphImage = image || "https://felipefialho.com/assets/og-image.jpg"
+  const openGraphImage = image || `${siteMetadata.siteURL}${ogImage}`
   const htmlAttributes = { lang: `en` }
   const descriptionToBeUsed = description || siteMetadata.description
   const defaultTitle = siteMetadata.title

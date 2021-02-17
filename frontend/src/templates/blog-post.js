@@ -6,9 +6,10 @@ import Layout from "../components/Layout"
 import BlogPost from "../components/BlogPost"
 import DisqusWrapper from "../components/DisqusWrapper"
 import { useLocation } from "@reach/router"
+import { useSiteMetadata } from "../hooks/use-site-metadata"
 
 const BlogPostTemplate = ({ data }) => {
-  const { origin } = useLocation()
+  const { siteURL } = useSiteMetadata()
 
   const post = data.markdownRemark
   const description = post.frontmatter.description || post.excerpt
@@ -19,7 +20,7 @@ const BlogPostTemplate = ({ data }) => {
   const tags = post.frontmatter.tags
   const content = post.html
   const timeToRead = post.timeToRead
-  const image = `${origin}${post.frontmatter.cover.publicURL}`
+  const image = `${siteURL}${post.frontmatter.cover.publicURL}`
   const { previous, next } = data
 
   return (
@@ -72,11 +73,6 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($id: String!, $previousPostId: String, $nextPostId: String) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     markdownRemark(id: { eq: $id }) {
       id
       excerpt(pruneLength: 160)

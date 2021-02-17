@@ -12,7 +12,7 @@ const siteMetadata = {
     name: `Willian Antunes`,
   },
   description: `Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet.`,
-  siteUrl: `https://www.raveofphonetics.com`,
+  siteURL: `https://www.raveofphonetics.com`,
   social: {
     twitter: `raveofphonetics`,
     twitterLink: `https://twitter.com/raveofphonetics`,

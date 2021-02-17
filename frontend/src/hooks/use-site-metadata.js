@@ -16,7 +16,7 @@ export function useSiteMetadata() {
               instagram
               facebook
             }
-            siteUrl
+            siteURL
             author {
               name
               summary

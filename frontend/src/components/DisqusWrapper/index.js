@@ -6,11 +6,11 @@ import { useSiteMetadata } from "../../hooks/use-site-metadata"
 import { useLocation } from "@reach/router"
 
 const DisqusWrapper = ({ identifier, title }) => {
-  const { siteUrl } = useSiteMetadata()
+  const { siteURL } = useSiteMetadata()
   const { pathname } = useLocation()
 
   const disqusConfig = {
-    url: `${siteUrl + pathname}`,
+    url: `${siteURL + pathname}`,
     identifier: identifier,
     title: title,
   }
