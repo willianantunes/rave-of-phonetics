@@ -6,10 +6,12 @@ export class WebSpeechAPI {
     this.voices = []
     this.configuredOnce = false
 
-    this._configureSpeechService()
-    // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis/onvoiceschanged
-    if (typeof this._speechSynthesis !== "undefined" && this._speechSynthesis.onvoiceschanged !== undefined) {
-      this._speechSynthesis.onvoiceschanged = this._configureSpeechService.bind(this)
+    if (typeof window !== `undefined` && typeof this._speechSynthesis !== `undefined`) {
+      // https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis/onvoiceschanged
+      this._configureSpeechService()
+      if (this._speechSynthesis.onvoiceschanged !== undefined) {
+        this._speechSynthesis.onvoiceschanged = this._configureSpeechService.bind(this)
+      }
     }
   }
 
