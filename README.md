@@ -2,85 +2,7 @@
 
 Let's try to earn money solving people problems with phonetics!
 
-## To study
-
-- https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary
-- https://github.com/mphilli/English-to-IPA
-
-## Running the project
-
-Just issue the following command:
-
-    docker-compose up remote-interpreter
-
-If you want to simulate production, then you can type:
-
-    docker-compose up production
-
-In order to check the files included in the final container image, first you enter the container and list the files:
-
-    docker-compose run production bash
-    ls -la
-
-## How to develop
-
-### Front-end
-
-You can execute the following:
-
-    docker-compose up remote-interpreter
-
-Now you can issue the command below and then update your HTML/CSS/JS:
-
-    npm start
-
-To run all tests:
-
-    npm run test
-
-#### Learning about CSS
-
-- https://flexbox.buildwithreact.com/
-- https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-- https://grid.layoutit.com/
-- https://css-tricks.com/snippets/css/complete-guide-grid/
-- https://webflow.com/grid
-- https://stackoverflow.com/a/7354648/3899136
-
-Walk-through:
-
-- https://flexboxfroggy.com/
-- https://cssgridgarden.com/
-
-SASS:
-
-- adopt-a-pup site [here](https://adopt-a-pup.glitch.me/) and its [source-code](https://glitch.com/edit/#!/adopt-a-pup)
-- material-example-app-shrine site [here]() and its [source-code](https://glitch.com/edit/#!/material-example-app-shrine?path=readme.md%3A1%3A0)
-
-#### Tools to evaluate your website
-
-SEO and web standards:
-
-- https://search.google.com/test/rich-results
-- https://developers.facebook.com/tools/debug/
-- https://www.opengraph.xyz/
-
-PWA:
-
-- https://web.dev/add-manifest/
-- https://dev.to/thepassle/lessons-learned-building-a-covid-19-pwa-57fi
-
-Purge unused CSS (main.css had 120K and after the command it changed to 17K):
-
-    purgecss --css rave_of_phonetics/apps/core/**/*.css \
-    --content rave_of_phonetics/apps/core/**/*.html \
-    --safelist waves-ripple active thumb hiddendiv \
-    history-table striped highlight responsive-table \
-    table td tr th table.striped table.highlight tbody \
-    optgroup span * :after :before \
-    -o rave_of_phonetics/apps/core/static/core/dist/main.css
-
-#### SEO
+## SEO
 
 - https://www.expireddomains.net/
 - https://web.archive.org/
@@ -92,7 +14,7 @@ Purge unused CSS (main.css had 120K and after the command it changed to 17K):
 
 #### ADs
 
-What I configured to my first campaign:
+What I configured for my first campaign:
 
 ```
 IPA transcription
@@ -102,46 +24,12 @@ Web Speech App which transcribe your text into its phonetic transcription using 
 Try with English (American and Britain), French, Italian and Spanish!
 ```
 
-#### Fonts
-
-You can follow [this tutorial here](https://askubuntu.com/a/3706/869618) which explains how to install fonts in Ubuntu. You should download the following:
-
-- https://www.fontsquirrel.com/fonts/bodoni1
-- https://askubuntu.com/a/651442/869618
-
-### Back-end
-
-#### Installing new packages
-
-You can install it through docker-compose issuing the following command for example:
-
-    docker-compose run remote-interpreter pipenv --python 3 install parsel --dev
-
-After that it's required to update your remote interpreter:
-
-    docker-compose build remote-interpreter
-
-#### Running commands
-
-    docker-compose run remote-interpreter sh
-
-If you'd like to run commands to test IPA output, first look the documentations
-
-- https://github.com/espeak-ng/espeak-ng/blob/master/docs/guide.md
-
-You must be at `/usr/bin/`. Then try one of these below:
-
-```
-espeak-ng "Hello my friend, stay awhile and listen." -ven-us -x --ipa -q --sep=_
-espeak-ng "Constitution" -ven-us -x --ipa -q --sep=_
-espeak-ng "Hello my friend, stay awhile and listen." -v en-us -x --ipa -q
-espeak-ng "This is a test" -v en-us -x --ipa -q
-```
-
 ## Competitors
 
 - [To Phonetics](https://tophonetics.com/)
 - [Elsa Speak](https://elsaspeak.com/en/)
+- [Unalengua](https://unalengua.com/ipa?hl=en&sl=en)
+- [Phonetizer](https://phonetizer.com/ui)
 
 ## Interesting links
 

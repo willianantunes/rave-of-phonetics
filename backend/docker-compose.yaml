@@ -1,0 +1,30 @@
+version: "2.4"
+services:
+  remote-interpreter:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    working_dir: /app
+    env_file: ".env.dev"
+    volumes:
+      - .:/app
+    ports:
+      - "8080:8080"
+    command:
+      [
+        "./scripts/start-development.sh",
+      ]
+  production:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: ".env"
+    ports:
+      - "8000:8000"
+  tests:
+    image: willianantunes/phonemizer:latest
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: >
+      sh -c "pip3 install --no-cache-dir tox && tox"

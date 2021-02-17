@@ -1,13 +1,1 @@
 .idea
-.mypy_cache
-db.*
-dist
-node_modules
-.cache
-coverage
-staticfiles
-junit
-htmlcov
-.coverage
-coverage.xml
-.parcel-cache
