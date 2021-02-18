@@ -1,6 +1,6 @@
 backend:
   # https://www.netlifycms.org/docs/backends-overview/
-  name: git
+  name: github
   repo: willianantunes/rave-of-phonetics
   branch: develop
 
