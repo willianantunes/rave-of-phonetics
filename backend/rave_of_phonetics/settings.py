@@ -54,9 +54,11 @@ if not DISABLE_CORS:
     CORS_ALLOW_CREDENTIALS = eval_env_as_boolean("CORS_ALLOW_CREDENTIALS", False)
 
     TMP_CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS")
-    if TMP_CORS_ALLOWED_ORIGINS and "," in TMP_CORS_ALLOWED_ORIGINS:
-        CORS_ALLOWED_ORIGINS = [origin for origin in TMP_CORS_ALLOWED_ORIGINS.split(",")]
-
+    if TMP_CORS_ALLOWED_ORIGINS:
+        if "," in TMP_CORS_ALLOWED_ORIGINS:
+            CORS_ALLOWED_ORIGINS = [origin for origin in TMP_CORS_ALLOWED_ORIGINS.split(",")]
+        else:
+            CORS_ALLOWED_ORIGINS = [TMP_CORS_ALLOWED_ORIGINS]
     TMP_CORS_EXPOSE_HEADERS = os.getenv("CORS_EXPOSE_HEADERS")
     CORS_EXPOSE_HEADERS = TMP_CORS_EXPOSE_HEADERS.split(",") if TMP_CORS_EXPOSE_HEADERS else []
 else:
@@ -88,7 +90,12 @@ REST_FRAMEWORK = {"EXCEPTION_HANDLER": "rest_framework.views.exception_handler"}
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": BASE_DIR / "db.sqlite3",}}
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -133,11 +140,20 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "development": {"()": Formatter, "format": "%(asctime)s - level=%(levelname)s - %(name)s - %(message)s",},
-        "standard": {"()": CustomJsonFormatter, "format": "%(levelname)-8s [%(asctime)s] %(name)s: %(message)s",},
+        "development": {
+            "()": Formatter,
+            "format": "%(asctime)s - level=%(levelname)s - %(name)s - %(message)s",
+        },
+        "standard": {
+            "()": CustomJsonFormatter,
+            "format": "%(levelname)-8s [%(asctime)s] %(name)s: %(message)s",
+        },
     },
     "handlers": {
-        "console": {"class": "logging.StreamHandler", "formatter": os.getenv("DEFAULT_LOG_FORMATTER", "standard"),}
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": os.getenv("DEFAULT_LOG_FORMATTER", "standard"),
+        }
     },
     "loggers": {
         "": {"level": os.getenv("ROOT_LOG_LEVEL", "INFO"), "handlers": ["console"]},
