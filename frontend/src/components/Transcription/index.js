@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import CardContent from "@material-ui/core/CardContent"
 import Typography from "@material-ui/core/Typography"
 import * as S from "./styled"
@@ -36,8 +36,6 @@ export default function Transcription(props) {
   const [withStressQueryString] = useQueryParam("with-stress", BooleanParam)
   const [currentText, setCurrentText] = useState(text)
   const [anchorWhenSomethingIsCopied, setAnchorWhenSomethingIsCopied] = React.useState(null)
-  // Refs
-  const textAreaReference = useRef(null)
   // Memoized things
   const delayedSetText = useCallback(
     debounce(value => dispatch(setText(value)), 500),
@@ -52,10 +50,10 @@ export default function Transcription(props) {
   )
   // Effects
   useEffect(() => {
-    // It will set the fields through the query string params, if the exist
+    // It will set the fields through the query string params, if they exist
     if (textQueryString) {
+      delayedSetText(textQueryString)
       setCurrentText(textQueryString)
-      dispatch(setText(textQueryString))
     }
     if (languageQueryString) {
       dispatch(setChosenLanguage(languageQueryString))
@@ -63,8 +61,9 @@ export default function Transcription(props) {
     if (withStressQueryString) dispatch(setWithStress(withStressQueryString))
   }, [])
   useEffect(() => {
-    setCurrentText(text)
-    textAreaReference.current.focus()
+    if (text) {
+      setCurrentText(text)
+    }
   }, [counterOfLoadedTranscription])
   // Events
   const handleChangeForAlmostAll = (hook, evt) => {
@@ -110,13 +109,12 @@ export default function Transcription(props) {
         <form onSubmit={transcribeGivenText}>
           <FormControl component="fieldset" fullWidth={true}>
             <TextField
-              inputRef={textAreaReference}
               id="standard-multiline-flexible"
               label="Type the words here"
               multiline
               rowsMax={4}
-              value={currentText || ""}
-              autoFocus
+              value={currentText}
+              // autoFocus
               onChange={handleTextChange}
               name="textToBeTranscribed"
               required
