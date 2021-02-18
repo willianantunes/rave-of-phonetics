@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     env_file: ".env"
     ports:
-      - "8000:8000"
+      - "8080:8080"
   tests:
     image: willianantunes/phonemizer:latest
     working_dir: /app

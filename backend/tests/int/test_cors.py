@@ -78,7 +78,7 @@ def test_cors_should_allow_origin_given_custom_name(live_server, mocker: MockFix
 
         @property
         def CORS_ALLOW_CREDENTIALS(self):
-            return conf.CORS_ALLOW_CREDENTIALS
+            return True
 
         @property
         def CORS_PREFLIGHT_MAX_AGE(self):

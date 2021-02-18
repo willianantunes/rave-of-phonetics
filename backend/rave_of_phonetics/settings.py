@@ -50,7 +50,7 @@ MIDDLEWARE.insert(1, "corsheaders.middleware.CorsMiddleware")
 CORS_ALLOW_HEADERS = list(default_headers) + ["x-api-key"]
 
 if not DISABLE_CORS:
-    CORS_ORIGIN_ALLOW_ALL = eval_env_as_boolean("CORS_ORIGIN_ALLOW_ALL", False)
+    CORS_ALLOW_ALL_ORIGINS = eval_env_as_boolean("CORS_ALLOW_ALL_ORIGINS", False)
     CORS_ALLOW_CREDENTIALS = eval_env_as_boolean("CORS_ALLOW_CREDENTIALS", False)
 
     TMP_CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS")
@@ -62,7 +62,7 @@ if not DISABLE_CORS:
     TMP_CORS_EXPOSE_HEADERS = os.getenv("CORS_EXPOSE_HEADERS")
     CORS_EXPOSE_HEADERS = TMP_CORS_EXPOSE_HEADERS.split(",") if TMP_CORS_EXPOSE_HEADERS else []
 else:
-    CORS_ORIGIN_ALLOW_ALL = True
+    CORS_ALLOW_ALL_ORIGINS = True
     CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = "rave_of_phonetics.urls"

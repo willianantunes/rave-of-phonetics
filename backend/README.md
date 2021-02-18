@@ -48,3 +48,32 @@ espeak-ng "Constitution" -ven-us -x --ipa -q --sep=_
 espeak-ng "Hello my friend, stay awhile and listen." -v en-us -x --ipa -q
 espeak-ng "This is a test" -v en-us -x --ipa -q
 ```
+
+## Testing CORS
+
+Localhost:
+
+```shell
+curl -i -X 'OPTIONS' \
+-H 'Origin: https://dev.raveofphonetics.com' \
+-H 'Access-Control-Request-Method: POST' \
+'http://localhost:8080/api/v1/transcribe'
+```
+
+DEV environment:
+
+```shell
+curl -i -X 'OPTIONS' \
+-H 'Origin: https://dev.raveofphonetics.com' \
+-H 'Access-Control-Request-Method: POST' \
+'https://api.dev.raveofphonetics.com/api/v1/transcribe'
+```
+
+PRD:
+
+```shell
+curl -i -X 'OPTIONS' \
+-H 'Origin: https://dev.raveofphonetics.com' \
+-H 'Access-Control-Request-Method: POST' \
+'http://localhost:8080/api/v1/transcribe'
+```
