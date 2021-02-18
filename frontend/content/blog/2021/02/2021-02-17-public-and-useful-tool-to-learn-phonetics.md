@@ -11,29 +11,29 @@ tags:
   - history
   - pronunciation
 ---
-Have you ever used a tool out there that, well, has been serving you, but it wasn't good enough? It can come in handy, but it may lack some features that would make things a lot easier for you and everyone who is using it. That was exactly my situation.
+Have you ever used a tool or program that worked for you, yet you felt that there was something missing? It was handy, but maybe it lacked some features that would make things a lot easier for you and everyone else using it. That was exactly my situation.
 
 ## The issue I faced and pronouncing through phonetics
 
-Months ago I started a very immersive way of learning English. One platform that I've been using a lot is Cambly. There you can find native English speakers to talk about everything you want, and when you find a good tutor, the learning process is boosted, and I think this is important as any part of your immersive approach to learn a new language. This tutor, which is, by the way, my partner here at Rave of Phonetics, taught me an interesting way of gradually understand how to speak a word through phonetics. I was amazed at that!
+Months ago, I started learning English intensively. One platform that I have been using a lot is Cambly. There you can find native English speakers to talk about everything you want, and when you find a good tutor, the learning process is accelerated greatly. I think this as important as any part of your immersive approach to learning a new language. I met a tutor, who is, by the way, my partner here at Rave of Phonetics, and he taught me an interesting way of gradually understanding how to improve my speaking through phonetics. I was amazed with that!
 
-To illustrate one situation, I was pronouncing CHEW instead of TO, all the time! To be honest I was always pronouncing CHEW, not even for TO, but for TOO and TWO. Pretty quickly he noticed my problem and explained how to pronounce correctly, and to do that he used some tools out there, that's the moment I was again amazed, but not in a good way. There are many phonetics transcription sites, but they don't have some basic features and just to point some:
+To illustrate one situation, I was pronouncing ‘*chew*’ instead of ‘*to*’, all the time! To be honest, I was always pronouncing ‘*chew*’, not only for ‘*to*’, but for ‘*too*’ and ‘*two*’. Pretty quickly he noticed my problem and explained me how to pronounce it correctly. To do that, he used some tools specifically used for my situation and that was the moment I was again amazed; not in a good way, rather amazed of the deficiency of the tools. I realized that there were many phonetic transcription sites, but they did not have even the most basic of features. For example:
 
-* History of what you researched
-* Loop speech audio to repeat the word or phrase
-* Sharing a link to your friend through WhatsApp, WeChat, Telegram, Messenger, and others
-* Off-line functionally
+* No history of previously queried words. 
+* No looping of speech audio to repeat the word or phrase.
+* No sharing of links to your friends and contacts through WhatsApp, WeChat, Telegram, Messenger, and others.
+* No off-line functionally.
 
 ## Solving a problem and creating a public tool
 
-Being a developer, something like the mason on the internet has its benefits. From time to time, I'm used to taking a challenge and share its code on my GitHub profile, like [this one](https://github.com/willianantunes/runner-said-no-one-ever) made in Ruby a time ago, and I was reaching the moment to do that again, so that's when I saw the opportunity to change the game with a new tool that would help me (and you) to learn phonetics! Hence I did the first version of Rave of Phonetics and I made it publicly available in January of 2021 (see the [changelog](/changelog) so you can see more details). After that day, I haven't stopped improving it! The image below shows how many [commits](https://en.wikipedia.org/wiki/Commit_(version_control)) I have on the repository:
+Being a developer, something like the mason of the internet has its benefits. From time to time, I will take on a challenge and publicly share its code on my GitHub profile, like [this one](https://github.com/willianantunes/runner-said-no-one-ever) made in Ruby a time ago. The moment had come to do that yet again, so that’s when I saw the opportunity to change the game with a new tool that would help me (and you) to learn better through phonetics! Hence, I did the first version of Rave of Phonetics and I made it publicly available in January of 2021 (check the [changelog](/changelog) so you can see more details). After that day, I have not stopped improving it! The image below shows how many [commits](https://en.wikipedia.org/wiki/Commit_(version_control)) I have on the repository:
 
 ![GitHub repository of the Rave of Phonetics project](github-refactor-rop.png "A monorepo of the entire project")
 
 ## Technologies used
 
-I started the project using [Django](https://www.djangoproject.com/) and [Parcel](https://parceljs.org/), but now I changed the whole architecture. [Gatsby](https://www.gatsbyjs.com/) is used on the front-end with [Material UI](https://material-ui.com/) and I'm still using Django on the back-end, because, you may know, it is the web framework for perfectionists with deadlines. By the way, I'm still using others like [Inkscape](https://inkscape.org/):
+I started the project using [Django](https://www.djangoproject.com/) and [Parcel](https://parceljs.org/), but now the whole architecture is changed. [Gatsby](https://www.gatsbyjs.com/) is used for front-end with [Material UI](https://material-ui.com/) and I am still using Django for the back-end, because, as you may know, it is the web framework for perfectionists with deadlines. By the way, I’m still using others like [Inkscape](https://inkscape.org/):
 
 ![Print screen of Inkscape program](inkscape-rop.png "Inkscape can be used to draw things")
 
-Let's build something together! Feedbacks and critics are welcome!
+Let's build something together! Feedbacks and comments are welcome!
