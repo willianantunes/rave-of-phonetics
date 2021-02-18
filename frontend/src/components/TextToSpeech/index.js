@@ -9,7 +9,7 @@ import { Play, Stop } from "styled-icons/boxicons-regular"
 import Voices from "../Voices"
 import { analyseVoices, setLoopSpeechAudio, setPitch, setRate, setVoiceToSpeech } from "../../redux/slices/textToSpeechSlice"
 import { debounce } from "lodash"
-import { toggleMessage } from "../../redux/slices/messageBoardSlice"
+import { showMessage } from "../../redux/slices/messageBoardSlice"
 
 export default function TextToSpeech() {
   // States
@@ -43,7 +43,7 @@ export default function TextToSpeech() {
   // Events
   const speakWhatIsConfigured = () => {
     if (text === "") {
-      dispatch(toggleMessage("Please enter something first"))
+      dispatch(showMessage("Please enter something first"))
     } else {
       if (buttonValue === "Play") {
         webSpeechAPI.current.speechWith(text, chosenLanguage, pitch, rate, voiceToSpeech, loopSpeechAudio)
