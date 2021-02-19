@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+gunicorn = "*"
+gevent = "*"
+python-json-logger = "*"
+django-cors-headers = "*"
+requests = "*"
+
+[dev-packages]
+pytest-django = "*"
+pytest-mock = "*"
+pytest-cov = "*"
+
+[requires]
+python_version = "3.7"
