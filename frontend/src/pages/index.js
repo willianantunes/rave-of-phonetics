@@ -12,7 +12,7 @@ const RavePage = () => {
 
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO title={title} />
       <Transcription />
       <TextToSpeech />
       <History />
