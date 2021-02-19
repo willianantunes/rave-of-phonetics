@@ -1,10 +1,9 @@
 import axios from "axios"
+import { RECAPTCHA_TOKEN_HEADER, RAVE_OF_PHONETICS_TRANSCRIBE_ENDPOINT } from "../config/settings"
 
-const tokenHeader = process.env.RECAPTCHA_TOKEN_HEADER
-const endpoint = process.env.RAVE_OF_PHONETICS_TRANSCRIBE_ENDPOINT
 const options = {
   method: "POST",
-  url: endpoint,
+  url: RAVE_OF_PHONETICS_TRANSCRIBE_ENDPOINT,
   timeout: 10 * 1000,
   headers: {
     Accept: "application/json",
@@ -14,7 +13,7 @@ const options = {
 
 export async function transcribeText(text, language, withStress, token) {
   options.data = { text, language, "with-stress": withStress }
-  options.headers = { ...options.headers, [tokenHeader]: token }
+  options.headers = { ...options.headers, [RECAPTCHA_TOKEN_HEADER]: token }
 
   const response = await axios(options)
 

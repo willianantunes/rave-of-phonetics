@@ -1,8 +1,10 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit"
 import rootReducer from "../reducers"
+import { REDUX_DEVELOPER_TOOLS } from "../../config/settings"
 
 const createStore = () => {
   return configureStore({
+    devTools: REDUX_DEVELOPER_TOOLS,
     reducer: rootReducer,
     middleware: getDefaultMiddleware({
       serializableCheck: {

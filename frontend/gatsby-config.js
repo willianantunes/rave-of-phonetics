@@ -4,6 +4,8 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
+const { GOOGLE_TAGMANAGER_ID, SITE_URL } = require("./src/config/settings")
+
 const siteMetadata = {
   name: `Rave of Phonetics`,
   shortName: `RoP`,
@@ -12,7 +14,7 @@ const siteMetadata = {
     name: `Willian Antunes`,
   },
   description: `Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet.`,
-  siteUrl: `https://dev.raveofphonetics.com/`, // TODO: siteUrl must be passed as environment variable
+  siteUrl: SITE_URL,
   social: {
     twitter: `raveofphonetics`,
     twitterLink: `https://twitter.com/raveofphonetics`,
@@ -97,11 +99,10 @@ module.exports = {
       },
     },
     `gatsby-plugin-sitemap`,
-
     {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
-        id: process.env.GOOGLE_TAGMANAGER_ID,
+        id: GOOGLE_TAGMANAGER_ID,
         // Include GTM in development.
         // Defaults to false meaning GTM will only be loaded in production.
         includeInDevelopment: false,
