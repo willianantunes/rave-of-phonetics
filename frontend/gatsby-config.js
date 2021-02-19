@@ -4,7 +4,7 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-const { GOOGLE_TAGMANAGER_ID, SITE_URL } = require("./src/config/settings")
+const { GOOGLE_TAGMANAGER_ID, SITE_URL, DISQUS_SHORTNAME } = require("./src/config/settings")
 
 const siteMetadata = {
   name: `Rave of Phonetics`,
@@ -144,7 +144,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-disqus`,
       options: {
-        shortname: `rave-of-phonetics`,
+        shortname: DISQUS_SHORTNAME,
       },
     },
     {
