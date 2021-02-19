@@ -5,13 +5,14 @@ import { FeatureEntry } from "../FeatureEntry"
 const features = [
   {
     title: "New site, history, blog, off-line functionality and many more ",
-    createdAt: "February 15th, 2021",
+    createdAt: "February 19th, 2021",
     added: 5,
     updated: 2,
     text: `You can easily copy the link of your transcription setup, and copy its result as well. When you 
     transcribe a text, it is saved in the history at the bottom of the page. If you click on the row related to it, it will be 
     restored at what you got previously. You can also download us and use as an App, consulting the history of what you 
-    have transcribed and play text-to-speech too. Don't forget to consult our blog. Learn more about phonetics!`,
+    have transcribed and play text-to-speech too, off-line if you want! Don't forget to consult our blog. 
+    Learn more about phonetics!`,
   },
   {
     title: "To be, or not to be STRESSED: that is the question",
