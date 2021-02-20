@@ -15,6 +15,7 @@ export const ActionsWrapper = styled(FormGroup)`
 `
 
 export const CustomCard = styled(Card)`
+  flex: 3 1 450px;
   & .MuiFormGroup-row {
     justify-content: center;
   }

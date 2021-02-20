@@ -49,6 +49,7 @@ export const MessageLinkCopied = styled(Typography)`
 `
 
 export const CustomCard = styled(Card)`
+  flex: 1 1 550px;
   & .MuiFormGroup-row {
     justify-content: center;
   }
@@ -56,6 +57,13 @@ export const CustomCard = styled(Card)`
 
 export const HelloMyFriendTypography = styled(Typography)`
   font-size: 20px;
+`
+
+export const TranscriptionForm = styled.form`
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
 export const LoadingTranscription = styled(LinearProgress)`

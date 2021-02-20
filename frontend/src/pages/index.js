@@ -5,6 +5,24 @@ import Transcription from "../components/Transcription"
 import TextToSpeech from "../components/TextToSpeech"
 import History from "../components/History"
 import DisqusWrapper from "../components/DisqusWrapper"
+import styled from "styled-components"
+import { Box } from "@material-ui/core"
+
+export const ToolsWrapper = styled(Box).attrs({ component: "section" })`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+
+  & .MuiCard-root {
+    margin-top: 0;
+  }
+
+  & .MuiCardContent-root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+`
 
 const RavePage = () => {
   const title = "Home"
@@ -13,8 +31,10 @@ const RavePage = () => {
   return (
     <Layout>
       <SEO title={title} />
-      <Transcription />
-      <TextToSpeech />
+      <ToolsWrapper>
+        <Transcription />
+        <TextToSpeech />
+      </ToolsWrapper>
       <History />
       <DisqusWrapper identifier={identifier} title={title} />
     </Layout>

@@ -106,7 +106,7 @@ export default function Transcription(props) {
             🔎
           </span>
         </S.HelloMyFriendTypography>
-        <form onSubmit={transcribeGivenText}>
+        <S.TranscriptionForm onSubmit={transcribeGivenText}>
           <FormControl component="fieldset" fullWidth={true}>
             <TextField
               id="standard-multiline-flexible"
@@ -189,7 +189,7 @@ export default function Transcription(props) {
               ))}
             </S.TranscriptionSection>
           )}
-        </form>
+        </S.TranscriptionForm>
       </CardContent>
     </S.CustomCard>
   )
