@@ -3,6 +3,13 @@ backend:
   name: github
   repo: willianantunes/rave-of-phonetics
   branch: develop
+  api_root: https://api.github.com
+  # OAuth client hostname (just the base domain, no path). Required when using an external OAuth server or self-hosted GitLab.
+  base_url: https://warm-impala-90.loca.lt/github
+  # Path to append to base_url for authentication requests.
+  auth_endpoint: auth
+  # Pull (or Merge) Requests label prefix when using editorial workflow.
+  cms_label_prefix: netlify-cms/
 
 # https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
 # local_backend: true # TODO: Use ENVIRONMENT VARIABLE
