@@ -151,6 +151,8 @@ module.exports = {
       resolve: `gatsby-plugin-netlify-cms`,
       options: {
         modulePath: path.join(__dirname, "src", "cms", "cms.js"),
+        publicPath: "nebuchadnezzar",
+        manualInit: true,
       },
     },
   ],
