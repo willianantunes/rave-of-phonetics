@@ -11,6 +11,7 @@ gevent = "*"
 python-json-logger = "*"
 django-cors-headers = "*"
 requests = "*"
+requests-oauthlib = "*"
 
 [dev-packages]
 pytest-django = "*"

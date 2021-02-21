@@ -172,10 +172,18 @@ LOGGING = {
 
 STATIC_URL = "/static/"
 
-# Custom things
+# RECAPTCHA
 
 RECAPTCHA_SCORE_THRESHOLD = float(getenv_or_raise_exception("RECAPTCHA_SCORE_THRESHOLD"))
 RECAPTCHA_TOKEN_HEADER = getenv_or_raise_exception("RECAPTCHA_TOKEN_HEADER")
 CORS_ALLOW_HEADERS.append(RECAPTCHA_TOKEN_HEADER)
 RECAPTCHA_SECRET_KEY = getenv_or_raise_exception("RECAPTCHA_SECRET_KEY")
 RECAPTCHA_ENDPOINT = getenv_or_raise_exception("RECAPTCHA_ENDPOINT")
+
+# GitHub OAuth / Netlify CMS
+GITHUB_OAUTH_ORIGIN = getenv_or_raise_exception("GITHUB_OAUTH_ORIGIN")
+GITHUB_OAUTH_AUTHORIZATION_URL = os.getenv("GITHUB_OAUTH_AUTHORIZATION_URL", "https://github.com/login/oauth/authorize")
+GITHUB_OAUTH_TOKEN_URL = os.getenv("GITHUB_OAUTH_TOKEN_URL", "https://github.com/login/oauth/access_token")
+GITHUB_OAUTH_APP_CLIENT_ID = getenv_or_raise_exception("GITHUB_OAUTH_APP_CLIENT_ID")
+GITHUB_OAUTH_APP_CLIENT_SECRET = getenv_or_raise_exception("GITHUB_OAUTH_APP_CLIENT_SECRET")
+GITHUB_OAUTH_APP_SCOPES = os.getenv("GITHUB_OAUTH_APP_SCOPES", "repo,user")

@@ -1,14 +1,12 @@
 backend:
   # https://www.netlifycms.org/docs/backends-overview/
-  name: github
   repo: willianantunes/rave-of-phonetics
-  branch: develop
 
 # https://www.netlifycms.org/docs/beta-features/#working-with-a-local-git-repository
-# local_backend: true # TODO: Use ENVIRONMENT VARIABLE
 # https://www.netlifycms.org/docs/beta-features/#folder-collections-media-and-public-folder
 # https://github.com/netlify/netlify-cms/issues/2696#issuecomment-567081038
-media_folder: "/static/assets/posts"
+# ONLY IF local_backend is true: media_folder: "/static/assets/posts"
+media_folder: "/frontend/static/assets/posts"
 public_folder: "/assets"
 publish_mode: editorial_workflow
 
@@ -17,7 +15,8 @@ collections:
   # https://www.netlifycms.org/docs/configuration-options/#collections
   - name: 'blog'
     label: 'Blog'
-    folder: 'content/blog'
+    # ONLY IF local_backend is true: folder: "content/blog"
+    folder: "/frontend/content/blog"
     create: true
     # How the file post is saved
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
