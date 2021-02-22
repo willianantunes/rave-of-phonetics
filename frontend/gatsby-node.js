@@ -1,11 +1,20 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const { fmImagesToRelative } = require("gatsby-remark-relative-images")
+const { SITE_URL } = require("./src/config/settings")
 
 function extractsTitleFromPostLocation(location) {
   const regex = /\/[0-9]+\/[0-9]+\/(.+)\//
   const [fullMatch, firstGroup] = location.match(regex)
   return firstGroup
+}
+
+exports.onCreateWebpackConfig = ({ stage, actions }) => {
+  if (stage === `build-javascript` && SITE_URL.includes("localhost") === false) {
+    actions.setWebpackConfig({
+      devtool: false,
+    })
+  }
 }
 
 exports.createPages = async ({ graphql, actions, reporter }) => {
