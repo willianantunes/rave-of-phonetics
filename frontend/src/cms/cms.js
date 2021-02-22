@@ -20,7 +20,6 @@ const backEndConfiguration =
     ? {
         branch: NETLIFY_CMS_BACKEND_BRANCH,
         name: "git-gateway",
-        collections: [{ name: "blog", folder: NETLIFY_CMS_COLLECTION_BLOG_FOLDER }],
       }
     : {
         name: "github",
