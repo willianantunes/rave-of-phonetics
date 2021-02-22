@@ -7,6 +7,7 @@ import {
   loadTranscriptionHistory,
 } from "../../redux/slices/historySlice"
 import { loadTranscriptionFromDatabase } from "../../redux/slices/transcriptionSlice"
+import ReactGA from "react-ga"
 
 const columns = [
   { field: "id", headerName: "ID", hide: true },
@@ -41,6 +42,20 @@ const columns = [
     width: 180,
   },
 ]
+
+const trackDeleteForeverClick = () => {
+  ReactGA.event({
+    category: "History table",
+    action: `Deleted all rows`,
+  })
+}
+
+const trackRowClick = () => {
+  ReactGA.event({
+    category: "History table",
+    action: `Clicked in some row`,
+  })
+}
 
 export default function History() {
   // Infrastructure
@@ -77,10 +92,12 @@ export default function History() {
   // Actions
   const deleteTableContent = () => {
     if (transcriptions.length > 0) {
+      trackDeleteForeverClick()
       dispatch(deleteAllTranscriptionHistory())
     }
   }
   const handleRowClick = params => {
+    trackRowClick()
     dispatch(loadTranscriptionFromDatabase(params.row.id))
     window.scroll({ top: 0, left: 0, behavior: "smooth" })
   }

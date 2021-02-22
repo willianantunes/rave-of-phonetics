@@ -10,6 +10,21 @@ import Voices from "../Voices"
 import { analyseVoices, setLoopSpeechAudio, setPitch, setRate, setVoiceToSpeech } from "../../redux/slices/textToSpeechSlice"
 import { debounce } from "lodash"
 import { showMessage } from "../../redux/slices/messageBoardSlice"
+import ReactGA from "react-ga"
+
+const trackPlayClick = (language, loop, pitch, rate) => {
+  ReactGA.event({
+    category: "TTS tool",
+    action: `Played with ${language} / loop ${loop} / pitch ${pitch} / rate ${rate}`,
+  })
+}
+
+const trackStopClick = () => {
+  ReactGA.event({
+    category: "TTS tool",
+    action: `Stopped`,
+  })
+}
 
 export default function TextToSpeech() {
   // States
@@ -46,8 +61,10 @@ export default function TextToSpeech() {
       dispatch(showMessage("Please enter something first"))
     } else {
       if (buttonValue === "Play") {
+        trackPlayClick(chosenLanguage, loopSpeechAudio, pitch, rate)
         webSpeechAPI.current.speechWith(text, chosenLanguage, pitch, rate, voiceToSpeech, loopSpeechAudio)
       } else {
+        trackStopClick()
         webSpeechAPI.current.stopSpeakingImmediately()
       }
     }

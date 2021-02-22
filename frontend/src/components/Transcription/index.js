@@ -12,6 +12,28 @@ import { copyToClipboard } from "../../utils/general"
 import { stringify } from "query-string"
 import { useLocation } from "@reach/router"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
+import ReactGA from "react-ga"
+
+const trackTranscribeClick = (language, stress) => {
+  ReactGA.event({
+    category: "Transcription tool",
+    action: `transcribe using ${language} with stress ${stress}`,
+  })
+}
+
+const trackCopyLinkClick = (language, stress) => {
+  ReactGA.event({
+    category: "Transcription tool",
+    action: `copied link using ${language} with stress ${stress}`,
+  })
+}
+
+const trackCopyTranscriptionClick = (language, stress) => {
+  ReactGA.event({
+    category: "Transcription tool",
+    action: `copied transcription using ${language} with stress ${stress}`,
+  })
+}
 
 export default function Transcription(props) {
   // Infrastructure
@@ -79,6 +101,7 @@ export default function Transcription(props) {
     event.preventDefault()
     const token = await executeRecaptcha("transcribe")
 
+    trackTranscribeClick(chosenLanguage, withStress)
     delayedTranscribeAction(text, chosenLanguage, withStress, token)
   }
   const copyLinkToClipboard = event => {
@@ -87,10 +110,12 @@ export default function Transcription(props) {
       { text: text, language: chosenLanguage, "with-stress": withStress }
     )
     copyToClipboard(`${origin}?${stringify(encodedQuery)}`)
+    trackCopyLinkClick(chosenLanguage, withStress)
     setAnchorWhenSomethingIsCopied(event.currentTarget)
   }
   const copyTranscriptionToClipboard = event => {
     copyToClipboard(phones)
+    trackCopyTranscriptionClick(chosenLanguage, withStress)
     setAnchorWhenSomethingIsCopied(event.currentTarget)
   }
 

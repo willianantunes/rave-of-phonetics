@@ -1,6 +1,15 @@
 import React from "react"
 import { Link } from "gatsby-theme-material-ui"
 import * as S from "./styled"
+import ReactGA from "react-ga"
+
+const trackClick = title => {
+  ReactGA.event({
+    category: "Blog",
+    action: "click",
+    label: `Post - ${title}`,
+  })
+}
 
 export default function Blogs({ posts }) {
   return (
@@ -21,7 +30,7 @@ export default function Blogs({ posts }) {
             <S.ArticleWrapper key={post.frontmatter.id}>
               <S.ArticleHeaderWrapper>
                 <S.ArticleTitle>
-                  <Link to={post.fields.path} itemProp="url">
+                  <Link to={post.fields.path} itemProp="url" onClick={() => trackClick(title)}>
                     {title}
                   </Link>
                 </S.ArticleTitle>
