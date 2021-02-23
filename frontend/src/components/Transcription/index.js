@@ -21,6 +21,13 @@ const trackTranscribeClick = (language, stress) => {
   })
 }
 
+const trackTranscribeError = () => {
+  dispatchEvent({
+    category: "Transcription tool",
+    action: `Error shown`,
+  })
+}
+
 const trackCopyLinkClick = (language, stress) => {
   dispatchEvent({
     category: "Transcription tool",
@@ -65,7 +72,8 @@ export default function Transcription(props) {
   )
   const delayedTranscribeAction = useCallback(
     debounce(
-      (text, chosenLanguage, withStress, token) => dispatch(transcriptionFromText(text, chosenLanguage, withStress, token)),
+      (text, chosenLanguage, withStress, token) =>
+        dispatch(transcriptionFromText(text, chosenLanguage, withStress, token, trackTranscribeError)),
       500
     ),
     []

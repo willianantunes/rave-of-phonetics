@@ -77,7 +77,7 @@ export const {
 
 export default transcriptionSlice.reducer
 
-export const transcriptionFromText = (text, chosenLanguage, withStress, token) => async dispatch => {
+export const transcriptionFromText = (text, chosenLanguage, withStress, token, hookWhenError) => async dispatch => {
   dispatch(analysingText())
 
   try {
@@ -87,6 +87,7 @@ export const transcriptionFromText = (text, chosenLanguage, withStress, token) =
   } catch (e) {
     // TODO: Deal with many different errors instead of doing this
     dispatch(errorCaughtDuringTranscription())
+    if (hookWhenError) hookWhenError()
   }
 }
 
