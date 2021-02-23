@@ -10,17 +10,17 @@ import Voices from "../Voices"
 import { analyseVoices, setLoopSpeechAudio, setPitch, setRate, setVoiceToSpeech } from "../../redux/slices/textToSpeechSlice"
 import { debounce } from "lodash"
 import { showMessage } from "../../redux/slices/messageBoardSlice"
-import ReactGA from "react-ga"
+import { dispatchEvent } from "../../analytics"
 
 const trackPlayClick = (language, loop, pitch, rate) => {
-  ReactGA.event({
+  dispatchEvent({
     category: "TTS tool",
     action: `Played with ${language} / loop ${loop} / pitch ${pitch} / rate ${rate}`,
   })
 }
 
 const trackStopClick = () => {
-  ReactGA.event({
+  dispatchEvent({
     category: "TTS tool",
     action: `Stopped`,
   })

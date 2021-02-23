@@ -1,10 +1,10 @@
 import React from "react"
 import { Link } from "gatsby-theme-material-ui"
 import * as S from "./styled"
-import ReactGA from "react-ga"
+import { dispatchEvent } from "../../analytics"
 
 const trackClick = title => {
-  ReactGA.event({
+  dispatchEvent({
     category: "Blog",
     action: "click",
     label: `Post - ${title}`,

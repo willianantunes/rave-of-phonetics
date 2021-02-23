@@ -1,9 +1,9 @@
 import React from "react"
 import * as S from "./styled"
-import ReactGA from "react-ga"
+import { dispatchEvent } from "../../analytics"
 
 const trackClick = item => {
-  ReactGA.event({
+  dispatchEvent({
     category: "Social",
     action: "click",
     label: `Social - ${item}`,

@@ -1,11 +1,11 @@
 import React from "react"
-import ReactGA from "react-ga"
 import * as S from "./styled"
 import * as R from "../Responsive"
 import { Button, Link } from "gatsby-theme-material-ui"
+import { dispatchEvent } from "../../analytics"
 
 const trackClick = item => {
-  ReactGA.event({
+  dispatchEvent({
     category: "Menu",
     action: "click",
     label: `Menu - ${item}`,

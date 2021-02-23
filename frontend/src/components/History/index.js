@@ -7,7 +7,7 @@ import {
   loadTranscriptionHistory,
 } from "../../redux/slices/historySlice"
 import { loadTranscriptionFromDatabase } from "../../redux/slices/transcriptionSlice"
-import ReactGA from "react-ga"
+import { dispatchEvent } from "../../analytics"
 
 const columns = [
   { field: "id", headerName: "ID", hide: true },
@@ -44,14 +44,14 @@ const columns = [
 ]
 
 const trackDeleteForeverClick = () => {
-  ReactGA.event({
+  dispatchEvent({
     category: "History table",
     action: `Deleted all rows`,
   })
 }
 
 const trackRowClick = () => {
-  ReactGA.event({
+  dispatchEvent({
     category: "History table",
     action: `Clicked in some row`,
   })
