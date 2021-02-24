@@ -1,108 +1,123 @@
-import 'fake-indexeddb/auto'
-import Dexie from 'dexie';
-import {TextConfiguration} from "../../../../../../../rave_of_phonetics/apps/core/static/core/js/domain/TextConfiguration";
-import * as dao from "../../../../../../../rave_of_phonetics/apps/core/static/core/js/domain/TextConfigurationDao"
-import {sleep} from "../../../../../../support/utils";
-import {databaseName} from "../../../../../../../rave_of_phonetics/apps/core/static/core/js/infra/indexeddb-setup";
+import "fake-indexeddb/auto"
+import Dexie from "dexie"
+import { databaseName } from "../../../../src/infra/indexeddb-setup"
+import { TranscriptionDetails } from "../../../../src/domains/TranscriptionDetails"
+import * as dao from "../../../../src/domains/transcription-details-dao"
+import { sleep } from "../../../../src/utils/general"
 
 beforeEach(async done => {
-    await Dexie.delete(databaseName)
-    done()
+  await Dexie.delete(databaseName)
+  done()
 })
 
-test('Should save TextConfiguration and retrieve it afterwards', async () => {
-    const textConfiguration = new TextConfiguration(null, "Jafar", "en-us", 1, 1)
-    const persistedTextConfiguration = await dao.saveOrUpdate(textConfiguration)
+test("Should save TranscriptionDetails and retrieve it afterwards", async () => {
+  const sampleTranscriptionSetup = [{ word: "Jafar", phone: "dʒˈæfɑːɹ" }]
+  const transcriptionDetails = new TranscriptionDetails(null, "Jafar", "en-us", "dʒæfɑːɹ", true, sampleTranscriptionSetup)
+  const persistedObject = await dao.saveOrUpdate(transcriptionDetails)
 
-    const textConfigurationFromDatabase = await dao.findById(persistedTextConfiguration.id)
-    const listOfTextConfiguration = await dao.findAll()
+  const persistedObjectFromDatabase = await dao.findById(persistedObject.id)
+  const listOfPersistedObjects = await dao.findAll()
 
-    expect(persistedTextConfiguration.id).toBe(1)
-    expect(listOfTextConfiguration).toHaveLength(1)
-    expect(listOfTextConfiguration[0].equals(textConfigurationFromDatabase)).toBeTruthy()
+  expect(persistedObject.id).toBe(1)
+  expect(listOfPersistedObjects).toHaveLength(1)
+  expect(listOfPersistedObjects[0].equals(persistedObjectFromDatabase)).toBeTruthy()
 })
 
-test('Should save two TextConfiguration and list them', async () => {
-    const textConfigurationJafar = new TextConfiguration(null, "Jafar", "en-us", 1, 1)
-    // In order to avoid collision in createdAt field
-    await sleep(100);
-    const textConfigurationIago = new TextConfiguration(null, "Iago", "en-us", 2, 2)
+test("Should save two TranscriptionDetails and list them", async () => {
+  const jafarTranscriptionSetup = [{ word: "Jafar", phone: "dʒˈæfɑːɹ" }]
+  const jafarTranscriptionDetails = new TranscriptionDetails(null, "Jafar", "en-us", "dʒæfɑːɹ", true, jafarTranscriptionSetup)
+  // In order to avoid collision in createdAt field
+  await sleep(100)
+  const iagoTranscriptionSetup = [{ word: "Iago", phone: "aɪˈeɪɡoʊ" }]
+  const iagoTranscriptionDetails = new TranscriptionDetails(null, "Iago", "en-us", "aɪˈeɪɡoʊ", false, iagoTranscriptionSetup)
 
-    const persistedRetrievedJafar = await dao.saveOrUpdate(textConfigurationJafar)
-    const persistedRetrievedIago = await dao.saveOrUpdate(textConfigurationIago)
-    const listOfTextConfiguration = await dao.findAll()
+  const persistedRetrievedJafar = await dao.saveOrUpdate(jafarTranscriptionDetails)
+  const persistedRetrievedIago = await dao.saveOrUpdate(iagoTranscriptionDetails)
+  const listOfPersistedObjects = await dao.findAll()
 
-    expect(persistedRetrievedJafar.id).toBe(1)
-    expect(persistedRetrievedIago.id).toBe(2)
+  expect(persistedRetrievedJafar.id).toBe(1)
+  expect(persistedRetrievedIago.id).toBe(2)
 
-    expect(listOfTextConfiguration).toHaveLength(2)
-    expect(listOfTextConfiguration[0].equals(persistedRetrievedJafar)).toBeTruthy()
-    expect(listOfTextConfiguration[1].equals(persistedRetrievedIago)).toBeTruthy()
+  expect(listOfPersistedObjects).toHaveLength(2)
+  expect(listOfPersistedObjects[0].equals(persistedRetrievedJafar)).toBeTruthy()
+  expect(listOfPersistedObjects[1].equals(persistedRetrievedIago)).toBeTruthy()
 })
 
-test('Should save TextConfiguration and delete it afterwards', async () => {
-    const textConfiguration = new TextConfiguration(null, "Jafar", "en-us", 1, 1)
-    const persistedTextConfiguration = await dao.saveOrUpdate(textConfiguration)
+test("Should save TranscriptionDetails and delete it afterwards", async () => {
+  const jafarTranscriptionSetup = [{ word: "Jafar", phone: "dʒˈæfɑːɹ" }]
+  const jafarTranscriptionDetails = new TranscriptionDetails(null, "Jafar", "en-us", "dʒæfɑːɹ", true, jafarTranscriptionSetup)
+  const persistedObject = await dao.saveOrUpdate(jafarTranscriptionDetails)
 
-    await dao.deleteById(persistedTextConfiguration.id)
-    const listOfTextConfiguration = await dao.findAll()
+  await dao.deleteById(persistedObject.id)
+  const listOfPersistedObjects = await dao.findAll()
 
-    expect(listOfTextConfiguration).toHaveLength(0)
+  expect(listOfPersistedObjects).toHaveLength(0)
 })
 
-test('Should save two TextConfiguration and delete all objects in the store', async () => {
-    const textConfigurationJafar = new TextConfiguration(null, "Jafar", "en-us", 1, 1)
-    // In order to avoid collision in createdAt field
-    await sleep(100);
-    const textConfigurationIago = new TextConfiguration(null, "Iago", "en-us", 2, 2)
+test("Should save two TranscriptionDetails and delete all objects in the store", async () => {
+  const jafarTranscriptionSetup = [{ word: "Jafar", phone: "dʒˈæfɑːɹ" }]
+  const jafarTranscriptionDetails = new TranscriptionDetails(null, "Jafar", "en-us", "dʒæfɑːɹ", true, jafarTranscriptionSetup)
+  // In order to avoid collision in createdAt field
+  await sleep(100)
+  const iagoTranscriptionSetup = [{ word: "Iago", phone: "aɪˈeɪɡoʊ" }]
+  const iagoTranscriptionDetails = new TranscriptionDetails(null, "Iago", "en-us", "aɪˈeɪɡoʊ", false, iagoTranscriptionSetup)
 
-    await dao.saveOrUpdate(textConfigurationJafar)
-    await dao.saveOrUpdate(textConfigurationIago)
-    await dao.deleteAll()
-    const listOfTextConfiguration = await dao.findAll()
+  await dao.saveOrUpdate(jafarTranscriptionDetails)
+  await dao.saveOrUpdate(iagoTranscriptionDetails)
+  await dao.deleteAll()
+  const listOfPersistedObjects = await dao.findAll()
 
-    expect(listOfTextConfiguration).toHaveLength(0)
+  expect(listOfPersistedObjects).toHaveLength(0)
 })
 
-test('Should save TextConfiguration and update it with a new value', async () => {
-    const textConfiguration = new TextConfiguration(null, "Jafar", "en-us", 1, 1)
-    const persistedTextConfiguration = await dao.saveOrUpdate(textConfiguration)
+test("Should save TranscriptionDetails and update it with a new value", async () => {
+  const jafarTranscriptionSetup = [{ word: "Jafar", phone: "dʒˈæfɑːɹ" }]
+  const jafarTranscriptionDetails = new TranscriptionDetails(null, "Jafar", "en-us", "dʒæfɑːɹ", true, jafarTranscriptionSetup)
+  const persistedJafar = await dao.saveOrUpdate(jafarTranscriptionDetails)
 
-    const newText = "Jafar and Iago"
-    const updatedTextConfiguration = new TextConfiguration(persistedTextConfiguration.id, newText, "en-us", 1, 1)
-    const updatedPersistedTextConfiguration = await dao.saveOrUpdate(updatedTextConfiguration)
-    const listOfTextConfiguration = await dao.findAll()
+  const [newText, newPhone] = ["Jafar and Iago", "dʒˈæfɑːɹ ˈænd aɪˈeɪɡoʊ"]
+  const newTranscriptionSetup = [{ word: newText, phone: newPhone }]
+  const updatedJafar = new TranscriptionDetails(persistedJafar.id, newText, "en-us", newPhone, true, newTranscriptionSetup)
+  const updatedPersistedJafar = await dao.saveOrUpdate(updatedJafar)
+  const listOfPersistedObjects = await dao.findAll()
 
-    expect(listOfTextConfiguration).toHaveLength(1)
-    expect(updatedPersistedTextConfiguration.text).toBe(newText)
-    expect(updatedPersistedTextConfiguration.createdAt.toISOString()).toBe(textConfiguration.createdAt.toISOString())
+  expect(listOfPersistedObjects).toHaveLength(1)
+  expect(updatedPersistedJafar.text).toBe(newText)
+  expect(updatedPersistedJafar.transcription).toBe(newPhone)
+  expect(JSON.stringify(updatedPersistedJafar.transcriptionSetup)).toBe(JSON.stringify(newTranscriptionSetup))
+  expect(updatedPersistedJafar.createdAt.toISOString()).toBe(persistedJafar.createdAt.toISOString())
 })
 
-test('Should save two TextConfiguration, delete only one given its ID and list the store afterwards', async () => {
-    const textConfigurationJafar = new TextConfiguration(null, "Jafar", "en-us", 1, 1)
-    // In order to avoid collision in createdAt field
-    await sleep(100);
-    const textConfigurationIago = new TextConfiguration(null, "Iago", "en-us", 2, 2)
+test("Should save two TranscriptionDetails, delete only one given its ID and list the store afterwards", async () => {
+  const jafarTranscriptionSetup = [{ word: "Jafar", phone: "dʒˈæfɑːɹ" }]
+  const jafarTranscriptionDetails = new TranscriptionDetails(null, "Jafar", "en-us", "dʒæfɑːɹ", true, jafarTranscriptionSetup)
+  // In order to avoid collision in createdAt field
+  await sleep(100)
+  const iagoTranscriptionSetup = [{ word: "Iago", phone: "aɪˈeɪɡoʊ" }]
+  const iagoTranscriptionDetails = new TranscriptionDetails(null, "Iago", "en-us", "aɪˈeɪɡoʊ", false, iagoTranscriptionSetup)
 
-    const persistedJafar = await dao.saveOrUpdate(textConfigurationJafar)
-    const persistedIago = await dao.saveOrUpdate(textConfigurationIago)
-    await dao.deleteById(persistedJafar.id)
-    const listOfTextConfiguration = await dao.findAll()
+  const persistedJafar = await dao.saveOrUpdate(jafarTranscriptionDetails)
+  const persistedIago = await dao.saveOrUpdate(iagoTranscriptionDetails)
+  await dao.deleteById(persistedJafar.id)
+  const listOfPersistedObjects = await dao.findAll()
 
-    expect(listOfTextConfiguration).toHaveLength(1)
-    const persistedIagoFromList = listOfTextConfiguration[0];
-    expect(persistedIagoFromList.equals(persistedIago)).toBeTruthy()
+  expect(listOfPersistedObjects).toHaveLength(1)
+  const persistedIagoFromList = listOfPersistedObjects[0]
+  expect(persistedIagoFromList.equals(persistedIago)).toBeTruthy()
 })
 
-test('Should retrieve last item inserted', async () => {
-    const textConfigurationJafar = new TextConfiguration(null, "Jafar", "en-us", 1, 1)
-    await sleep(100);
-    const textConfigurationIago = new TextConfiguration(null, "Iago", "en-us", 2, 2)
+test("Should retrieve last item inserted", async () => {
+  const jafarTranscriptionSetup = [{ word: "Jafar", phone: "dʒˈæfɑːɹ" }]
+  const jafarTranscriptionDetails = new TranscriptionDetails(null, "Jafar", "en-us", "dʒæfɑːɹ", true, jafarTranscriptionSetup)
+  // In order to avoid collision in createdAt field
+  await sleep(100)
+  const iagoTranscriptionSetup = [{ word: "Iago", phone: "aɪˈeɪɡoʊ" }]
+  const iagoTranscriptionDetails = new TranscriptionDetails(null, "Iago", "en-us", "aɪˈeɪɡoʊ", false, iagoTranscriptionSetup)
 
-    await dao.saveOrUpdate(textConfigurationJafar)
-    const persistedRetrievedIago = await dao.saveOrUpdate(textConfigurationIago)
+  await dao.saveOrUpdate(jafarTranscriptionDetails)
+  const persistedRetrievedIago = await dao.saveOrUpdate(iagoTranscriptionDetails)
 
-    const lastItemInserted = await dao.lastItemInserted()
+  const lastItemInserted = await dao.lastItemInserted()
 
-    expect(lastItemInserted.equals(persistedRetrievedIago)).toBeTruthy()
+  expect(lastItemInserted.equals(persistedRetrievedIago)).toBeTruthy()
 })

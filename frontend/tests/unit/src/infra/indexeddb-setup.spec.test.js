@@ -1,21 +1,21 @@
-import {Dexie} from 'dexie';
+import { Dexie } from "dexie"
 
-jest.mock('dexie');
-import {getDatabase} from "../../../../../../../rave_of_phonetics/apps/core/static/core/js/infra/indexeddb-setup";
+jest.mock("dexie")
+import { getDatabase } from "../../../../src/infra/indexeddb-setup"
 
+test("Should try to create database every time the related method is called", async () => {
+  Dexie.mockImplementation(() => {
+    return {
+      version: jest.fn().mockReturnThis(),
+      stores: jest.fn().mockReturnThis(),
+      open: jest.fn().mockReturnThis(),
+    }
+  })
 
-test('Should try to create database every time the related method is called', async () => {
-    Dexie.mockImplementation(() => {
-        return {
-            version: jest.fn().mockReturnThis(),
-            stores: jest.fn().mockReturnThis(),
-        }
-    });
+  await getDatabase()
+  await getDatabase()
+  await getDatabase()
+  await getDatabase()
 
-    getDatabase()
-    getDatabase()
-    getDatabase()
-    getDatabase()
-
-    expect(Dexie).toHaveBeenCalledTimes(4);
+  expect(Dexie).toHaveBeenCalledTimes(4)
 })

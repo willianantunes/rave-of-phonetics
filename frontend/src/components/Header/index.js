@@ -18,20 +18,20 @@ const Header = () => {
       <S.CustomToolbar variant={"dense"}>
         <S.CustomTypography>
           <R.LessThanTablet>
-            <Link to="/" color="inherit" onClick={() => trackClick("Home")}>
+            <Link data-testid="link-home-less-than-tablet" to="/" color="inherit" onClick={() => trackClick("Home")}>
               RoP
             </Link>
           </R.LessThanTablet>
           <R.GreaterThanTablet>
-            <Link to="/" color="inherit" onClick={() => trackClick("Home")}>
+            <Link data-testid="link-home-greater-than-tablet" to="/" color="inherit" onClick={() => trackClick("Home")}>
               Rave of Phonetics
             </Link>
           </R.GreaterThanTablet>
         </S.CustomTypography>
-        <Button color="inherit" to="/blog" onClick={() => trackClick("Blog")}>
+        <Button data-testid="link-blog" color="inherit" to="/blog" onClick={() => trackClick("Blog")}>
           Blog
         </Button>
-        <Button color="inherit" to="/changelog" onClick={() => trackClick("Changelog")}>
+        <Button data-testid="link-changelog" color="inherit" to="/changelog" onClick={() => trackClick("Changelog")}>
           Changelog
         </Button>
       </S.CustomToolbar>
