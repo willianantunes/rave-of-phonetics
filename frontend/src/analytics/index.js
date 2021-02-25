@@ -9,7 +9,7 @@ export function dispatchEvent({ category, action, label, event = GTM_STANDARD_EV
   }
 
   if (GTM_INCLUDE_DEVELOPMENT === false) {
-    console.log(`If GTM was enabled, that would be pushed: ${dataToBePushed}`)
+    console.log(`If GTM was enabled, that would be pushed: ${JSON.stringify(dataToBePushed)}`)
   } else {
     window.dataLayer.push(dataToBePushed)
   }

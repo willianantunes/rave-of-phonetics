@@ -1,4 +1,4 @@
-const modulesToBeIgnored = ["gatsby", "gatsby-material-ui-components"].join("|")
+const modulesToBeIgnored = ["gatsby", "gatsby-material-ui-components", "react-helmet"].join("|")
 
 module.exports = {
   transform: {

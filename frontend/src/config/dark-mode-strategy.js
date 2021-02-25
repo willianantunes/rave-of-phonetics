@@ -13,6 +13,8 @@
     try {
       localStorage.setItem(paletteTypeLocalStorageKey, newTheme)
     } catch (err) {}
+
+    return newTheme
   }
 
   function setDesirablePaletteType(newPaletteType) {

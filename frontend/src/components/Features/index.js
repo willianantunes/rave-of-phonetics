@@ -4,6 +4,15 @@ import { FeatureEntry } from "../FeatureEntry"
 
 const features = [
   {
+    title: "Dark mode!",
+    createdAt: "February 25th, 2021",
+    added: 1,
+    updated: 0,
+    text: `If you research the benefits of Dark Mode on the web, you'll find many discussions pointing out how important it is, 
+    not only in terms of energy-saving which concerns your device but how good it is for you! We hope this helps 
+    you during your studies here.`,
+  },
+  {
     title: "New site, history, blog, off-line functionality and many more ",
     createdAt: "February 19th, 2021",
     added: 5,
