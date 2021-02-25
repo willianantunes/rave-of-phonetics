@@ -1,9 +1,9 @@
 import styled from "styled-components"
 
 export const ToggleTheme = styled.button.attrs(({ active }) => ({
-  title: active ? "Mudar para tema escuro" : "Mudar para tema claro",
+  title: active ? "Change to light mode" : "Change to dark mode",
   role: "button",
-  "aria-pressed": !active,
+  "aria-pressed": active,
 }))`
   align-items: center;
   background-color: rgb(45, 45, 45);
