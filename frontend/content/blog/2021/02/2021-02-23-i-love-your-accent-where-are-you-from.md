@@ -2,7 +2,7 @@
 id: d8348ea0-7601-11eb-8ce4-23a1c5d60f0e
 title: I love your accent, where are you from?
 date: 2021-02-23T18:06:26.472Z
-cover: /assets/tools-rave-of-phonetics.png
+cover: /assets/og-image-2021-02-25-i-love-your-accent.png
 description: Accents are not just for foreigners, we all have accents. But what
   does having an accent in English or any other language mean?
 tags:
