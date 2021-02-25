@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo } from "react"
-import { createMuiTheme, useMediaQuery } from "@material-ui/core"
-import { themeConfiguration } from "../gatsby-theme-material-ui-top-layout/theme"
+import React, { useEffect } from "react"
+import { useMediaQuery } from "@material-ui/core"
 
 export default function useWindowDarkModeStrategy() {
   const light = "light"
@@ -14,10 +13,7 @@ export default function useWindowDarkModeStrategy() {
   useEffect(() => {
     setPaletteType(window.__theme)
     // This function will be responsible to render this again given the state update
-    window.__onThemeChange = () => {
-      console.log("OnThemeChange! " + window.__theme)
-      setPaletteType(window.__theme)
-    }
+    window.__onThemeChange = () => setPaletteType(window.__theme)
   }, [])
 
   return paletteType

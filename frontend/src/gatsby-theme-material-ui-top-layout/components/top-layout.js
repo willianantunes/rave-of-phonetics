@@ -9,17 +9,11 @@ import { createMuiTheme } from "@material-ui/core"
 import { themeConfiguration } from "../theme"
 import useWindowDarkModeStrategy from "../../hooks/useWindowDarkModeStrategy"
 
-export default function TopLayout({ children, theme: ignored }) {
-  const store = createStore()
-  // https://material-ui.com/customization/palette/#user-preference
-  // const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)")
-  const paletteType = useWindowDarkModeStrategy()
+const store = createStore()
 
-  // const theme = React.useMemo(() => {
-  //   if (prefersDarkMode) themeConfiguration.palette.type = "dark"
-  //   else themeConfiguration.palette.type = "light"
-  //   return createMuiTheme(themeConfiguration)
-  // }, [prefersDarkMode])
+export default function TopLayout({ children, theme: ignored, customStore }) {
+  // https://material-ui.com/customization/palette/#user-preference
+  const paletteType = useWindowDarkModeStrategy()
 
   const theme = React.useMemo(() => {
     themeConfiguration.palette.type = paletteType
@@ -28,7 +22,7 @@ export default function TopLayout({ children, theme: ignored }) {
 
   return (
     <>
-      <Provider store={store}>
+      <Provider store={customStore ? customStore : store}>
         <Viewport />
         <MuiThemeProvider theme={theme}>
           {/* https://material-ui.com/guides/interoperability/#theme */}
