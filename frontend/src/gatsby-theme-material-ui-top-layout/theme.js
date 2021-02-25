@@ -1,10 +1,11 @@
 import { createMuiTheme } from "@material-ui/core"
 
-const theme = createMuiTheme({
+export const themeConfiguration = {
   typography: {
     fontFamily: ["Montserrat", "sans-serif"].join(","),
   },
   palette: {
+    type: "light",
     primary: {
       main: "#26a69a",
     },
@@ -24,6 +25,6 @@ const theme = createMuiTheme({
       xl: 1280,
     },
   },
-})
+}
 
-export default theme
+export default createMuiTheme(themeConfiguration)

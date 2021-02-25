@@ -53,12 +53,11 @@ export const Article = styled.article`
   --fontSize-5: 2.074rem;
   --fontSize-6: 2.488rem;
   --fontSize-7: 2.986rem;
-  --color-primary: #005b99;
-  --color-text: #2e353f;
-  --color-text-light: #4f5969;
-  --color-heading: #1a202c;
-  --color-heading-black: black;
-  --color-accent: #d1dce5;
+  --color-primary: ${props => props.theme.palette.primary.light};
+  --color-text: ${props => props.theme.palette.text.primary};
+  --color-text-light: ${props => props.theme.palette.text.primary};
+  --color-heading: ${props => props.theme.palette.primary};
+  --color-accent: ${props => props.theme.palette.divider};
 
   /* HTML elements */
 
@@ -112,7 +111,7 @@ export const Article = styled.article`
   h1 {
     font-weight: var(--fontWeight-black);
     font-size: var(--fontSize-6);
-    color: var(--color-heading-black);
+    color: var(--color-heading);
   }
 
   h2 {

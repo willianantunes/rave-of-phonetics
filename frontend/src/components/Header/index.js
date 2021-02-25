@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useMemo } from "react"
 import * as S from "./styled"
 import * as R from "../Responsive"
 import { Button, Link } from "gatsby-theme-material-ui"
 import { dispatchEvent } from "../../analytics"
+import useWindowDarkModeStrategy from "../../hooks/useWindowDarkModeStrategy"
 
 const trackClick = item => {
   dispatchEvent({
@@ -13,6 +14,15 @@ const trackClick = item => {
 }
 
 const Header = () => {
+  const onChangeMode = () => {
+    // Please see dark-mode-strategy.js to understand what is going on
+    window.__toggleTheme()
+
+    if (window && window.DISQUS !== undefined) {
+      window.setTimeout(() => window.DISQUS.reset({ reload: true }), 600)
+    }
+  }
+
   return (
     <S.CustomAppBar>
       <S.CustomToolbar variant={"dense"}>
@@ -28,6 +38,9 @@ const Header = () => {
             </Link>
           </R.GreaterThanTablet>
         </S.CustomTypography>
+        <Button color="inherit" onClick={onChangeMode}>
+          Change mode
+        </Button>
         <Button data-testid="link-blog" color="inherit" to="/blog" onClick={() => trackClick("Blog")}>
           Blog
         </Button>
