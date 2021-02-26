@@ -69,8 +69,7 @@ describe("Header", () => {
 
     // https://github.com/testing-library/react-testing-library/issues/402
     // https://stackoverflow.com/questions/44073960/unit-testing-react-helmet-code
-    const firstPeekHelmet = Helmet.peek()
-    expect(firstPeekHelmet.bodyAttributes.class).toBe("theme-light")
+    expect(element.classList.contains("theme-light")).toBeTruthy()
     expect(element.getAttribute("title")).toBe(titleWhenDark)
     expect(element.getAttribute("aria-pressed")).toBe("false")
 
@@ -78,8 +77,7 @@ describe("Header", () => {
     await screen.findByTitle(titleWhenLight)
 
     expect(window.__toggleTheme).toHaveBeenCalledTimes(1)
-    const secondPeekHelmet = Helmet.peek()
-    expect(secondPeekHelmet.bodyAttributes.class).toBe("theme-dark")
+    expect(element.classList.contains("theme-dark")).toBeTruthy()
     expect(element.getAttribute("title")).toBe(titleWhenLight)
     expect(element.getAttribute("aria-pressed")).toBe("true")
   })
