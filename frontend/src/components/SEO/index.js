@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet"
 import { useSiteMetadata } from "../../hooks/use-site-metadata"
 import { graphql, useStaticQuery } from "gatsby"
 
-const SEO = ({ description, meta, title, image }) => {
+const SEO = ({ description, meta, title, image, keywords }) => {
   const siteMetadata = useSiteMetadata()
   const {
     file: { publicURL: ogImage },
@@ -22,17 +22,23 @@ const SEO = ({ description, meta, title, image }) => {
   const htmlAttributes = { lang: `en` }
   const descriptionToBeUsed = description || siteMetadata.description
   const defaultTitle = siteMetadata.title
+  const keywordsToBeUsed = keywords || siteMetadata.keywords
+  const finalTitle = `${title} | ${defaultTitle}`
   const { twitterLink } = siteMetadata.social
 
   return (
     <Helmet
       htmlAttributes={htmlAttributes}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={`%s | ${defaultTitle}`}
       meta={[
         {
           name: `description`,
           content: descriptionToBeUsed,
+        },
+        {
+          name: `keywords`,
+          content: keywordsToBeUsed.join(","),
         },
         {
           property: `og:image`,
@@ -44,7 +50,7 @@ const SEO = ({ description, meta, title, image }) => {
         },
         {
           property: `og:title`,
-          content: title,
+          content: finalTitle,
         },
         {
           property: `og:description`,
@@ -73,6 +79,7 @@ SEO.propTypes = {
   meta: PropTypes.arrayOf(PropTypes.object),
   title: PropTypes.string.isRequired,
   image: PropTypes.string,
+  keywords: PropTypes.arrayOf(PropTypes.string),
 }
 
 export default SEO

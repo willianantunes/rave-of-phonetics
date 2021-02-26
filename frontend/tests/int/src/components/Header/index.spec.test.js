@@ -3,6 +3,7 @@ import Header from "../../../../../src/components/Header"
 import { render } from "../../../../support/test-utils"
 import theme from "../../../../../src/gatsby-theme-material-ui-top-layout/theme"
 import { fireEvent, screen } from "@testing-library/react"
+import { Helmet } from "react-helmet/es/Helmet"
 
 describe("Header", () => {
   beforeEach(() => {
@@ -66,11 +67,19 @@ describe("Header", () => {
     const titleWhenLight = "Change to light mode"
     const titleWhenDark = "Change to dark mode"
 
+    // https://github.com/testing-library/react-testing-library/issues/402
+    // https://stackoverflow.com/questions/44073960/unit-testing-react-helmet-code
+    const firstPeekHelmet = Helmet.peek()
+    expect(firstPeekHelmet.bodyAttributes.class).toBe("theme-light")
     expect(element.getAttribute("title")).toBe(titleWhenDark)
     expect(element.getAttribute("aria-pressed")).toBe("false")
+
     fireEvent.click(element)
     await screen.findByTitle(titleWhenLight)
+
     expect(window.__toggleTheme).toHaveBeenCalledTimes(1)
+    const secondPeekHelmet = Helmet.peek()
+    expect(secondPeekHelmet.bodyAttributes.class).toBe("theme-dark")
     expect(element.getAttribute("title")).toBe(titleWhenLight)
     expect(element.getAttribute("aria-pressed")).toBe("true")
   })

@@ -11,6 +11,7 @@ export function useSiteMetadata() {
           siteMetadata {
             title
             description
+            keywords
             social {
               twitter
               instagram

@@ -14,6 +14,7 @@ const siteMetadata = {
     name: `Willian Antunes`,
   },
   description: `Web Speech Application which translates your text into its phonetic transcription using the International Phonetic Alphabet.`,
+  keywords: ["phonetic", "transcription", "tts", "ipa"],
   siteUrl: SITE_URL,
   social: {
     twitter: `raveofphonetics`,

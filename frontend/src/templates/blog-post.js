@@ -24,7 +24,7 @@ const BlogPostTemplate = ({ data }) => {
 
   return (
     <Layout blog={true}>
-      <SEO title={title} description={description} image={image} />
+      <SEO title={title} description={description} image={image} keywords={tags} />
       <BlogPost
         title={title}
         date={date}
