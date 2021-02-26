@@ -77,11 +77,11 @@ export const TranscriptionSection = styled(Box)`
   flex-flow: wrap;
 
   & div > div:first-child {
-    color: dimgrey;
+    color: ${props => props.theme.palette.text.secondary};
   }
 
   & div > div:last-child {
-    color: black;
+    color: ${props => props.theme.palette.text.primary};
     font-weight: bold;
   }
 `
