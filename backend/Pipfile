@@ -12,6 +12,7 @@ python-json-logger = "*"
 django-cors-headers = "*"
 requests = "*"
 requests-oauthlib = "*"
+transcriber-wrapper = "*"
 
 [dev-packages]
 pytest-django = "*"
@@ -19,4 +20,4 @@ pytest-mock = "*"
 pytest-cov = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.9"

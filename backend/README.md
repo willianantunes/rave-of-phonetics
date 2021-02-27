@@ -6,6 +6,8 @@ Django project that handles everything related to the back-end side of [Rave of 
 
 - https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary
 - https://github.com/mphilli/English-to-IPA
+- https://github.com/open-dict-data/ipa-dict
+- https://open-dict-data.github.io/
 
 ## Running the project
 
@@ -22,11 +24,15 @@ In order to check the files included in the final container image, first you ent
     docker-compose run production bash
     ls -la
 
-## Installing new packages
+## Installing new packages and their updates
 
 You can install it through docker-compose issuing the following command for example:
 
-    docker-compose run remote-interpreter pipenv --python 3 install parsel --dev
+    docker-compose run remote-interpreter pipenv --python 3 install transcriber-wrapper
+
+Now if you want to update them:
+
+    docker-compose run remote-interpreter pipenv update
 
 After that it's required to update your remote interpreter:
 
@@ -44,6 +50,7 @@ You must be at `/usr/bin/`. Then try one of these below:
 
 ```
 espeak-ng "Hello my friend, stay awhile and listen." -ven-us -x --ipa -q --sep=_
+espeak-ng "Hello my friend stay awhile and listen." -ven-us -x --ipa -q
 espeak-ng "Constitution" -ven-us -x --ipa -q --sep=_
 espeak-ng "Hello my friend, stay awhile and listen." -v en-us -x --ipa -q
 espeak-ng "This is a test" -v en-us -x --ipa -q

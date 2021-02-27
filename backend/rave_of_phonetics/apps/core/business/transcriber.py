@@ -4,8 +4,7 @@ import re
 from typing import Dict
 from typing import List
 
-from phonemizer import phonemize
-from phonemizer.separator import Separator
+import transcriber_wrapper
 
 logger = logging.getLogger(__name__)
 
@@ -29,24 +28,30 @@ def _only_words(text_to_be_transcribed):
     return valid_words
 
 
-def text_to_transcription(text: str, with_stress=False, language="en-us") -> List[Dict]:
+transcriber_en_us = transcriber_wrapper.build_transcriber("en-us")
+transcriber_en_gb = transcriber_wrapper.build_transcriber("en-gb")
+transcriber_fr_fr = transcriber_wrapper.build_transcriber("fr-fr")
+transcriber_es = transcriber_wrapper.build_transcriber("es")
+transcriber_it = transcriber_wrapper.build_transcriber("it")
+
+
+transcribers = {
+    "en-us": transcriber_en_us,
+    "en-gb": transcriber_en_gb,
+    "fr-fr": transcriber_fr_fr,
+    "es": transcriber_es,
+    "it": transcriber_it,
+}
+
+
+def text_to_transcription(text: str, with_stress=False, language="en-us", preserve_punctuation=True) -> List[Dict]:
     logger.debug(f"Text to be transcribed: {text}")
     logger.debug(f"Chosen language and stress configuration: {language} / {with_stress}")
     text_to_be_transcribed = _newline_to_spaces(text)
     text_to_be_transcribed = text_to_be_transcribed.split(" ")
     text_to_be_transcribed = _only_words(text_to_be_transcribed)
 
-    separator = Separator(phone=None, syllable=None, word=" ")
-
-    phones = phonemize(
-        text_to_be_transcribed,
-        preserve_punctuation=True,
-        language=language,
-        backend="espeak",
-        strip=True,
-        with_stress=with_stress,
-        separator=separator,
-    )
+    phones = transcribers[language].transcribe(text_to_be_transcribed, with_stress, preserve_punctuation)
 
     result = []
     for index, phone in enumerate(phones):

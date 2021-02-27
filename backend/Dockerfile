@@ -1,13 +1,17 @@
-FROM willianantunes/phonemizer:latest
+FROM python:3.9.2-buster
+
+RUN apt-get update && apt-get upgrade -y && apt-get install -y \
+    espeak-ng && \
+    apt-get clean
 
 WORKDIR /app
 
 COPY Pipfile Pipfile.lock ./
 
-RUN pip3 install --no-cache-dir --upgrade pip pipenv
+RUN pip install --no-cache-dir --upgrade pip pipenv
 
 RUN pipenv install --system --deploy --ignore-pipfile && \
-    pip3 uninstall --yes pipenv
+    pip uninstall --yes pipenv
 
 COPY . ./
 
