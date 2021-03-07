@@ -1,8 +1,8 @@
 ---
 id: 41f6fb00-7c5d-11eb-ac69-572239b8bd76
 title: "Languages: road or summit?"
-date: 2021-03-03T20:15:54.665Z
-cover: /assets/tools-rave-of-phonetics.png
+date: 2021-03-07T13:38:37.318Z
+cover: /assets/og-image-2021-03-07-languages-road-or-summit.png
 description: "Can I learn a language in a week? How long do I have to study a
   language before I can say I am done with it? Different strokes for different
   folks! The path to learning has many directions. "
@@ -12,8 +12,7 @@ tags:
   - Language Learning
   - EFL
   - Proficiency
-  - NativeLevel
-  - ""
+  - Native Level
 ---
 Whether you need to prepare for examinations in order to study abroad in a prestigious university, or whether you need to improve your language skills to land that new job in the company of your dreams, sooner or later you find yourself with the daunting task of improving or even learning a language.
 
