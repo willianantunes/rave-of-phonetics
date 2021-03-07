@@ -5,7 +5,7 @@ date: 2021-03-07T13:38:37.318Z
 cover: /assets/og-image-2021-03-07-languages-road-or-summit.png
 description: "Can I learn a language in a week? How long do I have to study a
   language before I can say I am done with it? Different strokes for different
-  folks! The path to learning has many directions. "
+  folks! The learning path has many directions. "
 tags:
   - English
   - ESL
