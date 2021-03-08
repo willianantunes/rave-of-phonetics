@@ -19,7 +19,7 @@ export const themeConfiguration = {
       // https://material-ui.com/customization/breakpoints/
       // Standard: xs: 0, sm: 600, md: 960, lg: 1280, xl: 1920
       xs: 0,
-      sm: 320,
+      sm: 400,
       md: 768,
       lg: 998,
       xl: 1280,

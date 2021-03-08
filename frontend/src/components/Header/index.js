@@ -1,10 +1,12 @@
-import React, { useMemo } from "react"
+import React, { useEffect, useState } from "react"
 import * as S from "./styled"
 import * as R from "../Responsive"
-import { Button, Link } from "gatsby-theme-material-ui"
+import { Link } from "gatsby-theme-material-ui"
 import { dispatchEvent } from "../../analytics"
-import useWindowDarkModeStrategy from "../../hooks/useWindowDarkModeStrategy"
 import ToggleTheme from "../ToggleTheme"
+import { Menu } from "styled-icons/material-outlined"
+import { Drawer, MenuItem } from "@material-ui/core"
+import theme from "../../gatsby-theme-material-ui-top-layout/theme"
 
 const trackClick = item => {
   dispatchEvent({
@@ -14,7 +16,80 @@ const trackClick = item => {
   })
 }
 
+const menuLinkSetup = [
+  {
+    label: "Blog",
+    to: "/blog",
+    onClick: () => trackClick("Blog"),
+    testId: "link-blog",
+  },
+  {
+    label: "FAQ",
+    to: "/faq",
+    onClick: () => trackClick("FAQ"),
+    testId: "link-faq",
+  },
+  {
+    label: "Changelog",
+    to: "/changelog",
+    onClick: () => trackClick("Changelog"),
+    testId: "link-changelog",
+  },
+]
+
+const AllButtons = () => {
+  return menuLinkSetup.map(({ label, to, testId, onClick }) => {
+    return (
+      <S.MenuButton key={to} data-testid={testId} to={to} onClick={onClick}>
+        {label}
+      </S.MenuButton>
+    )
+  })
+}
+
+const AllDrawerChoices = () => {
+  return menuLinkSetup.map(({ label, to, testId, onClick }) => {
+    return (
+      <Link key={to} data-testid={testId} to={to} onClick={onClick}>
+        <MenuItem>{label}</MenuItem>
+      </Link>
+    )
+  })
+}
+
 const Header = () => {
+  const [mobileView, setMobileView] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+
+  useEffect(() => {
+    const setResponsiveness = () => {
+      return window.innerWidth < theme.breakpoints.values.sm ? setMobileView(true) : setMobileView(false)
+    }
+
+    setResponsiveness()
+
+    window.addEventListener("resize", () => setResponsiveness())
+  }, [])
+
+  const displayDesktop = () => {
+    return <AllButtons />
+  }
+
+  const displayMobile = () => {
+    const handleDrawerClose = () => setDrawerOpen(false)
+
+    return (
+      <>
+        <S.CustomDrawer anchor={"left"} open={drawerOpen} onClose={handleDrawerClose}>
+          <AllDrawerChoices />
+        </S.CustomDrawer>
+        <S.MenuMobile aria-label="open drawer" onClick={() => setDrawerOpen(true)}>
+          <Menu />
+        </S.MenuMobile>
+      </>
+    )
+  }
+
   return (
     <S.CustomAppBar>
       <S.CustomToolbar variant={"dense"}>
@@ -30,12 +105,7 @@ const Header = () => {
             </Link>
           </R.GreaterThanTablet>
         </S.CustomTypography>
-        <Button data-testid="link-blog" color="inherit" to="/blog" onClick={() => trackClick("Blog")}>
-          Blog
-        </Button>
-        <Button data-testid="link-changelog" color="inherit" to="/changelog" onClick={() => trackClick("Changelog")}>
-          Changelog
-        </Button>
+        {mobileView ? displayMobile() : displayDesktop()}
         <ToggleTheme />
       </S.CustomToolbar>
     </S.CustomAppBar>

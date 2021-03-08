@@ -133,12 +133,6 @@ export default function Transcription(props) {
         <Typography component="h1" variant="h5" align="center">
           IPA transcription tool
         </Typography>
-        <S.HelloMyFriendTypography color="textSecondary" align="center">
-          Hello my friend, stay awhile and... Discover phonetics!{" "}
-          <span role="img" aria-label="Magnifying glass tilted right">
-            🔎
-          </span>
-        </S.HelloMyFriendTypography>
         <S.TranscriptionForm onSubmit={transcribeGivenText}>
           <FormControl component="fieldset" fullWidth={true}>
             <TextField

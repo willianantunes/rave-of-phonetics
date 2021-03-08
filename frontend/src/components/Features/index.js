@@ -4,6 +4,13 @@ import { FeatureEntry } from "../FeatureEntry"
 
 const features = [
   {
+    title: "FAQ page",
+    createdAt: "March 8th, 2021",
+    added: 1,
+    updated: 0,
+    text: `Do you have doubts about phonetics? Do you know what we can offer to you? Know more at out <a href="/faq">FAQ page!</a>`,
+  },
+  {
     title: "Dark mode!",
     createdAt: "February 25th, 2021",
     added: 1,

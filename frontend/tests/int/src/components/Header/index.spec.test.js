@@ -58,6 +58,16 @@ describe("Header", () => {
     expect(element.closest("a")).toHaveAttribute("href", "/changelog")
   })
 
+  it("has faq link", () => {
+    const { container } = render(<Header />)
+
+    const testId = "link-faq"
+    const element = container.querySelector(`[data-testid="${testId}"]`)
+
+    expect(element.textContent).toBe("FAQ")
+    expect(element.closest("a")).toHaveAttribute("href", "/faq")
+  })
+
   it("has toggle theme", async () => {
     const { container } = render(<Header />)
 

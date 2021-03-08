@@ -10,7 +10,7 @@ export function FeatureEntry({ title, createdAt, added, updated, text }) {
       </S.WrapperTitle>
       <S.WrapperDetails>
         <S.WhenItWasAvailable>{createdAt}</S.WhenItWasAvailable>
-        <Typography>{text}</Typography>
+        <Typography dangerouslySetInnerHTML={{ __html: text }} />
       </S.WrapperDetails>
       <S.WrapperQuantity>
         {added > 0 && <S.FeatureAdded label={`${added} added`} />}

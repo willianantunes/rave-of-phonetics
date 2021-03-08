@@ -14,6 +14,9 @@ export const WrapperTitle = styled(Box)`
 `
 export const WrapperDetails = styled(Box).attrs({ component: "article" })`
   flex: 1 1 auto;
+  & a {
+    color: ${props => props.theme.palette.text.primary};
+  }
 `
 export const WrapperQuantity = styled(Box)`
   flex: 0 1 50px;
