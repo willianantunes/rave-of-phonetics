@@ -49,7 +49,7 @@ const entries = [
     <a target="_blank" rel="noreferrer noopener" href="https://www.internationalphoneticalphabet.org/ipa-sounds/ipa-chart-with-sounds/">HERE</a>.`,
   },
   {
-    question: "What does ‘with stress mean’?",
+    question: "What does ‘with stress’ mean?",
     text: `Glad you asked, no need to stress. This option is used to see where the syllables of the words are and which one is 
     pronounce, or stressed, with standard pronunciation.`,
   },
