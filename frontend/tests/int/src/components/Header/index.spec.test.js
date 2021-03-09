@@ -2,7 +2,7 @@ import React from "react"
 import Header from "../../../../../src/components/Header"
 import { render } from "../../../../support/test-utils"
 import theme from "../../../../../src/gatsby-theme-material-ui-top-layout/theme"
-import { fireEvent, screen } from "@testing-library/react"
+import { fireEvent, screen, waitFor } from "@testing-library/react"
 import { Helmet } from "react-helmet/es/Helmet"
 
 describe("Header", () => {
@@ -77,17 +77,24 @@ describe("Header", () => {
     const titleWhenLight = "Change to light mode"
     const titleWhenDark = "Change to dark mode"
 
+    const whenThemeIsLight = "theme-light"
+    const whenThemeIsDark = "theme-dark"
+
+    await waitFor(() => expect(document.querySelector(`.${whenThemeIsLight}`)).toBeInTheDocument())
+
     // https://github.com/testing-library/react-testing-library/issues/402
     // https://stackoverflow.com/questions/44073960/unit-testing-react-helmet-code
-    expect(element.classList.contains("theme-light")).toBeTruthy()
+    expect(document.body.classList.contains(whenThemeIsLight)).toBeTruthy()
     expect(element.getAttribute("title")).toBe(titleWhenDark)
     expect(element.getAttribute("aria-pressed")).toBe("false")
 
     fireEvent.click(element)
     await screen.findByTitle(titleWhenLight)
+    await waitFor(() => expect(document.querySelector(`.${whenThemeIsDark}`)).toBeInTheDocument())
 
     expect(window.__toggleTheme).toHaveBeenCalledTimes(1)
-    expect(element.classList.contains("theme-dark")).toBeTruthy()
+
+    expect(document.body.classList.contains(whenThemeIsDark)).toBeTruthy()
     expect(element.getAttribute("title")).toBe(titleWhenLight)
     expect(element.getAttribute("aria-pressed")).toBe("true")
   })

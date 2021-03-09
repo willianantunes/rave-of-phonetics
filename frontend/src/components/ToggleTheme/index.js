@@ -35,7 +35,7 @@ export default function ToggleTheme() {
   }
 
   return (
-    <S.ToggleTheme data-testid="button-toggle-theme" onClick={onClick}>
+    <S.ToggleTheme data-testid="button-toggle-theme" active={isDarkMode} onClick={onClick}>
       <Helmet>
         <body className={isDarkMode ? "theme-dark" : "theme-light"} />
       </Helmet>
