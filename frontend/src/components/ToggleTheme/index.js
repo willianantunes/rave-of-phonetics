@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import * as S from "./styled"
-import { Helmet } from "react-helmet/es/Helmet"
 import { dispatchEvent } from "../../analytics"
+import { Helmet } from "react-helmet/es/Helmet"
 
 const trackClick = darkThemeUsed => {
   dispatchEvent({
@@ -35,7 +35,10 @@ export default function ToggleTheme() {
   }
 
   return (
-    <S.ToggleTheme data-testid="button-toggle-theme" active={isDarkMode} onClick={onClick}>
+    <S.ToggleTheme data-testid="button-toggle-theme" onClick={onClick}>
+      <Helmet>
+        <body className={isDarkMode ? "theme-dark" : "theme-light"} />
+      </Helmet>
       <S.ToggleThemeTrack />
     </S.ToggleTheme>
   )
