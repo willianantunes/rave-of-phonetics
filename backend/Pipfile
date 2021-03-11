@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 django = "*"
+psycopg2-binary = "*"
 djangorestframework = "*"
 gunicorn = "*"
 gevent = "*"
@@ -18,6 +19,12 @@ transcriber-wrapper = "*"
 pytest-django = "*"
 pytest-mock = "*"
 pytest-cov = "*"
+black = "*"
+isort = "*"
+mypy = "*"
 
 [requires]
 python_version = "3.9"
+
+[pipenv]
+allow_prereleases = true
