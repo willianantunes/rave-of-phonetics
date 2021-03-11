@@ -44,23 +44,9 @@ After that it's required to update your remote interpreter:
 
     docker-compose build remote-interpreter
 
-## Running commands
+## Generating new migration recipes
 
-    docker-compose run remote-interpreter sh
-
-If you'd like to run commands to test IPA output, first look the documentations
-
-- https://github.com/espeak-ng/espeak-ng/blob/master/docs/guide.md
-
-You must be at `/usr/bin/`. Then try one of these below:
-
-```
-espeak-ng "Hello my friend, stay awhile and listen." -ven-us -x --ipa -q --sep=_
-espeak-ng "Hello my friend stay awhile and listen." -ven-us -x --ipa -q
-espeak-ng "Constitution" -ven-us -x --ipa -q --sep=_
-espeak-ng "Hello my friend, stay awhile and listen." -v en-us -x --ipa -q
-espeak-ng "This is a test" -v en-us -x --ipa -q
-```
+    docker-compose run remote-interpreter python manage.py makemigrations
 
 ## Testing CORS
 
