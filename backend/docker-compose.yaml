@@ -1,30 +1,58 @@
-version: "2.4"
+version: "3.8"
+
+x-build: &dockerfile-dev-build
+  context: .
+  dockerfile: Dockerfile.dev
+
 services:
+  db:
+    image: postgres:13.2-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
   remote-interpreter:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    working_dir: /app
-    env_file: ".env.dev"
+    build: *dockerfile-dev-build
+    env_file: .env.development
     volumes:
       - .:/app
     ports:
       - "8080:8080"
+    depends_on:
+      - db
     command:
       [
+        "./scripts/wait-for-it.sh",
+        "db:5432",
+        "-t",
+        "120",
+        "--",
         "./scripts/start-development.sh",
       ]
-  production:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    env_file: ".env"
-    ports:
-      - "8080:8080"
   tests:
-    image: willianantunes/phonemizer:latest
-    working_dir: /app
+    build: *dockerfile-dev-build
     volumes:
       - .:/app
-    command: >
-      sh -c "pip3 install --no-cache-dir tox && tox"
+    env_file: .env.development
+    depends_on:
+      - db
+    command:
+      [
+        "./scripts/wait-for-it.sh",
+        "db:5432",
+        "-t",
+        "120",
+        "--",
+        "./scripts/start-tests.sh",
+      ]
+  lint:
+    build: *dockerfile-dev-build
+    volumes:
+      - .:/app
+    command: ["./scripts/start-lint.sh"]
+  formatter:
+    build: *dockerfile-dev-build
+    volumes:
+      - .:/app
+    command: ["./scripts/start-formatter.sh"]
