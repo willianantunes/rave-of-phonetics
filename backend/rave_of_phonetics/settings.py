@@ -89,13 +89,32 @@ REST_FRAMEWORK = {"EXCEPTION_HANDLER": "rest_framework.views.exception_handler"}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# https://www.postgresql.org/docs/13/libpq-connect.html#LIBPQ-PARAMKEYWORDS
+
+DATABASE_READ_WRITE = "default"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    DATABASE_READ_WRITE: {
+        "ENGINE": getenv_or_raise_exception("DB_ENGINE"),
+        "NAME": getenv_or_raise_exception("DB_DATABASE"),
+        "OPTIONS": {
+            "options": f"-c search_path={getenv_or_raise_exception('DB_SCHEMA')}",
+        },
+        "USER": getenv_or_raise_exception("DB_USER"),
+        "HOST": getenv_or_raise_exception("DB_HOST"),
+        "PORT": getenv_or_raise_exception("DB_PORT"),
+        "PASSWORD": getenv_or_raise_exception("DB_PASSWORD"),
     }
 }
+
+DB_USE_SSL = eval_env_as_boolean("DB_USE_SSL", True)
+if DB_USE_SSL:
+    # verify-full: only try an SSL connection, verify that the server certificate is issued by a trusted CA and that the requested server host name matches that in the certificate
+    # require: only try an SSL connection. If a root CA file is present, verify the certificate in the same way as if verify-ca was specified
+    DATABASES[DATABASE_READ_WRITE]["OPTIONS"]["sslmode"] = "verify-full"
+
+if os.getenv("PYTEST_RUNNING"):
+    del DATABASES["default"]["OPTIONS"]
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -173,7 +192,6 @@ LOGGING = {
 STATIC_URL = "/static/"
 
 # RECAPTCHA
-
 RECAPTCHA_SCORE_THRESHOLD = float(getenv_or_raise_exception("RECAPTCHA_SCORE_THRESHOLD"))
 RECAPTCHA_TOKEN_HEADER = getenv_or_raise_exception("RECAPTCHA_TOKEN_HEADER")
 CORS_ALLOW_HEADERS.append(RECAPTCHA_TOKEN_HEADER)
@@ -187,3 +205,6 @@ GITHUB_OAUTH_TOKEN_URL = os.getenv("GITHUB_OAUTH_TOKEN_URL", "https://github.com
 GITHUB_OAUTH_APP_CLIENT_ID = getenv_or_raise_exception("GITHUB_OAUTH_APP_CLIENT_ID")
 GITHUB_OAUTH_APP_CLIENT_SECRET = getenv_or_raise_exception("GITHUB_OAUTH_APP_CLIENT_SECRET")
 GITHUB_OAUTH_APP_SCOPES = os.getenv("GITHUB_OAUTH_APP_SCOPES", "repo,user")
+
+# Batch processing
+DJANGO_BULK_BATCH_SIZE = int(os.getenv("DJANGO_BULK_BATCH_SIZE", 1000))
