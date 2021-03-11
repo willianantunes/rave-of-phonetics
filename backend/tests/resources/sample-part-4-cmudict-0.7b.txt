@@ -1,0 +1,6 @@
+; This file contains some examples where the separator has three empty spaces
+; The correct is supposed to be two, but the are some buggy situations on the original one
+AGRONOMY   AH0 G R AA1 N AH0 M IH2
+THANKFULNESS   TH AE1 NG K F AH0 L N EH0 S
+; This last one is OK!
+TAXPAYER  T AE1 K S P EY2 ER0
