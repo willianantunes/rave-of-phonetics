@@ -2,8 +2,10 @@ import pytest
 
 from rave_of_phonetics.apps.core.models import Dictionary
 from rave_of_phonetics.apps.core.models import Language
+from rave_of_phonetics.apps.core.models import Suggestion
 from tests.support.models_utils import create_dictionary
 from tests.support.models_utils import create_language
+from tests.support.models_utils import create_suggestion
 
 
 @pytest.mark.django_db
@@ -34,3 +36,21 @@ def test_should_create_dictionaries():
 
     assert Dictionary.objects.count() == 5
     assert language.dictionary_entries.count() == 5
+
+
+@pytest.mark.django_db
+def test_should_create_suggestion():
+    word_or_symbol = "theoretically"
+    ipa_phonemic = "ˌθiəˈrɛtɪkəli"
+    explanation = "I think this phonemic is better when I compare with what I am receiving from RoP"
+
+    create_suggestion(word_or_symbol, ipa_phonemic, explanation=explanation)
+
+    assert Suggestion.objects.count() == 1
+    persisted_suggestion: Suggestion = Suggestion.objects.first()
+    assert persisted_suggestion.word_or_symbol == word_or_symbol
+    assert persisted_suggestion.ipa_phonemic == ipa_phonemic
+    assert persisted_suggestion.explanation == explanation
+    assert persisted_suggestion.ipa_phonetic is None
+    assert persisted_suggestion.applied is False
+    assert persisted_suggestion.language_tag == "en-us"
