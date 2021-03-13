@@ -34,7 +34,7 @@ def verify_user_response(secret_key: str, token: str, remote_ip: Optional[str] =
     }
 
     if remote_ip:
-        data["remoteip"]: remote_ip
+        data["remoteip"] = remote_ip
 
     with requests_session() as r:
         try:
