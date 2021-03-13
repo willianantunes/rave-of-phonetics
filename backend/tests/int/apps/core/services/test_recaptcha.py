@@ -23,8 +23,8 @@ def test_should_return_errors_given_secret_key_and_token_are_fake():
     evaluation = verify_user_response(secret_key, token_that_you_receive_from_the_user_on_front_end_side)
 
     assert not evaluation.success
-    assert len(evaluation.error_codes) == 2
-    assert evaluation.error_codes == ["invalid-input-response", "invalid-input-secret"]
+    assert len(evaluation.error_codes) == 1
+    assert evaluation.error_codes == ["invalid-input-secret"]
     assert evaluation.action is None
     assert evaluation.challenge_timestamp is None
     assert evaluation.hostname is None
