@@ -85,7 +85,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "rave_of_phonetics.wsgi.application"
 
-REST_FRAMEWORK = {"EXCEPTION_HANDLER": "rest_framework.views.exception_handler"}
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "rest_framework.views.exception_handler",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": int(os.getenv("PAGE_SIZE", 20)),
+    "DEFAULT_AUTHENTICATION_CLASSES": (),
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
