@@ -3,6 +3,8 @@ import os
 
 from logging import Formatter
 from pathlib import Path
+from typing import Any
+from typing import Dict
 from typing import Optional
 
 from corsheaders.defaults import default_headers
@@ -98,7 +100,7 @@ REST_FRAMEWORK = {
 
 DATABASE_READ_WRITE = "default"
 
-DATABASES = {
+DATABASES: Dict[str, Any] = {
     DATABASE_READ_WRITE: {
         "ENGINE": getenv_or_raise_exception("DB_ENGINE"),
         "NAME": getenv_or_raise_exception("DB_DATABASE"),

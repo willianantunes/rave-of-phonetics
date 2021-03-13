@@ -21,7 +21,11 @@ class CustomHTTPAdapter(HTTPAdapter):
 def requests_session(retries=3, backoff_factor=0.1, timeout=35, stream=False, **kwargs):
     session = Session()
 
-    max_retries = Retry(total=retries, backoff_factor=backoff_factor, **kwargs,)
+    max_retries = Retry(
+        total=retries,
+        backoff_factor=backoff_factor,
+        **kwargs,
+    )
     adapter = CustomHTTPAdapter(max_retries, timeout, stream)
 
     session.mount("https://", adapter)

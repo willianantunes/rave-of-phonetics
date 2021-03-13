@@ -2,9 +2,8 @@ import os
 
 from distutils.util import strtobool
 
-from django.http.response import HttpResponseRedirectBase
-
 from django.db.models import ForeignKey
+from django.http.response import HttpResponseRedirectBase
 
 
 class CustomModelAdminMixin:
