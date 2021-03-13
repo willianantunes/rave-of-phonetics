@@ -115,3 +115,13 @@ class Dictionary(StandardModelMixin):
             joined_syllables.append(separator.join(syllable))
 
         return cls.syllable_separator_mark.join(joined_syllables)
+
+
+class Suggestion(StandardModelMixin):
+    # This model will be used to receive suggestion from people
+    word_or_symbol = models.CharField(max_length=45, null=False, blank=False)
+    language_tag = models.CharField(max_length=20, null=False, blank=False)
+    explanation = models.CharField(max_length=100, null=True, blank=True)
+    ipa_phonemic = models.CharField(max_length=128, null=True, blank=True, verbose_name="Phonemic transcription")
+    ipa_phonetic = models.CharField(max_length=128, null=True, blank=True, verbose_name="Phonetic transcription")
+    applied = models.BooleanField(default=False, verbose_name="Was it applied to some dictionary entry?")
