@@ -4,7 +4,6 @@ from rave_of_phonetics.apps.core.business.CMUDatabaseHandler import CMUDatabaseH
 from rave_of_phonetics.apps.core.business.CMUDatabaseHandler import Variant
 from rave_of_phonetics.apps.core.business.exceps import DatabaseFileNotAvailable
 from rave_of_phonetics.apps.core.business.exceps import MoreVariantsThanWhatIsSupportedException
-
 from tests.resources.resource_loader import resource_location
 
 

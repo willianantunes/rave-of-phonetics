@@ -5,6 +5,7 @@ from typing import List
 from typing import Optional
 
 from django.db.models import QuerySet
+
 from rave_of_phonetics.apps.core.models import Dictionary
 from rave_of_phonetics.support.iter_utils import flatten
 from rave_of_phonetics.support.iter_utils import index_of_first
