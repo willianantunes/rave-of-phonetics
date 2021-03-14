@@ -20,6 +20,7 @@ def transcribe(request: Request) -> Response:
     if not body:
         raise EmptyBodyException
 
+    # TODO: Should return 400 if the contract is not valid
     transcription = text_to_transcription(body["text"], body["with-stress"], body["language"])
     logger.debug(f"Transcription: {transcription}")
 

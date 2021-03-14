@@ -2,6 +2,7 @@ from django.urls import reverse
 
 
 def test_named_urls_are_resolved_to_the_correct_endpoints(client):
+    # TODO: List all URLs configured and assert them
     transcribe_endpoint = reverse("v1/transcribe")
     health_check_endpoint = reverse("health-check")
     # Why did I use "{basename}-list"
