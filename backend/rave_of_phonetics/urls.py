@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.urls import include
 from django.urls import path
 from rest_framework import routers
@@ -16,6 +17,7 @@ router_unique = routers.DefaultRouter()
 router_unique.registry.extend(router_v1.registry)
 
 urlpatterns = [
+    path("admin/", admin.site.urls),
     path("health-check", api_views.health_check, name="health-check"),
     path("github", github_views.index, name="github-index"),
     path("github/auth", github_views.auth, name="github-auth"),
