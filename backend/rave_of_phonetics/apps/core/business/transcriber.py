@@ -95,9 +95,11 @@ def text_to_transcription(
             if dict_entries:
                 dictionary_entries_setup = []
                 for dict_entry in dict_entries:
+                    classification_enum = getattr(Dictionary.WordClassification, dict_entry.classification)
+                    version_enum = getattr(Dictionary.Version, dict_entry.version)
                     entry_setup = DictionaryEntry(
-                        dict_entry.classification,
-                        dict_entry.version,
+                        classification_enum.label,
+                        version_enum.label,
                         dict_entry.ipa_phonemic,
                         dict_entry.ipa_phonemic_syllables,
                         dict_entry.ipa_phonetic,
