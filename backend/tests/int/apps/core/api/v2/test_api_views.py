@@ -78,50 +78,50 @@ def test_should_receive_transcriptions(client, mock_recaptcha_verify):
     assert response.status_code == 200
     assert result == [
         {
-            "word": "rave",
             "entries": [
                 {
-                    "classification": "UNDEFINED",
-                    "version": "V_1",
+                    "classification": "Undefined",
                     "phonemic": "ɹ eɪ v",
                     "phonemic_syllables": "ɹ eɪ v",
                     "phonetic": None,
                     "phonetic_syllables": None,
+                    "version": "Version 1",
                 }
             ],
+            "word": "rave",
         },
         {
-            "word": "of",
             "entries": [
                 {
-                    "classification": "UNDEFINED",
-                    "version": "V_1",
+                    "classification": "Undefined",
                     "phonemic": "ə v",
                     "phonemic_syllables": "ə v",
                     "phonetic": None,
                     "phonetic_syllables": None,
+                    "version": "Version 1",
                 },
                 {
-                    "classification": "UNDEFINED",
-                    "version": "V_2",
+                    "classification": "Undefined",
                     "phonemic": "ə v",
                     "phonemic_syllables": "ə v",
                     "phonetic": None,
                     "phonetic_syllables": None,
+                    "version": "Version 2",
                 },
             ],
+            "word": "of",
         },
         {
-            "word": "phonetics",
             "entries": [
                 {
-                    "classification": "UNDEFINED",
-                    "version": "V_1",
+                    "classification": "Undefined",
                     "phonemic": "f ə ˈn ɛ t ɪ k s",
                     "phonemic_syllables": "f ə • ˈn ɛ • t ɪ k s",
                     "phonetic": None,
                     "phonetic_syllables": None,
+                    "version": "Version 1",
                 }
             ],
+            "word": "phonetics",
         },
     ]

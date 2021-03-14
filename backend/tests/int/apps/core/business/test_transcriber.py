@@ -24,8 +24,8 @@ def test_should_retrieve_transcription_from_database_scenario():
             word="rave",
             entries=[
                 DictionaryEntry(
-                    classification="UNDEFINED",
-                    version="V_1",
+                    classification="Undefined",
+                    version="Version 1",
                     phonemic="ɹ eɪ v",
                     phonemic_syllables="ɹ eɪ v",
                     phonetic=None,
@@ -37,16 +37,16 @@ def test_should_retrieve_transcription_from_database_scenario():
             word="of",
             entries=[
                 DictionaryEntry(
-                    classification="UNDEFINED",
-                    version="V_1",
+                    classification="Undefined",
+                    version="Version 1",
                     phonemic="ə v",
                     phonemic_syllables="ə v",
                     phonetic=None,
                     phonetic_syllables=None,
                 ),
                 DictionaryEntry(
-                    classification="UNDEFINED",
-                    version="V_2",
+                    classification="Undefined",
+                    version="Version 2",
                     phonemic="ə v",
                     phonemic_syllables="ə v",
                     phonetic=None,
@@ -58,8 +58,8 @@ def test_should_retrieve_transcription_from_database_scenario():
             word="phonetics",
             entries=[
                 DictionaryEntry(
-                    classification="UNDEFINED",
-                    version="V_1",
+                    classification="Undefined",
+                    version="Version 1",
                     phonemic="f ə ˈn ɛ t ɪ k s",
                     phonemic_syllables="f ə • ˈn ɛ • t ɪ k s",
                     phonetic=None,
