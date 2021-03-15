@@ -9,8 +9,9 @@ class TranscriberSerializer(serializers.Serializer):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        # TODO: Avoid this as every request will hit the database at least once
-        self.supported_languages = Language.objects.values_list("language_tag", flat=True)
+        # I know, it's hard-coded, but better than consult the database
+        # My case is quite particular...
+        self.supported_languages = ["en-us", "en-gb"]
 
     def validate(self, data):
         error_details = {}
