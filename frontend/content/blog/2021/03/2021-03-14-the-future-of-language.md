@@ -3,10 +3,8 @@ id: 1d0aad00-846e-11eb-b3cc-add099bf4aff
 title: "The future of language "
 date: 2021-03-14T02:36:43.369Z
 cover: /assets/blog-4.png
-description: "Time is a disease that affects everything and everyone. It is able
-  to take down the strongest men to the most powerful civilizations that have
-  existed in history. Time is so powerful that it can erase the records of the
-  most prevalent ideas of a specific era: it can raise language and culture."
+description: Time is like a virus that changes everything, from people to
+  language itself. Languages are alive and evolve as long as people will.
 tags:
   - languagelearning
   - futureoflanguages
@@ -16,7 +14,9 @@ tags:
   - languages
   - changeoflanguages
 ---
-Time is a virus that affects everything and everyone. It is able to take down the strongest men to the most powerful civilizations that have existed in history. Time is so powerful that it can erase the records of the most prevalent ideas of a specific era; conversely, it can give rise to a language and culture.
+Time is like a virus that affects everything and everyone. It is able to take down the strongest men to the most powerful civilizations that have existed in history. Time is so powerful that it can erase the records of the most prevalent ideas of a specific era; conversely, it can give rise to a language and culture.
+
+**Common Era**
 
 Today, we study languages such as Latin and ancient Greek only to wonder of their original essence and the impact that they had 1,000 or 2,000 years ago. But how will generations look at languages such as English, Arabic, Spanish, or Mandarin 500 years in the future? This is an interesting [topic ](https://worldbuilding.stackexchange.com/questions/163763/how-much-would-a-language-change-over-500-years-completely-cut-off-from-its-sour)among many. 
 
