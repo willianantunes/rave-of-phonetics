@@ -6,13 +6,13 @@ cover: /assets/blog-4.png
 description: Time is like a virus that changes everything, from people to
   language itself. Languages are alive and evolve as long as people will.
 tags:
-  - languagelearning
-  - futureoflanguages
+  - language learning
+  - future of languages
   - english
   - chinese
   - mandarin
   - languages
-  - changeoflanguages
+  - change of languages
 ---
 ## Father time
 
