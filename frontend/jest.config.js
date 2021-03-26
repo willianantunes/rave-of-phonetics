@@ -15,7 +15,7 @@ module.exports = {
   },
   testURL: `http://localhost`,
   // The setupFiles array lets you list files that will be included before all tests are run
-  setupFiles: [`<rootDir>/loadershim.js`],
+  setupFiles: [`<rootDir>/loadershim.js`, `<rootDir>/tests/support/env-variables.js`],
   collectCoverage: true,
   coveragePathIgnorePatterns: ["/node_modules/", "/public/", "/.cache/"],
   coverageReporters: ["json", "lcov", "text", "text-summary"],
