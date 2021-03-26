@@ -1,10 +1,9 @@
 from rest_framework import serializers
 
-from rave_of_phonetics.apps.core.models import Language
-
 
 class TranscriberSerializer(serializers.Serializer):
-    text = serializers.CharField(max_length=2000, required=True)
+    # https://www.django-rest-framework.org/api-guide/fields/#listfield
+    words = serializers.ListField(child=serializers.CharField(max_length=45), allow_empty=False, max_length=200)
     language = serializers.CharField(max_length=20, required=True)
 
     def __init__(self, **kwargs):

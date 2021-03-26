@@ -1,9 +1,6 @@
-from unittest.case import TestCase
-
-import pytest
+from unittest import TestCase
 
 from rave_of_phonetics.apps.core.api.v2.serializers import TranscriberSerializer
-from tests.support.models_utils import create_language
 
 
 class TranscriberSerializerTest(TestCase):
@@ -12,17 +9,19 @@ class TranscriberSerializerTest(TestCase):
 
         assert len(serializer.fields) == 2
 
-        text_field = serializer.fields["text"]
+        list_field = serializer.fields["words"]
         language_field = serializer.fields["language"]
 
-        assert text_field.required
-        assert text_field.max_length == 2_000
+        assert not list_field.allow_empty
+        assert list_field.max_length == 200
+        char_field = list_field.child
+        assert char_field.max_length == 45
 
         assert language_field.required
         assert language_field.max_length == 20
 
     def test_should_return_error_given_language_is_not_supported(self):
-        fake_data = {"text": "jafar", "language": "pt-br"}
+        fake_data = {"words": ["jafar"], "language": "pt-br"}
         serializer = TranscriberSerializer(data=fake_data)
 
         assert not serializer.is_valid()
@@ -30,7 +29,11 @@ class TranscriberSerializerTest(TestCase):
         assert str(serializer.errors["language"][0]) == "Desired language not supported"
 
     def test_should_inform_that_is_valid(self):
-        fake_data = {"text": "iago", "language": "en-gb"}
+        fake_data = {"words": ["iago"], "language": "en-gb"}
         serializer = TranscriberSerializer(data=fake_data)
 
         assert serializer.is_valid()
+
+        words, language = serializer.validated_data["words"], serializer.validated_data["language"]
+        assert words == fake_data["words"]
+        assert language == fake_data["language"]
