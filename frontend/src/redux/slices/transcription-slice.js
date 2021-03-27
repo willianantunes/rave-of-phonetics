@@ -1,16 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { transcribeText } from "../../services/raveOfPhoneticsAPI"
+import { transcribe } from "../../services/rop-api"
 import { findById } from "../../domains/transcription-details-dao"
 
 const initialState = {
   text: "",
   chosenLanguage: "en-us",
-  withStress: false,
+  showStress: false,
+  showSyllables: false,
+  showPunctuations: false,
+  showPhonetic: false,
   isLoading: false,
   transcribedResult: null,
   isError: false,
   transcriptionUnsaved: false,
+  // This is used to copy the transcription result
   phones: "Have you tried to transcribe something first?",
+  // So this can be used let's say in UseEffect
   counterOfLoadedTranscription: 0,
 }
 
@@ -24,8 +29,17 @@ export const transcriptionSlice = createSlice({
     setChosenLanguage: (state, action) => {
       state.chosenLanguage = action.payload
     },
-    setWithStress: (state, action) => {
-      state.withStress = action.payload
+    setShowStress: (state, action) => {
+      state.showStress = action.payload
+    },
+    setShowSyllables: (state, action) => {
+      state.showSyllables = action.payload
+    },
+    setShowPunctuations: (state, action) => {
+      state.showPunctuations = action.payload
+    },
+    setShowPhonetic: (state, action) => {
+      state.showPhonetic = action.payload
     },
     analysingText: state => {
       state.isError = false
@@ -42,10 +56,21 @@ export const transcriptionSlice = createSlice({
       state.transcribedResult = null
     },
     loadedTranscription: (state, action) => {
-      const { text, withStress, chosenLanguage, transcribedResult } = action.payload
+      const {
+        text,
+        chosenLanguage,
+        showStress,
+        showSyllables,
+        showPunctuations,
+        showPhonetic,
+        transcribedResult,
+      } = action.payload
       state.text = text
-      state.withStress = withStress
       state.chosenLanguage = chosenLanguage
+      state.showStress = showStress
+      state.showSyllables = showSyllables
+      state.showPunctuations = showPunctuations
+      state.showPhonetic = showPhonetic
       state.transcribedResult = transcribedResult
       state.counterOfLoadedTranscription++
     },
@@ -65,7 +90,10 @@ export const transcriptionSlice = createSlice({
 export const {
   setChosenLanguage,
   setText,
-  setWithStress,
+  setShowStress,
+  setShowSyllables,
+  setShowPunctuations,
+  setShowPhonetic,
   analysingText,
   textWasTranscribed,
   errorCaughtDuringTranscription,
@@ -77,11 +105,11 @@ export const {
 
 export default transcriptionSlice.reducer
 
-export const transcriptionFromText = (text, chosenLanguage, withStress, token, hookWhenError) => async dispatch => {
+export const transcriptionFromText = (text, chosenLanguage, token, hookWhenError) => async dispatch => {
   dispatch(analysingText())
 
   try {
-    const result = await transcribeText(text, chosenLanguage, withStress, token)
+    const result = await transcribe(text, chosenLanguage, token)
     dispatch(textWasTranscribed(result))
     dispatch(transcriptionToBeSaved())
   } catch (e) {
@@ -95,13 +123,14 @@ export const loadTranscriptionFromDatabase = id => async dispatch => {
   const persistedTranscriptionDetails = await findById(id)
   const payload = {
     text: persistedTranscriptionDetails.text,
-    withStress: persistedTranscriptionDetails.withStress,
     chosenLanguage: persistedTranscriptionDetails.language,
+    showStress: persistedTranscriptionDetails.showStress,
+    showSyllables: persistedTranscriptionDetails.showSyllables,
+    showPunctuations: persistedTranscriptionDetails.showPunctuations,
+    showPhonetic: persistedTranscriptionDetails.showPhonetic,
     transcribedResult: persistedTranscriptionDetails.transcriptionSetup,
   }
   dispatch(loadedTranscription(payload))
-  const transcription = persistedTranscriptionDetails.transcriptionSetup.transcription
-  const listOfPhones = transcription.map(transcriptionWord => transcriptionWord.phone)
-  const phones = listOfPhones.reduce((accumulator, currentValue) => accumulator + " " + currentValue)
+  const phones = persistedTranscriptionDetails.singleLineTranscription
   dispatch(setPhones(phones))
 }
