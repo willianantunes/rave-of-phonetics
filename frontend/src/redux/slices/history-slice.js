@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { deleteAll, findAll, saveOrUpdate } from "../../domains/transcription-details-dao"
-import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
-import { transcriptionSaved } from "./transcriptionSlice"
+import { transcriptionSaved } from "./transcription-slice"
 
 const initialState = {
   transcriptions: [],
@@ -28,19 +27,18 @@ export const { addNewTranscriptionDetails, loadAllTranscriptionDetails, eraseTra
 export default historySlice.reducer
 
 export const loadTranscriptionHistory = () => async dispatch => {
-  const textConfigurations = await findAll()
-  dispatch(loadAllTranscriptionDetails(textConfigurations))
+  const transcriptions = await findAll()
+  const transcriptionsAsObjects = transcriptions.map(entry => entry.convertToObject())
+
+  dispatch(loadAllTranscriptionDetails(transcriptionsAsObjects))
 }
 
-export const addTranscriptionDetails = (transcriptionDetails, text, chosenLanguage, withStress) => async dispatch => {
-  const listOfPhones = transcriptionDetails.transcription.map(transcriptionWord => transcriptionWord.phone)
-  const phones = listOfPhones.reduce((accumulator, currentValue) => accumulator + " " + currentValue)
-
-  const toBePersisted = new TranscriptionDetails(null, text, chosenLanguage, phones, withStress, transcriptionDetails)
+export const addTranscriptionDetails = transcriptionDetails => async dispatch => {
+  const toBePersisted = transcriptionDetails.convertToObject()
   const persistedTranscriptionDetails = await saveOrUpdate(toBePersisted)
 
-  dispatch(addNewTranscriptionDetails(persistedTranscriptionDetails))
-  dispatch(transcriptionSaved(phones))
+  dispatch(addNewTranscriptionDetails(persistedTranscriptionDetails.convertToObject()))
+  dispatch(transcriptionSaved(persistedTranscriptionDetails.singleLineTranscription))
 }
 
 export const deleteAllTranscriptionHistory = () => async dispatch => {

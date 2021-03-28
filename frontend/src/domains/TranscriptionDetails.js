@@ -87,7 +87,7 @@ export class TranscriptionDetails {
     return this._createdAt
   }
 
-  static newFromRow(row) {
+  static newFromDatabaseRow(row) {
     return new TranscriptionDetails(
       row.id,
       row.text,
@@ -96,6 +96,7 @@ export class TranscriptionDetails {
       row.showStress,
       row.showSyllables,
       row.showPunctuations,
+      row.showPhonetic,
       row.transcriptionSetup,
       row.createdAt
     )
@@ -103,6 +104,21 @@ export class TranscriptionDetails {
 
   equals(target) {
     return JSON.stringify(this) === JSON.stringify(target)
+  }
+
+  convertToObject() {
+    return {
+      id: this._id,
+      text: this._text,
+      transcription: this._singleLineTranscription,
+      language: this._language,
+      showStress: this._showStress,
+      showSyllables: this._showSyllables,
+      showPunctuations: this._showPunctuations,
+      showPhonetic: this._showPhonetic,
+      transcriptionSetup: this._transcriptionSetup,
+      createdAt: this._createdAt,
+    }
   }
 
   _extractCleanedWordsFromText() {
