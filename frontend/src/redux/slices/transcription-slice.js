@@ -128,7 +128,7 @@ export const loadTranscriptionFromDatabase = id => async dispatch => {
     showSyllables: persistedTranscriptionDetails.showSyllables,
     showPunctuations: persistedTranscriptionDetails.showPunctuations,
     showPhonetic: persistedTranscriptionDetails.showPhonetic,
-    transcribedResult: persistedTranscriptionDetails.transcriptionSetup,
+    transcribedResult: persistedTranscriptionDetails.refreshedTranscriptionSetup,
   }
   dispatch(loadedTranscription(payload))
   const phones = persistedTranscriptionDetails.singleLineTranscription

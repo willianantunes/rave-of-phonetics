@@ -44,7 +44,7 @@ describe("Transcription slice reducer", () => {
       showSyllables: true,
       showPunctuations: true,
       showPhonetic: true,
-      transcriptionSetup: { fakeKey: "fakeValue" },
+      refreshedTranscriptionSetup: { fakeKey: "fakeValue" },
       singleLineTranscription: "juː ɑːɹ kjʊɹɹiəs",
     }
   })
@@ -94,9 +94,9 @@ describe("Transcription slice reducer", () => {
       const validPayload = {}
       Object.assign(validPayload, fakeTranscriptionFromDatabase)
       validPayload.chosenLanguage = fakeTranscriptionFromDatabase.language
-      validPayload.transcribedResult = fakeTranscriptionFromDatabase.transcriptionSetup
+      validPayload.transcribedResult = fakeTranscriptionFromDatabase.refreshedTranscriptionSetup
       delete fakeTranscriptionFromDatabase.language
-      delete fakeTranscriptionFromDatabase.transcriptionSetup
+      delete fakeTranscriptionFromDatabase.refreshedTranscriptionSetup
       const actionSetup = { type: loadedTranscription.type, payload: validPayload }
       // Act
       const resultingState = transcriptionSliceReducer(undefined, actionSetup)
@@ -172,7 +172,7 @@ describe("Transcription slice reducer", () => {
             showSyllables: withoutSingleLine.showSyllables,
             showPunctuations: withoutSingleLine.showPunctuations,
             showPhonetic: withoutSingleLine.showPhonetic,
-            transcribedResult: withoutSingleLine.transcriptionSetup,
+            transcribedResult: withoutSingleLine.refreshedTranscriptionSetup,
           },
         },
         {
