@@ -7,6 +7,7 @@ export class TranscriptionDetails {
     _showStress,
     _showSyllables,
     _showPunctuations,
+    _showPhonetic,
     _transcriptionSetup,
     _createdAt,
     _phoneme_separator = ""
@@ -19,13 +20,18 @@ export class TranscriptionDetails {
       _showStress,
       _showSyllables,
       _showPunctuations,
+      _showPhonetic,
       _transcriptionSetup,
       _phoneme_separator,
     })
     if (_createdAt) this._createdAt = _createdAt
     else this._createdAt = new Date()
+    this._default_phoneme_separator = / /g
     this._cleanedWords = this._extractCleanedWordsFromText()
-    this._default_phoneme_separator = " "
+    if (this._transcriptionSetup) {
+      this._refreshedTranscriptionSetup = this._applyConfigurationIntoTranscription()
+      this._singleLineTranscription = this._collectSingleLineTranscription()
+    }
     Object.freeze(this)
   }
 
@@ -61,8 +67,20 @@ export class TranscriptionDetails {
     return this._showPunctuations
   }
 
+  get showPhonetic() {
+    return this._showPhonetic
+  }
+
   get transcriptionSetup() {
     return this._transcriptionSetup
+  }
+
+  get refreshedTranscriptionSetup() {
+    return this._refreshedTranscriptionSetup
+  }
+
+  get singleLineTranscription() {
+    return this._singleLineTranscription
   }
 
   get createdAt() {
@@ -83,8 +101,8 @@ export class TranscriptionDetails {
     )
   }
 
-  equals(textConfiguration) {
-    return JSON.stringify(this) === JSON.stringify(textConfiguration)
+  equals(target) {
+    return JSON.stringify(this) === JSON.stringify(target)
   }
 
   _extractCleanedWordsFromText() {
@@ -114,7 +132,7 @@ export class TranscriptionDetails {
     return target
   }
 
-  applyConfigurationIntoTranscription() {
+  _applyConfigurationIntoTranscription() {
     // REGEX to deal with stress marks and punctuations
     const regexToExtractStressMarks = /[ˈˌ]+/g
     // Words that may have punctuations
@@ -142,8 +160,15 @@ export class TranscriptionDetails {
             changedTranscription.phonetic = this._applyPunctuation(word, changedTranscription.phonetic)
           }
           // By default, they come with a space separator between each phoneme
-          changedTranscription.phonemic?.replace(this._default_phoneme_separator, this._phoneme_separator)
-          changedTranscription.phonetic?.replace(this._default_phoneme_separator, this._phoneme_separator)
+          changedTranscription.phonemic = changedTranscription.phonemic?.replace(
+            this._default_phoneme_separator,
+            this._phoneme_separator
+          )
+          changedTranscription.phonetic = changedTranscription.phonetic?.replace(
+            this._default_phoneme_separator,
+            this._phoneme_separator
+          )
+          // Filling
           changedEntries.push(changedTranscription)
         })
       }
@@ -152,5 +177,42 @@ export class TranscriptionDetails {
     }
 
     return changedTranscription
+  }
+
+  _collectSingleLineTranscription() {
+    const collectPhoneticSyllables = this._showPhonetic && this._showSyllables
+    const collectPhonemicSyllables = !this._showPhonetic && this._showSyllables
+    const collectOnlyPhonetic = this._showPhonetic && !this._showSyllables
+    const phoneCollector = transcription => {
+      if (collectPhoneticSyllables) return transcription?.phonetic_syllables
+      if (collectPhonemicSyllables) return transcription?.phonemic_syllables
+      if (collectOnlyPhonetic) return transcription?.phonetic
+
+      return transcription?.phonemic
+    }
+    // What will be returned
+    const phones = []
+
+    for (const wordSetup of this._refreshedTranscriptionSetup) {
+      if (wordSetup.entries && wordSetup.entries.length > 0) {
+        // This is needed because a given word can have more than one setup, like LIVE
+        // TODO: Filter may return more than one item
+        const selectedEntry = wordSetup.entries.filter(entry => !!entry.selected)
+        if (selectedEntry.length === 1) {
+          // What the user chose
+          const collectedPhone = phoneCollector(selectedEntry)
+          phones.push(collectedPhone)
+        } else {
+          // Just the first one
+          const collectedPhone = phoneCollector(wordSetup.entries[0])
+          phones.push(collectedPhone)
+        }
+      } else {
+        // Simply use the word otherwise
+        phones.push(wordSetup.word)
+      }
+    }
+
+    return phones.reduce((accumulator, currentValue) => accumulator + " " + currentValue)
   }
 }

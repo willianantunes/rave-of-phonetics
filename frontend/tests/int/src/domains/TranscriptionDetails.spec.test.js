@@ -26,6 +26,107 @@ describe("Transcription domain", () => {
   })
 
   describe(`Punctuation and stress marks`, () => {
+    test(`When with default options: scenario 1`, () => {
+      // Arrange
+      const text = "Rave, live Phonetics!"
+      const transcriptionSetup = [
+        {
+          word: "rave",
+          entries: [
+            {
+              classification: "Undefined",
+              version: "Version 1",
+              phonemic: "ɹ eɪ v",
+              phonemic_syllables: "ɹ eɪ v",
+              phonetic: null,
+              phonetic_syllables: null,
+            },
+          ],
+        },
+        {
+          word: "live",
+          entries: [
+            {
+              classification: "Undefined",
+              version: "Version 1",
+              phonemic: "l aɪ v",
+              phonemic_syllables: "l aɪ v",
+              phonetic: null,
+              phonetic_syllables: null,
+            },
+            {
+              classification: "Undefined",
+              version: "Version 2",
+              phonemic: "l ɪ v",
+              phonemic_syllables: "l ɪ v",
+              phonetic: null,
+              phonetic_syllables: null,
+            },
+          ],
+        },
+        {
+          word: "phonetics",
+          entries: [
+            {
+              classification: "Undefined",
+              version: "Version 1",
+              phonemic: "f ə ˈn ɛ t ɪ k s",
+              phonemic_syllables: "f ə • ˈn ɛ • t ɪ k s",
+              phonetic: null,
+              phonetic_syllables: null,
+            },
+          ],
+        },
+      ]
+      const transcriptionDetails = createTranscriptionDetails(text, { transcriptionSetup })
+      // Act
+      const transcription = transcriptionDetails.refreshedTranscriptionSetup
+      const phones = transcriptionDetails.singleLineTranscription
+      // Assert
+      expect(phones).toStrictEqual(`ɹeɪv laɪv fənɛtɪks`)
+      expect(transcription).toMatchObject([
+        {
+          word: "Rave,",
+          entries: [
+            {
+              classification: "Undefined",
+              version: "Version 1",
+              phonemic: "ɹeɪv",
+              phonemic_syllables: "ɹ eɪ v",
+            },
+          ],
+        },
+        {
+          word: "live",
+          entries: [
+            {
+              classification: "Undefined",
+              version: "Version 1",
+              phonemic: "laɪv",
+              phonemic_syllables: "l aɪ v",
+            },
+            {
+              classification: "Undefined",
+              version: "Version 2",
+              phonemic: "lɪv",
+              phonemic_syllables: "l ɪ v",
+            },
+          ],
+        },
+        {
+          word: "Phonetics!",
+          entries: [
+            {
+              classification: "Undefined",
+              version: "Version 1",
+              phonemic: "fənɛtɪks",
+              phonemic_syllables: "f ə • n ɛ • t ɪ k s",
+            },
+          ],
+        },
+      ])
+    })
+
     test(`When show punctuations is true, should preserve them in transcription: scenario 1`, () => {
       // Arrange
       const text = "Rave, live Phonetics!"
@@ -81,16 +182,18 @@ describe("Transcription domain", () => {
       ]
       const transcriptionDetails = createTranscriptionDetails(text, { transcriptionSetup, showPunctuations })
       // Act
-      const result = transcriptionDetails.applyConfigurationIntoTranscription()
+      const transcription = transcriptionDetails.refreshedTranscriptionSetup
+      const phones = transcriptionDetails.singleLineTranscription
       // Assert
-      expect(result).toMatchObject([
+      expect(phones).toStrictEqual("ɹeɪv, laɪv fənɛtɪks!")
+      expect(transcription).toMatchObject([
         {
           word: "Rave,",
           entries: [
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: "ɹ eɪ v,",
+              phonemic: "ɹeɪv,",
               phonemic_syllables: "ɹ eɪ v",
             },
           ],
@@ -101,13 +204,13 @@ describe("Transcription domain", () => {
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: "l aɪ v",
+              phonemic: "laɪv",
               phonemic_syllables: "l aɪ v",
             },
             {
               classification: "Undefined",
               version: "Version 2",
-              phonemic: "l ɪ v",
+              phonemic: "lɪv",
               phonemic_syllables: "l ɪ v",
             },
           ],
@@ -118,7 +221,7 @@ describe("Transcription domain", () => {
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: "f ə n ɛ t ɪ k s!",
+              phonemic: "fənɛtɪks!",
               phonemic_syllables: "f ə • n ɛ • t ɪ k s",
             },
           ],
@@ -213,16 +316,18 @@ describe("Transcription domain", () => {
       ]
       const transcriptionDetails = createTranscriptionDetails(text, { transcriptionSetup, showPunctuations })
       // Act
-      const result = transcriptionDetails.applyConfigurationIntoTranscription()
+      const transcription = transcriptionDetails.refreshedTranscriptionSetup
+      const phones = transcriptionDetails.singleLineTranscription
       // Assert
-      expect(result).toMatchObject([
+      expect(phones).toStrictEqual(`doʊnt ɛvər, ɪf "ju; pliz, ædhɑk 1989!`)
+      expect(transcription).toMatchObject([
         {
           word: "Don't",
           entries: [
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: "d oʊ n t",
+              phonemic: "doʊnt",
               phonemic_syllables: "d oʊ n t",
             },
           ],
@@ -233,7 +338,7 @@ describe("Transcription domain", () => {
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: "ɛ v ər,",
+              phonemic: "ɛvər,",
               phonemic_syllables: "ɛ • v ər",
             },
           ],
@@ -244,7 +349,7 @@ describe("Transcription domain", () => {
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: "ɪ f",
+              phonemic: "ɪf",
               phonemic_syllables: "ɪ f",
             },
           ],
@@ -255,7 +360,7 @@ describe("Transcription domain", () => {
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: `"j u;`,
+              phonemic: `"ju;`,
               phonemic_syllables: "j u",
             },
           ],
@@ -266,7 +371,7 @@ describe("Transcription domain", () => {
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: "p l i z,",
+              phonemic: "pliz,",
               phonemic_syllables: "p l i z",
             },
           ],
@@ -277,7 +382,7 @@ describe("Transcription domain", () => {
             {
               classification: "Undefined",
               version: "Version 1",
-              phonemic: "æ d h ɑ k",
+              phonemic: "ædhɑk",
               phonemic_syllables: "æ d • h ɑ k",
             },
           ],
