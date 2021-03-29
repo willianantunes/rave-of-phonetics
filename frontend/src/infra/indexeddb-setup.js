@@ -1,14 +1,18 @@
 import Dexie from "dexie"
 
 export const databaseName = "RaveOfPhonetics"
-const currentDatabaseVersion = 2
+const currentDatabaseVersion = 3
 
 function applyAllMigrations(db) {
   // https://dexie.org/docs/Version/Version.stores()
   db.version(1).stores({ textConfigurations: "++id, text, language, &createdAt" })
-  db.version(currentDatabaseVersion).stores({
+  db.version(2).stores({
     textConfigurations: null,
     transcriptionDetails: "++id, text, language, &createdAt",
+  })
+  db.version(currentDatabaseVersion).stores({
+    transcriptionDetails: null,
+    transcriptions: "++id, text, language, &createdAt",
   })
 }
 
