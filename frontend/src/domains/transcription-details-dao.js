@@ -1,45 +1,42 @@
 import { getDatabase } from "../infra/indexeddb-setup"
 import { TranscriptionDetails } from "./TranscriptionDetails"
 
+const tableName = "transcriptions"
+
 export async function findById(id, predefinedDatabase = null) {
   const db = predefinedDatabase ? predefinedDatabase : await getDatabase()
-  const retrievedData = await db.transcriptionDetails.get(id)
-  return TranscriptionDetails.newFromRow(retrievedData)
+  const retrievedData = await db[tableName].get(id)
+  return TranscriptionDetails.newFromDatabaseRow(retrievedData)
 }
 
-export async function saveOrUpdate(textConfiguration) {
+export async function saveOrUpdate(transcriptionDetails) {
   const db = await getDatabase()
-  const textConfigurationToBeSaved = {
-    text: textConfiguration.text,
-    language: textConfiguration.language,
-    transcription: textConfiguration.transcription,
-    withStress: textConfiguration.withStress,
-    transcriptionSetup: textConfiguration.transcriptionSetup,
-    createdAt: textConfiguration.createdAt,
+  const objectToBeSaved = transcriptionDetails.convertToObject()
+
+  if (transcriptionDetails.id) {
+    delete objectToBeSaved["createdAt"]
+    await db[tableName].update(transcriptionDetails.id, objectToBeSaved)
+    return findById(transcriptionDetails.id, db)
   }
-  if (textConfiguration.id) {
-    delete textConfigurationToBeSaved["createdAt"]
-    await db.transcriptionDetails.update(textConfiguration.id, textConfigurationToBeSaved)
-    return findById(textConfiguration.id, db)
-  }
-  const newId = await db.transcriptionDetails.add(textConfigurationToBeSaved)
+
+  const newId = await db[tableName].add(objectToBeSaved)
   return findById(newId, db)
 }
 
 export async function findAll() {
   const db = await getDatabase()
-  const listOfTextConfiguration = await db.transcriptionDetails.toArray()
-  return listOfTextConfiguration.map(row => TranscriptionDetails.newFromRow(row))
+  const listOfPersistedObjects = await db[tableName].toArray()
+  return listOfPersistedObjects.map(row => TranscriptionDetails.newFromDatabaseRow(row))
 }
 
 export async function deleteAll() {
   const db = await getDatabase()
-  return await db.transcriptionDetails.clear()
+  return await db[tableName].clear()
 }
 
 export async function deleteById(id) {
   const db = await getDatabase()
-  await db.transcriptionDetails.delete(id)
+  await db[tableName].delete(id)
 }
 
 export async function lastItemInserted() {
@@ -47,7 +44,7 @@ export async function lastItemInserted() {
 
   // I could have done like the following, but there is not DESC order:
   // await db.transcriptionDetails.orderBy('createdAt').first()
-  const retrievedKey = await db.transcriptionDetails.orderBy(":id").lastKey()
+  const retrievedKey = await db[tableName].orderBy(":id").lastKey()
 
   return findById(retrievedKey, db)
 }

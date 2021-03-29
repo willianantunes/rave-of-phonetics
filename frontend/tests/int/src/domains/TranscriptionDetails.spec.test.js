@@ -16,8 +16,9 @@ describe("Transcription domain", () => {
     test(`When with text "Don't ever, if "you; please, ad-hoc 1989!", then 7 words is extracted`, () => {
       // Arrange
       const text = `Don't ever, if "you; please, ad-hoc 1989!`
+      const transcriptionSetup = null
       // Act
-      const transcriptionDetails = createTranscriptionDetails(text)
+      const transcriptionDetails = createTranscriptionDetails({ text, transcriptionSetup })
       // Assert
       const cleanedWords = transcriptionDetails.cleanedWords
       expect(cleanedWords).toHaveLength(7)
@@ -28,57 +29,7 @@ describe("Transcription domain", () => {
   describe(`Punctuation and stress marks`, () => {
     test(`When with default options: scenario 1`, () => {
       // Arrange
-      const text = "Rave, live Phonetics!"
-      const transcriptionSetup = [
-        {
-          word: "rave",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "ɹ eɪ v",
-              phonemic_syllables: "ɹ eɪ v",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "live",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "l aɪ v",
-              phonemic_syllables: "l aɪ v",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-            {
-              classification: "Undefined",
-              version: "Version 2",
-              phonemic: "l ɪ v",
-              phonemic_syllables: "l ɪ v",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "phonetics",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "f ə ˈn ɛ t ɪ k s",
-              phonemic_syllables: "f ə • ˈn ɛ • t ɪ k s",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-      ]
-      const transcriptionDetails = createTranscriptionDetails(text, { transcriptionSetup })
+      const transcriptionDetails = createTranscriptionDetails()
       // Act
       const transcription = transcriptionDetails.refreshedTranscriptionSetup
       const phones = transcriptionDetails.singleLineTranscription
@@ -129,58 +80,8 @@ describe("Transcription domain", () => {
 
     test(`When show punctuations is true, should preserve them in transcription: scenario 1`, () => {
       // Arrange
-      const text = "Rave, live Phonetics!"
       const showPunctuations = true
-      const transcriptionSetup = [
-        {
-          word: "rave",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "ɹ eɪ v",
-              phonemic_syllables: "ɹ eɪ v",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "live",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "l aɪ v",
-              phonemic_syllables: "l aɪ v",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-            {
-              classification: "Undefined",
-              version: "Version 2",
-              phonemic: "l ɪ v",
-              phonemic_syllables: "l ɪ v",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "phonetics",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "f ə ˈn ɛ t ɪ k s",
-              phonemic_syllables: "f ə • ˈn ɛ • t ɪ k s",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-      ]
-      const transcriptionDetails = createTranscriptionDetails(text, { transcriptionSetup, showPunctuations })
+      const transcriptionDetails = createTranscriptionDetails({ showPunctuations })
       // Act
       const transcription = transcriptionDetails.refreshedTranscriptionSetup
       const phones = transcriptionDetails.singleLineTranscription
@@ -314,7 +215,7 @@ describe("Transcription domain", () => {
         },
         { word: "1989", entries: null },
       ]
-      const transcriptionDetails = createTranscriptionDetails(text, { transcriptionSetup, showPunctuations })
+      const transcriptionDetails = createTranscriptionDetails({ text, transcriptionSetup, showPunctuations })
       // Act
       const transcription = transcriptionDetails.refreshedTranscriptionSetup
       const phones = transcriptionDetails.singleLineTranscription

@@ -107,7 +107,7 @@ export class TranscriptionDetails {
   }
 
   convertToObject() {
-    return {
+    const builtObject = {
       id: this._id,
       text: this._text,
       transcription: this._singleLineTranscription,
@@ -119,6 +119,14 @@ export class TranscriptionDetails {
       transcriptionSetup: this._transcriptionSetup,
       createdAt: this._createdAt,
     }
+    // As this will be saved into indexeddb, it's important to remove things that is null or undefined
+    // You can see the integration test for indexeddb-setup.spec.test.js
+    Object.keys(builtObject).forEach(key => {
+      if (builtObject[key] === null || builtObject[key] === undefined) {
+        delete builtObject[key]
+      }
+    })
+    return builtObject
   }
 
   _extractCleanedWordsFromText() {
