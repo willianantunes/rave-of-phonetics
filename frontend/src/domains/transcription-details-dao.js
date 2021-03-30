@@ -9,14 +9,13 @@ export async function findById(id, predefinedDatabase = null) {
   return TranscriptionDetails.newFromDatabaseRow(retrievedData)
 }
 
-export async function saveOrUpdate(transcriptionDetails) {
+export async function saveOrUpdate(objectToBeSaved) {
   const db = await getDatabase()
-  const objectToBeSaved = transcriptionDetails.convertToObject()
 
-  if (transcriptionDetails.id) {
+  if (objectToBeSaved.id) {
     delete objectToBeSaved["createdAt"]
-    await db[tableName].update(transcriptionDetails.id, objectToBeSaved)
-    return findById(transcriptionDetails.id, db)
+    await db[tableName].update(objectToBeSaved.id, objectToBeSaved)
+    return findById(objectToBeSaved.id, db)
   }
 
   const newId = await db[tableName].add(objectToBeSaved)

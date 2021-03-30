@@ -3,7 +3,6 @@ export class TranscriptionDetails {
     _id,
     _text,
     _language,
-    _transcription,
     _showStress,
     _showSyllables,
     _showPunctuations,
@@ -16,7 +15,6 @@ export class TranscriptionDetails {
       _id,
       _text,
       _language,
-      _transcription,
       _showStress,
       _showSyllables,
       _showPunctuations,
@@ -27,7 +25,6 @@ export class TranscriptionDetails {
     if (_createdAt) this._createdAt = _createdAt
     else this._createdAt = new Date()
     this._default_phoneme_separator = / /g
-    this._cleanedWords = this._extractCleanedWordsFromText()
     if (this._transcriptionSetup) {
       this._refreshedTranscriptionSetup = this._applyConfigurationIntoTranscription()
       this._singleLineTranscription = this._collectSingleLineTranscription()
@@ -43,16 +40,8 @@ export class TranscriptionDetails {
     return this._text
   }
 
-  get cleanedWords() {
-    return this._cleanedWords
-  }
-
   get language() {
     return this._language
-  }
-
-  get transcription() {
-    return this._transcription
   }
 
   get showStress() {
@@ -92,7 +81,6 @@ export class TranscriptionDetails {
       row.id,
       row.text,
       row.language,
-      row.transcription,
       row.showStress,
       row.showSyllables,
       row.showPunctuations,
@@ -106,11 +94,10 @@ export class TranscriptionDetails {
     return JSON.stringify(this) === JSON.stringify(target)
   }
 
-  convertToObject() {
+  convertToObject(withSingleLineTranscription = false, withRefreshedTranscription = false) {
     const builtObject = {
       id: this._id,
       text: this._text,
-      transcription: this._singleLineTranscription,
       language: this._language,
       showStress: this._showStress,
       showSyllables: this._showSyllables,
@@ -118,6 +105,12 @@ export class TranscriptionDetails {
       showPhonetic: this._showPhonetic,
       transcriptionSetup: this._transcriptionSetup,
       createdAt: this._createdAt,
+    }
+    if (withSingleLineTranscription) {
+      builtObject.singleLineTranscription = this._singleLineTranscription
+    }
+    if (withRefreshedTranscription) {
+      builtObject.refreshedTranscriptionSetup = this._refreshedTranscriptionSetup
     }
     // As this will be saved into indexeddb, it's important to remove things that is null or undefined
     // You can see the integration test for indexeddb-setup.spec.test.js
@@ -127,12 +120,6 @@ export class TranscriptionDetails {
       }
     })
     return builtObject
-  }
-
-  _extractCleanedWordsFromText() {
-    // This is only for EN-US and EN-GB
-    const regexToExtractWords = /([\w'-])+/g
-    return this._text.match(regexToExtractWords).map(value => value.toLowerCase())
   }
 
   _applyPunctuation(wordWithPunctuations, target, punctuationMarks = /(\s*[;:,.!?¡¿—…"«»“”]+\s*)+/g) {

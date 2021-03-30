@@ -6,6 +6,12 @@ import { Button } from "gatsby-theme-material-ui"
 import { Box, FormGroup, LinearProgress } from "@material-ui/core"
 import { LinkAlt, Send, CopyAlt } from "styled-icons/boxicons-regular"
 
+export const Title = styled(Typography).attrs({
+  component: "h1",
+  variant: "h5",
+  align: "center",
+})``
+
 export const ActionsWrapper = styled(FormGroup)`
   gap: 10px;
 `
@@ -55,10 +61,6 @@ export const CustomCard = styled(Card)`
   }
 `
 
-export const HelloMyFriendTypography = styled(Typography)`
-  font-size: 20px;
-`
-
 export const TranscriptionForm = styled.form`
   flex-basis: 100%;
   display: flex;
@@ -75,13 +77,4 @@ export const TranscriptionSection = styled(Box)`
   gap: 20px;
   display: flex;
   flex-flow: wrap;
-
-  & div > div:first-child {
-    color: ${props => props.theme.palette.text.secondary};
-  }
-
-  & div > div:last-child {
-    color: ${props => props.theme.palette.text.primary};
-    font-weight: bold;
-  }
 `

@@ -62,7 +62,6 @@ export function createTranscriptionDetails({
     id,
     text,
     language,
-    null,
     showStress,
     showSyllables,
     showPunctuations,

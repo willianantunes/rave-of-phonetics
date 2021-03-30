@@ -1,31 +1,6 @@
 import { createTranscriptionDetails } from "../../../support/domain-utils"
 
 describe("Transcription domain", () => {
-  describe(`Words extraction`, () => {
-    test(`When with text "Rave, \r\nlive Phonetics!", then 3 words is extracted`, () => {
-      // Arrange
-      const text = "Rave, live Phonetics!"
-      // Act
-      const transcriptionDetails = createTranscriptionDetails(text)
-      // Assert
-      const cleanedWords = transcriptionDetails.cleanedWords
-      expect(cleanedWords).toHaveLength(3)
-      expect(cleanedWords).toMatchObject(["rave", "live", "phonetics"])
-    })
-
-    test(`When with text "Don't ever, if "you; please, ad-hoc 1989!", then 7 words is extracted`, () => {
-      // Arrange
-      const text = `Don't ever, if "you; please, ad-hoc 1989!`
-      const transcriptionSetup = null
-      // Act
-      const transcriptionDetails = createTranscriptionDetails({ text, transcriptionSetup })
-      // Assert
-      const cleanedWords = transcriptionDetails.cleanedWords
-      expect(cleanedWords).toHaveLength(7)
-      expect(cleanedWords).toMatchObject(["don't", "ever", "if", "you", "please", "ad-hoc", "1989"])
-    })
-  })
-
   describe(`Punctuation and stress marks`, () => {
     test(`When with default options: scenario 1`, () => {
       // Arrange

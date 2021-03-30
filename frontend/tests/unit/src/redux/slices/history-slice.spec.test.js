@@ -94,8 +94,7 @@ describe("History slice reducer", () => {
       const store = mockStore()
       const fakeObjectPersisted = "jafar"
       const fakeConvertToObjectPersisted = jest.fn(() => fakeObjectPersisted)
-      const fakeLine = `dʒæfɑːɹ`
-      const fakeTranscriptionPersisted = { convertToObject: fakeConvertToObjectPersisted, singleLineTranscription: fakeLine }
+      const fakeTranscriptionPersisted = { convertToObject: fakeConvertToObjectPersisted }
       saveOrUpdate.mockReturnValue(fakeTranscriptionPersisted)
       const fakeObjectToBePersisted = "iago"
       const fakeConvertToObjectToBePersisted = jest.fn(() => fakeObjectToBePersisted)
@@ -114,7 +113,7 @@ describe("History slice reducer", () => {
         },
         {
           type: transcriptionSaved.type,
-          payload: fakeLine,
+          payload: fakeObjectPersisted,
         },
       ])
     })
