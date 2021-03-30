@@ -2,7 +2,6 @@ import transcriptionSliceReducer, {
   analysingText,
   loadedTranscription,
   loadTranscriptionFromDatabase,
-  setPhones,
   setShowPunctuations,
   setShowStress,
   setShowSyllables,
@@ -32,9 +31,9 @@ describe("Transcription slice reducer", () => {
       showPhonetic: false,
       isLoading: false,
       transcribedResult: null,
+      transcriptionDetails: null,
       isError: false,
       transcriptionUnsaved: false,
-      phones: "Have you tried to transcribe something first?",
       counterOfLoadedTranscription: 0,
     }
     fakeTranscriptionFromDatabase = {
@@ -93,26 +92,22 @@ describe("Transcription slice reducer", () => {
       // Arrange
       const validPayload = {}
       Object.assign(validPayload, fakeTranscriptionFromDatabase)
-      validPayload.chosenLanguage = fakeTranscriptionFromDatabase.language
-      validPayload.transcribedResult = fakeTranscriptionFromDatabase.refreshedTranscriptionSetup
-      delete fakeTranscriptionFromDatabase.language
-      delete fakeTranscriptionFromDatabase.refreshedTranscriptionSetup
       const actionSetup = { type: loadedTranscription.type, payload: validPayload }
       // Act
       const resultingState = transcriptionSliceReducer(undefined, actionSetup)
       // Assert
       expect(resultingState).toStrictEqual({
         text: fakeTranscriptionFromDatabase.text,
-        chosenLanguage: validPayload.chosenLanguage,
+        chosenLanguage: validPayload.language,
         showStress: fakeTranscriptionFromDatabase.showStress,
         showSyllables: fakeTranscriptionFromDatabase.showSyllables,
         showPunctuations: fakeTranscriptionFromDatabase.showPunctuations,
         showPhonetic: fakeTranscriptionFromDatabase.showPhonetic,
         isLoading: initialState.isLoading,
-        transcribedResult: validPayload.transcribedResult,
+        transcribedResult: validPayload.refreshedTranscriptionSetup,
+        transcriptionDetails: validPayload,
         isError: initialState.isError,
         transcriptionUnsaved: initialState.transcriptionUnsaved,
-        phones: initialState.phones,
         counterOfLoadedTranscription: 1,
       })
     })
@@ -134,7 +129,7 @@ describe("Transcription slice reducer", () => {
       // Assert
       const firedActions = store.getActions()
       expect(handlerForError).not.toBeCalled()
-      expect(transcribe).toBeCalledWith(text, language, token)
+      expect(transcribe).toBeCalledWith([text], language, token)
       expect(firedActions).toStrictEqual([
         {
           type: analysingText.type,
@@ -156,28 +151,19 @@ describe("Transcription slice reducer", () => {
       const store = mockStore()
       const fakeId = 42
       findById.mockReturnValue(fakeTranscriptionFromDatabase)
+      const fakeConvertToObjectResult = 31
+      fakeTranscriptionFromDatabase.convertToObject = jest.fn(() => fakeConvertToObjectResult)
       // Act
       await store.dispatch(loadTranscriptionFromDatabase(fakeId))
       // Assert
       const firedActions = store.getActions()
       const { singleLineTranscription, ...withoutSingleLine } = fakeTranscriptionFromDatabase
       expect(findById).toBeCalledWith(fakeId)
+      expect(fakeTranscriptionFromDatabase.convertToObject).toBeCalledWith(true, true)
       expect(firedActions).toStrictEqual([
         {
           type: loadedTranscription.type,
-          payload: {
-            text: withoutSingleLine.text,
-            chosenLanguage: withoutSingleLine.language,
-            showStress: withoutSingleLine.showStress,
-            showSyllables: withoutSingleLine.showSyllables,
-            showPunctuations: withoutSingleLine.showPunctuations,
-            showPhonetic: withoutSingleLine.showPhonetic,
-            transcribedResult: withoutSingleLine.refreshedTranscriptionSetup,
-          },
-        },
-        {
-          type: setPhones.type,
-          payload: singleLineTranscription,
+          payload: fakeConvertToObjectResult,
         },
       ])
     })

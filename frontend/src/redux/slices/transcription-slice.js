@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { transcribe } from "../../services/rop-api"
 import { findById } from "../../domains/transcription-details-dao"
+import { extractWordsFromText } from "../../utils/tokenization"
+import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
 
 const initialState = {
   text: "",
@@ -11,10 +13,9 @@ const initialState = {
   showPhonetic: false,
   isLoading: false,
   transcribedResult: null,
+  transcriptionDetails: null,
   isError: false,
   transcriptionUnsaved: false,
-  // This is used to copy the transcription result
-  phones: "Have you tried to transcribe something first?",
   // So this can be used let's say in UseEffect
   counterOfLoadedTranscription: 0,
 }
@@ -41,6 +42,9 @@ export const transcriptionSlice = createSlice({
     setShowPhonetic: (state, action) => {
       state.showPhonetic = action.payload
     },
+    setTranscriptionDetails: (state, action) => {
+      state.transcriptionDetails = action.payload
+    },
     analysingText: state => {
       state.isError = false
       state.isLoading = true
@@ -56,33 +60,23 @@ export const transcriptionSlice = createSlice({
       state.transcribedResult = null
     },
     loadedTranscription: (state, action) => {
-      const {
-        text,
-        chosenLanguage,
-        showStress,
-        showSyllables,
-        showPunctuations,
-        showPhonetic,
-        transcribedResult,
-      } = action.payload
-      state.text = text
-      state.chosenLanguage = chosenLanguage
-      state.showStress = showStress
-      state.showSyllables = showSyllables
-      state.showPunctuations = showPunctuations
-      state.showPhonetic = showPhonetic
-      state.transcribedResult = transcribedResult
+      const transcriptionDetailsAsPlainObject = action.payload
+      state.text = transcriptionDetailsAsPlainObject.text
+      state.chosenLanguage = transcriptionDetailsAsPlainObject.language
+      state.showStress = transcriptionDetailsAsPlainObject.showStress
+      state.showSyllables = transcriptionDetailsAsPlainObject.showSyllables
+      state.showPunctuations = transcriptionDetailsAsPlainObject.showPunctuations
+      state.showPhonetic = transcriptionDetailsAsPlainObject.showPhonetic
+      state.transcribedResult = transcriptionDetailsAsPlainObject.refreshedTranscriptionSetup
+      state.transcriptionDetails = transcriptionDetailsAsPlainObject
       state.counterOfLoadedTranscription++
     },
     transcriptionSaved: (state, action) => {
       state.transcriptionUnsaved = false
-      state.phones = action.payload
+      state.transcriptionDetails = action.payload
     },
     transcriptionToBeSaved: state => {
       state.transcriptionUnsaved = true
-    },
-    setPhones: (state, action) => {
-      state.phones = action.payload
     },
   },
 })
@@ -94,13 +88,13 @@ export const {
   setShowSyllables,
   setShowPunctuations,
   setShowPhonetic,
+  setTranscriptionDetails,
   analysingText,
   textWasTranscribed,
   errorCaughtDuringTranscription,
   loadedTranscription,
   transcriptionSaved,
   transcriptionToBeSaved,
-  setPhones,
 } = transcriptionSlice.actions
 
 export default transcriptionSlice.reducer
@@ -109,7 +103,8 @@ export const transcriptionFromText = (text, chosenLanguage, token, hookWhenError
   dispatch(analysingText())
 
   try {
-    const result = await transcribe(text, chosenLanguage, token)
+    const words = extractWordsFromText(text)
+    const result = await transcribe(words, chosenLanguage, token)
     dispatch(textWasTranscribed(result))
     dispatch(transcriptionToBeSaved())
   } catch (e) {
@@ -121,16 +116,7 @@ export const transcriptionFromText = (text, chosenLanguage, token, hookWhenError
 
 export const loadTranscriptionFromDatabase = id => async dispatch => {
   const persistedTranscriptionDetails = await findById(id)
-  const payload = {
-    text: persistedTranscriptionDetails.text,
-    chosenLanguage: persistedTranscriptionDetails.language,
-    showStress: persistedTranscriptionDetails.showStress,
-    showSyllables: persistedTranscriptionDetails.showSyllables,
-    showPunctuations: persistedTranscriptionDetails.showPunctuations,
-    showPhonetic: persistedTranscriptionDetails.showPhonetic,
-    transcribedResult: persistedTranscriptionDetails.refreshedTranscriptionSetup,
-  }
-  dispatch(loadedTranscription(payload))
-  const phones = persistedTranscriptionDetails.singleLineTranscription
-  dispatch(setPhones(phones))
+  const transcriptionAsPlainObject = persistedTranscriptionDetails.convertToObject(true, true)
+
+  dispatch(loadedTranscription(transcriptionAsPlainObject))
 }

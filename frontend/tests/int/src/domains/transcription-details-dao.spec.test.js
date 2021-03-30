@@ -15,7 +15,7 @@ describe("Transcription DAO", () => {
     // Arrange
     const transcriptionDetails = createTranscriptionDetails()
     // Act
-    const persistedObject = await dao.saveOrUpdate(transcriptionDetails)
+    const persistedObject = await dao.saveOrUpdate(transcriptionDetails.convertToObject())
     const persistedObjectFromDatabase = await dao.findById(persistedObject.id)
     const listOfPersistedObjects = await dao.findAll()
     // Assert
@@ -30,8 +30,8 @@ describe("Transcription DAO", () => {
     await sleep(100) // In order to avoid collision in createdAt field
     const phoneticTranscriptionDetails = createTranscriptionDetails({ showPhonetic: true })
     // Act
-    const persistedStressedTranscriptionDetails = await dao.saveOrUpdate(stressedTranscriptionDetails)
-    const persistedPhoneticTranscriptionDetails = await dao.saveOrUpdate(phoneticTranscriptionDetails)
+    const persistedStressedTranscriptionDetails = await dao.saveOrUpdate(stressedTranscriptionDetails.convertToObject())
+    const persistedPhoneticTranscriptionDetails = await dao.saveOrUpdate(phoneticTranscriptionDetails.convertToObject())
     // Assert
     const listOfPersistedObjects = await dao.findAll()
     expect(persistedStressedTranscriptionDetails.id).toBe(1)
@@ -44,7 +44,7 @@ describe("Transcription DAO", () => {
   test("Should save TranscriptionDetails and delete it afterwards", async () => {
     // Arrange
     const stressedTranscriptionDetails = createTranscriptionDetails({ showStress: true })
-    const persistedObject = await dao.saveOrUpdate(stressedTranscriptionDetails)
+    const persistedObject = await dao.saveOrUpdate(stressedTranscriptionDetails.convertToObject())
     // Act
     await dao.deleteById(persistedObject.id)
     // Assert
@@ -58,8 +58,8 @@ describe("Transcription DAO", () => {
     await sleep(100) // In order to avoid collision in createdAt field
     const phoneticTranscriptionDetails = createTranscriptionDetails({ showPhonetic: true })
     // Act
-    await dao.saveOrUpdate(stressedTranscriptionDetails)
-    await dao.saveOrUpdate(phoneticTranscriptionDetails)
+    await dao.saveOrUpdate(stressedTranscriptionDetails.convertToObject())
+    await dao.saveOrUpdate(phoneticTranscriptionDetails.convertToObject())
     await dao.deleteAll()
     // Assert
     const listOfPersistedObjects = await dao.findAll()
@@ -69,11 +69,11 @@ describe("Transcription DAO", () => {
   test("Should save TranscriptionDetails and update it with a new value", async () => {
     // Arrange
     const stressedTranscriptionDetails = createTranscriptionDetails({ showStress: true })
-    const persistedStressed = await dao.saveOrUpdate(stressedTranscriptionDetails)
+    const persistedStressed = await dao.saveOrUpdate(stressedTranscriptionDetails.convertToObject())
     expect(persistedStressed.showSyllables).toBeFalsy()
     const refreshedStressed = createTranscriptionDetails({ id: persistedStressed.id, showSyllables: true })
     // Act
-    const updatedPersistedStressed = await dao.saveOrUpdate(refreshedStressed)
+    const updatedPersistedStressed = await dao.saveOrUpdate(refreshedStressed.convertToObject())
     // Assert
     expect(updatedPersistedStressed.showSyllables).toBeTruthy()
     const listOfPersistedObjects = await dao.findAll()
@@ -87,8 +87,8 @@ describe("Transcription DAO", () => {
     await sleep(100) // In order to avoid collision in createdAt field
     const phoneticTranscriptionDetails = createTranscriptionDetails({ showPhonetic: true })
     // Act
-    const persistedStressed = await dao.saveOrUpdate(stressedTranscriptionDetails)
-    const persistedPhonetic = await dao.saveOrUpdate(phoneticTranscriptionDetails)
+    const persistedStressed = await dao.saveOrUpdate(stressedTranscriptionDetails.convertToObject())
+    const persistedPhonetic = await dao.saveOrUpdate(phoneticTranscriptionDetails.convertToObject())
     await dao.deleteById(persistedStressed.id)
     // Assert
     const listOfPersistedObjects = await dao.findAll()
@@ -102,8 +102,8 @@ describe("Transcription DAO", () => {
     const stressedTranscriptionDetails = createTranscriptionDetails({ showStress: true })
     await sleep(100) // In order to avoid collision in createdAt field
     const phoneticTranscriptionDetails = createTranscriptionDetails({ showPhonetic: true })
-    await dao.saveOrUpdate(stressedTranscriptionDetails)
-    const persistedPhonetic = await dao.saveOrUpdate(phoneticTranscriptionDetails)
+    await dao.saveOrUpdate(stressedTranscriptionDetails.convertToObject())
+    const persistedPhonetic = await dao.saveOrUpdate(phoneticTranscriptionDetails.convertToObject())
     // Act
     const lastItemInserted = await dao.lastItemInserted()
     // Assert

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import * as S from "./styled"
 import { useDispatch, useSelector } from "react-redux"
 import {
   addTranscriptionDetails,
   deleteAllTranscriptionHistory,
   loadTranscriptionHistory,
-} from "../../redux/slices/historySlice"
-import { loadTranscriptionFromDatabase } from "../../redux/slices/transcriptionSlice"
+} from "../../redux/slices/history-slice"
+import { loadTranscriptionFromDatabase } from "../../redux/slices/transcription-slice"
 import { dispatchEvent } from "../../analytics"
+import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
 
 const columns = [
   { field: "id", headerName: "ID", hide: true },
@@ -18,7 +19,7 @@ const columns = [
     width: 300,
   },
   {
-    field: "transcription",
+    field: "singleLineTranscription",
     headerName: "Transcription",
     description: "The IPA transcription from the related text",
     flex: 1,
@@ -30,9 +31,23 @@ const columns = [
     width: 100,
   },
   {
-    field: "withStress",
-    headerName: "With stress",
-    description: "An option that allows you to see how is a transcription from a stressed word",
+    field: "showStress",
+    headerName: "Show stress",
+    width: 110,
+  },
+  {
+    field: "showSyllables",
+    headerName: "Show syllables",
+    width: 110,
+  },
+  {
+    field: "showPunctuations",
+    headerName: "Show punctuations",
+    width: 110,
+  },
+  {
+    field: "showPhonetic",
+    headerName: "Show phonetic",
     width: 110,
   },
   {
@@ -58,34 +73,38 @@ const trackRowClick = () => {
 }
 
 export default function History() {
+  // -------------------------------
   // Infrastructure
   const dispatch = useDispatch()
-  // States
-  const [rows, setRows] = useState([])
+  // -------------------------------
   // Redux things
   const { transcriptions } = useSelector(state => state.history)
-  const { text, transcribedResult, chosenLanguage, withStress, transcriptionUnsaved } = useSelector(
-    state => state.transcription
-  )
+  const {
+    text,
+    chosenLanguage,
+    showStress,
+    showSyllables,
+    showPunctuations,
+    showPhonetic,
+    transcribedResult,
+    transcriptionUnsaved,
+  } = useSelector(state => state.transcription)
   // Effects
   useEffect(() => {
     if (transcriptionUnsaved) {
-      dispatch(addTranscriptionDetails(transcribedResult, text, chosenLanguage, withStress))
+      const currentTranscriptionDetails = new TranscriptionDetails(
+        null,
+        text,
+        chosenLanguage,
+        showStress,
+        showSyllables,
+        showPunctuations,
+        showPhonetic,
+        transcribedResult
+      )
+      dispatch(addTranscriptionDetails(currentTranscriptionDetails))
     }
   }, [transcriptionUnsaved])
-  useEffect(() => {
-    const rows = transcriptions.map(transcriptionDetails => {
-      return {
-        id: transcriptionDetails.id,
-        text: transcriptionDetails.text,
-        transcription: transcriptionDetails.transcription,
-        language: transcriptionDetails.language,
-        withStress: transcriptionDetails.withStress,
-        createdAt: transcriptionDetails.createdAt,
-      }
-    })
-    setRows(rows)
-  }, [transcriptions])
   useEffect(() => {
     dispatch(loadTranscriptionHistory())
   }, [])
@@ -113,7 +132,7 @@ export default function History() {
           components={{
             NoRowsOverlay: S.GridOverlayIconEmptyBox("Try to transcribe first!"),
           }}
-          rows={rows}
+          rows={transcriptions}
           columns={columns}
           pageSize={5}
           onRowClick={handleRowClick}
