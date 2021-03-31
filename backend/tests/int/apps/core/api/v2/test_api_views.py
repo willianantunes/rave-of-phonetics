@@ -36,13 +36,13 @@ def test_should_return_400_given_no_body_is_sent(client, mock_recaptcha_verify):
     result = response.json()
 
     assert response.status_code == 400
-    assert result == {"words": ["This field is required."], "language": ["This field is required."]}
+    assert result == {"text": ["This field is required."], "language": ["This field is required."]}
 
 
 @pytest.mark.django_db
 def test_should_receive_empty_entries_as_the_words_does_not_exist_in_database(client, mock_recaptcha_verify):
     language = create_language("en-us")
-    body = {"words": ["rave", "of", "phonetics"], "language": language.language_tag}
+    body = {"text": "rave of phonetics", "language": language.language_tag}
     header = {
         "HTTP_RECAPTCHA_TOKEN_V3": "fake-token",
     }
@@ -64,18 +64,10 @@ def test_should_receive_transcriptions(client, mock_recaptcha_verify):
         RAVE  R EY1 V
         OF  AH1 V
         OF(1)  AH0 V
-        LIVE  L AY1 V
-        LIVE(1)  L IH1 V        
         PHONETICS  F AH0 N EH1 T IH0 K S
-        DON'T  D OW1 N T
-        EVER  EH1 V ER0
-        IF  IH1 F
-        YOU  Y UW1
-        PLEASE  P L IY1 Z
-        AD-HOC  AE1 D HH AA1 K
     """
     create_database_from_fake_cmu_content(cmu_dict_content)
-    body = {"words": ["don't", "ever", "if", "you", "please", "ad-hoc", "1989"], "language": "en-us"}
+    body = {"text": "rave of phonetics", "language": "en-us"}
     header = {
         "HTTP_RECAPTCHA_TOKEN_V3": "fake-token",
     }
