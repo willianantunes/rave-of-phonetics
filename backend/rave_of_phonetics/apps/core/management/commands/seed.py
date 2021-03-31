@@ -1,9 +1,9 @@
 from typing import Generator
-from typing import List
 
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.db.models import Count
 
 from rave_of_phonetics import settings
 from rave_of_phonetics.apps.core.business.CMUDatabaseHandler import CMUDatabaseHandler
@@ -63,8 +63,17 @@ class Command(BaseCommand):
                     saved_data += batch_size
                     if saved_data % 20_000 == 0:
                         self.stdout.write(f"Entries saved: {Dictionary.objects.count()}")
-
                 self.stdout.write(f"Total entries created: {Dictionary.objects.count()}")
+
+                self.stdout.write("Excluding duplicated entries")
+                base_query_set = Dictionary.objects.values("word_or_symbol", "ipa_phonemic")
+                duplicated_entries_qs = base_query_set.annotate(count_result=Count("pk")).filter(count_result__gt=1)
+                with transaction.atomic():
+                    for duplicated_entry in duplicated_entries_qs:
+                        del duplicated_entry["count_result"]
+                        self.stdout.write(f"Deleting duplicated entry for the following: {duplicated_entry}")
+                        to_be_deleted = Dictionary.objects.filter(**duplicated_entry).order_by("-version").first()
+                        to_be_deleted.delete()
 
 
 def _translation_to_dtos(

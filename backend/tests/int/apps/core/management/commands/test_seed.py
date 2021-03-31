@@ -9,6 +9,7 @@ from django.core.management import call_command
 from rave_of_phonetics.apps.core.models import Dictionary
 from rave_of_phonetics.apps.core.models import Language
 from tests.resources.resource_loader import resource_location
+from tests.support.cmu_utils import create_database_from_fake_cmu_content
 
 
 @pytest.mark.django_db
@@ -72,3 +73,30 @@ def test_should_create_database_with_entire_cmu_pronunciation_dictionary(mocker)
     correct_count_of_valid_lines = number_of_current_lines - invalid_header_lines - invalid_footer_lines
 
     assert Dictionary.objects.count() == correct_count_of_valid_lines
+
+
+@pytest.mark.django_db
+def test_should_delete_duplicated_lines():
+    # Arrange
+    cmu_dict_content = """
+        BE  B IY1
+        BE(1)  B IY0
+        BEEN  B IH1 N
+        BEEN(1)  B AH0 N
+        BEEN(2)  B IH0 N
+        IS  IH1 Z
+        IS(1)  IH0 Z
+        LIVE  L AY1 V
+        LIVE(1)  L IH1 V
+        OF  AH1 V
+        OF(1)  AH0 V
+    """
+    # Act
+    create_database_from_fake_cmu_content(cmu_dict_content)
+    # Assert
+    assert Dictionary.objects.count() == 7
+    assert Dictionary.objects.filter(word_or_symbol="be").count() == 1
+    assert Dictionary.objects.filter(word_or_symbol="been").count() == 2
+    assert Dictionary.objects.filter(word_or_symbol="is").count() == 1
+    assert Dictionary.objects.filter(word_or_symbol="live").count() == 2
+    assert Dictionary.objects.filter(word_or_symbol="of").count() == 1
