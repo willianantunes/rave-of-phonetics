@@ -22,4 +22,7 @@ class TranscriberSerializer(serializers.Serializer):
         if error_details:
             raise serializers.ValidationError(error_details)
 
+        if language == self.supported_languages[1]:
+            data["language"] = "en-gb-x-rp"
+
         return data
