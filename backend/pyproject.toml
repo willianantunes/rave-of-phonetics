@@ -1,6 +1,8 @@
 [tool.black]
 line-length = 120
-target-version = ['py37']
+# The option py39 in only available if you install like this: pip install git+git://github.com/psf/black
+# When it becomes available to pypi, I'll update to the correct version
+target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
 (
