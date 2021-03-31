@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react"
 import CardContent from "@material-ui/core/CardContent"
-import Typography from "@material-ui/core/Typography"
 import * as S from "./styled"
 import { debounce } from "lodash"
 import { FormControl, FormControlLabel, FormGroup, Popover, Radio, RadioGroup, Switch, TextField } from "@material-ui/core"
@@ -181,7 +180,7 @@ export default function Transcription() {
         <S.TranscriptionForm onSubmit={transcribeGivenText}>
           <FormControl component="fieldset" fullWidth={true}>
             <TextField
-              id="standard-multiline-flexible"
+              data-testid="wrapper-text-to-be-transcribed"
               label="Type the words here"
               multiline
               rowsMax={4}
@@ -245,7 +244,7 @@ export default function Transcription() {
             />
           </FormGroup>
           <S.ActionsWrapper row>
-            <S.TranscribeButton>Transcribe</S.TranscribeButton>
+            <S.TranscribeButton data-testid="button-transcribe">Transcribe</S.TranscribeButton>
             <S.GenerateLink onClick={copyLinkToClipboard}>Copy link</S.GenerateLink>
             <S.CopyTranscription onClick={copyTranscriptionToClipboard}>Copy transcription</S.CopyTranscription>
             <Popover
@@ -299,6 +298,7 @@ export default function Transcription() {
               {transcriptionDetails.refreshedTranscriptionSetup.map((details, index) => (
                 <TranscriptionEntry
                   key={index}
+                  index={index}
                   showStress={transcriptionDetails.showStress}
                   showPunctuations={transcriptionDetails.showPunctuations}
                   showSyllables={transcriptionDetails.showSyllables}
