@@ -28,7 +28,7 @@ class TranscriberSerializerTest(TestCase):
         assert len(serializer.errors) == 1
         assert str(serializer.errors["language"][0]) == "Desired language not supported"
 
-    def test_should_inform_that_is_valid(self):
+    def test_should_inform_that_is_valid_and_change_language_to_correct_one(self):
         fake_data = {"words": ["iago"], "language": "en-gb"}
         serializer = TranscriberSerializer(data=fake_data)
 
@@ -36,4 +36,4 @@ class TranscriberSerializerTest(TestCase):
 
         words, language = serializer.validated_data["words"], serializer.validated_data["language"]
         assert words == fake_data["words"]
-        assert language == fake_data["language"]
+        assert language == "en-gb-x-rp"
