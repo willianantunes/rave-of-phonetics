@@ -3,7 +3,6 @@ import Header from "../../../../../src/components/Header"
 import { render } from "../../../../support/test-utils"
 import theme from "../../../../../src/gatsby-theme-material-ui-top-layout/theme"
 import { fireEvent, screen, waitFor } from "@testing-library/react"
-import { Helmet } from "react-helmet/es/Helmet"
 
 describe("Header", () => {
   beforeEach(() => {

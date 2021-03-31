@@ -7,7 +7,7 @@ function createCurrentTranscription(transcription, word, isPhonemic = null) {
   return transcription ? { output: transcription, isWord: false, isPhonemic } : { output: word, isWord: true, isPhonemic }
 }
 
-function TranscriptionEntry({ word, transcriptions, showStress, showPunctuations, showSyllables, showPhonetic }) {
+function TranscriptionEntry({ index, word, transcriptions, showStress, showPunctuations, showSyllables, showPhonetic }) {
   // -------------------------------
   // States
   const [transcriptionSetup, setTranscriptionSetup] = useState({
@@ -107,7 +107,7 @@ function TranscriptionEntry({ word, transcriptions, showStress, showPunctuations
     )
 
   return (
-    <S.TranscriptionEntryBox>
+    <S.TranscriptionEntryBox data-testid={`transcription-entry-${index}`}>
       <div>{howWordMustBeRendered}</div>
       <S.IPASymbolVisualizer isWord={currentTranscription.isWord}>{howTranscriptionMustBeRendered}</S.IPASymbolVisualizer>
     </S.TranscriptionEntryBox>
@@ -115,6 +115,7 @@ function TranscriptionEntry({ word, transcriptions, showStress, showPunctuations
 }
 
 TranscriptionEntry.propTypes = {
+  index: PropTypes.number.isRequired,
   word: PropTypes.string.isRequired,
   transcriptions: PropTypes.array.isRequired,
   showStress: PropTypes.bool.isRequired,

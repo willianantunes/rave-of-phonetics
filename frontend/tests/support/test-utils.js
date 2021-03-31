@@ -3,6 +3,9 @@ import { render } from "@testing-library/react"
 import TopLayout from "../../src/gatsby-theme-material-ui-top-layout/components/top-layout"
 import theme from "../../src/gatsby-theme-material-ui-top-layout/theme"
 import { Context as ResponsiveContext } from "react-responsive"
+import { createMemorySource, createHistory, LocationProvider } from "@reach/router"
+import { useQueryParam, NumberParam, QueryParamProvider } from "use-query-params"
+import Transcription from "../../src/components/Transcription"
 
 // See more details at: https://testing-library.com/docs/react-testing-library/setup/#custom-render
 // https://github.com/styled-components/styled-components/issues/1319#issuecomment-692018195
@@ -18,12 +21,26 @@ const ResponsiveAllTheProviders = width => {
   }
 }
 
-const customRender = (ui, options) => {
+const customRender = (ui, options, initialPath = "/") => {
+  // https://reach.tech/router/api/LocationProvider
+  // https://reach.tech/router/api/createMemorySource
+  // https://github.com/pbeshai/use-query-params/blob/36872f309beafe27a732f726b84dd7e2a8372355/examples/reach-router/src/App.test.tsx#L17
+  let source = createMemorySource(initialPath)
+  let history = createHistory(source)
+
+  const wrappedUserInterface = (
+    <LocationProvider history={history}>
+      <QueryParamProvider {...{ default: true }} reachHistory={history}>
+        {ui}
+      </QueryParamProvider>
+    </LocationProvider>
+  )
+
   if (options && "useWidthReactResponsive" in options) {
-    return render(ui, { wrapper: ResponsiveAllTheProviders(options.useWidthReactResponsive), ...options })
+    return render(wrappedUserInterface, { wrapper: ResponsiveAllTheProviders(options.useWidthReactResponsive), ...options })
   }
 
-  return render(ui, { wrapper: AllTheProviders, ...options })
+  return render(wrappedUserInterface, { wrapper: AllTheProviders, ...options })
 }
 
 // Re-export everything

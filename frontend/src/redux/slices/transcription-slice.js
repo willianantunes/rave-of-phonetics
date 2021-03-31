@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 import { transcribe } from "../../services/rop-api"
 import { findById } from "../../domains/transcription-details-dao"
 import { extractWordsFromText } from "../../utils/tokenization"
-import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
 
 const initialState = {
   text: "",

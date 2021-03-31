@@ -72,7 +72,7 @@ export const LoadingTranscription = styled(LinearProgress)`
   margin: 35px 0px 20px 0px;
 `
 
-export const TranscriptionSection = styled(Box)`
+export const TranscriptionSection = styled(Box).attrs({ "data-testid": "section-transcription-result" })`
   margin: 15px 0px 0px 0px;
   gap: 20px;
   display: flex;
