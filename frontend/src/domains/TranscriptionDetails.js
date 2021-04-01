@@ -1,3 +1,5 @@
+import { extractRawWordsFromText } from "../utils/tokenization"
+
 export class TranscriptionDetails {
   constructor(
     _id,
@@ -147,8 +149,7 @@ export class TranscriptionDetails {
     // REGEX to deal with stress marks and punctuations
     const regexToExtractStressMarks = /[ˈˌ]+/g
     // Words that may have punctuations
-    const splitText = this._text.split(" ")
-    const wordsFromText = splitText.map(dirtyWord => dirtyWord.trim())
+    const wordsFromText = extractRawWordsFromText(this._text)
     // What will be returned
     const changedTranscription = []
     // Filling changedTranscription array with data
