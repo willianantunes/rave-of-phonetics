@@ -124,7 +124,7 @@ export class TranscriptionDetails {
     return builtObject
   }
 
-  _applyPunctuation(wordWithPunctuations, target, punctuationMarks = /(\s*[;:,.!?¡¿—…"«»“”]+\s*)+/g) {
+  _applyPunctuation(wordWithPunctuations, target, punctuationMarks = /(\s*[();:,.!?¡¿—…"«»“”]+\s*)+/g) {
     if (target) {
       const matches = [...wordWithPunctuations.matchAll(punctuationMarks)]
       const hasPunctuation = matches.length > 0
