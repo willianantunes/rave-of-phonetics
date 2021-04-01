@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Box, Typography } from "@material-ui/core"
+import { Box, Typography, lighten } from "@material-ui/core"
 
 export const TranscriptionEntryBox = styled(Box)`
   & div:first-child {
@@ -27,5 +27,5 @@ export const ClassificationEntry = styled(Typography)`
 export const LinkThatApplyChanges = styled.a``
 
 export const IPASymbolVisualizer = styled.div`
-  ${({ isWord }) => isWord && `color: red !important;`}
+  ${({ isWord }) => isWord && `color: ${lighten("#006064", 0.4)} !important;`}
 `
