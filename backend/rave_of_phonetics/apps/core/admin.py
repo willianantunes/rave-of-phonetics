@@ -6,6 +6,7 @@ from django.db.models import QuerySet
 from rave_of_phonetics.apps.core.models import Dictionary
 from rave_of_phonetics.apps.core.models import Language
 from rave_of_phonetics.apps.core.models import Suggestion
+from rave_of_phonetics.support.django_helpers import AlphabetFilter
 from rave_of_phonetics.support.django_helpers import CustomModelAdminMixin
 
 
@@ -16,11 +17,14 @@ class LanguageAdmin(CustomModelAdminMixin, admin.ModelAdmin):
 
 @admin.register(Dictionary)
 class DictionaryAdmin(CustomModelAdminMixin, admin.ModelAdmin):
+    # TODO: Use something like this instead: (word_or_symbol", AlphabetFilter)
+    custom_alphabet_filter_field = "word_or_symbol"
     search_fields = ["word_or_symbol"]
     list_filter = [
         "version",
         "classification",
         "language__language_tag",
+        AlphabetFilter,
     ]
 
 

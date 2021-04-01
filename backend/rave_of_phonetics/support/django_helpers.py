@@ -1,7 +1,9 @@
 import os
+import string
 
 from distutils.util import strtobool
 
+from django.contrib import admin
 from django.db.models import ForeignKey
 from django.http.response import HttpResponseRedirectBase
 
@@ -23,6 +25,22 @@ class CustomModelAdminMixin:
             if raw_id_fields:
                 self.raw_id_fields = raw_id_fields
         super(CustomModelAdminMixin, self).__init__(model, admin_site)
+
+
+class AlphabetFilter(admin.SimpleListFilter):
+    title = "alphabet"
+    parameter_name = "letter"
+
+    def lookups(self, request, model_admin):
+        self.field_path = f"{model_admin.custom_alphabet_filter_field}__startswith"
+        abc = list(string.ascii_lowercase)
+        return ((c.lower(), c.upper()) for c in abc)
+
+    def queryset(self, request, queryset):
+        chosen_letter = self.value()
+        if chosen_letter:
+            filtering = {self.field_path: chosen_letter}
+            return queryset.filter(**filtering)
 
 
 def eval_env_as_boolean(varname, standard_value) -> bool:
