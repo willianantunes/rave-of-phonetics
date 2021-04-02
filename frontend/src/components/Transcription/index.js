@@ -135,10 +135,13 @@ export default function Transcription() {
   }
   const transcribeGivenText = async event => {
     event.preventDefault()
-    const token = await executeRecaptcha("transcribe")
+    // TODO: Identify why the onSubmit handler from Suggestion/index.js is triggering this one
+    if (event.target.id === "form-transcription") {
+      const token = await executeRecaptcha("transcribe")
 
-    trackTranscribeClick(chosenLanguage)
-    delayedTranscribeAction(text, chosenLanguage, token)
+      trackTranscribeClick(chosenLanguage)
+      delayedTranscribeAction(text, chosenLanguage, token)
+    }
   }
   const copyLinkToClipboard = event => {
     const encodedQuery = encodeQueryParams(
@@ -177,9 +180,10 @@ export default function Transcription() {
     <S.CustomCard>
       <CardContent>
         <S.Title>IPA transcription tool</S.Title>
-        <S.TranscriptionForm onSubmit={transcribeGivenText}>
+        <S.TranscriptionForm id="form-transcription" onSubmit={transcribeGivenText}>
           <FormControl component="fieldset" fullWidth={true}>
             <TextField
+              inputProps={{ maxlength: 500 }}
               data-testid="wrapper-text-to-be-transcribed"
               label="Type the words here"
               multiline
@@ -299,6 +303,7 @@ export default function Transcription() {
                 <TranscriptionEntry
                   key={index}
                   index={index}
+                  language={transcriptionDetails.language}
                   showStress={transcriptionDetails.showStress}
                   showPunctuations={transcriptionDetails.showPunctuations}
                   showSyllables={transcriptionDetails.showSyllables}

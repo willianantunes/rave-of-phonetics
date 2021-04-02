@@ -1,4 +1,4 @@
-import { transcribe } from "../../../../src/services/rop-api"
+import { InvalidRequestError, suggest, transcribe } from "../../../../src/services/rop-api"
 
 xdescribe("Rave of Phonetics API Service", () => {
   it("Should transcribe RAVE LIVE PHONETICS", async () => {
@@ -57,5 +57,40 @@ xdescribe("Rave of Phonetics API Service", () => {
         phonetic_syllables: null,
       },
     ])
+  })
+
+  it("Should apply suggestion", async () => {
+    // Arrange
+    const wordOrSymbol = "phonetics"
+    const phonemic = "fənˈɛɾɪks"
+    const phonetic = "ˈfˈəˈnɛɾɪˈks"
+    const explanation = "There's nothing to tell! He's just some guy I work with!"
+    const languageTag = "en-us"
+    const token = "fake-token"
+    // Act
+    const result = await suggest(wordOrSymbol, phonemic, phonetic, explanation, languageTag, token)
+    // Assert
+    expect(result).toStrictEqual({
+      word_or_symbol: wordOrSymbol,
+      explanation: explanation,
+      ipa_phonemic: phonemic,
+      ipa_phonetic: phonetic,
+      language_tag: languageTag,
+    })
+  })
+
+  it("Should inform error given suggestion is invalid", async () => {
+    // Arrange
+    const wordOrSymbol = "phonetics"
+    const [phonemic, phonetic] = [null, null]
+    const explanation = "Wait, does he eat chalk?"
+    const languageTag = "pt-br"
+    const token = "fake-token"
+    // Act
+    const shouldThrowError = async () => await suggest(wordOrSymbol, phonemic, phonetic, explanation, languageTag, token)
+    // Assert
+    const expectedErrorMessage = ["At least one IPA transcription field should be provided", "Language tag not supported"]
+    // https://jestjs.io/docs/expect#rejects
+    await expect(shouldThrowError).rejects.toThrow(new InvalidRequestError(expectedErrorMessage))
   })
 })

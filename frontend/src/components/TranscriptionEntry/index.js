@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react"
 import * as S from "./styled"
 import PropTypes from "prop-types"
 import { Popover } from "@material-ui/core"
+import Suggestion from "../Suggestion"
 
 function createCurrentTranscription(transcription, word, isPhonemic = null) {
   return transcription ? { output: transcription, isWord: false, isPhonemic } : { output: word, isWord: true, isPhonemic }
 }
 
-function TranscriptionEntry({ index, word, transcriptions, showStress, showPunctuations, showSyllables, showPhonetic }) {
+function TranscriptionEntry({ index, word, language, transcriptions, showSyllables, showPhonetic }) {
   // -------------------------------
   // States
   const [transcriptionSetup, setTranscriptionSetup] = useState({
@@ -18,6 +19,7 @@ function TranscriptionEntry({ index, word, transcriptions, showStress, showPunct
   })
   const [currentTranscription, setCurrentTranscription] = useState({ output: "⏳", isWord: false })
   const [wherePopperShouldUseAsRef, setWherePopperShouldUseAsRef] = React.useState(null)
+  const [suggestionOpen, setSuggestionOpen] = React.useState(false)
   // -------------------------------
   // Effects
   useEffect(() => {
@@ -64,6 +66,11 @@ function TranscriptionEntry({ index, word, transcriptions, showStress, showPunct
     event.preventDefault()
     setWherePopperShouldUseAsRef(event.currentTarget)
   }
+  const showSuggestionModal = event => {
+    event.preventDefault()
+    setSuggestionOpen(true)
+  }
+  const closeSuggestionModal = () => setSuggestionOpen(false)
   // -------------------------------
   // Stuff to be rendered
   const howTranscriptionMustBeRendered =
@@ -74,37 +81,50 @@ function TranscriptionEntry({ index, word, transcriptions, showStress, showPunct
     ) : (
       currentTranscription.output
     )
-  const howWordMustBeRendered =
-    transcriptionSetup.length > 0 ? (
-      <>
-        <S.LinkThatApplyChanges href="#" onClick={showClassifications}>
-          {word}
-        </S.LinkThatApplyChanges>
-        <Popover
-          id={Boolean(wherePopperShouldUseAsRef) ? "simple-popover" : undefined}
-          open={Boolean(wherePopperShouldUseAsRef)}
-          anchorEl={wherePopperShouldUseAsRef}
-          onClose={() => setWherePopperShouldUseAsRef(null)}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-        >
-          {transcriptionSetup.all.map((entry, key) => (
+  const howWordMustBeRendered = (
+    <>
+      <S.LinkThatApplyChanges onClick={showClassifications}>{word}</S.LinkThatApplyChanges>
+      <Popover
+        id={Boolean(wherePopperShouldUseAsRef) ? "simple-popover" : undefined}
+        open={Boolean(wherePopperShouldUseAsRef)}
+        anchorEl={wherePopperShouldUseAsRef}
+        onClose={() => setWherePopperShouldUseAsRef(null)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "center",
+        }}
+      >
+        {transcriptionSetup.length > 0 &&
+          transcriptionSetup.all.map((entry, key) => (
             <S.ClassificationEntry key={key}>
               {entry.version}: [{currentTranscription.isPhonemic ? entry.phonemic : entry.phonetic || "Unavailable"}] /
               Classification: {entry.classification}
             </S.ClassificationEntry>
           ))}
-        </Popover>
-      </>
-    ) : (
-      <>{word}</>
-    )
+        {transcriptionSetup.length === 0 && (
+          <S.ClassificationEntry>
+            This is not in our database{" "}
+            <span role="img" aria-label="grimacing face">
+              😬
+            </span>
+          </S.ClassificationEntry>
+        )}
+        <S.ClassificationEntry>
+          <S.LinkSuggestionModal onClick={showSuggestionModal}>
+            Apply suggestion{" "}
+            <span role="img" aria-label="nerd face">
+              🤓
+            </span>
+          </S.LinkSuggestionModal>
+        </S.ClassificationEntry>
+        <Suggestion word={word} language={language} open={suggestionOpen} handleClose={closeSuggestionModal} />
+      </Popover>
+    </>
+  )
 
   return (
     <S.TranscriptionEntryBox data-testid={`transcription-entry-${index}`}>
@@ -117,6 +137,7 @@ function TranscriptionEntry({ index, word, transcriptions, showStress, showPunct
 TranscriptionEntry.propTypes = {
   index: PropTypes.number.isRequired,
   word: PropTypes.string.isRequired,
+  language: PropTypes.string.isRequired,
   transcriptions: PropTypes.array.isRequired,
   showStress: PropTypes.bool.isRequired,
   showPunctuations: PropTypes.bool.isRequired,
