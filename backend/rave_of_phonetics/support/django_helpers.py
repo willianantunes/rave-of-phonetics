@@ -4,8 +4,13 @@ import string
 from distutils.util import strtobool
 
 from django.contrib import admin
+from django.core.paginator import Paginator
+from django.db import OperationalError
+from django.db import connection
+from django.db import transaction
 from django.db.models import ForeignKey
 from django.http.response import HttpResponseRedirectBase
+from django.utils.functional import cached_property
 
 
 class CustomModelAdminMixin:
@@ -41,6 +46,28 @@ class AlphabetFilter(admin.SimpleListFilter):
         if chosen_letter:
             filtering = {self.field_path: chosen_letter}
             return queryset.filter(**filtering)
+
+
+class TimeLimitedPaginator(Paginator):
+    """
+    Paginator that enforced a timeout on the count operation.
+    When the timeout is reached a "fake" large value is returned instead,
+    Why does this hack exist? On every admin list view, Django issues a
+    COUNT on the full queryset. There is no simple workaround. On big tables,
+    this COUNT is extremely slow and makes things unbearable.
+    See more details here: https://hakibenita.com/optimizing-the-django-admin-paginator
+    """
+
+    @cached_property
+    def count(self):
+        # We set the timeout in a db transaction to prevent it from
+        # affecting other transactions.
+        with transaction.atomic(), connection.cursor() as cursor:
+            cursor.execute("SET LOCAL statement_timeout TO 200;")
+            try:
+                return super().count
+            except OperationalError:
+                return 9999999999
 
 
 def eval_env_as_boolean(varname, standard_value) -> bool:
