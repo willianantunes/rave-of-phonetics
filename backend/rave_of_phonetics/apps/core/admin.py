@@ -8,6 +8,7 @@ from rave_of_phonetics.apps.core.models import Language
 from rave_of_phonetics.apps.core.models import Suggestion
 from rave_of_phonetics.support.django_helpers import AlphabetFilter
 from rave_of_phonetics.support.django_helpers import CustomModelAdminMixin
+from rave_of_phonetics.support.django_helpers import TimeLimitedPaginator
 
 
 @admin.register(Language)
@@ -26,6 +27,7 @@ class DictionaryAdmin(CustomModelAdminMixin, admin.ModelAdmin):
         "language__language_tag",
         AlphabetFilter,
     ]
+    paginator = TimeLimitedPaginator
 
 
 @admin.register(Suggestion)
