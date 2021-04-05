@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib import admin
 from django.contrib import messages
 from django.db import transaction
@@ -9,6 +11,8 @@ from rave_of_phonetics.apps.core.models import Suggestion
 from rave_of_phonetics.support.django_helpers import AlphabetFilter
 from rave_of_phonetics.support.django_helpers import CustomModelAdminMixin
 from rave_of_phonetics.support.django_helpers import TimeLimitedPaginator
+
+logger = logging.getLogger(__name__)
 
 
 @admin.register(Language)
@@ -59,7 +63,7 @@ class SuggestionAdmin(CustomModelAdminMixin, admin.ModelAdmin):
             defaults = {k: v for k, v in defaults.items() if v is not None}
 
             with transaction.atomic():
-                obj, created = Dictionary.objects.update_or_create(defaults)
+                obj, created = Dictionary.objects.update_or_create(**defaults)
 
                 if created:
                     message = "A new dictionary entry has been created from the suggestion!"
