@@ -183,7 +183,7 @@ export default function Transcription() {
         <S.TranscriptionForm id="form-transcription" onSubmit={transcribeGivenText}>
           <FormControl component="fieldset" fullWidth={true}>
             <TextField
-              inputProps={{ maxlength: 500 }}
+              inputProps={{ maxLength: 500 }}
               data-testid="wrapper-text-to-be-transcribed"
               label="Type the words here"
               multiline

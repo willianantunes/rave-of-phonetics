@@ -22,6 +22,7 @@ export const ArticleTitle = styled(Typography).attrs({
 })``
 
 export const ArticleDescription = styled(Typography).attrs({})``
+
 export const ArticleWrapper = styled(Paper).attrs({ component: "article", elevation: 3 })`
   padding: ${props => props.theme.spacing(3)}px;
   width: 100%;
