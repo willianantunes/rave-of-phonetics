@@ -2,6 +2,7 @@ import pytest
 
 from rave_of_phonetics.apps.core.business.transcriber import DictionaryEntry
 from rave_of_phonetics.apps.core.business.transcriber import Transcription
+from rave_of_phonetics.apps.core.business.transcriber import check_and_retrieve_transcriptions
 from rave_of_phonetics.apps.core.business.transcriber import text_to_transcription
 from tests.support.cmu_utils import create_database_from_fake_cmu_content
 
@@ -16,8 +17,8 @@ def test_should_retrieve_transcription_from_database_scenario():
     """
     create_database_from_fake_cmu_content(cmu_dict_content)
 
-    text = "rave of phonetics"
-    transcription = text_to_transcription(text, through_database=True)
+    text = ["rave", "of", "phonetics"]
+    transcription = check_and_retrieve_transcriptions(text)
 
     assert transcription == [
         Transcription(
@@ -43,15 +44,7 @@ def test_should_retrieve_transcription_from_database_scenario():
                     phonemic_syllables="ə v",
                     phonetic=None,
                     phonetic_syllables=None,
-                ),
-                DictionaryEntry(
-                    classification="Undefined",
-                    version="Version 2",
-                    phonemic="ə v",
-                    phonemic_syllables="ə v",
-                    phonetic=None,
-                    phonetic_syllables=None,
-                ),
+                )
             ],
         ),
         Transcription(
