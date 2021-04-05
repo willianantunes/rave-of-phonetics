@@ -70,7 +70,8 @@ def test_should_create_database_with_entire_cmu_pronunciation_dictionary(mocker)
     number_of_current_lines = 134429
     invalid_header_lines = 126
     invalid_footer_lines = 5
-    correct_count_of_valid_lines = number_of_current_lines - invalid_header_lines - invalid_footer_lines
+    duplicated = 18
+    correct_count_of_valid_lines = number_of_current_lines - invalid_header_lines - invalid_footer_lines - duplicated
 
     assert Dictionary.objects.count() == correct_count_of_valid_lines
 

@@ -36,13 +36,13 @@ def test_should_return_400_given_no_body_is_sent(client, mock_recaptcha_verify):
     result = response.json()
 
     assert response.status_code == 400
-    assert result == {"text": ["This field is required."], "language": ["This field is required."]}
+    assert result == {"words": ["This field is required."], "language": ["This field is required."]}
 
 
 @pytest.mark.django_db
 def test_should_receive_empty_entries_as_the_words_does_not_exist_in_database(client, mock_recaptcha_verify):
     language = create_language("en-us")
-    body = {"text": "rave of phonetics", "language": language.language_tag}
+    body = {"words": ["rave", "of", "phonetics"], "language": language.language_tag}
     header = {
         "HTTP_RECAPTCHA_TOKEN_V3": "fake-token",
     }
@@ -67,7 +67,7 @@ def test_should_receive_transcriptions(client, mock_recaptcha_verify):
         PHONETICS  F AH0 N EH1 T IH0 K S
     """
     create_database_from_fake_cmu_content(cmu_dict_content)
-    body = {"text": "rave of phonetics", "language": "en-us"}
+    body = {"words": ["rave", "of", "phonetics"], "language": "en-us"}
     header = {
         "HTTP_RECAPTCHA_TOKEN_V3": "fake-token",
     }
@@ -99,14 +99,6 @@ def test_should_receive_transcriptions(client, mock_recaptcha_verify):
                     "phonetic": None,
                     "phonetic_syllables": None,
                     "version": "Version 1",
-                },
-                {
-                    "classification": "Undefined",
-                    "phonemic": "ə v",
-                    "phonemic_syllables": "ə v",
-                    "phonetic": None,
-                    "phonetic_syllables": None,
-                    "version": "Version 2",
                 },
             ],
             "word": "of",

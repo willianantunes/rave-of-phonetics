@@ -42,7 +42,7 @@ def test_should_suggestion_view_set_return_400_given_invalid_suggestion(client, 
     body_3 = {
         # either ipa_phonemic or ipa_phonetic must be present
         "word_or_symbol": "pneumonoultramicroscopicsilicovolcanoconiosis",
-        "language_tag": "en-us",
+        "language_tag": "pt-br",
     }
 
     response_1 = client.post("/api/v1/suggestions", content_type="application/json", data=body_1, **header)
