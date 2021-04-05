@@ -2,10 +2,11 @@ from typing import Iterable
 
 import transcriber_wrapper
 
-from django.contrib.auth.models import User
 from django.core.management import CommandError
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from django.db.models import Q
+from django.db.models import Subquery
 
 from rave_of_phonetics import settings
 from rave_of_phonetics.apps.core.models import Dictionary
@@ -30,21 +31,32 @@ class Command(BaseCommand):
             self.stdout.write(f"Was {language_model.language_tag} created? {created}")
             if not created:
                 self.stdout.write(f"No need to create entries for {self.use_language_tag}")
+                qs_base_lang = Dictionary.objects.filter(language_id=language_model.id, version=Dictionary.Version.V_1)
+                qs_en_us = Dictionary.objects.filter(language__language_tag="en-us", version=Dictionary.Version.V_1)
+                subquery = Subquery(qs_base_lang.values("word_or_symbol"))
+                missing_words_base_lang = qs_en_us.filter(~Q(word_or_symbol__in=subquery)).iterator()
+
+                _create_entries(self.stdout, batch_size, missing_words_base_lang, language_model)
             else:
                 self.stdout.write("Creating iterator and DTOs")
-                iterator = Dictionary.objects.filter(version=Dictionary.Version.V_1).iterator()
-                dtos_generator = _translate_to_valid_entries_to_be_saved(iterator, language_model)
+                missing_words_base_lang = Dictionary.objects.filter(version=Dictionary.Version.V_1).iterator()
 
-                self.stdout.write("Initializing process...")
-                saved_data = 0
-                for dtos in chunker(dtos_generator, batch_size):
-                    with transaction.atomic():
-                        Dictionary.objects.bulk_create(dtos, batch_size)
-                    saved_data += batch_size
-                    if saved_data % 20_000 == 0:
-                        self.stdout.write(f"Entries saved: {Dictionary.objects.count()}")
+                _create_entries(self.stdout, batch_size, missing_words_base_lang, language_model)
 
-                self.stdout.write(f"Total entries created: {Dictionary.objects.count()}")
+
+def _create_entries(stdout, batch_size: int, iterator, language_model):
+    dtos_generator = _translate_to_valid_entries_to_be_saved(iterator, language_model)
+
+    stdout.write("Initializing process...")
+    saved_data = 0
+    for dtos in chunker(dtos_generator, batch_size):
+        with transaction.atomic():
+            Dictionary.objects.bulk_create(dtos, batch_size)
+        saved_data += batch_size
+        if saved_data % 20_000 == 0:
+            stdout.write(f"Entries saved: {Dictionary.objects.count()}")
+
+    stdout.write(f"Total entries created: {Dictionary.objects.count()}")
 
 
 def _translate_to_valid_entries_to_be_saved(iterator: Iterable[Dictionary], language: Language) -> Iterable[Dictionary]:

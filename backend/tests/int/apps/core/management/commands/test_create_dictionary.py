@@ -8,6 +8,7 @@ from django.core.management import call_command
 from rave_of_phonetics.apps.core.models import Dictionary
 from rave_of_phonetics.apps.core.models import Language
 from tests.support.cmu_utils import create_database_from_fake_cmu_content
+from tests.support.models_utils import create_dictionary
 
 
 @pytest.mark.django_db
@@ -79,6 +80,45 @@ def test_should_create_dictionary():
         please_word,
         adhoc_word,
     ]
+    for word in all_words:
+        assert word.version == Dictionary.Version.V_1
+        assert word.classification == Dictionary.WordClassification.UNDEFINED
+        assert not word.ipa_phonemic_syllables
+        assert not word.ipa_phonetic
+        assert not word.ipa_phonetic_syllables
+
+
+@pytest.mark.django_db
+def test_should_create_missed_word():
+    # First Arrange
+    cmu_dict_content = """
+        RAVE  R EY1 V
+    """
+    create_database_from_fake_cmu_content(cmu_dict_content)
+    count_before_acting = Dictionary.objects.count()
+    assert count_before_acting == 1
+    out = StringIO()
+    # First Act
+    call_command("create_dictionary", stdout=out)
+    # First Assert
+    call_command("create_dictionary", stdout=out)
+    assert out.getvalue().startswith("Was en-gb-x-rp created? True")
+    assert Language.objects.count() == 2
+    assert Dictionary.objects.count() == 2
+    # Second Arrange
+    word, phonemic = "to", "tuː"
+    language = Language.objects.get(language_tag="en-us")
+    create_dictionary(word, language, ipa_phonemic=phonemic)
+    assert Dictionary.objects.count() == 3
+    # Second Act
+    call_command("create_dictionary", stdout=out)
+    # Second Assert
+    assert Dictionary.objects.count() == 4
+    rave_word = Dictionary.objects.get(word_or_symbol="rave", language__language_tag="en-gb-x-rp")
+    to_word = Dictionary.objects.get(word_or_symbol="to", language__language_tag="en-gb-x-rp")
+    assert rave_word.ipa_phonemic == "ɹ ˈeɪ v"
+    assert to_word.ipa_phonemic == "t ˈuː"
+    all_words = [rave_word, to_word]
     for word in all_words:
         assert word.version == Dictionary.Version.V_1
         assert word.classification == Dictionary.WordClassification.UNDEFINED
