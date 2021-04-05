@@ -48,6 +48,10 @@ export async function suggest(wordOrSymbol, phonemic, phonetic, explanation, lan
         const errors = Object.values(errorDetails).flat()
         throw new InvalidRequestError(errors)
       }
+      if (statusCode === 403) {
+        const errorDetails = error.response.data
+        throw new NotAuthorizedError(errorDetails)
+      }
       throw new UnexpectedServerError(`${statusCode}: ${error.response.statusText}`)
     }
     throw new UnexpectedRequestError(error.message)
@@ -69,6 +73,13 @@ export class UnexpectedServerError extends Error {
 }
 
 export class UnexpectedRequestError extends Error {
+  constructor(message) {
+    super(message)
+    this.name = this.constructor.name
+  }
+}
+
+export class NotAuthorizedError extends Error {
   constructor(message) {
     super(message)
     this.name = this.constructor.name

@@ -2,7 +2,7 @@ import React from "react"
 import { Backdrop, Fade, TextField } from "@material-ui/core"
 import * as S from "./styled"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
-import { InvalidRequestError, suggest } from "../../services/rop-api"
+import { InvalidRequestError, NotAuthorizedError, suggest } from "../../services/rop-api"
 
 export default function Suggestion({ open, handleClose, word, language }) {
   // -------------------------------
@@ -17,7 +17,7 @@ export default function Suggestion({ open, handleClose, word, language }) {
     showSuccess: false,
     showError: false,
     errorMessage: "",
-    sending: 0,
+    sending: false,
   }
   const [formState, setFormState] = React.useState(initialFormState)
   // -------------------------------
@@ -30,18 +30,21 @@ export default function Suggestion({ open, handleClose, word, language }) {
     event.preventDefault()
     // TODO: Identify why the onSubmit handler from Transcription/index.js is triggering this one
     if (event.target.id === "form-suggestion") {
-      setFormState(prevState => ({ ...prevState, sending: 1 }))
+      setFormState(prevState => ({ ...prevState, sending: true }))
       const token = await executeRecaptcha("suggest")
       try {
         await suggest(word, formState.phonemic, formState.phonetic, formState.explanation, language, token)
-        setFormState(prevState => ({ ...prevState, showSuccess: true, sending: 0 }))
+        setFormState(prevState => ({ ...prevState, showSuccess: true, sending: false }))
       } catch (error) {
         if (error instanceof InvalidRequestError) {
           const errorMessage = "Did you forget to fill phonetic or phonemic? We need at least one of them!"
-          setFormState(prevState => ({ ...prevState, showError: true, sending: 0, errorMessage }))
+          setFormState(prevState => ({ ...prevState, showError: true, sending: false, errorMessage }))
+        } else if (error instanceof NotAuthorizedError) {
+          const errorMessage = "Sadly you are not authorized because you reCAPTCHA score is too low."
+          setFormState(prevState => ({ ...prevState, showError: true, sending: false, errorMessage }))
         } else {
-          const errorMessage = "Oops! Something went wrong! Please try again later."
-          setFormState(prevState => ({ ...prevState, showError: true, sending: 0, errorMessage }))
+          const errorMessage = "Oops! Something went wrong! Please try again later...."
+          setFormState(prevState => ({ ...prevState, showError: true, sending: false, errorMessage }))
         }
       }
     }
@@ -78,31 +81,34 @@ export default function Suggestion({ open, handleClose, word, language }) {
                 to help you out with the symbols.
               </p>
               <S.SuggestionForm id="form-suggestion" onSubmit={submitSuggestion}>
-                <S.FieldSetWrapper disabled={formState.sending}>
+                <S.FieldSetWrapper>
                   <TextField
                     label="Phonemic version"
-                    inputProps={{ maxlength: 128 }}
+                    disabled={formState.sending}
+                    inputProps={{ maxLength: 128 }}
                     value={formState.phonemic}
                     onChange={handleChange}
                     variant="filled"
                     name="phonemic"
                   />
                 </S.FieldSetWrapper>
-                <S.FieldSetWrapper disabled={formState.sending}>
+                <S.FieldSetWrapper>
                   <TextField
+                    disabled={formState.sending}
                     label="Phonetic version"
-                    inputProps={{ maxlength: 128 }}
+                    inputProps={{ maxLength: 128 }}
                     value={formState.phonetic}
                     onChange={handleChange}
                     variant="filled"
                     name="phonetic"
                   />
                 </S.FieldSetWrapper>
-                <S.FieldSetWrapper disabled={formState.sending}>
+                <S.FieldSetWrapper>
                   <TextField
+                    disabled={formState.sending}
                     label="Reasons"
                     multiline
-                    inputProps={{ maxlength: 100 }}
+                    inputProps={{ maxLength: 100 }}
                     value={formState.explanation}
                     onChange={handleChange}
                     variant="filled"
@@ -113,7 +119,7 @@ export default function Suggestion({ open, handleClose, word, language }) {
                 {formState.showError && <S.ErrorMessage>{formState.errorMessage}</S.ErrorMessage>}
                 <S.ActionSection row>
                   <S.SendButton disabled={formState.sending}>Send suggestion</S.SendButton>
-                  <S.WaitingRequestProgress visible={formState.sending} />
+                  <S.WaitingRequestProgress visible={formState.sending ? 1 : 0} />
                 </S.ActionSection>
               </S.SuggestionForm>
             </>
