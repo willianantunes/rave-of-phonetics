@@ -5,3 +5,4 @@
 !rave_of_phonetics
 !Pipfile*
 !scripts
+!tests/resources/cmudict-0.7b.txt
