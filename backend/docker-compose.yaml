@@ -30,6 +30,10 @@ services:
         "--",
         "./scripts/start-development.sh",
       ]
+  production:
+    build:
+      context: .
+      dockerfile: Dockerfile
   tests:
     build: *dockerfile-dev-build
     volumes:
