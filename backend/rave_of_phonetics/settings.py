@@ -108,18 +108,23 @@ REST_FRAMEWORK = {
 # https://www.postgresql.org/docs/13/libpq-connect.html#LIBPQ-PARAMKEYWORDS
 
 DATABASE_READ_WRITE = "default"
+db_host = getenv_or_raise_exception("DB_HOST")
+if ":" in db_host:
+    db_host, db_port = db_host.split(":")
+else:
+    db_port = getenv_or_raise_exception("DB_PORT")
 
 DATABASES: Dict[str, Any] = {
     DATABASE_READ_WRITE: {
         "ENGINE": getenv_or_raise_exception("DB_ENGINE"),
-        "NAME": getenv_or_raise_exception("DB_DATABASE"),
+        "NAME": getenv_or_raise_exception("DB_NAME"),
         "OPTIONS": {
             "options": f"-c search_path={getenv_or_raise_exception('DB_SCHEMA')}",
         },
         "USER": getenv_or_raise_exception("DB_USER"),
-        "HOST": getenv_or_raise_exception("DB_HOST"),
-        "PORT": getenv_or_raise_exception("DB_PORT"),
-        "PASSWORD": getenv_or_raise_exception("DB_PASSWORD"),
+        "HOST": db_host,
+        "PORT": db_port,
+        "PASSWORD": getenv_or_raise_exception("DB_PASS"),
     }
 }
 
