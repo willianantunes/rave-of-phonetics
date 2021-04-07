@@ -5,6 +5,7 @@ from django.contrib.admin import site
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.db.models import QuerySet
+from django.urls import reverse
 from pytz import unicode
 
 from rave_of_phonetics.apps.core.admin import AlphabetFilter
@@ -28,7 +29,7 @@ def test_should_create_dictionary_entry_from_suggestion(admin_client):
         "action": "apply_suggestion",
         helpers.ACTION_CHECKBOX_NAME: [unicode(created_suggestion.pk)],
     }
-    address = "/admin/core/suggestion/"
+    address = f"{reverse('admin:index')}core/suggestion/"
     response = admin_client.post(address, data=fake_configured_action)
     # Assert
     assert response.status_code == 302

@@ -18,7 +18,7 @@ router_unique = routers.DefaultRouter()
 router_unique.registry.extend(router_v1.registry)
 
 urlpatterns = [
-    path("logos/", admin.site.urls),
+    path("logos/", admin.site.urls, name="admin"),
     path("health-check", api_views.health_check, name="health-check"),
     path("github", github_views.index, name="github-index"),
     path("github/auth", github_views.auth, name="github-auth"),
