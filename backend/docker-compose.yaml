@@ -7,9 +7,12 @@ x-build: &dockerfile-dev-build
 services:
   db:
     image: postgres:13.2-alpine
+    user: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./scripts/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     ports:
       - "5432:5432"
   remote-interpreter:
@@ -34,6 +37,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file: .env
+    ports:
+      - "8080:8000"
+    depends_on:
+      - db
+    command:
+      [
+        "./scripts/wait-for-it.sh",
+        "db:5432",
+        "-t",
+        "120",
+        "--",
+        "./scripts/start-production.sh",
+      ]
   tests:
     build: *dockerfile-dev-build
     volumes:

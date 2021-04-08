@@ -3,7 +3,7 @@ import os
 import requests
 
 address = "0.0.0.0"
-port = os.getenv("PORT") or os.getenv("$DJANGO_BIND_PORT")
+port = os.getenv("DJANGO_BIND_PORT") or os.getenv("PORT")
 
 result = requests.get(f"http://{address}:{port}/health-check", timeout=5)
 
