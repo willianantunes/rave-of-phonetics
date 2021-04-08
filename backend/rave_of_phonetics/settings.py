@@ -132,7 +132,8 @@ DB_USE_SSL = eval_env_as_boolean("DB_USE_SSL", True)
 if DB_USE_SSL:
     # verify-full: only try an SSL connection, verify that the server certificate is issued by a trusted CA and that the requested server host name matches that in the certificate
     # require: only try an SSL connection. If a root CA file is present, verify the certificate in the same way as if verify-ca was specified
-    DATABASES[DATABASE_READ_WRITE]["OPTIONS"]["sslmode"] = "verify-full"
+    ssl_mode = os.getenv("DB_SSL_MODE", "require")
+    DATABASES[DATABASE_READ_WRITE]["OPTIONS"]["sslmode"] = ssl_mode
 
 if os.getenv("PYTEST_RUNNING"):
     del DATABASES["default"]["OPTIONS"]
