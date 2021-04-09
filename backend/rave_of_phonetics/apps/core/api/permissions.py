@@ -4,6 +4,7 @@ from rest_framework import permissions
 
 from rave_of_phonetics.apps.core.api.api_exception import InvalidContractException
 from rave_of_phonetics.apps.core.services.recaptcha import verify_user_response
+from rave_of_phonetics.settings import IP_DISCOVERY_NUMBER_OF_PROXIES
 from rave_of_phonetics.settings import RECAPTCHA_SCORE_THRESHOLD
 from rave_of_phonetics.settings import RECAPTCHA_SECRET_KEY
 from rave_of_phonetics.settings import RECAPTCHA_TOKEN_HEADER
@@ -22,7 +23,7 @@ class IsValidRecaptcha(permissions.BasePermission):
             logger.warning("Why the token is missing?")
             raise InvalidContractException
 
-        ip_address = user_ip_address(request)
+        ip_address = user_ip_address(request, IP_DISCOVERY_NUMBER_OF_PROXIES)
         evaluation = verify_user_response(RECAPTCHA_SECRET_KEY, token, ip_address)
         logger.debug(f"ReCaptcha evaluation: {evaluation}")
 

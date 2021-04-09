@@ -230,3 +230,6 @@ GITHUB_OAUTH_APP_SCOPES = os.getenv("GITHUB_OAUTH_APP_SCOPES", "repo,user")
 
 # Batch processing
 DJANGO_BULK_BATCH_SIZE = int(os.getenv("DJANGO_BULK_BATCH_SIZE", 1000))
+
+# IP address discovery
+IP_DISCOVERY_NUMBER_OF_PROXIES = int(os.getenv("IP_DISCOVERY_NUMBER_OF_PROXIES", 0))

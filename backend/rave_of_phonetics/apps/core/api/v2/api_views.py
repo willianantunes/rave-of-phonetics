@@ -11,6 +11,7 @@ from rave_of_phonetics.apps.core.api.permissions import IsValidRecaptcha
 from rave_of_phonetics.apps.core.api.v2.serializers import TranscriberSerializer
 from rave_of_phonetics.apps.core.business.transcriber import check_and_retrieve_transcriptions
 from rave_of_phonetics.apps.core.business.word_researcher import persist_what_user_sought
+from rave_of_phonetics.settings import IP_DISCOVERY_NUMBER_OF_PROXIES
 from rave_of_phonetics.support.http import user_ip_address
 
 logger = logging.getLogger(__name__)
@@ -24,7 +25,7 @@ def transcribe(request: Request) -> Response:
     words, language = serializer.validated_data["words"], serializer.validated_data["language"]
     logger.debug(f"Number of words that will be evaluated considering {language}: {len(words)}")
 
-    ip_address = user_ip_address(request)
+    ip_address = user_ip_address(request, IP_DISCOVERY_NUMBER_OF_PROXIES)
     persist_what_user_sought(words, language, ip_address)
     transcriptions = check_and_retrieve_transcriptions(words, language)
     logger.debug(f"Transcriptions: {transcriptions}")
