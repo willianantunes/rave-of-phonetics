@@ -42,9 +42,9 @@ class Command(BaseCommand):
         if self.cmu_file_location:
             carnegie_mellon_university_database = CMUDatabaseHandler(self.cmu_file_location)
             number_of_entries = carnegie_mellon_university_database.number_of_valid_entries
-            self.stdout.write(f"Number of entries: {number_of_entries}")
+            self.stdout.write(f"Number of entries that can be saved: {number_of_entries}")
 
-            if number_of_entries <= Dictionary.objects.count():
+            if Dictionary.objects.exists():
                 self.stdout.write("No need to fill the table!")
             else:
                 batch_size = getattr(settings, "DJANGO_BULK_BATCH_SIZE")
