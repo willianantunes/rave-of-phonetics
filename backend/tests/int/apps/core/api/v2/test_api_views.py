@@ -1,5 +1,6 @@
 import pytest
 
+from rave_of_phonetics.apps.core.models import ResearchedWord
 from rave_of_phonetics.apps.core.services.recaptcha import Evaluation
 from tests.support.cmu_utils import create_database_from_fake_cmu_content
 from tests.support.models_utils import create_language
@@ -50,6 +51,7 @@ def test_should_receive_empty_entries_as_the_words_does_not_exist_in_database(cl
     response = client.post("/api/v2/transcribe", content_type="application/json", data=body, **header)
     result = response.json()
 
+    assert ResearchedWord.objects.count() == 3
     assert response.status_code == 200
     assert result == [
         {"word": "rave", "entries": None},
@@ -75,6 +77,7 @@ def test_should_receive_transcriptions(client, mock_recaptcha_verify):
     response = client.post("/api/v2/transcribe", content_type="application/json", data=body, **header)
     result = response.json()
 
+    assert ResearchedWord.objects.count() == 3
     assert response.status_code == 200
     assert result == [
         {

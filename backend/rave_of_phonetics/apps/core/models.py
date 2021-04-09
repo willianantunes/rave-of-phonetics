@@ -125,3 +125,11 @@ class Suggestion(StandardModelMixin):
     ipa_phonemic = models.CharField(max_length=128, null=True, blank=True, verbose_name="Phonemic transcription")
     ipa_phonetic = models.CharField(max_length=128, null=True, blank=True, verbose_name="Phonetic transcription")
     applied = models.BooleanField(default=False, verbose_name="Was it applied to some dictionary entry?")
+
+
+class ResearchedWord(StandardModelMixin):
+    word_or_symbol = models.CharField(max_length=45, null=False, blank=False)
+    language_tag = models.CharField(max_length=20, null=False, blank=False)
+    # Later I can identify where the anonymous user is using the following:
+    # https://docs.djangoproject.com/en/3.2/ref/contrib/gis/geoip2/
+    ip_address = models.GenericIPAddressField(null=True)

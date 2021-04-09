@@ -1,4 +1,5 @@
 from contextlib import contextmanager
+from typing import Optional
 
 from requests import Session
 from requests.adapters import HTTPAdapter
@@ -37,7 +38,7 @@ def requests_session(retries=3, backoff_factor=0.1, timeout=35, stream=False, **
         session.close()
 
 
-def user_ip_address(request, number_of_proxies=0):
+def user_ip_address(request, number_of_proxies=0) -> Optional[str]:
     xff = request.META.get("HTTP_X_FORWARDED_FOR")
     remote_addr = request.META.get("REMOTE_ADDR")
     num_proxies = number_of_proxies
