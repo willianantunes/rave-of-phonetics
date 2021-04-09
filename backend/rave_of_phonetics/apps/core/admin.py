@@ -4,7 +4,9 @@ from django.contrib import admin
 from django.contrib import messages
 from django.db import transaction
 from django.db.models import QuerySet
+from django.utils.safestring import mark_safe
 
+from rave_of_phonetics.apps.core.business.word_researcher import most_sought_words
 from rave_of_phonetics.apps.core.models import Dictionary
 from rave_of_phonetics.apps.core.models import Language
 from rave_of_phonetics.apps.core.models import ResearchedWord
@@ -12,6 +14,7 @@ from rave_of_phonetics.apps.core.models import Suggestion
 from rave_of_phonetics.support.django_helpers import AlphabetFilter
 from rave_of_phonetics.support.django_helpers import CustomModelAdminMixin
 from rave_of_phonetics.support.django_helpers import TimeLimitedPaginator
+from rave_of_phonetics.support.django_typing import QueryType
 
 logger = logging.getLogger(__name__)
 
@@ -86,4 +89,31 @@ class ResearchedWordAdmin(CustomModelAdminMixin, admin.ModelAdmin):
         "language_tag",
         AlphabetFilter,
     ]
+    actions = [
+        "identify_five_most_sought_words",
+    ]
     paginator = TimeLimitedPaginator
+
+    def identify_five_most_sought_words(self, request, queryset: QueryType[ResearchedWord]):
+        logger.debug("Evaluating most sought words")
+        words_qs = most_sought_words(queryset)
+
+        logger.debug("Creating message")
+        counter, limit = 1, 5
+        message_about_sought_words = []
+        for word_details in words_qs:
+            word = word_details["word_or_symbol"]
+            times = word_details["times"]
+            phrase = f"&emsp;• <strong>{word.upper()}</strong>: {times} times"
+            message_about_sought_words.append(phrase)
+            if counter < limit:
+                counter += 1
+            else:
+                break
+        logger.debug("Delivering to user")
+        message_about_sought_words = "<br />\n".join(message_about_sought_words)
+        # Mark safe is needed in order to break lines
+        final_message = mark_safe(f"The five most sought words are 🤔: <br />\n{message_about_sought_words}")
+        self.message_user(request, final_message, level=messages.INFO)
+
+    setattr(identify_five_most_sought_words, "short_description", "Know the five most sought words")

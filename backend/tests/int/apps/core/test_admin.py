@@ -11,8 +11,10 @@ from pytz import unicode
 from rave_of_phonetics.apps.core.admin import AlphabetFilter
 from rave_of_phonetics.apps.core.admin import DictionaryAdmin
 from rave_of_phonetics.apps.core.models import Dictionary
+from rave_of_phonetics.apps.core.models import ResearchedWord
 from rave_of_phonetics.apps.core.models import Suggestion
 from tests.support.models_utils import create_language
+from tests.support.models_utils import create_researched_word_entries
 from tests.support.models_utils import create_suggestion
 from tests.support.text_utils import alphabet_range_as_unicode
 
@@ -49,6 +51,62 @@ def test_should_create_dictionary_entry_from_suggestion(admin_client):
     assert persisted_dictionary.version == Dictionary.Version.V_1
     assert Suggestion.objects.count() == 1
     assert Suggestion.objects.filter(applied=True).count() == 1
+
+
+def test_should_inform_most_sought_words(admin_client):
+    # Arrange
+    words = [
+        "c'mon",
+        "dude",
+        "c'mon",
+        "dude",
+        "select",
+        "researched",
+        "word",
+        "that",
+        "to",
+        "change",
+        "django",
+        "administration",
+        "select",
+        "welcome",
+        "throught",
+        "authentication",
+        "and",
+        "authorization",
+        "throught",
+        "authentication",
+        "and",
+        "throught",
+        "authorization",
+        "this",
+        "throught",
+    ]
+    create_researched_word_entries(words)
+    # Act
+    fake_configured_action = {
+        "action": "identify_five_most_sought_words",
+        helpers.ACTION_CHECKBOX_NAME: [unicode(rw.pk) for rw in ResearchedWord.objects.all()],
+    }
+    address = f"{reverse('admin:index')}core/researchedword/"
+    response = admin_client.post(address, data=fake_configured_action)
+    # Assert
+    assert response.status_code == 302
+    assert response.url == address
+    messages = list(get_messages(response.wsgi_request))
+    assert len(messages) == 1
+    message_details = messages[0]
+    assert message_details.level_tag == "info"
+    expected_message = """
+        The five most sought words are 🤔: <br />
+        &emsp;• <strong>THROUGHT</strong>: 4 times<br />
+        &emsp;• <strong>AND</strong>: 2 times<br />
+        &emsp;• <strong>DUDE</strong>: 2 times<br />
+        &emsp;• <strong>AUTHENTICATION</strong>: 2 times<br />
+        &emsp;• <strong>SELECT</strong>: 2 times
+    """
+    expected_message = expected_message.strip().replace("        ", "")
+    assert message_details.message == expected_message
 
 
 @pytest.mark.django_db

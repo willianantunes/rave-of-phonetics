@@ -4,8 +4,10 @@ from typing import List
 from typing import Optional
 
 from django.db import transaction
+from django.db.models import Count
 
 from rave_of_phonetics.apps.core.models import ResearchedWord
+from rave_of_phonetics.support.django_typing import QueryType
 
 logger = logging.getLogger(__name__)
 
@@ -22,3 +24,8 @@ def persist_what_user_sought(words: List[str], language_tag: str, ip_address: Op
     logger.debug(f"Number of objects to be saved: {len(objects_to_be_saved)}")
     with transaction.atomic():
         ResearchedWord.objects.bulk_create(objects_to_be_saved)
+
+
+def most_sought_words(queryset: QueryType[ResearchedWord]) -> QueryType:
+    base_qs = queryset.values("word_or_symbol")
+    return base_qs.annotate(times=Count("pk")).order_by("-times")

@@ -2,8 +2,10 @@ import pytest
 
 from django.utils import timezone
 
+from rave_of_phonetics.apps.core.business.word_researcher import most_sought_words
 from rave_of_phonetics.apps.core.business.word_researcher import persist_what_user_sought
 from rave_of_phonetics.apps.core.models import ResearchedWord
+from tests.support.models_utils import create_researched_word_entries
 
 
 @pytest.mark.django_db
@@ -38,3 +40,49 @@ def test_should_persist_words_even_if_ip_address_is_not_available():
     assert cmon_researched_word.ip_address == ip_address
     current_date = timezone.now().date()
     assert cmon_researched_word.created_at.date() == current_date
+
+
+@pytest.mark.django_db
+def test_should_return_most_sought_words():
+    # Arrange
+    words = [
+        "c'mon",
+        "dude",
+        "c'mon",
+        "dude",
+        "select",
+        "researched",
+        "word",
+        "that",
+        "to",
+        "change",
+        "django",
+        "administration",
+        "select",
+        "welcome",
+        "throught",
+        "authentication",
+        "and",
+        "authorization",
+        "throught",
+        "authentication",
+        "and",
+        "throught",
+        "authorization",
+        "this",
+        "throught",
+    ]
+    create_researched_word_entries(words)
+    assert ResearchedWord.objects.count() == 25
+    # Assert
+    queryset = ResearchedWord.objects.all()
+    result = most_sought_words(queryset)
+    # Assert
+    assert result.count() == 16
+    three_most_sought_words = result[:3]
+    three_most_sought_words_as_list = list(three_most_sought_words)
+    assert three_most_sought_words_as_list == [
+        {"word_or_symbol": "throught", "times": 4},
+        {"word_or_symbol": "dude", "times": 2},
+        {"word_or_symbol": "c'mon", "times": 2},
+    ]
