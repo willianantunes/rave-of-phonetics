@@ -75,9 +75,13 @@ export default function Suggestion({ open, handleClose, word, language }) {
               <p id="transition-modal-description">
                 The word you'd like to fix or add is <strong>{word}</strong> for language <strong>{language}</strong>. <br />
                 We recommend{" "}
-                <a href="https://westonruter.github.io/ipa-chart/keyboard/" rel="noreferrer noopener" target="_blank">
+                <S.ExternalLink
+                  href="https://westonruter.github.io/ipa-chart/keyboard/"
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >
                   this IPA keyboard
-                </a>{" "}
+                </S.ExternalLink>{" "}
                 to help you out with the symbols.
               </p>
               <S.SuggestionForm id="form-suggestion" onSubmit={submitSuggestion}>

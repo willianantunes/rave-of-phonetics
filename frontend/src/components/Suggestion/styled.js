@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { CircularProgress, FormControl, FormGroup, Modal, Typography } from "@material-ui/core"
-import { Button } from "gatsby-theme-material-ui"
+import { Button, Link } from "gatsby-theme-material-ui"
 import { Send } from "styled-icons/boxicons-regular"
 
 export const SuggestionModal = styled(Modal)`
@@ -54,3 +54,5 @@ export const WaitingRequestProgress = styled(CircularProgress)`
 export const ErrorMessage = styled(Typography)`
   font-size: 14px;
 `
+
+export const ExternalLink = styled(Link)``

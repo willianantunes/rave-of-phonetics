@@ -21,6 +21,18 @@ describe("Tokenization", () => {
       expect(result).toHaveLength(7)
       expect(result).toMatchObject(["don't", "ever", "if", "you", "please", "ad-hoc", "1989"])
     })
+
+    test(`When with text "Until her father’s health" or "Until her father's health", then 4 words is extracted`, () => {
+      // Arrange
+      const sampleTextOne = `Until her father’s health`
+      const sampleTextTwo = `Until her father's health`
+      // Act
+      const resultOne = extractWordsFromText(sampleTextOne)
+      const resultTwo = extractWordsFromText(sampleTextTwo)
+      // Assert
+      expect(resultOne).toStrictEqual(["until", "her", "father’s", "health"])
+      expect(resultTwo).toMatchObject(["until", "her", "father's", "health"])
+    })
   })
 
   describe("Raw words extraction", () => {
