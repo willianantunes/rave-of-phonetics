@@ -2,7 +2,7 @@ import { extractRawWordsFromText, extractWordsFromText } from "../../../../src/u
 
 describe("Tokenization", () => {
   describe("Words extraction", () => {
-    test(`When with text "Rave, \r\nlive Phonetics!", then 3 words is extracted`, () => {
+    test(`When with text "Rave, live Phonetics!" including line feed, then 3 words is extracted`, () => {
       // Arrange
       const sampleText = "Rave, live Phonetics!"
       // Act
@@ -32,6 +32,15 @@ describe("Tokenization", () => {
       // Assert
       expect(resultOne).toStrictEqual(["until", "her", "father’s", "health"])
       expect(resultTwo).toMatchObject(["until", "her", "father's", "health"])
+    })
+
+    test(`When with text "Frequently asked questions 🤔", then 4 words is extracts (even the emoji)`, () => {
+      // Arrange
+      const sampleText = `😎 Frequently 🤔 asked 🥵 questions 🤬`
+      // Act
+      const result = extractWordsFromText(sampleText)
+      // Assert
+      expect(result).toStrictEqual(["😎", "frequently", "🤔", "asked", "🥵", "questions", "🤬"])
     })
   })
 
