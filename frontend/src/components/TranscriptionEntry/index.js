@@ -34,12 +34,12 @@ function TranscriptionEntry({ index, word, language, transcriptions, showSyllabl
     const currentSetup = transcriptionSetup.current
     if (currentSetup && typeof currentSetup === "object") {
       let transcriptionToBeUsed
-      if (showPhonetic) {
-        transcriptionToBeUsed = { transcription: currentSetup.phonetic, isPhonemic: false }
-      } else if (showPhonetic && showSyllables) {
+      if (showPhonetic && showSyllables) {
         transcriptionToBeUsed = { transcription: currentSetup.phonetic_syllables, isPhonemic: false }
       } else if (!showPhonetic && showSyllables) {
         transcriptionToBeUsed = { transcription: currentSetup.phonemic_syllables, isPhonemic: true }
+      } else if (showPhonetic) {
+        transcriptionToBeUsed = { transcription: currentSetup.phonetic, isPhonemic: false }
       } else {
         transcriptionToBeUsed = { transcription: currentSetup.phonemic, isPhonemic: true }
       }
