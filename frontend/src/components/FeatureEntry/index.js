@@ -6,7 +6,7 @@ export function FeatureEntry({ title, createdAt, added, updated, text }) {
   return (
     <S.CustomPaper>
       <S.WrapperTitle>
-        <S.Title>{title}</S.Title>
+        <S.Title dangerouslySetInnerHTML={{ __html: title }} />
       </S.WrapperTitle>
       <S.WrapperDetails>
         <S.WhenItWasAvailable>{createdAt}</S.WhenItWasAvailable>

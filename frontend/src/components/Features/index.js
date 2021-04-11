@@ -4,6 +4,17 @@ import { FeatureEntry } from "../FeatureEntry"
 
 const features = [
   {
+    title: `Syllables, phonetic and phonemic variations, and now you can apply a suggestion <span role="img" aria-label="detective">🕵</span>`,
+    createdAt: "April 12th, 2021",
+    added: 3,
+    updated: 1,
+    text: `With this release, now you have more options to study. You are now able to consult the syllables of what you 
+    transcribed including the phonetic version too. Let's say you transcribe a word that the phonetic does not exist, if 
+    you click on the word you transcribed, you'll see an option to leave a suggestion to us! Thus it may be included in 
+    our database. One update is related to the history table, if you transcribe a word, it goes at the beginning 
+    of the list. Enjoy!`,
+  },
+  {
     title: "FAQ page",
     createdAt: "March 8th, 2021",
     added: 1,
