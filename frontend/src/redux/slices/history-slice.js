@@ -11,7 +11,7 @@ export const historySlice = createSlice({
   initialState,
   reducers: {
     addNewTranscriptionDetails: (state, action) => {
-      state.transcriptions.push(action.payload)
+      state.transcriptions.unshift(action.payload)
     },
     loadAllTranscriptionDetails: (state, action) => {
       state.transcriptions = action.payload

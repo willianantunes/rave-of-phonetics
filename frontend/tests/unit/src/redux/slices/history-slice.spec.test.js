@@ -32,15 +32,23 @@ describe("History slice reducer", () => {
   })
 
   describe(`Plain action creators from the slice`, () => {
-    test(`Should handle ${addNewTranscriptionDetails.type}`, () => {
-      // Arrange
-      const fakeItem = 42
-      const actionSetup = { type: addNewTranscriptionDetails.type, payload: fakeItem }
-      initialState.transcriptions.push(fakeItem)
-      // Act
-      const resultingState = historySliceReducer(undefined, actionSetup)
-      // Assert
-      expect(resultingState).toStrictEqual(initialState)
+    test(`Should handle ${addNewTranscriptionDetails.type} inserting item at the beginning of the array `, () => {
+      // Arrange - 1
+      const fakeItemOne = 42
+      const actionSetupOne = { type: addNewTranscriptionDetails.type, payload: fakeItemOne }
+      initialState.transcriptions.unshift(fakeItemOne)
+      // Act - 1
+      const resultingStateOne = historySliceReducer(undefined, actionSetupOne)
+      // Assert - 1
+      expect(resultingStateOne).toStrictEqual(initialState)
+      // Arrange - 2
+      const fakeItemTwo = 23
+      const actionSetupTwo = { type: addNewTranscriptionDetails.type, payload: fakeItemTwo }
+      initialState.transcriptions.unshift(fakeItemTwo)
+      // Act - 1
+      const resultingStateTwo = historySliceReducer(resultingStateOne, actionSetupTwo)
+      // Arrange - 2
+      expect(resultingStateTwo).toStrictEqual(initialState)
     })
 
     test(`Should handle ${loadAllTranscriptionDetails.type}`, () => {
