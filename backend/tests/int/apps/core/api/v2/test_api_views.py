@@ -53,11 +53,7 @@ def test_should_receive_empty_entries_as_the_words_does_not_exist_in_database(cl
 
     assert ResearchedWord.objects.count() == 3
     assert response.status_code == 200
-    assert result == [
-        {"word": "rave", "entries": None},
-        {"word": "of", "entries": None},
-        {"word": "phonetics", "entries": None},
-    ]
+    assert result == {"of": None, "phonetics": None, "rave": None}
 
 
 @pytest.mark.django_db
@@ -79,44 +75,35 @@ def test_should_receive_transcriptions(client, mock_recaptcha_verify):
 
     assert ResearchedWord.objects.count() == 3
     assert response.status_code == 200
-    assert result == [
-        {
-            "entries": [
-                {
-                    "classification": "Undefined",
-                    "phonemic": "ɹ eɪ v",
-                    "phonemic_syllables": "ɹ eɪ v",
-                    "phonetic": None,
-                    "phonetic_syllables": None,
-                    "version": "Version 1",
-                }
-            ],
-            "word": "rave",
-        },
-        {
-            "entries": [
-                {
-                    "classification": "Undefined",
-                    "phonemic": "ə v",
-                    "phonemic_syllables": "ə v",
-                    "phonetic": None,
-                    "phonetic_syllables": None,
-                    "version": "Version 1",
-                },
-            ],
-            "word": "of",
-        },
-        {
-            "entries": [
-                {
-                    "classification": "Undefined",
-                    "phonemic": "f ə ˈn ɛ t ɪ k s",
-                    "phonemic_syllables": "f ə • ˈn ɛ • t ɪ k s",
-                    "phonetic": None,
-                    "phonetic_syllables": None,
-                    "version": "Version 1",
-                }
-            ],
-            "word": "phonetics",
-        },
-    ]
+    assert result == {
+        "of": [
+            {
+                "classification": "Undefined",
+                "phonemic": "ə v",
+                "phonemic_syllables": "ə v",
+                "phonetic": None,
+                "phonetic_syllables": None,
+                "version": "Version 1",
+            }
+        ],
+        "phonetics": [
+            {
+                "classification": "Undefined",
+                "phonemic": "f ə ˈn ɛ t ɪ k s",
+                "phonemic_syllables": "f ə • ˈn ɛ • t ɪ k s",
+                "phonetic": None,
+                "phonetic_syllables": None,
+                "version": "Version 1",
+            }
+        ],
+        "rave": [
+            {
+                "classification": "Undefined",
+                "phonemic": "ɹ eɪ v",
+                "phonemic_syllables": "ɹ eɪ v",
+                "phonetic": None,
+                "phonetic_syllables": None,
+                "version": "Version 1",
+            }
+        ],
+    }

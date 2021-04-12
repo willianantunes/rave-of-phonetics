@@ -1,4 +1,4 @@
-import { extractRawWordsFromText } from "../utils/tokenization"
+import { extractRawWordsAndTheirTokensFromText } from "../utils/tokenization"
 
 export class TranscriptionDetails {
   constructor(
@@ -149,16 +149,20 @@ export class TranscriptionDetails {
     // REGEX to deal with stress marks and punctuations
     const regexToExtractStressMarks = /[ˈˌ]+/g
     // Words that may have punctuations
-    const wordsFromText = extractRawWordsFromText(this._text)
+    const rawWordsAndTheirTokens = extractRawWordsAndTheirTokensFromText(this._text)
     // What will be returned
     const changedTranscription = []
     // Filling changedTranscription array with data
-    for (const [index, word] of wordsFromText.entries()) {
-      const wordDetails = this._transcriptionSetup[index]
+    for (const tokenDetails of rawWordsAndTheirTokens) {
+      // Extracting objetcs
+      const word = tokenDetails.raw
+      const token = tokenDetails.token
+      // Creating a new entry to insert into changedTranscription array
+      const entries = this._transcriptionSetup[token]
       const changedWord = { word }
       const changedEntries = []
-      if (wordDetails.entries) {
-        wordDetails.entries.forEach(transcription => {
+      if (entries) {
+        entries.forEach(transcription => {
           const changedTranscription = {}
           Object.assign(changedTranscription, transcription)
           if (!this._showStress) {

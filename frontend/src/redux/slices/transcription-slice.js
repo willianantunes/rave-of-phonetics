@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { transcribe } from "../../services/rop-api"
 import { findById } from "../../domains/transcription-details-dao"
-import { extractWordsFromText } from "../../utils/tokenization"
+import { extractTokensFromText } from "../../utils/tokenization"
 
 const initialState = {
   text: "",
@@ -102,7 +102,7 @@ export const transcriptionFromText = (text, chosenLanguage, token, hookWhenError
   dispatch(analysingText())
 
   try {
-    const words = extractWordsFromText(text)
+    const words = extractTokensFromText(text)
     const result = await transcribe(words, chosenLanguage, token)
     dispatch(textWasTranscribed(result))
     dispatch(transcriptionToBeSaved())

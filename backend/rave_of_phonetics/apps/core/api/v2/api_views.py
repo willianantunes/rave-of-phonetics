@@ -30,9 +30,9 @@ def transcribe(request: Request) -> Response:
     transcriptions = check_and_retrieve_transcriptions(words, language)
     logger.debug(f"Transcriptions: {transcriptions}")
 
-    result = []
+    result = {}
     for transcription in transcriptions:
         transcription_as_dict = asdict(transcription)
-        result.append(transcription_as_dict)
+        result[transcription.word] = transcription_as_dict["entries"]
 
     return Response(result)

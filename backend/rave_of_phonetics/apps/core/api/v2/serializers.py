@@ -25,4 +25,8 @@ class TranscriberSerializer(serializers.Serializer):
         if language == self.supported_languages[1]:
             data["language"] = "en-gb-x-rp"
 
+        # Without repeated items
+        words = data["words"]
+        data["words"] = list(dict.fromkeys(words))
+
         return data

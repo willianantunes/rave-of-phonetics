@@ -109,87 +109,70 @@ describe("Transcription domain", () => {
       // Arrange
       const text = `Don't ever, if "you; please, ad-hoc 1989!`
       const showPunctuations = true
-      const transcriptionSetup = [
-        {
-          word: "don't",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "d oʊ n t",
-              phonemic_syllables: "d oʊ n t",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "ever",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "ˈɛ v ər",
-              phonemic_syllables: "ˈɛ • v ər",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "if",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "ɪ f",
-              phonemic_syllables: "ɪ f",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "you",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "j u",
-              phonemic_syllables: "j u",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "please",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "p l i z",
-              phonemic_syllables: "p l i z",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        {
-          word: "ad-hoc",
-          entries: [
-            {
-              classification: "Undefined",
-              version: "Version 1",
-              phonemic: "ˈæ ˈd h ɑ k",
-              phonemic_syllables: "ˈæ ˈd • h ɑ k",
-              phonetic: null,
-              phonetic_syllables: null,
-            },
-          ],
-        },
-        { word: "1989", entries: null },
-      ]
+      const transcriptionSetup = {
+        "don't": [
+          {
+            classification: "Undefined",
+            version: "Version 1",
+            phonemic: "d oʊ n t",
+            phonemic_syllables: "d oʊ n t",
+            phonetic: null,
+            phonetic_syllables: null,
+          },
+        ],
+        ever: [
+          {
+            classification: "Undefined",
+            version: "Version 1",
+            phonemic: "ˈɛ v ər",
+            phonemic_syllables: "ˈɛ • v ər",
+            phonetic: null,
+            phonetic_syllables: null,
+          },
+        ],
+        if: [
+          {
+            classification: "Undefined",
+            version: "Version 1",
+            phonemic: "ɪ f",
+            phonemic_syllables: "ɪ f",
+            phonetic: null,
+            phonetic_syllables: null,
+          },
+        ],
+        you: [
+          {
+            classification: "Undefined",
+            version: "Version 1",
+            phonemic: "j u",
+            phonemic_syllables: "j u",
+            phonetic: null,
+            phonetic_syllables: null,
+          },
+        ],
+        please: [
+          {
+            classification: "Undefined",
+            version: "Version 1",
+            phonemic: "p l i z",
+            phonemic_syllables: "p l i z",
+            phonetic: null,
+            phonetic_syllables: null,
+          },
+        ],
+        "ad-hoc": [
+          {
+            classification: "Undefined",
+            version: "Version 1",
+            phonemic: "ˈæ ˈd h ɑ k",
+            phonemic_syllables: "ˈæ ˈd • h ɑ k",
+            phonetic: null,
+            phonetic_syllables: null,
+          },
+        ],
+        1989: null,
+      }
+
       const transcriptionDetails = createTranscriptionDetails({ text, transcriptionSetup, showPunctuations })
       // Act
       const transcription = transcriptionDetails.refreshedTranscriptionSetup

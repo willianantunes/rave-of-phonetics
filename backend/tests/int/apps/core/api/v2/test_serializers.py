@@ -37,3 +37,14 @@ class TranscriberSerializerTest(TestCase):
         words, language = serializer.validated_data["words"], serializer.validated_data["language"]
         assert words == fake_data["words"]
         assert language == "en-gb-x-rp"
+
+    def test_should_inform_that_is_valid_and_words_must_not_be_repeatable(self):
+        fake_data = {"words": ["you", "if", "you", "won't", "won't"], "language": "en-gb"}
+        serializer = TranscriberSerializer(data=fake_data)
+
+        assert serializer.is_valid()
+
+        words, language = serializer.validated_data["words"], serializer.validated_data["language"]
+        assert len(words) == 3
+        assert words == ["you", "if", "won't"]
+        assert language == "en-gb-x-rp"

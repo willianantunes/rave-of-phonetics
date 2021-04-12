@@ -5,10 +5,10 @@ import { slugify } from "../../utils/general"
 const entries = [
   {
     question: "How do I use Rave of Phonetics?",
-    text: `The main function of Rave of Phonetics is to provide you a phonemic transcription of a word or text in 
-    order to help you pronounce it. You can also see its syllables, stress marks and the phonetic version as well, if 
-    they are available. Simply type a word in the space provided and read the transcription as well as listen to 
-    the audio to improve your listening skills.`,
+    text: `The main function of Rave of Phonetics is to provide you a phonemic transcription of a word or text in order 
+    to help you pronounce it. You can also see its syllables, stress marks and the phonetic version as well, if they are 
+    available. Simply type a word in the space provided and read the transcription as well as listen to the audio 
+    to improve your listening skills.`,
   },
   {
     question: "Can I improve my accent with this page?",
@@ -27,15 +27,15 @@ const entries = [
   },
   {
     question: "How do I share my transcriptions?",
-    text: `Sharing is caring. At the bottom of the <strong>IPA Transcription Tool</strong> panel you have a bottom named 
-    <strong>copy link</strong>. Just set the tool as you'd like, let's say, you choose the word THING, using AMERICAN ENGLISH,
-    with SHOW STRESS and SHOW SYLLABLES activated, after that, you can simply click on <strong>copy link</strong> and then 
-    it will be available in your transfer area! Just press CTRL+V on your social media and you'll see it!`,
+    text: `Sharing is caring. At the bottom of the <strong>IPA Transcription Tool</strong> panel, there is an option named 
+    <strong>copy link</strong>. Just type in the desired word you would like to transcribe, apply your options of stress, 
+    syllables, etc. and after that you can simply click on <strong>copy link</strong>. Then 
+    it will be available on your clipboard! Just press CTRL+V on your social media and you'll see it!`,
   },
   {
     question: "Is there a blog for this page?",
     text: `Of course, there is. If you click <a href="/blog">here</a>, you will find a blog section that has interesting 
-    topics related to phonetic and languages. Please share with all your friends 
+    topics related to Phonetics and Languages. Please share with all your friends 
     <span role="img" aria-label="slightly smiling face">😊</span>`,
   },
   {
@@ -53,8 +53,8 @@ const entries = [
   },
   {
     question: "What does ‘show stress’ mean?",
-    text: `Glad you asked, no need to stress. This option is used to see where the syllables of the words are and which 
-    one is pronounce, or stressed, with standard pronunciation.`,
+    text: `Glad you asked, no need to stress. This option is used to see which syllable of the word has primary and 
+    secondary stress. This option shows standard pronunciation.`,
   },
   {
     question: "Why do I need to loop the speech?",
@@ -64,9 +64,9 @@ const entries = [
   },
   {
     question: "How do I leave a comment?",
-    text: `Ah, yes. Please let us know what you think. If you want to leave a comment you can go to the bottom of the page. 
-    They are available in our home, changelog, FAQ and blog pages. Also you can get in touch with us through our social 
-    medias (see the bottom bar).`,
+    text: `Ah, yes. Please let us know what you think. If you want to leave a comment you can go to the bottom of the 
+    page and find our comment section. They are available in our home, changelog, FAQ and blog sections. Also, you can 
+    get in touch with us through our social medias (see the bottom bar).`,
   },
   {
     question: "How can I ask questions?",
@@ -82,18 +82,19 @@ const entries = [
     options but for now you will see mainly phonemic transcriptions.`,
   },
   {
-    question: "Is there an option for allophone variations?",
-    text: `I knew we would have some experts ask this question. For the moment, we mainly provide phonemic transcriptions, 
-    as phonetic, syllables and allophones are being filled by the community through suggestions. If you'd like to check 
-    all sort of variations, you should check if the transcription is underlined, if so, just click on it to see its 
-    variations. The details can be seen if you click on the word, which will be underlined as well.`,
+    question: "Is there an option for phonetic variations of the word?",
+    text: `I knew we would have some experts ask this question. For the moment, we mainly provide phonemic transcriptions. 
+    Phonetic transcription, syllables and allophone variations are still being developed as well as receiving 
+    contributions and suggestions by our great community of learners and experts in the area. If you'd like to check 
+    alternate variations of the word, you should check if the transcription is underlined, if so, just click on it to 
+    see its variations. The details can be seen if you click on the word, which will be underlined as well.`,
   },
   {
     question: "I would like to add or fix a transcription. Is it possible? How do I do that?",
-    text: `Sure thing! First you try to transcribe the desired word or phrase, after you receive the transcription, you 
-    click on the underlined word. You should see the option <strong>apply suggestion</strong>. If you click on it, a 
-    window will be opened describing what you can do. If you'd like to provide only the phonemic, just fill the field 
-    related to it, give us some reasons and click on <strong>send suggestion</strong>. The same applies to phonetic. 
+    text: `Sure thing! First you try to transcribe the desired word or phrase and then click on the underlined word. 
+    You should see the option <strong>apply suggestion</strong>. If you click on it, a window will open describing what 
+    you can do. If you'd like to provide only the phonemic, just fill the field related to that and give us some reasons 
+    why you made the suggestion before you click on <strong>send suggestion</strong>. The same applies to phonetic. 
     Syllables will be handled by us, so you don't have to worry.`,
   },
 ]
