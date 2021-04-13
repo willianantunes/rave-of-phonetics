@@ -84,6 +84,7 @@ class SuggestionAdmin(CustomModelAdminMixin, admin.ModelAdmin):
 @admin.register(ResearchedWord)
 class ResearchedWordAdmin(CustomModelAdminMixin, admin.ModelAdmin):
     custom_alphabet_filter_field = "word_or_symbol"
+    search_fields = ["ip_address"]
     list_filter = [
         "created_at",
         "language_tag",

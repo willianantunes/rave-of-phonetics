@@ -23,7 +23,7 @@ def persist_what_user_sought(words: List[str], language_tag: str, ip_address: Op
 
     logger.debug(f"Number of objects to be saved: {len(objects_to_be_saved)}")
     with transaction.atomic():
-        ResearchedWord.objects.bulk_create(objects_to_be_saved)
+        ResearchedWord.objects.bulk_create(objects_to_be_saved, ignore_conflicts=True)
 
 
 def most_sought_words(queryset: QueryType[ResearchedWord]) -> QueryType:

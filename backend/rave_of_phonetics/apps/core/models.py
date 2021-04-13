@@ -1,6 +1,8 @@
 from typing import List
 
 from django.db import models
+from django.db.models import F
+from django.db.models import Q
 
 
 class StandardModelMixin(models.Model):
@@ -126,6 +128,16 @@ class Suggestion(StandardModelMixin):
     ipa_phonetic = models.CharField(max_length=128, null=True, blank=True, verbose_name="Phonetic transcription")
     applied = models.BooleanField(default=False, verbose_name="Was it applied to some dictionary entry?")
 
+    def __str__(self):
+        return f"{self.word_or_symbol} / {self.language_tag} / {self.applied}"
+
+
+current_day_condition = (
+    Q(created_at__day=F("created_at__day"))
+    & Q(created_at__month=F("created_at__month"))
+    & Q(created_at__year=F("created_at__year"))
+)
+
 
 class ResearchedWord(StandardModelMixin):
     word_or_symbol = models.CharField(max_length=45, null=False, blank=False)
@@ -133,3 +145,19 @@ class ResearchedWord(StandardModelMixin):
     # Later I can identify where the anonymous user is using the following:
     # https://docs.djangoproject.com/en/3.2/ref/contrib/gis/geoip2/
     ip_address = models.GenericIPAddressField(null=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    "word_or_symbol",
+                    "language_tag",
+                    "ip_address",
+                ],
+                condition=current_day_condition,
+                name="unique_word_entry_per_day",
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.word_or_symbol} / {self.language_tag} / {self.ip_address} / {self.created_at.date()}"

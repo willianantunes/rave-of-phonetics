@@ -43,6 +43,32 @@ def test_should_persist_words_even_if_ip_address_is_not_available():
 
 
 @pytest.mark.django_db
+def test_should_persist_words_without_duplicate_them_given_ip_address_is_the_same_for_the_current_day():
+    # Arrange
+    to_be_persisted = (["c'mon", "dude", "c'mon", "dude"], "en-gb", "192.168.0.1")
+    # Act
+    persist_what_user_sought(*to_be_persisted)
+    persist_what_user_sought(*to_be_persisted)
+    persist_what_user_sought(*to_be_persisted)
+    persist_what_user_sought(*to_be_persisted)
+    # Assert
+    assert ResearchedWord.objects.count() == 2
+
+
+@pytest.mark.django_db
+def test_should_persist_words_given_ip_address_is_none():
+    # Arrange
+    to_be_persisted = (["c'mon", "dude", "c'mon", "dude"], "en-gb", None)
+    # Act
+    persist_what_user_sought(*to_be_persisted)
+    persist_what_user_sought(*to_be_persisted)
+    persist_what_user_sought(*to_be_persisted)
+    persist_what_user_sought(*to_be_persisted)
+    # Assert
+    assert ResearchedWord.objects.count() == 8
+
+
+@pytest.mark.django_db
 def test_should_return_most_sought_words():
     # Arrange
     words = [
