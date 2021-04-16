@@ -125,7 +125,14 @@ export default function Transcription() {
       Object.assign(target, transcriptionDetails)
       target[evt.target.name] = value
       const updatedTranscriptionDetails = TranscriptionDetails.newFromDatabaseRow(target)
-      dispatch(setTranscriptionDetails(updatedTranscriptionDetails.convertToObject(true, true)))
+      dispatch(
+        setTranscriptionDetails(
+          updatedTranscriptionDetails.convertToObject({
+            withSingleLineTranscription: true,
+            withRefreshedTranscription: true,
+          })
+        )
+      )
     }
   }
   const handleTextChange = e => {

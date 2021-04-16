@@ -159,7 +159,10 @@ describe("Transcription slice reducer", () => {
       const firedActions = store.getActions()
       const { singleLineTranscription, ...withoutSingleLine } = fakeTranscriptionFromDatabase
       expect(findById).toBeCalledWith(fakeId)
-      expect(fakeTranscriptionFromDatabase.convertToObject).toBeCalledWith(true, true)
+      expect(fakeTranscriptionFromDatabase.convertToObject).toBeCalledWith({
+        withRefreshedTranscription: true,
+        withSingleLineTranscription: true,
+      })
       expect(firedActions).toStrictEqual([
         {
           type: loadedTranscription.type,

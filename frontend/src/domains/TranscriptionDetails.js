@@ -30,6 +30,7 @@ export class TranscriptionDetails {
     if (this._transcriptionSetup) {
       this._refreshedTranscriptionSetup = this._applyConfigurationIntoTranscription()
       this._singleLineTranscription = this._collectSingleLineTranscription()
+      this._singleLinePhonemicTranscription = this._collectSingleLineTranscription(true)
     }
     Object.freeze(this)
   }
@@ -74,6 +75,10 @@ export class TranscriptionDetails {
     return this._singleLineTranscription
   }
 
+  get singleLinePhonemicTranscription() {
+    return this._singleLinePhonemicTranscription
+  }
+
   get createdAt() {
     return this._createdAt
   }
@@ -96,7 +101,7 @@ export class TranscriptionDetails {
     return JSON.stringify(this) === JSON.stringify(target)
   }
 
-  convertToObject(withSingleLineTranscription = false, withRefreshedTranscription = false) {
+  convertToObject({ withSingleLineTranscription = false, withRefreshedTranscription = false } = {}) {
     const builtObject = {
       id: this._id,
       text: this._text,
@@ -110,6 +115,7 @@ export class TranscriptionDetails {
     }
     if (withSingleLineTranscription) {
       builtObject.singleLineTranscription = this._singleLineTranscription
+      builtObject.singleLinePhonemicTranscription = this._singleLinePhonemicTranscription
     }
     if (withRefreshedTranscription) {
       builtObject.refreshedTranscriptionSetup = this._refreshedTranscriptionSetup
@@ -195,16 +201,20 @@ export class TranscriptionDetails {
     return changedTranscription
   }
 
-  _collectSingleLineTranscription() {
+  _collectSingleLineTranscription(phonemicOnly = false) {
     const collectPhoneticSyllables = this._showPhonetic && this._showSyllables
     const collectPhonemicSyllables = !this._showPhonetic && this._showSyllables
     const collectOnlyPhonetic = this._showPhonetic && !this._showSyllables
     const phoneCollector = transcription => {
-      if (collectPhoneticSyllables) return transcription?.phonetic_syllables
-      if (collectPhonemicSyllables) return transcription?.phonemic_syllables
-      if (collectOnlyPhonetic) return transcription?.phonetic
+      if (phonemicOnly === false) {
+        if (collectPhoneticSyllables) return transcription?.phonetic_syllables
+        if (collectPhonemicSyllables) return transcription?.phonemic_syllables
+        if (collectOnlyPhonetic) return transcription?.phonetic
 
-      return transcription?.phonemic
+        return transcription?.phonemic
+      } else {
+        return transcription?.phonemic
+      }
     }
     // What will be returned
     const phones = []

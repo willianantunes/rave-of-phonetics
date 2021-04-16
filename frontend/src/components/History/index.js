@@ -19,7 +19,7 @@ const columns = [
     width: 300,
   },
   {
-    field: "singleLineTranscription",
+    field: "singleLinePhonemicTranscription",
     headerName: "Transcription",
     description: "The IPA transcription from the related text",
     flex: 1,

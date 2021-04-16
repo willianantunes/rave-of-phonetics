@@ -115,7 +115,10 @@ export const transcriptionFromText = (text, chosenLanguage, token, hookWhenError
 
 export const loadTranscriptionFromDatabase = id => async dispatch => {
   const persistedTranscriptionDetails = await findById(id)
-  const transcriptionAsPlainObject = persistedTranscriptionDetails.convertToObject(true, true)
+  const transcriptionAsPlainObject = persistedTranscriptionDetails.convertToObject({
+    withSingleLineTranscription: true,
+    withRefreshedTranscription: true,
+  })
 
   dispatch(loadedTranscription(transcriptionAsPlainObject))
 }

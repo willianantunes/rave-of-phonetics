@@ -28,7 +28,12 @@ export default historySlice.reducer
 
 export const loadTranscriptionHistory = () => async dispatch => {
   const transcriptions = await findAll()
-  const transcriptionsAsObjects = transcriptions.map(entry => entry.convertToObject(true, true))
+  const transcriptionsAsObjects = transcriptions.map(entry =>
+    entry.convertToObject({
+      withSingleLineTranscription: true,
+      withRefreshedTranscription: true,
+    })
+  )
 
   dispatch(loadAllTranscriptionDetails(transcriptionsAsObjects))
 }
@@ -36,7 +41,10 @@ export const loadTranscriptionHistory = () => async dispatch => {
 export const addTranscriptionDetails = transcriptionDetails => async dispatch => {
   const toBePersisted = transcriptionDetails.convertToObject()
   const persistedTranscriptionDetails = await saveOrUpdate(toBePersisted)
-  const transcriptionAsPlainObject = persistedTranscriptionDetails.convertToObject(true, true)
+  const transcriptionAsPlainObject = persistedTranscriptionDetails.convertToObject({
+    withSingleLineTranscription: true,
+    withRefreshedTranscription: true,
+  })
 
   dispatch(addNewTranscriptionDetails(transcriptionAsPlainObject))
   dispatch(transcriptionSaved(transcriptionAsPlainObject))

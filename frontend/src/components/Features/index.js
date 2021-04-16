@@ -51,15 +51,6 @@ const features = [
     However, you are now able to choose whether you want your word to be shown with stress or not. Try it out!`,
   },
   {
-    title: `French, Spanish and Italian!`,
-    createdAt: "January 22th, 2021",
-    added: 3,
-    updated: 0,
-    text: ` Prior to this feature you were only able to use English (American and British). 
-    From this day on, you are able to select from French, Spanish and Italian as well. 
-    Try to transcribe something using these popular languages. More to come!`,
-  },
-  {
     title: `Changelog page`,
     createdAt: "January 17th, 2021",
     added: 1,
