@@ -7,9 +7,33 @@
   "bugs": {
     "url": "https://github.com/willianantunes/rave-of-phonetics/issues"
   },
+  "homepage": "https://github.com/willianantunes/rave-of-phonetics",
+  "keywords": [
+    "phonetic",
+    "transcription",
+    "ipa",
+    "tts"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/willianantunes/rave-of-phonetics.git"
+  },
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "jest ./tests",
+    "cms": "npx netlify-cms-proxy-server"
+  },
+  "engines": {
+    "node": ">=14"
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
-    "@material-ui/data-grid": "^4.0.0-alpha.24",
+    "@material-ui/data-grid": "^4.0.0-alpha.25",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@raae/gatsby-remark-oembed": "^0.1.1",
     "@reduxjs/toolkit": "^1.5.1",
@@ -17,7 +41,7 @@
     "babel-plugin-styled-components": "^1.12.0",
     "dexie": "^3.0.3",
     "dotenv": "^8.2.0",
-    "gatsby": "^2.32.11",
+    "gatsby": "^2.32.12",
     "gatsby-image": "^2.11.0",
     "gatsby-plugin-catch-links": "^2.10.0",
     "gatsby-plugin-disqus": "^1.2.2",
@@ -48,16 +72,16 @@
     "gatsby-transformer-sharp": "^2.12.1",
     "lazysizes": "^5.3.2",
     "lodash": "^4.17.21",
-    "netlify-cms-app": "^2.14.37",
+    "netlify-cms-app": "^2.14.45",
     "prismjs": "^1.23.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-google-recaptcha-v3": "^1.8.1",
+    "react-google-recaptcha-v3": "^1.9.0",
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.3",
     "react-responsive": "^8.2.0",
     "styled-components": "^5.2.3",
-    "styled-icons": "^10.31.0",
+    "styled-icons": "^10.33.0",
     "styled-media-query": "^2.1.2",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75",
@@ -67,7 +91,7 @@
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",
     "babel-jest": "^26.6.3",
-    "babel-preset-gatsby": "^0.12.2",
+    "babel-preset-gatsby": "^0.12.3",
     "fake-indexeddb": "^3.1.2",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.6.3",
@@ -75,28 +99,5 @@
     "react-test-renderer": "^17.0.2",
     "redux-devtools": "^3.7.0",
     "redux-mock-store": "^1.5.4"
-  },
-  "homepage": "https://github.com/willianantunes/rave-of-phonetics",
-  "keywords": [
-    "phonetic",
-    "transcription",
-    "ipa",
-    "tts"
-  ],
-  "license": "0BSD",
-  "main": "n/a",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/willianantunes/rave-of-phonetics.git"
-  },
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "jest ./tests",
-    "cms": "npx netlify-cms-proxy-server"
   }
 }
