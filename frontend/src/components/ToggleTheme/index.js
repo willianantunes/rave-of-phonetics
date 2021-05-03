@@ -28,10 +28,6 @@ export default function ToggleTheme() {
     // Please see dark-mode-strategy.js to understand what is going on
     window.__toggleTheme()
     trackClick(evaluateCurrentTheme())
-
-    if (window && window.DISQUS !== undefined) {
-      window.setTimeout(() => window.DISQUS.reset({ reload: true }), 600)
-    }
   }
 
   return (

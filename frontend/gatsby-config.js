@@ -4,7 +4,7 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-const { GTM_ID, GTM_INCLUDE_DEVELOPMENT, SITE_URL, DISQUS_SHORTNAME } = require("./src/config/settings")
+const { GTM_ID, GTM_INCLUDE_DEVELOPMENT, SITE_URL } = require("./src/config/settings")
 
 const siteMetadata = {
   name: `Rave of Phonetics`,
@@ -140,12 +140,6 @@ const plugins = [
   `gatsby-plugin-styled-components`,
   `gatsby-plugin-use-query-params`,
   `gatsby-plugin-lodash`,
-  {
-    resolve: `gatsby-plugin-disqus`,
-    options: {
-      shortname: DISQUS_SHORTNAME,
-    },
-  },
   {
     resolve: `gatsby-plugin-netlify-cms`,
     options: {
