@@ -1,6 +1,5 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
-const { fmImagesToRelative } = require("gatsby-remark-relative-images")
 const { SITE_URL } = require("./src/config/settings")
 
 function extractsTitleFromPostLocation(location) {
@@ -75,7 +74,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 exports.onCreateNode = ({ node, actions, getNode }) => {
   // https://www.gatsbyjs.com/docs/reference/config-files/actions/#createNodeField
   const { createNodeField } = actions
-  fmImagesToRelative(node)
 
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode })

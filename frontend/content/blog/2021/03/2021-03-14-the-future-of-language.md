@@ -2,7 +2,7 @@
 id: 1d0aad00-846e-11eb-b3cc-add099bf4aff
 title: "The future of language "
 date: 2021-03-14T02:36:43.369Z
-cover: /assets/blog-4.png
+cover: /assets/posts/blog-4.png
 description: Time is like a virus that changes everything, from people to
   language itself. Languages are alive and evolve as long as people will.
 tags:

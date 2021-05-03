@@ -54,44 +54,12 @@ const plugins = [
     resolve: `gatsby-transformer-remark`,
     options: {
       plugins: [
+        `gatsby-remark-relative-images`,
         {
-          resolve: "gatsby-remark-relative-images",
-          options: {
-            name: "uploads",
-          },
-        },
-        {
+          // It will create publicURL
           resolve: `gatsby-remark-images`,
-          options: {
-            maxWidth: 630,
-            linkImagesToOriginal: false,
-          },
+          options: {},
         },
-        {
-          resolve: "gatsby-remark-copy-linked-files",
-          options: {
-            destinationDir: "static/assets/",
-          },
-        },
-        {
-          resolve: `gatsby-remark-responsive-iframe`,
-          options: {
-            wrapperStyle: `margin-bottom: 1.0725rem`,
-          },
-        },
-        {
-          resolve: `@raae/gatsby-remark-oembed`,
-          options: {
-            usePrefix: false,
-            providers: {
-              include: ["Youtube", "Twitter", "Codepen"],
-              exclude: ["Reddit", "Flickr", "Instagram"],
-            },
-          },
-        },
-        `gatsby-remark-prismjs`,
-        `gatsby-remark-copy-linked-files`,
-        `gatsby-remark-smartypants`,
         `gatsby-plugin-catch-links`,
         `gatsby-remark-lazy-load`,
       ],
@@ -148,6 +116,7 @@ const plugins = [
       manualInit: true,
     },
   },
+  `gatsby-plugin-netlify`,
 ]
 
 const robotsConfiguration = {

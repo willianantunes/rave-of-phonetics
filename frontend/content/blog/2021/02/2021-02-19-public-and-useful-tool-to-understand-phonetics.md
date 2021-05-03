@@ -2,7 +2,7 @@
 id: a97c5410-6e3d-11eb-9fbe-31a4fdd703fc
 title: Public and useful tool to understand phonetics
 date: 2021-02-19T08:28:19.016Z
-cover: /assets/tools-rave-of-phonetics.png
+cover: /assets/posts/tools-rave-of-phonetics.png
 description: Know where this site came from, how it was built, and understand
   how a problem faced by a person can be translated into a tool that everyone
   can use.
@@ -28,12 +28,12 @@ To illustrate one situation, I was pronouncing ‘*chew*’ instead of ‘*to*�
 
 Being a developer, something like the mason of the internet has its benefits. From time to time, I will take on a challenge and publicly share its code on my GitHub profile, like [this one](https://github.com/willianantunes/runner-said-no-one-ever) made in Ruby a time ago. The moment had come to do that yet again, so that’s when I saw the opportunity to change the game with a new tool that would help me (and you) to learn better through phonetics! Hence, I did the first version of Rave of Phonetics and I made it publicly available in January of 2021 (check the [changelog](/changelog) so you can see more details). After that day, I have not stopped improving it! The image below shows how many [commits](https://en.wikipedia.org/wiki/Commit_(version_control)) I have on the repository:
 
-![GitHub repository of the Rave of Phonetics project](github-refactor-rop.png "A monorepo of the entire project")
+![GitHub repository of the Rave of Phonetics project](/assets/posts/github-refactor-rop.png "A monorepo of the entire project")
 
 ## Technologies used
 
 I started the project using [Django](https://www.djangoproject.com/) and [Parcel](https://parceljs.org/), but now the whole architecture is changed. [Gatsby](https://www.gatsbyjs.com/) is used for front-end with [Material UI](https://material-ui.com/) and I am still using Django for the back-end, because, as you may know, it is the web framework for perfectionists with deadlines. By the way, I’m still using others like [Inkscape](https://inkscape.org/):
 
-![Print screen of Inkscape program](inkscape-rop.png "Inkscape can be used to draw things")
+![Print screen of Inkscape program](/assets/posts/inkscape-rop.png "Inkscape can be used to draw things")
 
 Let's build something together! Feedbacks and comments are welcome!
