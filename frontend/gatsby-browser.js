@@ -1,3 +1,4 @@
+const { RECAPTCHA_SITE_KEY } = require("./src/config/settings")
 // https://www.gatsbyjs.com/plugins/gatsby-remark-lazy-load/
 import "lazysizes"
 // Custom
@@ -6,5 +7,5 @@ import { wrapperRecaptcha } from "./src/config/wrapper-recaptcha"
 import "./src/config/dark-mode-strategy"
 
 export const wrapRootElement = ({ element }) => {
-  return wrapperRecaptcha({ siteKey: process.env.RECAPTCHA_SITE_KEY, element })
+  return wrapperRecaptcha({ siteKey: RECAPTCHA_SITE_KEY, element })
 }
