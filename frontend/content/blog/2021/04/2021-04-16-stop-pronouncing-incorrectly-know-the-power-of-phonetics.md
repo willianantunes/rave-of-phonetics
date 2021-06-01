@@ -13,6 +13,7 @@ tags:
   - pronunciation
   - teaching
   - spelling
+  - articulatoryphonetics
 ---
 ## Not again
 
@@ -43,6 +44,6 @@ If you are a teacher, it can help you when you teach pronunciation in class. Mak
 
 People who have problems speaking can also use it, in particular children. Some children develop speech production issues that persist as they age, known as [RSSD ](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4915106/)(Residual Speech Sound Disorders) and need to undergo therapy to better understand the phonetic difficulties that produce these misarticulation in children and adults. Using modern visualization technologies along with a knowledge of articulatory phonetics allows clinicians to understand and correct issues with speech production among a variety of individuals.
 
-## Start using phonetics 
+## Start using phonetics now!
 
 Phonetics is a cheat sheet for the sounds of a language. It is not the only tool you should use but it is a very helpful one. Check out those difficult sounds at our site and share this with your friends that love languages or have difficulties with pronunciation so they can also start mastering the sounds of all languages. Happy learning!
