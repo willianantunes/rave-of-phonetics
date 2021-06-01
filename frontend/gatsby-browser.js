@@ -1,4 +1,4 @@
-const { RECAPTCHA_SITE_KEY } = require("./src/config/settings")
+import { RECAPTCHA_SITE_KEY } from "./src/config/settings"
 // https://www.gatsbyjs.com/plugins/gatsby-remark-lazy-load/
 import "lazysizes"
 // Custom

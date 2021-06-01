@@ -7,7 +7,7 @@ backend:
 # https://github.com/netlify/netlify-cms/issues/2696#issuecomment-567081038
 # ONLY IF local_backend is true: media_folder: "/static/assets/posts"
 media_folder: "/frontend/static/assets/posts"
-public_folder: "/assets"
+public_folder: "/assets/posts"
 publish_mode: editorial_workflow
 
 collections:
