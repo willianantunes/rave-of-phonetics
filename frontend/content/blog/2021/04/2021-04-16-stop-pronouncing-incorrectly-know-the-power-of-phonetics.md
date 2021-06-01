@@ -16,7 +16,7 @@ tags:
 ---
 ## Not again
 
-![](/assets/laughing.jpg)
+![](/assets/laughing.jpg "We all make silly mistakes. ")
 
 P.O.V: you are next to introduce yourself in the new English course you enrolled in. You want to tell people that you are an engineer, that you like iced mochaccinos and that you enjoy going surfing at the beach. “I work as an engineer, I love to drink iced mochaccinos, I love going to the b*tch.” Suddenly, there is a short and uncomfortable silence. The teacher promptly thanks you for your participation and moves on to the next student. However, everyone knew the slip. The dreaded confusion between the short and long ‘I’ sound claimed yet another victim.
 
