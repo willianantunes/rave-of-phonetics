@@ -1,12 +1,12 @@
 ---
 id: 80432a10-9d72-11eb-9cd1-99320c9f4523
-title: "Stop pronouncing incorrectly: Know The Power of Phonetics"
+title: "Stop pronouncing incorrectly: Know The Power of Phonetics!"
 date: 2021-06-01T13:11:44.906Z
 cover: /assets/posts/blog-5-cover.png
-description: "Being the joke of the party is not so much fun when that joke is
+description: Being the joke of the party is not so much fun when that joke is
   you. Stop that now with the use of a powerful tool known as 'phonetics' and
   put an end to your embarrassing anecdotes while improving your language
-  skills."
+  skills.
 tags:
   - language learning
   - phonetics
@@ -15,8 +15,6 @@ tags:
   - spelling
   - articulatory phonetics
 ---
-## Not again
-
 ![People laughing](/assets/posts/blog-5-image-1-laughing.jpg "We all make silly mistakes. ")
 
 P.O.V: you are next to introduce yourself in the new English course you enrolled in. You want to tell people that you are an engineer, that you like iced mochaccinos and that you enjoy going surfing at the beach. “I work as an engineer, I love to drink iced mochaccinos, I love going to the b*tch.” Suddenly, there is a short and uncomfortable silence. The teacher promptly thanks you for your participation and moves on to the next student. However, everyone knew the slip. The dreaded confusion between the short and long ‘I’ sound claimed yet another victim.
