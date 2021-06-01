@@ -2,7 +2,7 @@
 id: 80432a10-9d72-11eb-9cd1-99320c9f4523
 title: "Stop pronouncing incorrectly: Know The Power of Phonetics"
 date: 2021-04-16T13:11:44.906Z
-cover: /assets/blog-4.png
+cover: /assets/blog-5.png
 description: "Being the joke of the party is not so much fun when that joke is
   you. Stop that now with the use of a powerful tool known as 'phonetics' and
   put an end to your embarrassing anecdotes while improving your language
