@@ -27,7 +27,7 @@ All English learners have embarrassing [stories ](https://forum.duolingo.com/com
 
 Take the example of the comically constructed word [ghoti](https://en.wikipedia.org/wiki/Ghoti). This parody word is constructed based on the sounds of the language instead of the spelling. The ‘gh’ letter combination is used to demonstrate the ‘f’ sound after ‘ou’ and the ‘ti’ letter combination sounds like ‘sh’ when it is followed by vowels. The ‘o’ letter represents the ‘i’ sound similar in the way you would pronounce the ‘o’ in the word ‘women.’ Because of issues like these, many intellectuals, such as Alexander J. Ellis, have called out for a [spelling reform](https://www.bbc.com/worklife/article/20190613-simpler-spelling-may-be-more-relevant-than-ever) to reduce this confusion for future speakers and readers of the language.  
 
-Phonetics allows you to understand the x-ray version of the letters or combinations of letters. This can be used to understand the reason why some words are not pronounced the way they are written. This is a very common [complaint ](https://www.speakenglishcenter.com/english-solving-the-6-biggest-difficulties-for-english-learners/)about English by learners from all parts of the word. Here’s how a good knowledge of phonetics can help you: 
+Phonetics allows you to understand the x-ray version of the letters or combinations of letters. This can be used to understand the reason why some words are not pronounced the way they are written. This is a very common [complaint ](https://www.speakenglishcenter.com/english-solving-the-6-biggest-difficulties-for-english-learners/)about English by learners from all parts of the world. Here’s how a good knowledge of phonetics can help you: 
 When you are reading and don't know a word. Reading is a great way to improve your lexical resource, amplifying your vocabulary range, but it does not provide you with the important aspect of how that word should be pronounced or what part of the word has stress. Having knowledge of phonetics allows you to take more control of the production of the word by allowing you to recognize the sounds you already know.
 
 ## Phonetics in the classroom
@@ -38,7 +38,7 @@ If you are a teacher, it can help you when you teach pronunciation in class. Mak
 
 ## Phonetics in medicine
 
-![Functional magnetic resonance imaging showing how the tongue is when phonemes are spoken](/assets/posts/blog-5-image-4-mri.png "Phonemes seen through an fMRI.")
+![Functional magnetic resonance imaging showing how the position of the tongue when producing phonemes.](/assets/posts/blog-5-image-4-mri.png "Phonemes seen through an fMRI.")
 
 People who have problems speaking can also use it, in particular children. Some children develop speech production issues that persist as they age, known as [RSSD ](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4915106/)(Residual Speech Sound Disorders) and need to undergo therapy to better understand the phonetic difficulties that produce these misarticulation in children and adults. Using modern visualization technologies along with a knowledge of articulatory phonetics allows clinicians to understand and correct issues with speech production among a variety of individuals.
 
