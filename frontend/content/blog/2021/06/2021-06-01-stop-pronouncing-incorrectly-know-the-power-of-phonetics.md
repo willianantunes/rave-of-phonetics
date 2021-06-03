@@ -38,7 +38,7 @@ If you are a teacher, it can help you when you teach pronunciation in class. Mak
 
 ## Phonetics in medicine
 
-![Functional magnetic resonance imaging showing how the tongue is when phonemes are spoken](/assets/posts/blog-5-image-4-mri.png "Phonemes seen through an fMRI.")
+![Functional magnetic resonance imaging showing how the position of the tongue when producing phonemes.](/assets/posts/blog-5-image-4-mri.png "Phonemes seen through an fMRI.")
 
 People who have problems speaking can also use it, in particular children. Some children develop speech production issues that persist as they age, known as [RSSD ](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4915106/)(Residual Speech Sound Disorders) and need to undergo therapy to better understand the phonetic difficulties that produce these misarticulation in children and adults. Using modern visualization technologies along with a knowledge of articulatory phonetics allows clinicians to understand and correct issues with speech production among a variety of individuals.
 
