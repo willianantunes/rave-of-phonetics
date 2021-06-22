@@ -8,14 +8,14 @@ import transcriptionSliceReducer, {
   textWasTranscribed,
   transcriptionFromText,
   transcriptionToBeSaved,
-} from "../../../../../src/redux/slices/transcription-slice"
+} from "../../../../src/redux/slices/transcription-slice"
 import thunk from "redux-thunk"
 import configureStore from "redux-mock-store"
-import { transcribe } from "../../../../../src/services/rop-api"
-import { findById } from "../../../../../src/domains/transcription-details-dao"
+import { transcribe } from "../../../../src/services/rop-api"
+import { findById } from "../../../../src/domains/transcription-details-dao"
 
-jest.mock("../../../../../src/services/rop-api")
-jest.mock("../../../../../src/domains/transcription-details-dao")
+jest.mock("../../../../src/services/rop-api")
+jest.mock("../../../../src/domains/transcription-details-dao")
 
 describe("Transcription slice reducer", () => {
   let initialState

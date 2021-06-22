@@ -1,12 +1,12 @@
 import React from "react"
-import { render } from "../../../../support/test-utils"
+import { render } from "../../../support/test-utils"
 import { waitFor } from "@testing-library/react"
-import SEO from "../../../../../src/components/SEO"
-import { useSiteMetadata } from "../../../../../src/hooks/use-site-metadata"
+import SEO from "../../../../src/components/SEO"
+import { useSiteMetadata } from "../../../../src/hooks/use-site-metadata"
 import { useStaticQuery } from "gatsby"
-import { getMetaByName, getMetaByProperty } from "../../../../support/html-utils"
+import { getMetaByName, getMetaByProperty } from "../../../support/html-utils"
 
-jest.mock("../../../../../src/hooks/use-site-metadata")
+jest.mock("../../../../src/hooks/use-site-metadata")
 jest.mock("gatsby")
 
 describe("SEO", () => {

@@ -4,8 +4,8 @@ import "lazysizes"
 // Custom
 import "./src/workaround.css"
 import { wrapperRecaptcha } from "./src/config/wrapper-recaptcha"
-import "./src/config/dark-mode-strategy"
+import { wrapWithDarkThemeProvider } from "./src/contexts/dark-theme-context"
 
 export const wrapRootElement = ({ element }) => {
-  return wrapperRecaptcha({ siteKey: RECAPTCHA_SITE_KEY, element })
+  return wrapWithDarkThemeProvider({ element: wrapperRecaptcha({ siteKey: RECAPTCHA_SITE_KEY, element }) })
 }

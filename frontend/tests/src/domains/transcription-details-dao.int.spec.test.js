@@ -1,9 +1,9 @@
 import "fake-indexeddb/auto"
 import Dexie from "dexie"
-import { databaseName } from "../../../../src/infra/indexeddb-setup"
-import * as dao from "../../../../src/domains/transcription-details-dao"
-import { sleep } from "../../../../src/utils/general"
-import { createTranscriptionDetails } from "../../../support/domain-utils"
+import { databaseName } from "../../../src/infra/indexeddb-setup"
+import * as dao from "../../../src/domains/transcription-details-dao"
+import { sleep } from "../../../src/utils/general"
+import { createTranscriptionDetails } from "../../support/domain-utils"
 
 describe("Transcription DAO", () => {
   beforeEach(async done => {

@@ -1,6 +1,6 @@
 import "fake-indexeddb/auto"
-import { getDatabase } from "../../../../src/infra/indexeddb-setup"
-import { createTranscriptionDetails } from "../../../support/domain-utils"
+import { getDatabase } from "../../../src/infra/indexeddb-setup"
+import { createTranscriptionDetails } from "../../support/domain-utils"
 
 test("Should create database properly", async () => {
   // Arrange

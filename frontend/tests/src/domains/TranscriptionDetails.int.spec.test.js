@@ -1,4 +1,4 @@
-import { createTranscriptionDetails } from "../../../support/domain-utils"
+import { createTranscriptionDetails } from "../../support/domain-utils"
 
 describe("Transcription domain", () => {
   describe(`Punctuation and stress marks`, () => {

@@ -5,13 +5,13 @@ import historySliceReducer, {
   eraseTranscriptionDetails,
   loadAllTranscriptionDetails,
   loadTranscriptionHistory,
-} from "../../../../../src/redux/slices/history-slice"
+} from "../../../../src/redux/slices/history-slice"
 import thunk from "redux-thunk"
 import configureStore from "redux-mock-store"
-import { deleteAll, findAll, saveOrUpdate } from "../../../../../src/domains/transcription-details-dao"
-import { transcriptionSaved } from "../../../../../src/redux/slices/transcription-slice"
+import { deleteAll, findAll, saveOrUpdate } from "../../../../src/domains/transcription-details-dao"
+import { transcriptionSaved } from "../../../../src/redux/slices/transcription-slice"
 
-jest.mock("../../../../../src/domains/transcription-details-dao")
+jest.mock("../../../../src/domains/transcription-details-dao")
 
 describe("History slice reducer", () => {
   let initialState

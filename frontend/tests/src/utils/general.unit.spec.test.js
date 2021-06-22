@@ -1,4 +1,4 @@
-import { slugify } from "../../../../src/utils/general"
+import { slugify } from "../../../src/utils/general"
 import React from "react"
 
 test("Should slugify a phrase that ends with a question mark", () => {

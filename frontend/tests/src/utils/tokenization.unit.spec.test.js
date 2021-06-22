@@ -1,4 +1,4 @@
-import { extractRawWordsAndTheirTokensFromText, extractTokensFromText } from "../../../../src/utils/tokenization"
+import { extractRawWordsAndTheirTokensFromText, extractTokensFromText } from "../../../src/utils/tokenization"
 
 describe("Tokenization", () => {
   describe("Words extraction", () => {

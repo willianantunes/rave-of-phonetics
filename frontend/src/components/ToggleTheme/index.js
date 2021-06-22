@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react"
 import * as S from "./styled"
 import { dispatchEvent } from "../../analytics"
 import { Helmet } from "react-helmet/es/Helmet"
+import {
+  paletteTypeDark,
+  paletteTypeLight,
+  paletteTypeLocalStorageKey,
+  useDarkThemeContext,
+} from "../../contexts/dark-theme-context"
 
 const trackClick = darkThemeUsed => {
   dispatchEvent({
@@ -11,22 +17,29 @@ const trackClick = darkThemeUsed => {
 }
 
 export default function ToggleTheme() {
-  const paletteTypeDark = "dark"
+  const { paletteType, setPaletteType } = useDarkThemeContext()
   const [isDarkMode, setIsDarkMode] = useState(null)
 
   function evaluateCurrentTheme() {
-    const evaluation = window.__theme === paletteTypeDark
+    const evaluation = paletteType === paletteTypeDark
     setIsDarkMode(evaluation)
     return evaluation
   }
 
+  function toggleTheme() {
+    const newTheme = paletteType === paletteTypeLight ? paletteTypeDark : paletteTypeLight
+    setPaletteType(newTheme)
+    try {
+      localStorage.setItem(paletteTypeLocalStorageKey, newTheme)
+    } catch (exceptionToBeIgnored) {}
+  }
+
   useEffect(() => {
     evaluateCurrentTheme()
-  }, [])
+  }, [paletteType])
 
   const onClick = () => {
-    // Please see dark-mode-strategy.js to understand what is going on
-    window.__toggleTheme()
+    toggleTheme()
     trackClick(evaluateCurrentTheme())
   }
 

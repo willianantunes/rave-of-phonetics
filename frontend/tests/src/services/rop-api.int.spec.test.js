@@ -1,4 +1,4 @@
-import { InvalidRequestError, suggest, transcribe } from "../../../../src/services/rop-api"
+import { InvalidRequestError, suggest, transcribe } from "../../../src/services/rop-api"
 
 xdescribe("Rave of Phonetics API Service", () => {
   it("Should transcribe RAVE LIVE PHONETICS", async () => {

@@ -1,16 +1,16 @@
 import React from "react"
 import "fake-indexeddb/auto"
-import { render } from "../../../../support/test-utils"
+import { render } from "../../../support/test-utils"
 import { fireEvent, screen } from "@testing-library/react"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { debounce } from "lodash"
-import { transcribe } from "../../../../../src/services/rop-api"
-import { createTranscriptionDetails } from "../../../../support/domain-utils"
-import MainTools from "../../../../../src/components/MainTools"
+import { transcribe } from "../../../../src/services/rop-api"
+import { createTranscriptionDetails } from "../../../support/domain-utils"
+import MainTools from "../../../../src/components/MainTools"
 
 jest.mock("react-google-recaptcha-v3")
 jest.mock("lodash")
-jest.mock("../../../../../src/services/rop-api")
+jest.mock("../../../../src/services/rop-api")
 
 describe("MainTools component", () => {
   describe(`IPA Transcription Tool`, () => {

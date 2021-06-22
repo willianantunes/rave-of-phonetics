@@ -1,22 +1,10 @@
 import React from "react"
-import Header from "../../../../../src/components/Header"
-import { render } from "../../../../support/test-utils"
-import theme from "../../../../../src/gatsby-theme-material-ui-top-layout/theme"
+import Header from "../../../../src/components/Header"
+import { render } from "../../../support/test-utils"
+import theme from "../../../../src/gatsby-theme-material-ui-top-layout/theme"
 import { fireEvent, screen, waitFor } from "@testing-library/react"
 
 describe("Header", () => {
-  beforeEach(() => {
-    window.__toggleTheme = jest.fn().mockImplementation(() => {
-      window.__theme = window.__theme === "dark" ? "light" : "dark"
-    })
-    window.__theme = "light"
-  })
-
-  afterEach(() => {
-    delete window.__toggleTheme
-    delete window.__theme
-  })
-
   it("has home link less than tablet", () => {
     const { container } = render(<Header />, { useWidthReactResponsive: theme.breakpoints.values.md })
 
@@ -90,8 +78,6 @@ describe("Header", () => {
     fireEvent.click(element)
     await screen.findByTitle(titleWhenLight)
     await waitFor(() => expect(document.querySelector(`.${whenThemeIsDark}`)).toBeInTheDocument())
-
-    expect(window.__toggleTheme).toHaveBeenCalledTimes(1)
 
     expect(document.body.classList.contains(whenThemeIsDark)).toBeTruthy()
     expect(element.getAttribute("title")).toBe(titleWhenLight)
