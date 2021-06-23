@@ -1,0 +1,4 @@
+/* In order to fix reCAPTCHA z-index issue */
+.grecaptcha-badge {
+    z-index: 500;
+}

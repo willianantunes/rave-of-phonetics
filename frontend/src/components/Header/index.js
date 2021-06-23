@@ -81,7 +81,7 @@ const Header = () => {
   return (
     <S.CustomAppBar>
       <S.CustomToolbar variant={"dense"}>
-        <S.CustomTypography>
+        <S.Title>
           <R.LessThanTablet>
             <Link data-testid="link-home-less-than-tablet" to="/" color="inherit">
               RoP
@@ -92,7 +92,7 @@ const Header = () => {
               Rave of Phonetics
             </Link>
           </R.GreaterThanTablet>
-        </S.CustomTypography>
+        </S.Title>
         {mobileView ? displayMobile() : displayDesktop()}
         <ToggleTheme />
       </S.CustomToolbar>

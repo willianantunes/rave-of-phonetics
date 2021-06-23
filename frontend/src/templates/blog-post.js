@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from "react"
+import React, { createRef } from "react"
 import SEO from "../components/SEO"
 import { Link } from "gatsby-theme-material-ui"
 import { graphql } from "gatsby"
@@ -16,32 +16,11 @@ const BlogPostTemplate = ({ data }) => {
   const date = post.frontmatter.date
   const formattedDate = post.frontmatter.formattedDate
   const title = post.frontmatter.title
-  const identifier = post.frontmatter.id
   const tags = post.frontmatter.tags
   const content = post.html
   const timeToRead = post.timeToRead
   const image = `${siteUrl}${post.frontmatter.cover.publicURL}`
   const { previous, next } = data
-
-  useEffect(() => {
-    const commentScript = document.createElement("script")
-    // TODO: When the user changes theme, this should be updated too
-    // const theme = typeof window !== "undefined" && isCurrentThemeDark() ? "github-dark" : "github-light"
-    const theme = "github-light"
-    commentScript.async = true
-    commentScript.src = "https://utteranc.es/client.js"
-    // TODO: Use ENV variables for it
-    commentScript.setAttribute("repo", "raveofphonetics/comments")
-    commentScript.setAttribute("issue-term", "pathname")
-    commentScript.setAttribute("id", "utterances")
-    commentScript.setAttribute("theme", theme)
-    commentScript.setAttribute("crossorigin", "anonymous")
-    if (commentSectionRef && commentSectionRef.current) {
-      commentSectionRef.current.appendChild(commentScript)
-    } else {
-      console.log(`Error adding utterances comments on: ${commentSectionRef}`)
-    }
-  }, [])
 
   return (
     <Layout blog={true}>

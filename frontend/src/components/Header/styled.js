@@ -8,7 +8,7 @@ export const CustomAppBar = styled(AppBar).attrs({
   color: "primary",
 })``
 
-export const CustomTypography = styled(Typography).attrs({
+export const Title = styled(Typography).attrs({
   component: "p",
   variant: "h6",
 })`
@@ -33,7 +33,7 @@ export const CustomDrawer = styled(Drawer)`
 export const MenuButton = styled(Button).attrs({ color: "inherit" })``
 
 export const MenuMobile = styled(IconButton).attrs({ color: "inherit" })`
-  margin-right: 0px;
+  margin-right: 0;
   & svg {
     width: 25px;
   }
