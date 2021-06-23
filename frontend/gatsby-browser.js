@@ -1,11 +1,7 @@
-import { RECAPTCHA_SITE_KEY } from "./src/config/settings"
+import { wrapWithDarkThemeProvider } from "./src/contexts/dark-theme-context"
 // https://www.gatsbyjs.com/plugins/gatsby-remark-lazy-load/
 import "lazysizes"
-// Custom
+// In order to fix reCAPTCHA z-index issue
 import "./src/workaround.css"
-import { wrapperRecaptcha } from "./src/config/wrapper-recaptcha"
-import { wrapWithDarkThemeProvider } from "./src/contexts/dark-theme-context"
 
-export const wrapRootElement = ({ element }) => {
-  return wrapWithDarkThemeProvider({ element: wrapperRecaptcha({ siteKey: RECAPTCHA_SITE_KEY, element }) })
-}
+export const wrapRootElement = wrapWithDarkThemeProvider
