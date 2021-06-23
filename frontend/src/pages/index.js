@@ -4,6 +4,7 @@ import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import MainTools from "../components/MainTools"
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3"
+import CommentSection from "../components/CommentSection"
 
 const IndexPage = () => {
   const title = "Home"

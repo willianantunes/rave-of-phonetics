@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import * as S from "./styled"
-import { dispatchEvent } from "../../analytics"
 import { Helmet } from "react-helmet/es/Helmet"
 import {
   paletteTypeDark,
@@ -8,13 +7,6 @@ import {
   paletteTypeLocalStorageKey,
   useDarkThemeContext,
 } from "../../contexts/dark-theme-context"
-
-const trackClick = darkThemeUsed => {
-  dispatchEvent({
-    category: "Theme",
-    action: `changed to dark: ${darkThemeUsed}`,
-  })
-}
 
 export default function ToggleTheme() {
   const { paletteType, setPaletteType } = useDarkThemeContext()
@@ -40,7 +32,6 @@ export default function ToggleTheme() {
 
   const onClick = () => {
     toggleTheme()
-    trackClick(evaluateCurrentTheme())
   }
 
   return (
