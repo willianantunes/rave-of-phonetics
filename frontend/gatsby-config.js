@@ -4,7 +4,7 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-const { GOOGLE_TAGMANAGER_ID, GTM_INCLUDE_DEVELOPMENT, SITE_URL } = require("./src/config/settings")
+const { SITE_URL } = require("./src/config/settings")
 
 const siteMetadata = {
   name: `Rave of Phonetics`,
@@ -67,18 +67,6 @@ const plugins = [
     },
   },
   `gatsby-plugin-sitemap`,
-  {
-    resolve: "gatsby-plugin-google-tagmanager",
-    options: {
-      id: GOOGLE_TAGMANAGER_ID,
-      // Include GTM in development.
-      // Defaults to false meaning GTM will only be loaded in production.
-      includeInDevelopment: GTM_INCLUDE_DEVELOPMENT,
-      // Name of the event that is triggered
-      // Defaults to gatsby-route-change
-      routeChangeEventName: "ROUTE-CHANGE",
-    },
-  },
   `gatsby-plugin-feed`,
   {
     resolve: `gatsby-plugin-manifest`,

@@ -2,7 +2,7 @@ import { createMuiTheme } from "@material-ui/core"
 
 export const themeConfiguration = {
   typography: {
-    fontFamily: ["Montserrat", "sans-serif"].join(","),
+    fontFamily: ["Arvo", "serif"].join(","),
   },
   palette: {
     type: "light",

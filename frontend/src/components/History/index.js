@@ -7,7 +7,6 @@ import {
   loadTranscriptionHistory,
 } from "../../redux/slices/history-slice"
 import { loadTranscriptionFromDatabase } from "../../redux/slices/transcription-slice"
-import { dispatchEvent } from "../../analytics"
 import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
 
 const columns = [
@@ -28,27 +27,7 @@ const columns = [
     field: "language",
     headerName: "Language",
     description: "Which language you used to transcribe, following IETF language tag format",
-    width: 100,
-  },
-  {
-    field: "showStress",
-    headerName: "Show stress",
-    width: 110,
-  },
-  {
-    field: "showSyllables",
-    headerName: "Show syllables",
-    width: 110,
-  },
-  {
-    field: "showPunctuations",
-    headerName: "Show punctuations",
-    width: 110,
-  },
-  {
-    field: "showPhonetic",
-    headerName: "Show phonetic",
-    width: 110,
+    width: 150,
   },
   {
     field: "createdAt",
@@ -57,20 +36,6 @@ const columns = [
     width: 180,
   },
 ]
-
-const trackDeleteForeverClick = () => {
-  dispatchEvent({
-    category: "History table",
-    action: `Deleted all rows`,
-  })
-}
-
-const trackRowClick = () => {
-  dispatchEvent({
-    category: "History table",
-    action: `Clicked in some row`,
-  })
-}
 
 export default function History() {
   // -------------------------------
@@ -111,12 +76,10 @@ export default function History() {
   // Actions
   const deleteTableContent = () => {
     if (transcriptions.length > 0) {
-      trackDeleteForeverClick()
       dispatch(deleteAllTranscriptionHistory())
     }
   }
   const handleRowClick = params => {
-    trackRowClick()
     dispatch(loadTranscriptionFromDatabase(params.row.id))
     window.scroll({ top: 0, left: 0, behavior: "smooth" })
   }

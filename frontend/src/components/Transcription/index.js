@@ -20,37 +20,8 @@ import { copyToClipboard } from "../../utils/general"
 import { stringify } from "query-string"
 import { useLocation } from "@reach/router"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
-import { dispatchEvent } from "../../analytics"
 import { TranscriptionDetails } from "../../domains/TranscriptionDetails"
 import TranscriptionEntry from "../TranscriptionEntry"
-
-const trackTranscribeClick = language => {
-  dispatchEvent({
-    category: "Transcription tool",
-    action: `transcribe using ${language}`,
-  })
-}
-
-const trackTranscribeError = () => {
-  dispatchEvent({
-    category: "Transcription tool",
-    action: `Error shown`,
-  })
-}
-
-const trackCopyLinkClick = language => {
-  dispatchEvent({
-    category: "Transcription tool",
-    action: `copied link using ${language}`,
-  })
-}
-
-const trackCopyTranscriptionClick = language => {
-  dispatchEvent({
-    category: "Transcription tool",
-    action: `copied transcription using ${language}`,
-  })
-}
 
 export default function Transcription() {
   // -------------------------------
@@ -89,10 +60,7 @@ export default function Transcription() {
     []
   )
   const delayedTranscribeAction = useCallback(
-    debounce(
-      (text, chosenLanguage, token) => dispatch(transcriptionFromText(text, chosenLanguage, token, trackTranscribeError)),
-      500
-    ),
+    debounce((text, chosenLanguage, token) => dispatch(transcriptionFromText(text, chosenLanguage, token)), 500),
     []
   )
   // -------------------------------
@@ -146,7 +114,6 @@ export default function Transcription() {
     if (event.target.id === "form-transcription") {
       const token = await executeRecaptcha("transcribe")
 
-      trackTranscribeClick(chosenLanguage)
       delayedTranscribeAction(text, chosenLanguage, token)
     }
   }
@@ -170,7 +137,6 @@ export default function Transcription() {
       }
     )
     copyToClipboard(`${origin}?${stringify(encodedQuery)}`)
-    trackCopyLinkClick(chosenLanguage)
     setAnchorWhenSomethingIsCopied(event.currentTarget)
   }
   const copyTranscriptionToClipboard = event => {
@@ -179,7 +145,6 @@ export default function Transcription() {
     } else {
       copyToClipboard("Have you tried to transcribe something first?")
     }
-    trackCopyTranscriptionClick(chosenLanguage)
     setAnchorWhenSomethingIsCopied(event.currentTarget)
   }
 
