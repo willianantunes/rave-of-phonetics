@@ -27,27 +27,7 @@ const columns = [
     field: "language",
     headerName: "Language",
     description: "Which language you used to transcribe, following IETF language tag format",
-    width: 100,
-  },
-  {
-    field: "showStress",
-    headerName: "Show stress",
-    width: 110,
-  },
-  {
-    field: "showSyllables",
-    headerName: "Show syllables",
-    width: 110,
-  },
-  {
-    field: "showPunctuations",
-    headerName: "Show punctuations",
-    width: 110,
-  },
-  {
-    field: "showPhonetic",
-    headerName: "Show phonetic",
-    width: 110,
+    width: 150,
   },
   {
     field: "createdAt",

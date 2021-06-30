@@ -27,6 +27,7 @@ export const { addNewTranscriptionDetails, loadAllTranscriptionDetails, eraseTra
 export default historySlice.reducer
 
 export const loadTranscriptionHistory = () => async dispatch => {
+  // TODO: Actually use OrderBy instead of reverting
   const transcriptions = await findAll()
   const transcriptionsAsObjects = transcriptions.map(entry =>
     entry.convertToObject({
@@ -34,8 +35,9 @@ export const loadTranscriptionHistory = () => async dispatch => {
       withRefreshedTranscription: true,
     })
   )
+  const reversedTranscriptionsAsObjects = transcriptionsAsObjects.reverse()
 
-  dispatch(loadAllTranscriptionDetails(transcriptionsAsObjects))
+  dispatch(loadAllTranscriptionDetails(reversedTranscriptionsAsObjects))
 }
 
 export const addTranscriptionDetails = transcriptionDetails => async dispatch => {
