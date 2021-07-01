@@ -3,6 +3,8 @@ import { Box, Typography, lighten } from "@material-ui/core"
 import { Link } from "gatsby-theme-material-ui"
 
 export const TranscriptionEntryBox = styled(Box)`
+  font-family: "Montserrat", sans-serif;
+
   & div:first-child {
     color: ${props => props.theme.palette.text.secondary};
   }
