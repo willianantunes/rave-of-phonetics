@@ -19,6 +19,7 @@ from tests.support.models_utils import create_suggestion
 from tests.support.text_utils import alphabet_range_as_unicode
 
 
+@pytest.mark.skip("It temporary disabled")
 def test_should_create_dictionary_entry_from_suggestion(admin_client):
     # Arrange
     word_or_symbol, ipa_phonemic = "theoretically", "ˌθiəˈrɛtɪkəli"
