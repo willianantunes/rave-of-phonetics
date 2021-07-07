@@ -1,0 +1,2 @@
+class ConfigurationTwitterNotAvailableException(Exception):
+    pass

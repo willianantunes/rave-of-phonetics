@@ -5,3 +5,5 @@ db.*
 .coverage
 tests-reports
 .config
+.local
+.bash_history

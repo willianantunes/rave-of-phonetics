@@ -15,6 +15,7 @@ requests = "*"
 requests-oauthlib = "*"
 transcriber-wrapper = "*"
 django-q = "*"
+tweepy = "*"
 
 [dev-packages]
 pytest-django = "*"

@@ -11,6 +11,7 @@ from corsheaders.defaults import default_headers
 from pythonjsonlogger.jsonlogger import JsonFormatter
 
 from rave_of_phonetics.apps.core.apps import CoreConfig
+from rave_of_phonetics.apps.twitter.apps import TwitterConfig
 from rave_of_phonetics.support.django_helpers import eval_env_as_boolean
 from rave_of_phonetics.support.django_helpers import getenv_or_raise_exception
 
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_q",
     CoreConfig.name,
+    TwitterConfig.name,
 ]
 
 MIDDLEWARE = [
@@ -291,3 +293,7 @@ DJANGO_BULK_BATCH_SIZE = int(os.getenv("DJANGO_BULK_BATCH_SIZE", 1000))
 
 # IP address discovery
 IP_DISCOVERY_NUMBER_OF_PROXIES = int(os.getenv("IP_DISCOVERY_NUMBER_OF_PROXIES", 0))
+
+# Twitter
+TWITTER_CONSUMER_KEY = os.getenv("TWITTER_CONSUMER_KEY")
+TWITTER_CONSUMER_SECRET = os.getenv("TWITTER_CONSUMER_SECRET")
