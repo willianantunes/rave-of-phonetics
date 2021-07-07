@@ -33,6 +33,22 @@ services:
         "--",
         "./scripts/start-development.sh",
       ]
+  worker:
+    build: *dockerfile-dev-build
+    env_file: .env.development
+    volumes:
+      - .:/home/appuser
+    depends_on:
+      - db
+    command:
+      [
+        "./scripts/wait-for-it.sh",
+        "db:5432",
+        "-t",
+        "120",
+        "--",
+        "./scripts/start-worker.sh",
+      ]
   production:
     build:
       context: .
