@@ -1,10 +1,10 @@
-FROM python:3.9.4-buster
+FROM python:3.9.6-buster
 
 RUN apt-get update && apt-get upgrade -y && apt-get install -y \
     espeak-ng && \
     apt-get clean
 
-WORKDIR /app
+WORKDIR /home/appuser
 
 COPY Pipfile Pipfile.lock ./
 
@@ -18,5 +18,10 @@ COPY . ./
 RUN rm Pipfile Pipfile.lock
 
 HEALTHCHECK CMD python healthcheck.py
+
+RUN useradd --user-group --system --uid 1000 appuser \
+    && chown -R appuser /home/appuser
+
+USER appuser
 
 CMD [ "./scripts/start-production.sh" ]

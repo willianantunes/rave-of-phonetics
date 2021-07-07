@@ -4,3 +4,4 @@ db.*
 .mypy_cache
 .coverage
 tests-reports
+.config
