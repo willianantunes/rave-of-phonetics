@@ -2,18 +2,11 @@
 
 Django project that handles everything related to the back-end side of [Rave of Phonetics](https://www.raveofphonetics.com/).
 
-## To study
+## Tasks that can be executed by Django Q
 
-- https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary
-- https://github.com/mphilli/English-to-IPA
-- https://github.com/open-dict-data/ipa-dict
-- https://open-dict-data.github.io/
-- https://github.com/repp/big-phoney
-- https://pyphen.org/
-- https://github.com/cmusphinx/cmudict-tools
-- https://github.com/JoseLlarena/Britfone/blob/master/britfone.main.3.0.1.csv
-- https://en.wikipedia.org/wiki/Comparison_of_General_American_and_Received_Pronunciation#:~:text=4%20Bibliography-,Phonological%20differences,followed%20by%20a%20vowel%20sound.&text=Similarly%2C%20where%20GA%20has%20r,%C9%99%2F%20or%20%2F%C9%9C%CB%90%2F
-- https://www.lumenvox.com/knowledgebase/index.php?/article/AA-01085/0/UK-English-Phonemes.html
+To verify mentions:
+
+    rave_of_phonetics.apps.twitter.tasks.verify_mentions_and_send_transcription_if_required
 
 ## Running the project
 
@@ -35,6 +28,7 @@ In order to check the files included in the final container image, first you ent
 You can install it through docker-compose issuing the following command for example:
 
     docker-compose run remote-interpreter pipenv --python 3 install transcriber-wrapper
+    docker-compose run remote-interpreter pipenv install django-q
 
 Now if you want to update them:
 
