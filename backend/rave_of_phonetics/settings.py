@@ -11,6 +11,7 @@ from corsheaders.defaults import default_headers
 from pythonjsonlogger.jsonlogger import JsonFormatter
 
 from rave_of_phonetics.apps.core.apps import CoreConfig
+from rave_of_phonetics.apps.twitter.apps import TwitterConfig
 from rave_of_phonetics.support.django_helpers import eval_env_as_boolean
 from rave_of_phonetics.support.django_helpers import getenv_or_raise_exception
 
@@ -44,7 +45,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "django_q",
     CoreConfig.name,
+    TwitterConfig.name,
 ]
 
 MIDDLEWARE = [
@@ -140,6 +143,49 @@ if DB_USE_SSL:
 if os.getenv("PYTEST_RUNNING"):
     del DATABASES["default"]["OPTIONS"]
 
+
+# Django Q configuration
+# https://django-q.readthedocs.io/en/latest/install.html
+# https://django-q.readthedocs.io/en/latest/brokers.html
+
+# Dealing with TIMEOUT and RETRY
+q_cluster_timeout = int(os.getenv("Q_CLUSTER_TIMEOUT_IN_MIN", 5)) * 60
+q_cluster_retry = q_cluster_timeout * 2
+if q_cluster_custom_retry := os.getenv("Q_CLUSTER_RETRY_IN_MIN"):
+    q_cluster_retry = int(q_cluster_custom_retry) * 60
+django_q_retry_configuration_is_wrong = q_cluster_retry <= q_cluster_timeout
+if django_q_retry_configuration_is_wrong:
+    raise EnvironmentError("Q_CLUSTER_RETRY_IN_MIN should be less than Q_CLUSTER_TIMEOUT_IN_MIN")
+
+# Dealing with WORKER and QUEUE LIMIT
+q_cluster_workers = int(os.getenv("Q_CLUSTER_WORKERS", 1))
+q_cluster_queue_limit = q_cluster_workers ** 2
+if q_cluster_custom_queue_limit := os.getenv("Q_CLUSTER_QUEUE_LIMIT"):
+    q_cluster_queue_limit = int(q_cluster_custom_queue_limit)
+
+Q_CLUSTER = {
+    # https://django-q.readthedocs.io/en/latest/configure.html#orm-configuration
+    "orm": DATABASE_READ_WRITE,
+    "has_replica": True,
+    # https://django-q.readthedocs.io/en/latest/configure.html#name
+    "name": "DQScheduler",
+    # The number of workers to use in the cluster.
+    # Defaults to CPU count of the current host, but can be set to a custom number
+    "workers": q_cluster_workers,
+    # This does not limit the amount of tasks that can be queued on the broker,
+    # but rather how many tasks are kept in memory by a single cluster.
+    "queue_limit": q_cluster_queue_limit,
+    # Sets the number of messages each cluster tries to get from the broker per call.
+    "bulk": int(os.getenv("Q_CLUSTER_BULK", 10)),
+    # The number of seconds a worker is allowed to spend on a task before it’s terminated.
+    "timeout": q_cluster_timeout,
+    # The number of seconds a broker will wait for a cluster to finish a task, before it’s presented again.
+    "retry": q_cluster_retry,
+    # Limit the number of retry attempts for failed tasks. Set to 0 for infinite retries. Defaults to 0
+    "max_attempts": int(os.getenv("Q_CLUSTER_ATTEMPTS", 2)),
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -207,8 +253,20 @@ LOGGING = {
         },
         "django": {"level": os.getenv("DJANGO_LOG_LEVEL", "INFO"), "handlers": ["console"]},
         "django.db.backends": {"level": os.getenv("DJANGO_DB_BACKENDS_LOG_LEVEL", "INFO"), "handlers": ["console"]},
+        "django-q": {
+            "level": os.getenv("DJANGO_Q_LOG_LEVEL", "INFO"),
+            "handlers": ["console"],
+            "propagate": False,
+        },
     },
 }
+
+if eval_env_as_boolean("RUNNING_DJANGO_Q", False):
+    import logging.config
+
+    # This is not called automatically by the framework when using DJANGO-Q
+    logging.config.dictConfig(LOGGING)
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -235,3 +293,7 @@ DJANGO_BULK_BATCH_SIZE = int(os.getenv("DJANGO_BULK_BATCH_SIZE", 1000))
 
 # IP address discovery
 IP_DISCOVERY_NUMBER_OF_PROXIES = int(os.getenv("IP_DISCOVERY_NUMBER_OF_PROXIES", 0))
+
+# Twitter
+TWITTER_CONSUMER_KEY = os.getenv("TWITTER_CONSUMER_KEY")
+TWITTER_CONSUMER_SECRET = os.getenv("TWITTER_CONSUMER_SECRET")

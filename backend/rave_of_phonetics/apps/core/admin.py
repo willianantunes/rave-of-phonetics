@@ -45,10 +45,9 @@ class SuggestionAdmin(CustomModelAdminMixin, admin.ModelAdmin):
         "language_tag",
         "applied",
     ]
-    actions = [
-        "apply_suggestion",
-    ]
-    readonly_fields = ["applied"]
+    # It is disabled for awhile, that means it should be manually applied
+    # actions = ["apply_suggestion"]
+    # readonly_fields = ["applied"]
 
     def apply_suggestion(self, request, queryset: QuerySet):
         if not queryset.count() == 1:

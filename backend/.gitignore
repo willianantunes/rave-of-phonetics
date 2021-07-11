@@ -4,3 +4,6 @@ db.*
 .mypy_cache
 .coverage
 tests-reports
+.config
+.local
+.bash_history

@@ -19,7 +19,7 @@ services:
     build: *dockerfile-dev-build
     env_file: .env.development
     volumes:
-      - .:/app
+      - .:/home/appuser
     ports:
       - "8080:8000"
     depends_on:
@@ -32,6 +32,22 @@ services:
         "120",
         "--",
         "./scripts/start-development.sh",
+      ]
+  worker:
+    build: *dockerfile-dev-build
+    env_file: .env.development
+    volumes:
+      - .:/home/appuser
+    depends_on:
+      - db
+    command:
+      [
+        "./scripts/wait-for-it.sh",
+        "db:5432",
+        "-t",
+        "120",
+        "--",
+        "./scripts/start-worker.sh",
       ]
   production:
     build:
