@@ -21,6 +21,7 @@ class FakeTweet:
     id: int
     text: str
     user: FakeTwitterUser
+    in_reply_to_status_id: Optional[int] = None
 
 
 @dataclass(frozen=True)
@@ -29,9 +30,11 @@ class FakeUpdateStatus:
     id: int
 
 
-def create_tweet(tweet_id: int, tweet_text: str, user_id: str, user_name: str, screen_name: str) -> FakeTweet:
+def create_tweet(
+    tweet_id: int, tweet_text: str, user_id: str, user_name: str, screen_name: str, in_reply_to_status_id=None
+) -> FakeTweet:
     twitter_user = FakeTwitterUser(int(user_id), user_id, user_name, screen_name)
-    return FakeTweet(tweet_id, tweet_text, twitter_user)
+    return FakeTweet(tweet_id, tweet_text, twitter_user, in_reply_to_status_id)
 
 
 def create_tweet_status(tweet_id: int) -> FakeUpdateStatus:
