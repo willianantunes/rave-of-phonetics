@@ -122,14 +122,57 @@ def test_valid_tweet_replied_status():
     # Arrange
     sample_tweet_1 = "@Cockatiel @Rachel what is your problem"
     sample_tweet_2 = "I know that I haven't worked here very long"
+    sample_tweet_3 = """I've taken soda out of my diet completely, and anyone who values their internal organs, or teeth, would do well to follow suit. 
+
+So, let them change the flavor a thousand times. https://t.co/m0ETHgyWjR"""
     # Act
     tweet_details_1 = _evaluate_tweet_and_retrieve_details_replied_status(sample_tweet_1)
     tweet_details_2 = _evaluate_tweet_and_retrieve_details_replied_status(sample_tweet_2)
+    tweet_details_3 = _evaluate_tweet_and_retrieve_details_replied_status(sample_tweet_3)
     # Assert
     assert tweet_details_1 == TweetDetails(is_valid=True, words=["what", "is", "your", "problem"])
     assert tweet_details_2 == TweetDetails(
         is_valid=True,
         words=["i", "know", "that", "i", "haven't", "worked", "here", "very", "long"],
+    )
+    assert tweet_details_3 == TweetDetails(
+        is_valid=True,
+        words=[
+            "i've",
+            "taken",
+            "soda",
+            "out",
+            "of",
+            "my",
+            "diet",
+            "completely",
+            "and",
+            "anyone",
+            "who",
+            "values",
+            "their",
+            "internal",
+            "organs",
+            "or",
+            "teeth",
+            "would",
+            "do",
+            "well",
+            "to",
+            "follow",
+            "suit",
+            "",
+            "",
+            "so",
+            "let",
+            "them",
+            "change",
+            "the",
+            "flavor",
+            "a",
+            "thousand",
+            "times",
+        ],
     )
 
 
@@ -300,7 +343,7 @@ def test_check_mentions_task():
     # Arrange
     create_setup("1353325111399612416-2EHx2gBIXR1zNAoIqqkBEc0MC2Qvrg", "1FHR2dUN1Qi3lDteUYkKofAx1NJ2Qmi09zJDmXcpx0qsP")
     api = generate_read_write_api()
-    latest_mention_id = 1414354998503350272
+    latest_mention_id = 1415686015323279363
     # Act
     id_to_be_saved = check_mentions(api, latest_mention_id)
     # Assert

@@ -17,6 +17,7 @@ from rave_of_phonetics.apps.twitter.models import TranscribeTweet
 from rave_of_phonetics.apps.twitter.service.helpers import limit_handled
 from rave_of_phonetics.apps.twitter.service.twitter_api import retrieve_text
 from rave_of_phonetics.apps.twitter.service.words import give_some_hello_word
+from rave_of_phonetics.support.text_utils import newline_to_space
 from rave_of_phonetics.support.text_utils import strip_left_and_right_sides
 
 logger = logging.getLogger(__name__)
@@ -37,7 +38,8 @@ regex_negation_to_extract_words_and_emojis = re.compile(
 
 
 def _extract_list_of_words_symbols(words: str):
-    list_of_words = words.split(" ")
+    list_of_dirty_words = words.split(" ")
+    list_of_words = [word for word in list_of_dirty_words if not word.startswith("https://")]
     list_of_cleaned_words = map(lambda v: v.lower(), map(strip_left_and_right_sides, list_of_words))
     list_of_tuple = [
         (regex_negation_to_extract_words_and_emojis.sub("", cleaned_word), cleaned_word)
@@ -63,7 +65,7 @@ def _evaluate_tweet_and_retrieve_details_replied_status(text: Optional[str]) -> 
     if not text:
         return TweetDetails(False)
 
-    cleaned_text = strip_left_and_right_sides(text)
+    cleaned_text = newline_to_space(strip_left_and_right_sides(text))
     match = regex_words_from_replied_status.match(cleaned_text)
 
     if not match:
