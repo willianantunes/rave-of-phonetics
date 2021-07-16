@@ -135,20 +135,27 @@ def check_mentions(api: tweepy.API, since_id: int):
 
     # https://docs.tweepy.org/en/stable/extended_tweets.html
     # https://docs.tweepy.org/en/latest/api.html#tweepy.API.mentions_timeline
-    for tweet in limit_handled(tweepy.Cursor(api.mentions_timeline, since_id=since_id, tweet_mode="extended").items()):
-        new_since_id = max(tweet.id, new_since_id)
+    tweets = [
+        status
+        for status in limit_handled(
+            tweepy.Cursor(api.mentions_timeline, since_id=since_id, tweet_mode="extended").items()
+        )
+    ]
+    for tweet in reversed(tweets):
         user_name = tweet.user.name
         user_screen_name = tweet.user.screen_name
         text = retrieve_text(tweet)
+        new_since_id = max(tweet.id, new_since_id)
+        logger.info(f"Evaluating tweed with ID {tweet.id} from user {user_name}. ID to be used: {new_since_id}")
 
-        logger.info(f"Message from user {user_name}!")
+        logger.debug("Evaluating first case (transcribe followed by words)")
         tweet_itself = _evaluate_tweet_and_retrieve_details_tweet_itself(text)
 
         if tweet_itself.is_valid:
             logger.info("Valid to be transcribed from tweet itself!")
             _tweet_with(api, new_since_id, user_screen_name, user_name, tweet_itself)
 
-        logger.debug("Evaluating second case (replied status)")
+        logger.debug("Evaluating second case (only transcribe keyword)")
         text_from_replied = None
         if regex_valid_tweet_to_transcribe_words_from_replied_status.match(text):
             status_details_from_replied = api.get_status(tweet.in_reply_to_status_id, tweet_mode="extended")

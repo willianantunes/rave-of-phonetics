@@ -263,7 +263,7 @@ def test_should_check_mention_tweet_itself_and_tweet_when_valid_message_scenario
         "Jafar",
         "jafar",
     )
-    mocked_limit_handled.return_value = [tweet_1, tweet_2, tweet_3]
+    mocked_limit_handled.return_value = [tweet_3, tweet_2, tweet_1]
     # Act
     id_to_be_saved = check_mentions(mocked_tweepy_api, fake_latest_mention_id)
     # Assert
