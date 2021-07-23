@@ -157,7 +157,7 @@ def check_mentions(api: tweepy.API, since_id: int):
 
         logger.debug("Evaluating second case (only transcribe keyword)")
         text_from_replied = None
-        if regex_valid_tweet_to_transcribe_words_from_replied_status.match(text):
+        if regex_valid_tweet_to_transcribe_words_from_replied_status.match(text) and tweet.in_reply_to_status_id:
             status_details_from_replied = api.get_status(tweet.in_reply_to_status_id, tweet_mode="extended")
             logger.debug(f"Replied status: {status_details_from_replied}")
             text_from_replied = retrieve_text(status_details_from_replied)

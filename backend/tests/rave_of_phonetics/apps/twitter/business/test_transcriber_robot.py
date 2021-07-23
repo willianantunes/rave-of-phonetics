@@ -343,7 +343,7 @@ def test_check_mentions_task():
     # Arrange
     create_setup("1353325111399612416-2EHx2gBIXR1zNAoIqqkBEc0MC2Qvrg", "1FHR2dUN1Qi3lDteUYkKofAx1NJ2Qmi09zJDmXcpx0qsP")
     api = generate_read_write_api()
-    latest_mention_id = 1415686015323279363
+    latest_mention_id = 1418565820482035722
     # Act
     id_to_be_saved = check_mentions(api, latest_mention_id)
     # Assert
