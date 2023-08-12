@@ -1,44 +1,34 @@
 # Rave of Phonetics
 
-Let's try to earn money solving people problems with phonetics!
+Do you need help making the TH sound? Do you want to say the word thought correctly? By using phonetics, you can learn it by yourself, with practice. This project helps you in this aspect. Let's start learning!
 
-## SEO
+## A very brief details about this project
 
-- https://www.expireddomains.net/
-- https://web.archive.org/
-- https://ahrefs.com/
-- https://www.similarweb.com/
-- https://www.tbsolutions.info/
-- https://seoferramentas.com/
-- [SEO Meta in 1 click](https://chrome.google.com/webstore/detail/seo-meta-in-1-click/bjogjfinolnhfhkbipphpdlldadpnmhc) by [SEO Extension](http://www.seo-extension.com/install-seo-meta-chrome-extension/)
+It used to run at `raveofphonetics.com`. It was built to compete against `tophonetics.com`. When this README was written, the former website was still terrible regarding UX and collaboration. It was one of the things I'd like to improve with this project. Unfortunately, I didn't have time to keep up with it.
 
-#### ADs
+The [first version](https://github.com/willianantunes/rave-of-phonetics/releases/tag/1.0.0) of this project used to run on Cloud Run. After the release of the second version, this time, it was running on Kubernetes. Soon I'll release the manifest also and update the repository.
 
-What I configured for my first campaign:
+## Running the project
 
-```
-IPA transcription
-Text to IPA
-Phonetics
-Web Speech App which transcribe your text into its phonetic transcription using IPA
-Try with English (American and Britain), French, Italian and Spanish!
-```
+Access the `backend` folder and execute:
 
-## Competitors
+    docker-compose up remote-interpreter
+
+Access the `frontend` folder and execute:
+
+    docker-compose up blog
+
+When they are up, access the link `http://localhost:9000/` for the front-end project.
+
+![FE project](docs/2023-08-12-12-31-fe-project.gif)
+
+For the Django Admin, access the address `http://localhost:8000/logos` with the credential `admin:admin`:
+
+![BE project](docs/2023-08-12-12-39-django-admin.gif)
+    
+## Similar tools
 
 - [To Phonetics](https://tophonetics.com/)
 - [Elsa Speak](https://elsaspeak.com/en/)
-- [Unalengua](https://unalengua.com/ipa?hl=en&sl=en)
 - [Phonetizer](https://phonetizer.com/ui)
-
-## Interesting links
-
-- [Lessons Learned Using the javascript speechSynthesis API](https://talkrapp.com/speechSynthesis.html)
-- [Talkr GitHub](https://github.com/talkr-app)
-- [IPA Chart With Sounds](https://www.internationalphoneticalphabet.org/ipa-sounds/ipa-chart-with-sounds/)
-- [ES6 modules in the browser: are they ready yet?](https://medium.com/@david.gilbertson/es6-modules-in-the-browser-are-they-ready-yet-715ca2c94d09)
-- [Using Parcel with Django?](https://www.reddit.com/r/django/comments/ggxk3h/using_parcel_with_django/)
-
-## Samples
-
-- https://github.com/mdn/web-speech-api
+- [Unalengua](https://unalengua.com/ipa?hl=en&sl=en)
