@@ -1,6 +1,6 @@
 # Back-end
 
-Django project that handles everything related to the back-end side of [Rave of Phonetics](https://www.raveofphonetics.com/).
+Django project that handles everything related to the back-end side of Rave of Phonetics.
 
 ## Tasks that can be executed by Django Q
 
@@ -41,32 +41,3 @@ After that it's required to update your remote interpreter:
 ## Generating new migration recipes
 
     docker-compose run remote-interpreter python manage.py makemigrations
-
-## Testing CORS
-
-Localhost:
-
-```shell
-curl -i -X 'OPTIONS' \
--H 'Origin: https://dev.raveofphonetics.com' \
--H 'Access-Control-Request-Method: POST' \
-'http://localhost:8080/api/v1/transcribe'
-```
-
-DEV environment:
-
-```shell
-curl -i -X 'OPTIONS' \
--H 'Origin: https://dev.raveofphonetics.com' \
--H 'Access-Control-Request-Method: POST' \
-'https://api.dev.raveofphonetics.com/api/v1/transcribe'
-```
-
-PRD:
-
-```shell
-curl -i -X 'OPTIONS' \
--H 'Origin: https://dev.raveofphonetics.com' \
--H 'Access-Control-Request-Method: POST' \
-'http://localhost:8080/api/v1/transcribe'
-```

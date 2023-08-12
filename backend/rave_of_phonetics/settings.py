@@ -159,7 +159,7 @@ if django_q_retry_configuration_is_wrong:
 
 # Dealing with WORKER and QUEUE LIMIT
 q_cluster_workers = int(os.getenv("Q_CLUSTER_WORKERS", 1))
-q_cluster_queue_limit = q_cluster_workers ** 2
+q_cluster_queue_limit = q_cluster_workers**2
 if q_cluster_custom_queue_limit := os.getenv("Q_CLUSTER_QUEUE_LIMIT"):
     q_cluster_queue_limit = int(q_cluster_custom_queue_limit)
 
@@ -279,6 +279,7 @@ RECAPTCHA_TOKEN_HEADER = getenv_or_raise_exception("RECAPTCHA_TOKEN_HEADER")
 CORS_ALLOW_HEADERS.append(RECAPTCHA_TOKEN_HEADER)
 RECAPTCHA_SECRET_KEY = getenv_or_raise_exception("RECAPTCHA_SECRET_KEY")
 RECAPTCHA_ENDPOINT = getenv_or_raise_exception("RECAPTCHA_ENDPOINT")
+DISABLE_RECAPTCHA = eval_env_as_boolean("DISABLE_RECAPTCHA", False)
 
 # GitHub OAuth / Netlify CMS
 GITHUB_OAUTH_ORIGIN = getenv_or_raise_exception("GITHUB_OAUTH_ORIGIN")
