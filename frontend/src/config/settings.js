@@ -27,10 +27,7 @@ const REDUX_DEVELOPER_TOOLS = evalEnvAsBoolean(
 )
 
 const SITE_URL = getEnvOrRaiseException("SITE_URL", findValue(process.env.SITE_URL, process.env.GATSBY_SITE_URL))
-const UTTERANCES_REPOSITORY = getEnvOrRaiseException(
-  "UTTERANCES_REPOSITORY",
-  findValue(process.env.UTTERANCES_REPOSITORY, process.env.GATSBY_UTTERANCES_REPOSITORY)
-)
+const UTTERANCES_REPOSITORY = findValue(process.env.UTTERANCES_REPOSITORY, process.env.GATSBY_UTTERANCES_REPOSITORY)
 const RECAPTCHA_TOKEN_HEADER = getEnvOrRaiseException(
   "RECAPTCHA_TOKEN_HEADER",
   findValue(process.env.RECAPTCHA_TOKEN_HEADER, process.env.GATSBY_RECAPTCHA_TOKEN_HEADER)
@@ -48,10 +45,7 @@ const RAVE_OF_PHONETICS_SUGGESTION_ENDPOINT = getEnvOrRaiseException(
   findValue(process.env.RAVE_OF_PHONETICS_SUGGESTION_ENDPOINT, process.env.GATSBY_RAVE_OF_PHONETICS_SUGGESTION_ENDPOINT)
 )
 
-const GOOGLE_TAG_MANAGER_ID = getEnvOrRaiseException(
-  "GOOGLE_TAG_MANAGER_ID",
-  findValue(process.env.GOOGLE_TAG_MANAGER_ID, process.env.GATSBY_GOOGLE_TAG_MANAGER_ID)
-)
+const GOOGLE_TAG_MANAGER_ID = findValue(process.env.GOOGLE_TAG_MANAGER_ID, process.env.GATSBY_GOOGLE_TAG_MANAGER_ID)
 const GTM_INCLUDE_DEVELOPMENT = process.env.GTM_INCLUDE_DEVELOPMENT === "true"
 const GTM_STANDARD_EVENT_NAME = process.env.GTM_STANDARD_EVENT_NAME || "rop-fe"
 const GTM_SHOW_WHAT_WOULD_BE_SENT = process.env.GTM_SHOW_WHAT_WOULD_BE_SENT === "true"

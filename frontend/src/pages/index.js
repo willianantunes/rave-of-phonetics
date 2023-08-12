@@ -1,5 +1,5 @@
 import React, { createRef } from "react"
-import { RECAPTCHA_SITE_KEY } from "../config/settings"
+import { RECAPTCHA_SITE_KEY, UTTERANCES_REPOSITORY } from "../config/settings"
 import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import MainTools from "../components/MainTools"
@@ -15,7 +15,7 @@ const IndexPage = () => {
       <Layout>
         <SEO title={title} />
         <MainTools />
-        <CommentSection reactRef={commentSectionRef} />
+        {UTTERANCES_REPOSITORY && <CommentSection reactRef={commentSectionRef} />}
       </Layout>
     </GoogleReCaptchaProvider>
   )

@@ -3,6 +3,7 @@ import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import { FrequentlyAskedQuestions } from "../components/FrequentlyAskedQuestions"
 import CommentSection from "../components/CommentSection"
+import { UTTERANCES_REPOSITORY } from "../config/settings"
 
 const RavePage = () => {
   const title = "FAQ"
@@ -13,7 +14,7 @@ const RavePage = () => {
     <Layout>
       <SEO title={title} description={description} />
       <FrequentlyAskedQuestions />
-      <CommentSection reactRef={commentSectionRef} />
+      {UTTERANCES_REPOSITORY && <CommentSection reactRef={commentSectionRef} />}
     </Layout>
   )
 }

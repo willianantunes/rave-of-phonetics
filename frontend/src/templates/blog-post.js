@@ -6,6 +6,7 @@ import Layout from "../components/Layout"
 import BlogPost from "../components/BlogPost"
 import { useSiteMetadata } from "../hooks/use-site-metadata"
 import CommentSection from "../components/CommentSection"
+import { UTTERANCES_REPOSITORY } from "../config/settings"
 
 const BlogPostTemplate = ({ data }) => {
   const { siteUrl } = useSiteMetadata()
@@ -63,7 +64,7 @@ const BlogPostTemplate = ({ data }) => {
           </ul>
         </nav>
       )}
-      <CommentSection reactRef={commentSectionRef} />
+      {UTTERANCES_REPOSITORY && <CommentSection reactRef={commentSectionRef} />}
     </Layout>
   )
 }

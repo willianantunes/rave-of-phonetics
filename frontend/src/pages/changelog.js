@@ -3,6 +3,7 @@ import Layout from "../components/Layout"
 import SEO from "../components/SEO"
 import { Features } from "../components/Features"
 import CommentSection from "../components/CommentSection"
+import { UTTERANCES_REPOSITORY } from "../config/settings.js"
 
 const RavePage = () => {
   const title = "Changelog"
@@ -12,7 +13,7 @@ const RavePage = () => {
     <Layout>
       <SEO title={title} />
       <Features />
-      <CommentSection reactRef={commentSectionRef} />
+      {UTTERANCES_REPOSITORY && <CommentSection reactRef={commentSectionRef} />}
     </Layout>
   )
 }
