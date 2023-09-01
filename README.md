@@ -6,7 +6,9 @@ Do you need help making the TH sound? Do you want to say the word thought correc
 
 It used to run at `raveofphonetics.com`. It was built to compete against `tophonetics.com`. When this README was written, the former website was still terrible regarding UX and collaboration. It was one of the things I'd like to improve with this project. Unfortunately, I didn't have time to keep up with it.
 
-The [first version](https://github.com/willianantunes/rave-of-phonetics/releases/tag/1.0.0) of this project used to run on Cloud Run. After the release of the second version, this time, it was running on Kubernetes. Soon I'll release the manifest also and update the repository.
+The [first version](https://github.com/willianantunes/rave-of-phonetics/releases/tag/1.0.0) of this project used to run on Cloud Run. After the release of the second version, this time, it was running on Kubernetes. 
+
+Check out the folder [iac](./iac) to understand how it worked. By the way, Azure DevOps used to control CI and CD aspects of the project.
 
 ## Running the project
 
