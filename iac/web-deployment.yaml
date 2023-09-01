@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rave-of-phonetics-backend-deployment
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rave-of-phonetics-backend-deployment
+  template:
+    metadata:
+      labels:
+        app: rave-of-phonetics-backend-deployment
+    spec:
+      containers:
+        - name: rave-of-phonetics-backend-container
+          image: gcr.io/active-triode-274813/rave-of-phonetics-backend:latest-prd
+          envFrom:
+            - configMapRef:
+                name: rave-of-phonetics-backend-configmap
+          env:
+            - name: EXTRA_ALLOWED_HOST
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: DB_USER
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: DB_PASS
+            - name: RECAPTCHA_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: RECAPTCHA_SECRET_KEY
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: DJANGO_SECRET_KEY
+            - name: GITHUB_OAUTH_APP_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: GITHUB_OAUTH_APP_CLIENT_ID
+            - name: GITHUB_OAUTH_APP_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: GITHUB_OAUTH_APP_CLIENT_SECRET
+            - name: TWITTER_CONSUMER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: TWITTER_CONSUMER_KEY
+            - name: TWITTER_CONSUMER_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: TWITTER_CONSUMER_SECRET
+            - name: TWITTER_CONSUMER_BEARER
+              valueFrom:
+                secretKeyRef:
+                  name: rave-of-phonetics-backend-secret
+                  key: TWITTER_CONSUMER_BEARER
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "0.005"
+            limits:
+              memory: "160Mi"
+              cpu: "0.1"
+          ports:
+            - name: http
+              containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: "/health-check"
+              port: 8000
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: "/health-check"
+              port: 8000
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
